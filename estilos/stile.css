@@ -9,12 +9,23 @@
 body {
     height: 100vh;
     width: 100vw;
-    background-color: rgb(5, 99, 52);
+    background-color: rgb(243, 247, 245);
     background-size: cover;
     background-attachment: fixed;
 }
 
 main {
     height: 100vh;
-    position: relative;    
+    position: center;    
+}
+
+button{    
+    position: absolute;
+    width: 150px;
+    height: 20px;
+}
+img{
+    container: center;
+    width: 300px;
+    height: 300px;
 }
