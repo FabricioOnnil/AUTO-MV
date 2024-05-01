@@ -26,45 +26,15 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
 });
 
 
-// Função para inicializar o mapa
+
 function initMap() {
-    // Posição inicial (pode ser modificada conforme necessário)
-    const initialPosition = { lat: -23.5505, lng: -46.6333 };
-
-    // Opções do mapa
-    const mapOptions = {
-        center: initialPosition,
-        zoom: 10
+    var mapOptions = {
+        center: new google.maps.LatLng(-23.550520, -46.633308), // Localização inicial (Exemplo: São Paulo)
+        zoom: 12
     };
-
-    // Criar o mapa
-    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-    // Obter a localização do dispositivo
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            const userPosition = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-            // Adicionar marcador para a posição do usuário
-            new google.maps.Marker({
-                position: userPosition,
-                map: map,
-                title: 'Sua localização'
-            });
-
-            // Definir o centro do mapa para a posição do usuário
-            map.setCenter(userPosition);
-        }, error => {
-            console.error('Error getting user location:', error);
-            alert('Erro ao obter a localização do dispositivo.');
-        });
-    } else {
-        alert('Geolocalização não é suportada neste navegador.');
-    }
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 }
+
 
 // Inicializar o mapa ao carregar a página
 window.onload = function () {

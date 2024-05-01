@@ -1,21 +1,26 @@
-!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trajeto</title>
     <link rel="stylesheet" href="estilos/stile.css">
-    <style>
-        #map {
-            height: 500px;
-            width: 200%;
-        }
-    </style>
 </head>
 <body>
-    <div id="map"></div>
-    <script src="app.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=SUA_CHAVE_DA_API"></script>
+    <header>
+        <img src="caminho/para/logo.png" alt="Logo" id="logo">
+    </header>
 
+    <section id="map"></section>
+    <section id="imgLinks"> 
+        <a href="pagina1.html"><img src="caminho/para/imagem1.jpg" alt="Link 1"></a>
+        <a href="pagina2.html"><img src="caminho/para/imagem2.jpg" alt="Link 2"></a>
+        <a href="pagina3.html"><img src="caminho/para/imagem3.jpg" alt="Link 3"></a>
+        <a href="pagina4.html"><img src="caminho/para/imagem4.jpg" alt="Link 4"></a>     
+    </section>
+
+    <!-- Substitua SUA_CHAVE_DA_API pela sua chave de API real do Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=SUA_CHAVE_DA_API&callback=initMap" async defer></script>
+    <script src="app.js"></script>
 </body>
 </html>
