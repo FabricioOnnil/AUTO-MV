@@ -1,13 +1,5 @@
-// Importar funcionalidades de outros arquivos
-import { handleLogin } from './login.js';
-import { setupDashboard } from './dashboard.js';
-
-
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
+// Função para lidar com o envio do formulário de login
+function handleLogin(username, password) {
     fetch('/login', {
         method: 'POST',
         headers: {
@@ -15,69 +7,14 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         },
         body: JSON.stringify({ username, password })
     })
-
     .then(response => response.json())
     .then(data => {
         document.getElementById('message').textContent = data.message;
         if (data.success) {
-            window.location.href = '/dashboard'; // Redireciona para a página de dashboard
+            window.location.href = '/dashboard.html'; // Redireciona para a página de dashboard se o login for válido
         }
     })
     .catch(error => console.error('Error:', error));
-});
-
-/* Função para lidar com o login
-function handleLogin(username, password) {
-    // Aqui você pode adicionar lógica para fazer a requisição ao servidor
-    // e lidar com a resposta para validar o login
-    // Por exemplo, você pode usar fetch() para enviar os dados de login ao servidor
-    // e receber uma resposta com a validação do login
-
-    // Este é um exemplo simples de validação no lado do cliente
-    if (username === 'user1' && password === 'pass1') {
-        redirectToDashboard(); // Redireciona para a página de dashboard se o login for válido
-    } else {
-        displayMessage('Invalid username or password'); // Exibe uma mensagem de erro
-    }
-}*/
-
-// Função para lidar com o login
-function handleLogin(username, password) {
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            redirectToDashboard(); // Redireciona para a página de dashboard se o login for válido
-        } else {
-            displayMessage(data.message); // Exibe mensagem de erro do servidor
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        displayMessage('An error occurred. Please try again later.');
-    });
-}
-
-
-// Função para redirecionar para a página de dashboard
-function redirectToDashboard() {
-    window.location.href = '/dashboard.html';
-}
-
-// Função para exibir mensagens na página
-function displayMessage(message) {
-    document.getElementById('message').textContent = message;
 }
 
 // Event listener para o formulário de login
@@ -89,27 +26,47 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
 });
 
 
-// Função principal para inicializar o aplicativo
-function initApp() {
-    // Inicializar funcionalidades comuns
-    handleLogin();
-    
-    // Verificar a página atual e inicializar funcionalidades específicas
-    if (window.location.pathname === '/dashboard.html') {
-        setupDashboard();
+// Função para inicializar o mapa
+function initMap() {
+    // Posição inicial (pode ser modificada conforme necessário)
+    const initialPosition = { lat: -23.5505, lng: -46.6333 };
+
+    // Opções do mapa
+    const mapOptions = {
+        center: initialPosition,
+        zoom: 10
+    };
+
+    // Criar o mapa
+    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    // Obter a localização do dispositivo
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const userPosition = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            // Adicionar marcador para a posição do usuário
+            new google.maps.Marker({
+                position: userPosition,
+                map: map,
+                title: 'Sua localização'
+            });
+
+            // Definir o centro do mapa para a posição do usuário
+            map.setCenter(userPosition);
+        }, error => {
+            console.error('Error getting user location:', error);
+            alert('Erro ao obter a localização do dispositivo.');
+        });
+    } else {
+        alert('Geolocalização não é suportada neste navegador.');
     }
 }
 
-// Iniciar o aplicativo quando o documento estiver pronto
-document.addEventListener('DOMContentLoaded', initApp);
-
-
-
-
-function goToSchedule() {
-    window.location.href = '/schedule.html'; // Redireciona para a página de agendamento
-}
-
-function showMap() {
-    window.location.href = '/map.html'; // Redireciona para a página do mapa
-}
+// Inicializar o mapa ao carregar a página
+window.onload = function () {
+    initMap();
+};
