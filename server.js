@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 const users = [
-    { username: 'user1', password: 'pass1' },
+    { username: 'Fabricio', password: '1234' },
     { username: 'user2', password: 'pass2' }
 ];
 
@@ -16,9 +16,22 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dashboard.html'));
+});
+
+app.get('/schedule.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'schedule.html'));
+});
+
+app.get('/map.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'map.html'));
+});
+
+
 app.post('/login', (req, res) => {
     const users = [
-        { username: 'user1', password: 'pass1' },
+        { username: 'Fabricio', password: '1234' },
         { username: 'user2', password: 'pass2' }
     ];
     const { username, password } = req.body;
