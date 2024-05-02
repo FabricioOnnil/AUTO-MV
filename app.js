@@ -40,3 +40,27 @@ function initMap() {
 window.onload = function () {
     initMap();
 };
+
+
+
+function redirectToMap() {
+    const selectedCar = document.getElementById('carSelect').value;
+    window.location.href = `maps.html?car=${selectedCar}`;
+}
+
+
+function getCarFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('car');
+}
+
+function initMap() {
+    const car = getCarFromURL();
+    console.log('Carro selecionado:', car);
+    // Inicialize o mapa e defina o trajeto baseado no carro selecionado
+}
+
+window.onload = function() {
+    initMap();
+};
+
