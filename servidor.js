@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 const users = [
-    { username: 'user1', password: '1' },
+    { username: 'fab', password: '1' },
     { username: 'user2', password: '2' }
 ];
 
@@ -27,7 +27,8 @@ app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
-        res.json({ success: true });
+        res.json( {success: true} );
+        res.redirect('/dashboard');
     } else {
         res.status(401).json({ success: false, message: 'Usuario invalido tente de novo' });
     }
