@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajeto</title>
+    <!--<link rel="stylesheet" href="estilos/stile.css"> -->
+</head>
+<body>
+    <h1>Página de Trajeto</h1>
+    <button id="showCalendar">Agendar Data</button>
+
+    <div id="calendarPopup" class="popup">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <form id="scheduleForm">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="startDate">Data de Início:</label>
+                <input type="date" id="startDate" name="startDate" required><br>
+                <label for="endDate">Data de Término:</label>
+                <input type="date" id="endDate" name="endDate" required><br>
+                <button type="submit">Agendar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

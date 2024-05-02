@@ -74,3 +74,49 @@ window.onload = function() {
     initMap();
 };
 
+
+document.getElementById('showCalendar').addEventListener('click', function() {
+    document.getElementById('calendarPopup').style.display = 'block';
+});
+
+document.querySelector('.close').addEventListener('click', function() {
+    document.getElementById('calendarPopup').style.display = 'none';
+});
+
+document.getElementById('scheduleForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let name = document.getElementById('name').value;
+    let startDate = document.getElementById('startDate').value;
+    let endDate = document.getElementById('endDate').value;
+    console.log('Agendamento:', { name, startDate, endDate });
+    document.getElementById('calendarPopup').style.display = 'none';
+    alert('Agendamento salvo com sucesso!');
+});
+
+
+document.getElementById('purchaseForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const descricao = document.getElementById('descricao').value;
+    const valor = document.getElementById('valor').value;
+    const data = document.getElementById('data').value;
+    console.log('Compra Registrada:', { descricao, valor, data });
+    alert('Compra registrada com sucesso!');
+});
+
+// Acessar a câmera
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function(stream) {
+        const video = document.getElementById('video');
+        video.srcObject = stream;
+        video.play();
+    })
+    .catch(function(error) {
+        console.error("Não foi possível acessar a câmera", error);
+    });
+
+document.getElementById('snap').addEventListener('click', function() {
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, 320, 240);
+});
