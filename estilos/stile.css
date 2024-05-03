@@ -30,9 +30,12 @@ header {
 }
 
 #logo {
-    width: 30%;
-    justify-content: space-around;
+    width: 50%;
     align-items: center;
+    text-align: center;  /* Centraliza horizontalmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
 }
 
 .imgLinks {
