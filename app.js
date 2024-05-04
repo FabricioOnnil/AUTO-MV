@@ -1,39 +1,4 @@
-// Função para lidar com o envio do formulário de login
-function handleLogin(username, password) {
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
 
-    .then(data => {
-        document.getElementById('message').textContent = data.message;
-        if (data.success) {
-            window.location.href = '/dashboard.html'; // Redireciona para a página de dashboard se o login for válido
-        }
-         else {
-        displayMessage(data.message); // Exibe mensagem de erro do servidor
-        }
-    })
-    .catch(error => console.error('Error:', error));
-    displayMessage('Um erro ocorreu. Por favor, tente novamente.');
-}
-
-// Event listener para o formulário de login
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    handleLogin(username, password); // Chama a função de login
-});
 
 
 
@@ -51,7 +16,14 @@ window.onload = function () {
     initMap();
 };
 
-
+const showCalendarBtn = document.getElementById('showCalendar');
+if (showCalendarBtn) {
+    showCalendarBtn.addEventListener('click', function() {
+        document.getElementById('calendarPopup').style.display = 'block';
+    });
+} else {
+    console.error('Elemento showCalendar não encontrado.');
+}
 
 function redirectToMap() {
     const selectedCar = document.getElementById('carSelect').value;
@@ -70,14 +42,9 @@ function initMap() {
     // Inicialize o mapa e defina o trajeto baseado no carro selecionado
 }
 
-window.onload = function() {
+/*window.onload = function() {
     initMap();
-};
-
-
-document.getElementById('showCalendar').addEventListener('click', function() {
-    document.getElementById('calendarPopup').style.display = 'block';
-});
+};*/
 
 document.querySelector('.close').addEventListener('click', function() {
     document.getElementById('calendarPopup').style.display = 'none';
@@ -103,7 +70,7 @@ document.getElementById('purchaseForm').addEventListener('submit', function(even
     alert('Compra registrada com sucesso!');
 });
 
-// Acessar a câmera
+// Acessar a câmera ------------------------------------------------------
 navigator.mediaDevices.getUserMedia({ video: true })
     .then(function(stream) {
         const video = document.getElementById('video');
@@ -120,3 +87,34 @@ document.getElementById('snap').addEventListener('click', function() {
     const context = canvas.getContext('2d');
     context.drawImage(video, 0, 0, 320, 240);
 });
+
+
+// Função para buscar e preencher os carros no select---------------
+
+function buscarCarros() {
+    fetch('/banco/carros.json')
+    .then(response => {
+        console.log('Status da resposta:', response.status); // Verifica o status da resposta
+        return response.json();
+    })
+    .then(data => {
+        console.log('Dados recebidos:', data); // Verifica se os dados foram recebidos corretamente
+        const selectCarros = document.getElementById('carSelect');
+        selectCarros.innerHTML = ''; // Limpa opções existentes
+        data.forEach(carro => {
+            const option = document.createElement('option');
+            option.value = carro.id;
+            option.textContent = carro.nome;
+            selectCarros.appendChild(option);
+        });
+    })
+    .catch(error => console.error('Erro ao buscar carros:', error));
+}
+
+window.addEventListener('load', function() {
+    initMap();         // Inicializa o mapa
+    buscarCarros();    // Carrega os carros no select
+    // Adicione outras funções que precisam ser executadas ao carregar a página
+});
+
+// Fim da Função buscar Carros no select --------------------------
