@@ -142,6 +142,7 @@ document.getElementById('purchaseForm').addEventListener('submit', function(even
 
 
 
+
 // Acessar a câmera ------------------------------------------------------
 navigator.mediaDevices.getUserMedia({ video: true })
     .then(function(stream) {
