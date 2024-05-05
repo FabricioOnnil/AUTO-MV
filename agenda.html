@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AGENDA</title>
-    <!--<link rel="stylesheet" href="estilos/stile.css"> -->
+    <link rel="stylesheet" href="estilos/stile.css">
 </head>
 <body>
     <h1>AGENDAR CARRO</h1>
-    <button id="showCalendar">cCalendario</button>
+    <button id="showCalendar">Calendario</button>
 
     <div id="calendarPopup" class="popup">
         <div class="popup-content">
@@ -24,6 +24,20 @@
             </form>
         </div>
     </div>
+
+    <h2>Agendamentos</h2>
+    <table id="agendamentos">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Data de Início</th>
+                <th>Data de Término</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dados serão preenchidos dinamicamente aqui -->
+        </tbody>
+    </table>
 
     <script src="app.js"></script>
 </body>

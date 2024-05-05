@@ -6,13 +6,25 @@ const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
-
 app.use(express.static(path.join(__dirname)));
+app.use('/banco', express.static(path.join(__dirname, 'banco')));
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
+
 
 const users = [
     { username: 'user1', password: '1' },
     { username: 'user2', password: '2' }
 ];
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'FabricioRocha',
+    password: 'F1Rocha2!',
+    database: 'vamoCompleto'
+});
+
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
@@ -21,6 +33,12 @@ app.get('/', (req, res) => {
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
+
+app.get('/banco/carros.json', (req, res) => {
+    res.sendFile(path.join(__dirname, 'banco', 'carros.json'));
+});
+
+//Login ------------------------------------------------------------
 
 app.post('/login', (req, res) => {
    
@@ -35,25 +53,12 @@ app.post('/login', (req, res) => {
     }
 });
 
-app.use('/banco', express.static(path.join(__dirname, 'banco')));
-
-app.get('/banco/carros.json', (req, res) => {
-    res.sendFile(path.join(__dirname, 'banco', 'carros.json'));
-});
+// Fim do Login ------------------------------------------------------
 
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
 
 
 // Configuração da conexão com o banco de dados----------------------------------------------
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'FabricioRocha',
-    password: 'F1Rocha2!',
-    database: 'vamoCompleto'
-});
 
 connection.connect((err) => {
     if (err) {
@@ -91,4 +96,45 @@ app.post('/refeicao', (req, res) => {
     );
 });
 
-//Fim da Configuração do Banco de Dados --------------------------------------------------
+//Fim da Configuração do Banco de Dados ---------------------------------
+
+// Configuração de agendamentos---------------------------------------
+
+app.post('/agenda', (req, res) => {
+    const { nome, startDate, endDate } = req.body;
+
+    // Formate as datas para o formato YYYY-MM-DD esperado pelo MySQL
+    const data_inicio = new Date(startDate).toISOString().slice(0, 10);
+    const data_termino = new Date(endDate).toISOString().slice(0, 10);
+
+    // Insira os dados na tabela agendamentos
+    connection.query(
+        'INSERT INTO agendamentos (nome, data_inicio, data_termino) VALUES (?, ?, ?)',
+        [nome, data_inicio, data_termino],
+        (err, results) => {
+            if (err) {
+                console.error('Erro ao inserir agendamento:', err);
+                res.status(500).send('Erro ao inserir agendamento');
+                return;
+            }
+            res.status(201).send('Agendamento inserido com sucesso');
+        }
+    );
+});
+
+app.get('/agendamentos', (req, res) => {
+    // Aqui você deve buscar os agendamentos do banco de dados e retorná-los como um JSON
+    // Execute a consulta SQL para buscar os agendamentos
+    connection.query('SELECT * FROM agendamentos', (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar agendamentos:', err);
+            res.status(500).send('Erro ao buscar agendamentos');
+            return;
+        }
+        console.log('Agendamentos encontrados:', results);
+        res.json(results); // Envie os resultados como JSON de volta ao cliente
+    });
+});
+
+// Fim das buscas de agendamento --------------------------------------------
+
