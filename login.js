@@ -1,29 +1,30 @@
+// login.js
 
-// Função para lidar com o envio do formulário de login
-function handleLogin(username, password) {
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
+document.addEventListener("DOMContentLoaded", function() {
+    const loginForm = document.getElementById("loginForm");
 
-    .then(data => {
-        document.getElementById('message').textContent = data.message;
-        if (data.success) {
-            window.location.href = '/dashboard.html'; // Redireciona para a página de dashboard se o login for válido
-        }
-         else {
-        displayMessage(data.message); // Exibe mensagem de erro do servidor
-        }
-    })
-    .catch(error => console.error('Error:', error));
-    displayMessage('Um erro ocorreu. Por favor, tente novamente.');
-}
+    const users = {
+        "usuario1": "senha1",
+        "usuario2": "senha2",
+        "usuario3": "senha3",
+        // Adicione os demais usuários e senhas aqui
+      };
+  
+    loginForm.addEventListener("submit", function(event) {
+      event.preventDefault(); // Evita o comportamento padrão de envio do formulário
+  
+      // Obter os valores do formulário
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+  
+      // Verificar se o usuário e senha estão corretos
+    if (users.hasOwnProperty(username) && users[username] === password) {
+        // Redirecionar para a página dashboard.html
+        window.location.href = "dashboard.html";
+      } else {
+        // Exibir mensagem de erro (opcional)
+        const errorMessage = document.getElementById("errorMessage");
+        errorMessage.textContent = "Usuário ou senha incorretos. Tente novamente.";
+      }
+    });
+  });

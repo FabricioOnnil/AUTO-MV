@@ -88,7 +88,9 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
     alert('Agendamento salvo com sucesso!');
 });
 
- // Enviar os dados para o servidor
+
+
+ // Enviar os dados para o servidor----------------------------------
  fetch('/agenda', {
     method: 'POST',
     headers: {
