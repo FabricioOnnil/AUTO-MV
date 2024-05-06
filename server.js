@@ -3,46 +3,57 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql2');
 const app = express();
-const PORT = 3000;
+const PORT = 3306;
 
-
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname)));
-app.use('/banco', express.static(path.join(__dirname, 'banco')));
-
-app.post('/vamocompleto/tabela_agendamentos/novo', (req, res) => {
-    const { nome, data_inicio, data_termino, carro } = req.body;
-    
-    const sql = `INSERT INTO tabela_agendamentos (nome, data_inicio, data_termino, carro) VALUES (?, ?, ?, ?)`;
-    const values = [nome, data_inicio, data_termino, carro];
-
-    db.query(sql, values, (err, result) => {
-        if (err) {
-          console.error('Erro ao salvar agendamento:', err);
-          res.status(500).send('Erro ao salvar agendamento no banco de dados');
-        } else {
-          console.log('Agendamento salvo no banco de dados');
-          res.status(200).send('Agendamento salvo com sucesso');
-        }
-  });
+// Configuração para permitir requisições CORS
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Permite acesso de qualquer origem
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Métodos permitidos
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Headers permitidos
+    next();
 });
 
+
+// Configuração da conexão com o banco de dados MySQL
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'FabricioRocha',
+    password: 'F1Rocha2!',
+    database: 'vamocompleto'
+});
+// Verificação da conexão com o banco de dados
+db.connect((err) => {
+    if (err) {
+        console.error('Erro ao conectar ao banco de dados:', err);
+        return;
+    }
+    console.log('Conexão ao banco de dados estabelecida');
+});
+
+app.post('/vamocompleto/salvarAgendamento', (req, res) => {
+    const { nome, data_inicio, data_termino, carro } = req.body;
+
+const sql = `INSERT INTO tabela_agendamentos (nome, data_inicio, data_termino, carro) VALUES (?, ?, ?, ?)`;
+const values = [nome, data_inicio, data_termino, carro];
+
+db.query(sql, values, (err, result) => {
+    if (err) {
+        console.error('Erro ao inserir agendamento:', err);
+        res.status(500).send('Erro ao salvar agendamento no banco de dados');
+    } else {
+        console.log('Agendamento inserido com sucesso');
+        res.status(200).send('Agendamento salvo com sucesso');
+    }
+});
+});
   
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
 
+//-----------------------------------------------------------------------
 
-const users = [
-    { username: 'user1', password: '1' },
-    { username: 'user2', password: '2' }
-];
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'FabricioRocha',
-    password: 'F1Rocha2!',
-    database: 'vamoCompleto'
-});
+
 
 
 app.get('/', (req, res) => {
@@ -158,12 +169,5 @@ app.get('/agendamentos', (req, res) => {
 // Fim das buscas de agendamento --------------------------------------------
 
 //---------------------------------------------
-const mysql = require('mysql2');
 
-const db = mysql.createConnection({
-  host: 'localHost',
-  user: 'FabricioRocha',
-  password: 'F1Rocha2!',
-  database: 'vamocompleto'
-});
 //---------------------------------------------

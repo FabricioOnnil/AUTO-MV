@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const carSelect = document.getElementById("carSelect").value;
   
       // Enviar dados para o backend
-      fetch('http://localhost:3000/vamocompleto/tabela_agendamentos/novo', {
+      fetch('http://localhost:3000/salvarAgendamento', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
