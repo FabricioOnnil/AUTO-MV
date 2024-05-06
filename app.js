@@ -1,13 +1,61 @@
+/*const mysql = require('mysql');
+const fs = require('fs');
+
+// Configuração da conexão com o banco de dados
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'seu_usuario',
+    password: 'sua_senha',
+    database: 'seu_banco_de_dados'
+});
+
+// Conectando ao banco de dados
+connection.connect(err => {
+    if (err) throw err;
+    console.log('Conectado com sucesso ao banco de dados!');
+
+    // Consultando a tabela carros
+    const query = 'SELECT nome_carro, placa FROM carros';
+    connection.query(query, (err, results) => {
+        if (err) throw err;
+
+        // Salvando os resultados em um arquivo JSON
+        fs.writeFile('carros.json', JSON.stringify(results, null, 4), err => {
+            if (err) throw err;
+            console.log('Dados foram salvos em carros.json!');
+        });
+
+        // Fechando a conexão com o banco
+        connection.end();
+    });
+});
+*/
 
 
 
-
+// Função para o mapa--------------------------------------------------------
 function initMap() {
     var mapOptions = {
         center: new google.maps.LatLng(-23.550520, -46.633308), // Localização inicial (Exemplo: São Paulo)
         zoom: 12
     };
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
+
+function initMapCar() {
+    const car = getCarFromURL();
+    console.log('Carro selecionado:', car);
+    // Inicialize o mapa e defina o trajeto baseado no carro selecionado
+}
+
+function redirectToMap() {
+    const selectedCar = document.getElementById('carSelect').value;
+    window.location.href = `maps.html?car=${selectedCar}`;
+}
+
+function getCarFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('car');
 }
 
 
@@ -19,24 +67,6 @@ if (showCalendarBtn) {
 } else {
     console.error('Elemento showCalendar não encontrado.');
 }
-
-function redirectToMap() {
-    const selectedCar = document.getElementById('carSelect').value;
-    window.location.href = `maps.html?car=${selectedCar}`;
-}
-
-
-function getCarFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('car');
-}
-
-function initMap() {
-    const car = getCarFromURL();
-    console.log('Carro selecionado:', car);
-    // Inicialize o mapa e defina o trajeto baseado no carro selecionado
-}
-
 
 
 
@@ -84,7 +114,8 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
 document.getElementById('calendarPopup').style.display = 'none';
     alert('Agendamento salvo com sucesso!');
 
-// Fim do Agendamento--------------------------------------------------------------
+// Fim do Agendamento--------------------------------------------------------
+
 
 // Função para buscar os agendamentos no servidor e preencher a tabela
 function buscarAgendamentos() {
@@ -125,10 +156,9 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
     // Após agendar, buscar novamente os agendamentos para atualizar a tabela
     buscarAgendamentos();
 });
-
-
-
 // Fim da busca de agendamentos ---------------------------------------------
+
+
 
 
 document.getElementById('purchaseForm').addEventListener('submit', function(event) {
@@ -161,8 +191,8 @@ document.getElementById('snap').addEventListener('click', function() {
     context.drawImage(video, 0, 0, 320, 240);
 });
 
+// Função para buscar e preencher os carros no select------------------
 
-// Função para buscar e preencher os carros no select---------------
 
 function buscarCarros() {
     fetch('/banco/carros.json')
@@ -191,8 +221,11 @@ window.addEventListener('load', function() {
     // Inicializar o mapa ao carregar a página
     // Adicione outras funções que precisam ser executadas ao carregar a página
 });
-
 // Fim da Função buscar Carros no select --------------------------
+
+
+
+
 
 // Calendario ----------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
