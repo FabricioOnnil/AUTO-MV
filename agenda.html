@@ -21,7 +21,10 @@
                 <label for="endDate">Data de Término:</label>
                 <input type="date" id="endDate" name="endDate" required><br>
                 <label for="carSelect">Escolha um carro:</label>
-                <select id="carSelect"></select>
+                <select id="carSelect">
+                    <option value="carro1">MOBI - PPK_1234</option>
+                    <option value="carro2">AUDI - PPX_3456</option>
+                </select>
                 <button type="submit">Agendar</button>
             </form>
         </div>
@@ -36,7 +39,7 @@
                 <th>Data de Término</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="agendamentosBody">
             <!-- Dados serão preenchidos dinamicamente aqui -->
         </tbody>
     </table>
