@@ -1,7 +1,7 @@
 
 
 
-// Função para o mapa--------------------------------------------------------
+/* Função para o mapa--------------------------------------------------------
 function initMap() {
     var mapOptions = {
         center: new google.maps.LatLng(-23.550520, -46.633308), // Localização inicial (Exemplo: São Paulo)
@@ -21,37 +21,8 @@ function initMapCar() {
 function getCarFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('car');
-}
+}*/
 
-
-const showCalendarBtn = document.getElementById('showCalendar');
-if (showCalendarBtn) {
-    showCalendarBtn.addEventListener('click', function() {
-        document.getElementById('calendarPopup').style.display = 'block';
-    });
-} else {
-    console.error('Elemento showCalendar não encontrado.');
-}
-
-
-
-// Agendamento de data -------------------------------------------
-
-document.querySelector('.close').addEventListener('click', function() {
-    document.getElementById('calendarPopup').style.display = 'none';
-});
-
-document.getElementById('scheduleForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const nome = document.getElementById('nome').value;
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    console.log('Agendamento:', { nome, startDate, endDate });
-
-    document.getElementById('calendarPopup').style.display = 'none';
-    alert('Agendamento salvo com sucesso!');
-});
 
 
 
@@ -152,13 +123,13 @@ function buscarCarros() {
     .catch(error => console.error('Erro ao buscar carros:', error));
 }
 */
-window.addEventListener('load', function() {
+//window.addEventListener('load', function() {
   //  initMap();         // Inicializa o mapa
   //  buscarCarros();    // Carrega os carros no select
    //   buscarAgendamentos(); // Buscar Agendamentos 
     // Inicializar o mapa ao carregar a página
     // Adicione outras funções que precisam ser executadas ao carregar a página
-});
+//});
 // Fim da Função buscar Carros no select --------------------------
 
 
@@ -166,6 +137,36 @@ window.addEventListener('load', function() {
 
 // Calendario ----------------------------------------------------
 // app.js
+const showCalendarBtn = document.getElementById('showCalendar');
+if (showCalendarBtn) {
+    showCalendarBtn.addEventListener('click', function() {
+        document.getElementById('calendarPopup').style.display = 'block';
+    });
+} else {
+    console.error('Elemento showCalendar não encontrado.');
+}
+
+
+
+// Agendamento de data -------------------------------------------
+
+document.querySelector('.close').addEventListener('click', function() {
+    document.getElementById('calendarPopup').style.display = 'none';
+});
+
+document.getElementById('scheduleForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('nome').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    console.log('Agendamento:', { nome, startDate, endDate });
+
+    document.getElementById('calendarPopup').style.display = 'none';
+    alert('Agendamento salvo com sucesso!');
+});
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const scheduleForm = document.getElementById("scheduleForm");
@@ -205,3 +206,39 @@ document.addEventListener("DOMContentLoaded", function() {
   
 
 //Fim da Funçao Calendario ----------------------------------------------
+
+document.addEventListener("DOMContentLoaded", function() {
+    const scheduleForm = document.getElementById("scheduleForm");
+  
+    scheduleForm.addEventListener("submit", function(event) {
+      event.preventDefault(); // Evita o comportamento padrão de envio do formulário
+  
+      // Obter os valores do formulário
+      const nome = document.getElementById("nome").value;
+      const startDate = document.getElementById("startDate").value;
+      const endDate = document.getElementById("endDate").value;
+      const carSelect = document.getElementById("carSelect").value;
+  
+      // Enviar dados para o backend
+      fetch('http://localhost:3000/vamocompleto/tabela_agendamentos/novo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nome, startDate, endDate, carro: carSelect }),
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data); // Mostra a resposta do backend no console
+        alert('Agendamento salvo com sucesso');
+      })
+      .catch((error) => {
+        console.error('Erro ao salvar agendamento:', error);
+        alert('Erro ao salvar agendamento');
+      });
+  
+      // Limpar formulário
+      scheduleForm.reset();
+    });
+  });
+  

@@ -5,10 +5,29 @@ const mysql = require('mysql2');
 const app = express();
 const PORT = 3000;
 
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 app.use('/banco', express.static(path.join(__dirname, 'banco')));
 
+app.post('/vamocompleto/tabela_agendamentos/novo', (req, res) => {
+    const { nome, data_inicio, data_termino, carro } = req.body;
+    
+    const sql = `INSERT INTO tabela_agendamentos (nome, data_inicio, data_termino, carro) VALUES (?, ?, ?, ?)`;
+    const values = [nome, data_inicio, data_termino, carro];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+          console.error('Erro ao salvar agendamento:', err);
+          res.status(500).send('Erro ao salvar agendamento no banco de dados');
+        } else {
+          console.log('Agendamento salvo no banco de dados');
+          res.status(200).send('Agendamento salvo com sucesso');
+        }
+  });
+});
+
+  
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
@@ -138,3 +157,13 @@ app.get('/agendamentos', (req, res) => {
 
 // Fim das buscas de agendamento --------------------------------------------
 
+//---------------------------------------------
+const mysql = require('mysql2');
+
+const db = mysql.createConnection({
+  host: 'localHost',
+  user: 'FabricioRocha',
+  password: 'F1Rocha2!',
+  database: 'vamocompleto'
+});
+//---------------------------------------------
