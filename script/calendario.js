@@ -1,6 +1,15 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     const calendarioBody = document.getElementById("calendarioBody");
+    const popupContainer = document.getElementById("popup-container");
+    const closePopupBtn = document.querySelector(".close-popup");
+
+
+    let eventos = [
+        { data: '2024-05-08', nome: 'Reunião com o cliente', descricao: 'Discussão do projeto' },
+        { data: '2024-05-09', nome: 'Webinar', descricao: 'Participação no webinar sobre tecnologia' },
+        { data: '2024-05-10', nome: 'Consulta médica', descricao: 'Consulta no Dr. Smith' }
+    ];
 
     function zeroEsquerda(numero) {
         return numero < 10 ? `0${numero}` : numero;
@@ -57,20 +66,25 @@ document.addEventListener("DOMContentLoaded", function() {
         const temEvento = verificarEvento(data);
         
         if (temEvento) {
-            // Aqui você pode exibir um pop-up, modal ou janela com as informações do evento
-            // Por simplicidade, usaremos um alerta neste exemplo
-            alert(`Eventos para o dia ${data}:\n- Evento 1\n- Evento 2\n- Evento 3`);
+            popupContainer.style.display = "block";
+            //alert(`Eventos para o dia ${data}:\n- Evento 1\n- Evento 2\n- Evento 3`);
         } else {
             alert(`Nenhum evento para o dia ${data}`);
         }
     }
 
+    function ocultarPopup() {
+        popupContainer.style.display = "none";
+    }
+
+    closePopupBtn.addEventListener("click", ocultarPopup);
+
     // Função para verificar se um dia tem evento (exemplo simples)
     function verificarEvento(data) {
-        // Aqui você pode implementar a lógica para verificar se há um evento para o dia especificado
-        // Retorne true se houver evento para o dia, false caso contrário
-        // Neste exemplo simples, vamos supor que todos os dias do mês têm eventos
-        return true; // Altere para false se nenhum evento estiver presente para o dia
+       // Verifica se algum evento no array corresponde à data fornecida
+        const temEvento = eventos.some(evento => evento.data === data);
+    
+        return temEvento; 
     }
     // Obtém o ano e mês atuais
     const dataAtual = new Date();
@@ -79,4 +93,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Chamando a função para preencher o calendário com o mês atual
     preencherCalendario(anoAtual, mesAtual);
+});
+
+document.querySelectorAll('.day-cell').forEach(cell => {
+    cell.addEventListener('click', function() {
+        const selectedDate = this.getAttribute('data-date');
+        if (verificarEvento(selectedDate)) {
+            mostrarPopup(selectedDate);  // Chama a função que mostra o popup se houver eventos
+        }
+    });
 });
