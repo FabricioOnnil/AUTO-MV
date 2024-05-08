@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="estilos/stile.css">
 </head>
 <body>
-    <header>
-        <img src="Imagens/logoazulsemfindo.png" alt="Logo" id="logo">
-    </header>
-
-    <section id="map"></section>
+    <section>
+        <header>
+            <img src="Imagens/logoazulsemfindo.png" alt="Logo" id="logo">
+        </header>
+    </section>
+    
+    <div id="map"></div>
+    
     <section id="imgLinks"> 
         <a href="pagina1.html"><img src="Imagens/refeiçãoIcon150x150.png" alt="Link 1"></a>
         <a href="pagina2.html"><img src="Imagens/GasolIcon2150x150.png" alt="Link 2"></a>
@@ -19,8 +22,7 @@
         <a href="pagina4.html"><img src="Imagens/call-report-icon-3150x150.png" alt="Link 4"></a>     
     </section>
 
-    <!-- Substitua SUA_CHAVE_DA_API pela sua chave de API real do Google Maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=SUA_CHAVE_DA_API&callback=initMap" async defer></script>
-    <script src="app.js"></script>
+    <script src="script/maps.js"></script>
+    
 </body>
 </html>

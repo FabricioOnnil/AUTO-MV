@@ -78,7 +78,7 @@ header {
 }
 /*-------------------------------------------------------------*/
 #logo {
-    width: 50%;
+    width: 40%;
     align-items: center;
     text-align: center;  /* Centraliza horizontalmente */
     display: flex;
@@ -86,21 +86,17 @@ header {
     justify-content: center; /* Centraliza verticalmente */
 }
 
-.imgLinks {
-    
-    justify-content: space-around;
-    align-items: center;
-    height: 30%; /* Altura da seção de links de imagem ajustável */
-}
-
 .imgLinks a img {
+    justify-content: space-between;
+    align-items: normal;
+    height: 10%; /* Altura da seção de links de imagem ajustável */
     width: 20%; /* Largura das imagens ajustável */
     height: auto;
     transition: transform 0.3s ease;
 }
 
 .imgLinks a img:hover {
-    transform: scale(1.1); /* Efeito de hover para aumentar ligeiramente a imagem */
+    transform: scale(2.1); /* Efeito de hover para aumentar ligeiramente a imagem */
 }
 
 .login-container {
@@ -223,4 +219,74 @@ button {
 
 button:hover {
     background-color: #4cae4c;
+}
+
+/* Estilos básicos para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para os dias da semana */
+th {
+    background-color: #e0e0e0;
+    font-weight: bold;
+}
+
+/* Estilos para os dias do mês */
+td {
+    font-size: 16px;
+}
+
+/* Estilos para realçar o dia atual */
+td.current-day {
+    background-color: #e6f7ff;
+    font-weight: bold;
+}
+
+/* Estilos para realçar os dias com eventos */
+td.has-event {
+    background-color: #fff5e6;
+    color: #ff6600;
+}
+
+td.has-event {
+    background-color: #fff5e6; /* Cor de fundo para destacar os dias com eventos */
+    color: #ff6600; /* Cor do texto para os dias com eventos */
+    font-weight: bold; /* Texto em negrito para os dias com eventos */
+}
+
+.popup-containerTwo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.popup-contentTwo {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.close-popupTwo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }

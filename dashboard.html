@@ -14,14 +14,22 @@
     <br>
     <button onclick="goToSchedule()">Agenda</button>
     <br>
-    <button onclick="window.location.href = '/mapa.html;'">Ir para o Mapa</button>
+    <button onclick="goToLocation()">Mapa</button>
     <br>
-    <button onclick="window.location.href = '/trajeto.html';">Dirgir</button>
+    <button onclick="goToDriving()">Dirgir</button>
 </div>
 <script >
      function goToSchedule() {
     // Redirecionar para a página agenda.html
     window.location.href = "/agenda.html";
+     }
+     function goToLocation() {
+        // Redirecionar para a página mapa.html
+        window.location.href = "/mapa.html";
+     }
+     function goToDriving() {
+        // Redirecionar para a pagina trajeto.html
+        window.location.href = "/trajeto.html";
      }
     </script>
 </body>
