@@ -168,6 +168,22 @@ app.get('/agendamentos', (req, res) => {
 
 // Fim das buscas de agendamento --------------------------------------------
 
-//---------------------------------------------
+// Busca na tabela_agendamentos----------------------------------------------
 
-//---------------------------------------------
+app.get('/eventos/:dia/:mes/:ano', (req, res) => {
+    const { dia, mes, ano } = req.params;
+    // Faça uma consulta SQL para verificar se há eventos agendados para a data fornecida
+    const queryString = `SELECT * FROM tabela_agendamentos WHERE dia = ? AND mes = ? AND ano = ?`;
+    connection.query(queryString, [dia, mes, ano], (error, results) => {
+        if (error) {
+            console.log("Erro ao consultar o banco de dados:", error);
+            res.status(500).send("Erro ao consultar eventos");
+        } else {
+            // Se houver resultados, há eventos para essa data
+            const hasEvents = results.length > 0;
+            res.json({ hasEvents }); // Retorna um objeto JSON com a informação
+        }
+    });
+});
+
+// Fim da busca na tabela_agendamentos---------------------------------------

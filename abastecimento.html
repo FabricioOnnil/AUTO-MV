@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABASTECIMENTO</title>
+    <title>Abastecimento</title>
     <link rel="stylesheet" href="estilos/visual.css">
 </head>
 <body>
     <h1>Abastecimento</h1>
-    <!--<video id="video" width="320" height="240" autoplay></video>    
-    <canvas id="canvas" width="320" height="240"></canvas> -->
+    
     <form id="purchaseForm">
         <div class="form-group">
             <label for="descricao">Posto de Abastecimento</label>
@@ -23,10 +22,12 @@
             <label for="data">Data:</label>
             <input type="date" id="data" name="data" required>
         </div>
-        <button type="submit">Registrar Abastecimento</button>
-    </form>
-    <button id="snap">Capturar Foto</button>
+        <button id="snap">Foto Nota Fiscal</button>  
+        <button type="submit">Registrar Abastecimento</button>      
+    </form>   
+    <video id="video" width="320" height="240" autoplay></video>    
+    <canvas id="canvas" width="320" height="240"></canvas>
 
-    <script src="scripts.js"></script>
+    <script src="script/abastecimento.js"></script>
 </body>
 </html>

@@ -19,7 +19,20 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function hasEvents(day, month, year) {
-        return day % 2 === 0; // Exemplo: dias pares têm eventos
+           // Faça uma requisição para o backend para verificar se há eventos agendados
+    fetch(`http://localhost:3000/eventos/${day}/${month}/${year}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data.hasEvents) {
+            // Se houver eventos, adicione a classe e o evento de clique
+            const cell = getCellByDate(day);
+            cell.classList.add('has-event');
+            cell.addEventListener('click', () => showPopup(day, month, year));
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao verificar eventos:', error);
+    });
     }
 
     function showPopup(day, month, year) {
@@ -84,3 +97,18 @@ document.addEventListener("DOMContentLoaded", function() {
     fillCalendar(currentMonth, currentYear); // Chama inicialmente para o mês atual
 });
 
+// Função para obter a célula correspondente à data
+function getCellByDate(day) {
+    // Obtém todas as células da tabela
+    const cells = document.querySelectorAll('#calendarioBody td');
+
+    // Itera sobre as células para encontrar a célula correspondente ao dia
+    for (let cell of cells) {
+        if (cell.textContent === day.toString()) {
+            return cell;
+        }
+    }
+
+    // Retorna null se a célula correspondente não for encontrada
+    return null;
+}
