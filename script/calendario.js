@@ -1,47 +1,86 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const calendarioBody = document.getElementById("calendarioBody");
+    const calendarBody = document.getElementById('calendarioBody');
+    const currentMonthSpan = document.getElementById('currentMonth');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    const popupContainer = document.getElementById('popup-containerTwo'); 
+    const closeButton = document.querySelector('.close-popup');
 
-    // Função para obter o número de dias de um mês em um determinado ano
-    function diasNoMes(ano, mes) {
-        return new Date(ano, mes + 1, 0).getDate();
+    let currentDate = new Date();
+    let currentYear = currentDate.getFullYear();
+    let currentMonth = currentDate.getMonth();
+
+    closeButton.addEventListener('click', function() {
+        popupContainer.style.display = 'none';
+    });
+
+    function updateMonthYearDisplay() {
+        currentMonthSpan.textContent = `${currentDate.toLocaleString('pt-BR', { month: 'long' })} ${currentYear}`;
     }
 
-    function zeroEsquerda(numero) {
-        return numero < 10 ? `0${numero}` : numero;
+    function hasEvents(day, month, year) {
+        return day % 2 === 0; // Exemplo: dias pares têm eventos
     }
 
-    // Preenche o calendário com os dias do mês
-    function preencherCalendario(ano, mes) {
-        calendarioBody.innerHTML = ''; // Limpa o conteúdo atual do calendário
+    function showPopup(day, month, year) {
+        popupContainer.style.display = 'block';
+        console.log(`Mostrando eventos para ${day}/${month + 1}/${year}`);
+    }
 
-        const primeiroDiaMes = new Date(ano, mes, 1).getDay(); // Dia da semana do primeiro dia do mês
-        const numeroDiasMes = diasNoMes(ano, mes);
-        
-        let contadorDia = 1; // Contador para os dias do mês
+    function fillCalendar(month, year) {
+        calendarBody.innerHTML = '';
+        const today = new Date();
+        const currentDay = today.getDate();
+        const currentMonth = today.getMonth();
+        const currentYear = today.getFullYear();
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-        // Cria as células da tabela para cada semana
-        for (let semana = 0; semana < 6; semana++) {
-            const row = calendarioBody.insertRow();
+        let row = calendarBody.insertRow();
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            row.insertCell();
+        }
 
-            for (let diaSemana = 0; diaSemana < 7; diaSemana++) {
-                const cell = row.insertCell();
-
-                // Preenche os dias do mês nas células correspondentes aos dias da semana
-                if ((semana === 0 && diaSemana >= primeiroDiaMes) || semana > 0) {
-                    if (contadorDia <= numeroDiasMes) {
-                        cell.textContent = contadorDia;
-                        contadorDia++;
-                    }
-                }
+        for (let day = 1; day <= daysInMonth; day++) {
+            if (row.cells.length === 7) {
+                row = calendarBody.insertRow();
+            }
+            const cell = row.insertCell();
+            cell.textContent = day;
+            if (hasEvents(day, month, year)) {
+                cell.classList.add('has-event');
+                cell.addEventListener('click', () => showPopup(day, month, year));
+            }
+            if (day === currentDay && month === currentMonth && year === currentYear) {
+                cell.classList.add('today');
             }
         }
+
+        updateMonthYearDisplay();
     }
 
-    // Obtém o ano e mês atuais
-    const dataAtual = new Date();
-    const anoAtual = dataAtual.getFullYear();
-    const mesAtual = dataAtual.getMonth();
+    prevMonthBtn.addEventListener('click', function() {
+        if (currentMonth === 0) {
+            currentMonth = 11;
+            currentYear--;
+        } else {
+            currentMonth--;
+        }
+        currentDate = new Date(currentYear, currentMonth, 1);
+        fillCalendar(currentMonth, currentYear);
+    });
 
-    // Chamando a função para preencher o calendário com o mês atual
-    preencherCalendario(anoAtual, mesAtual);
+    nextMonthBtn.addEventListener('click', function() {
+        if (currentMonth === 11) {
+            currentMonth = 0;
+            currentYear++;
+        } else {
+            currentMonth++;
+        }
+        currentDate = new Date(currentYear, currentMonth, 1);
+        fillCalendar(currentMonth, currentYear);
+    });
+
+    fillCalendar(currentMonth, currentYear); // Chama inicialmente para o mês atual
 });
+

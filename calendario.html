@@ -7,7 +7,13 @@
 <link rel="stylesheet" href="estilos/visual.css">
 </head>
 <body>
+    
 <h1>Calendário de Agendamentos</h1>
+<div class="month-navigation">
+    <button id="prevMonth">Mês Anterior</button>
+    <span id="currentMonth"></span>
+    <button id="nextMonth">Próximo Mês</button>
+</div>
 <table id="calendario">
     <thead>
         <tr>
@@ -22,7 +28,14 @@
     </thead>
     <tbody id="calendarioBody"></tbody>
 </table>
-   
+<div id="popup-containerTwo" class="popup-container" style="display: none;">
+    <div class="popup-content">
+        <span class="close-popup">&times;</span>
+        <h2>Eventos do Dia</h2>
+        <!-- Conteúdo da janela pop-up aqui -->
+        <p id="eventDetails">Detalhes do evento aparecerão aqui.</p>
+    </div>
+</div>   
 
 <script src="script/calendario.js"></script>
 </body>
