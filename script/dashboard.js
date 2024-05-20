@@ -8,5 +8,5 @@ function goToSchedule() {
      }
      function goToDriving() {
         // Redirecionar para a pagina trajeto.html
-        window.location.href = "/trajeto.html";
+        window.location.href = "/execute.html";
      }
