@@ -11,8 +11,10 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
 
     const nome = document.getElementById('nome').value;
     const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    console.log('Agendamento:', { nome, startDate, endDate });
+    //const endDate = document.getElementById('endDate').value;
+    const origem = document.getElementByID('origem').value;
+    const km_inicial = document.getElementByID('km_inicial').value;
+    console.log('Agendamento:', { nome, startDate, origem, km_inicial });
 
     document.getElementById('calendarPopup').style.display = 'none';
     alert('Agendamento salvo com sucesso!');
@@ -41,12 +43,14 @@ document.addEventListener("DOMContentLoaded", function() {
       // Obter os valores do formulário
       const nome = document.getElementById("nome").value;
       const startDate = document.getElementById("startDate").value;
-      const endDate = document.getElementById("endDate").value;
+     // const endDate = document.getElementById("endDate").value;
+      const origem = document.getElementByID('origem').value;
+      const km_inicial = document.getElementByID('km_inicial').value;
       const carSelect = document.getElementById("carSelect");
       const carro = carSelect.options[carSelect.selectedIndex].text; // Obter o texto da opção selecionada
   
       // Criar objeto de agendamento
-      const agendamento = { nome, startDate, endDate, carro };
+      const agendamento = { nome, startDate, origem, km_inicial, carro };
   
       // Adicionar agendamento ao array
       agendamentos.push(agendamento);
@@ -57,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // Atualizar tabela de agendamentos
       agendamentos.forEach(function(item) {
         const row = agendamentosBody.insertRow();
-        row.innerHTML = `<td>${item.nome}</td><td>${item.startDate}</td><td>${item.endDate}</td><td>${item.carro}</td>`;
+        row.innerHTML = `<td>${item.nome}</td><td>${item.startDate}</td><td>${item.origem}</td><td>${item.km_inical}</td><td>${item.carro}</td>`;
         agendamentosBody.appendChild(row); // Adicione esta linha para garantir que a linha seja adicionada corretamente
       });
   
@@ -83,7 +87,9 @@ document.addEventListener("DOMContentLoaded", function() {
       // Obter os valores do formulário
       const nome = document.getElementById("nome").value;
       const startDate = document.getElementById("startDate").value;
-      const endDate = document.getElementById("endDate").value;
+      const origem = document.getElementByID('origem').value;
+      const km_inicial = document.getElementByID('km_inicial').value;
+      //const endDate = document.getElementById("endDate").value;
       const carSelect = document.getElementById("carSelect").value;
   
       // Enviar dados para o backend
@@ -92,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nome, startDate, endDate, carro: carSelect }),
+        body: JSON.stringify({ nome, startDate, origem, km_inicial, carro: carSelect }),
       })
       .then(response => response.text())
       .then(data => {
