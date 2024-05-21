@@ -1,5 +1,6 @@
 
-// Agendamento de data -------------------------------------------
+
+//Agendamento de data -------------------------------------------
 
 document.querySelector('.close').addEventListener('click', function() {
     document.getElementById('calendarPopup').style.display = 'none';
@@ -19,9 +20,20 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
 
 
 document.addEventListener("DOMContentLoaded", function() {
+    const showCalendarButton = document.getElementById('showCalendar');
+    const calendarPopup = document.getElementById('calendarPopup');
+    const closeButton = document.querySelector('.close');
     const scheduleForm = document.getElementById("scheduleForm");
     const agendamentosBody = document.getElementById("agendamentosBody");
     const agendamentos = []; // Array para armazenar os agendamentos
+
+    showCalendarButton.addEventListener('click', function() {
+      calendarPopup.style.display = 'block';
+  });
+
+  closeButton.addEventListener('click', function() {
+      calendarPopup.style.display = 'none';
+  });
   
     scheduleForm.addEventListener("submit", function(event) {
       event.preventDefault(); // Evita o comportamento padrão de envio do formulário
@@ -49,8 +61,13 @@ document.addEventListener("DOMContentLoaded", function() {
         agendamentosBody.appendChild(row); // Adicione esta linha para garantir que a linha seja adicionada corretamente
       });
   
-      // Limpar formulário
-      scheduleForm.reset();
+        // Limpar formulário
+        scheduleForm.reset();
+
+        // Fechar o pop-up
+        calendarPopup.style.display = 'none';
+
+        alert('Agendamento salvo com sucesso!');
     });
   });
   
