@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda</title>
+    <title>CHECK-OUT</title>
     <link rel="stylesheet" href="estilos/visual.css">
 </head>
 <body>
-    <h1>ENTREGA CARRO</h1>
-    <button id="showCalendar">Entregar</button>
+    <h1>Agenda Encerrada</h1>
+    <button id="showCalendar">ENTREGAR</button>
 
     <div id="calendarPopup" class="popup">
         <div class="popup-content">
@@ -16,14 +16,12 @@
             <form id="scheduleForm">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required><br>
-                <label for="startDate">Data de Início:</label>
-                <input type="date" id="startDate" name="startDate" required><br>
-                <label for="nome">Origem:</label>
-                <input type="text" id="origem" name="origem" required><br>
-                <label for="nome">Destino:</label>
+                <label for="nome">Local Entrega:</label>
                 <input type="text" id="destino" name="destino" required><br>
                 <label for="endDate">Data de Término:</label>
                 <input type="date" id="endDate" name="endDate" required><br>
+                <label for="final">km Final:</label>
+                <input type="number" id="km_final" name="km_final" required><br>
                 <label for="carSelect">Escolha um carro:</label>
                 <select id="carSelect">
                     <option value="carro0">-Selecione um carro-</option>
