@@ -1,6 +1,5 @@
 {
     "sqltools.connections": [
-        
         {
             "mysqlOptions": {
                 "authProtocol": "default",
@@ -10,8 +9,8 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "mv_vamo",
-            "database": "mv-vamo",
+            "name": "vamo",
+            "database": "vamomv",
             "username": "root",
             "password": "8mtkjg"
         }
