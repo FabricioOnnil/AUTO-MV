@@ -7,7 +7,8 @@
 }
 
 :root {
-    --cor0: #c5ebd6;
+        --cor0: #f4f8f6;
+        --verdefundo: #06690D;
         --verFolha: #01DC02;
         --roxoassai: #862D5A; 
         --verEscuro: #2E5C2E; 
@@ -86,8 +87,7 @@
     transition: transform 0.3s ease;
 }
 
-.
-}
+
 .imgLinks a img:hover {
     transform: scale(2.1); /* Efeito de hover para aumentar ligeiramente a imagem */
 }
@@ -253,7 +253,7 @@ body, html {
 body {
     margin: 40px;
     padding: 20px;
-    background-color: var(--cor0;
+    background-color: var(--cor0);
     color: #333;
     
 }
