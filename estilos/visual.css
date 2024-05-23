@@ -7,6 +7,16 @@
 }
 
 :root {
+    --cor0: #c5ebd6;
+        --verFolha: #01DC02;
+        --roxoassai: #862D5A; 
+        --verEscuro: #2E5C2E; 
+        --rosaForte: #DB006E;
+        --pretoFundo: #33222B; 
+        --laranja: #DB6000;
+        /*--fonte-padrão: Arial, Verdana, Helvetica, sans-serif;
+        --fonte-destaque: 'Bebas Neue', cursive;
+        --fonte-android: 'Android', cursive;*/
 
 
 
@@ -76,6 +86,8 @@
     transition: transform 0.3s ease;
 }
 
+.
+}
 .imgLinks a img:hover {
     transform: scale(2.1); /* Efeito de hover para aumentar ligeiramente a imagem */
 }
@@ -112,6 +124,7 @@
     max-width: 600px;
     position: relative;
 }
+
 
 .popup {
     display: none;
@@ -200,7 +213,7 @@
     }
 }
 
-/* @media screen and (max-width: 992px) {
+@media screen and (max-width: 992px) {
     body {
         font-size: 14px;
     }
@@ -234,12 +247,13 @@ body, html {
     width: 100%;
     height: 100%;
     font-family: Arial, sans-serif;
+   
 }
 
 body {
     margin: 40px;
     padding: 20px;
-    background-color: #f4f4f9;
+    background-color: var(--cor0;
     color: #333;
     
 }
