@@ -1,371 +1,190 @@
-@charset "UTF-8";
-
+/* Reset básico para remover margens e paddings padrão */
 * {
-    margin: 0px;
-    padding: 0px;
-    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-:root {
-        --cor0: #f4f8f6;
-        --verdefundo: #06690D;
-        --verFolha: #01DC02;
-        --roxoassai: #862D5A; 
-        --verEscuro: #2E5C2E; 
-        --rosaForte: #DB006E;
-        --pretoFundo: #33222B; 
-        --laranja: #DB6000;
-        /*--fonte-padrão: Arial, Verdana, Helvetica, sans-serif;
-        --fonte-destaque: 'Bebas Neue', cursive;
-        --fonte-android: 'Android', cursive;*/
-
-
-
-
-}
-
-#logo {
-    width: 40%;
-    align-items: center;
-    text-align: center;  /* Centraliza horizontalmente */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente */
-}
-
-#map {
-    height: 500px; /* Altura padrão para telas maiores */
-    width: 100%; /* Ocupa toda a largura do contêiner pai */
-}
-
-#openModalBtn {
-    margin-bottom: 10px;
-}
-
-.close-popupTwo {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/*.close {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    cursor: pointer;
-}*/
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.imgLinks a img {
-    justify-content: space-between;
-    align-items: normal;
-    height: 10%; /* Altura da seção de links de imagem ajustável */
-    width: 20%; /* Largura das imagens ajustável */
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-
-.imgLinks a img:hover {
-    transform: scale(2.1); /* Efeito de hover para aumentar ligeiramente a imagem */
-}
-
-.has-event {
-    background-color: #ffcccc;
-    cursor: pointer;
-}
-
-.login-container {
-    text-align: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px #ccc;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
+/* Estilo global para o corpo da página */
+html, body {
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-    position: relative;
-}
-
-
-.popup {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
-
-.popup-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-}
-
-.popup-containerTwo {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-}
-
-.popup-containerTwo {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    position: relative;
-}
-
-.popup-contentTree {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.popup-contentTree {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.today {
-    background-color: green;
-    color: white;
-}
-
-
-@media screen and (max-width: 768px) {
-    #map {
-        height: 300px; /* Altura reduzida para telas menores */
-    }
-}
-
-@media screen and (max-width: 480px) {
-    #map {
-        height: 200px; /* Altura ainda mais reduzida para dispositivos menores */
-    }
-}
-
-@media screen and (max-width: 992px) {
-    body {
-        font-size: 14px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    body {
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 992px) {
-    .container {
-        max-width: 90%;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .container {
-        max-width: 95%;
-    }
-}*/
-
-/*--------------------------------------------------------------------*/
-
-
-body, html {
-   
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Evitar barras de rolagem horizontais */
     font-family: Arial, sans-serif;
-   
 }
 
 body {
-    margin: 40px;
-    padding: 20px;
-    background-color: var(--cor0);
-    color: #333;
-    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribuir espaço uniformemente */
+    min-height: 100vh;
 }
 
-button {
-    background-color: #5cb85c;
-    color: rgb(247, 236, 236);
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background-color: #4cae4c;
-}
-
-form {
+/* Centralizar e tornar responsivo o cabeçalho */
+#cabeçalho {
     width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 30px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#cabeçalho img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Centralizar e tornar responsivo o logo principal */
+#inicial {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#inicial img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Centralizar e alinhar as imagens dos botões em paralelo */
+#botoes {
+    display: flex;
+    justify-content: center;
+    gap: 1px; 
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 20px;
+    padding: 0 10px; /* Adicionar padding para evitar overflow */
+}
+
+#botoes button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Define uma altura para os botões */
+    margin-bottom: 10px; /* Adicionar margem inferior para espaçamento entre os botões */
+}
+
+#botoes button img {
+    object-fit: cover; /* Garante que a imagem ocupe todo o espaço do botão */
+}
+
+/* Centralizar e tornar responsivo o link de imagem no rodapé */
+footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 10px; /* Adicionar padding para evitar overflow */
+    margin-top: auto;
+}
+
+footer img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 600px) {
+    #botoes {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #botoes button {
+        margin-bottom: 10=0px;
+    }
+
+    #botoes button:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/*----------------------------------*/
+
+/* Estilos gerais para garantir a responsividade */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    font-size: 16px; /* Tamanho de letra padrão para páginas modernas */
+}
+
+/* Estilização do logo */
+#logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilização do formulário */
+#loginForm {
     background-color: #fff;
-    border: 1px solid #ddd;
+    padding: 20px;
+    border: 2px solid green; /* Borda verde */
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.1); /* Sombra leve com cor verde */
+    border-radius: 8px; /* Bordas arredondadas */
+    width: 90%; /* Largura responsiva */
+    max-width: 360px; /* Máximo de largura para o formulário */
 }
 
-iframe#tela{
-    position: relative;
-    top: 76px;
-    left: 30px;
-    width: 436px;
-    height: 600px;
+#loginForm label {
+    font-weight: bold; /* Negrito para os rótulos */
 }
 
-input[type="text"],
-input[type="number"],
-input[type="date"],
-button {
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
     width: 100%;
     padding: 8px;
+    margin-top: 5px; /* Espaço acima do campo */
+    margin-bottom: 15px; /* Espaço abaixo do campo */
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-h1 {
-    text-align: center;
-}
-
-h2 {
-    text-align: center;
-}
-
-header {
+#loginForm button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
     width: 100%;
-    height: 50px; /* Ajuste conforme necessário */
-    background-color: #f0f0f0; /* Cor de fundo do cabeçalho */
-    
-    justify-content: center;
-    align-items: center;
 }
 
-label, input, button {
-    display: block;
-    margin: 10px 0;
+#loginForm button:hover {
+    background-color: darkgreen; /* Mudança de cor ao passar o mouse */
 }
 
-main {
-    height: 100vh;
-    position: relative;      
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-/* Estilos para os dias do mês */
-td {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* Estilos para realçar o dia atual */
-td.current-day {
-    background-color: #047c58;
-    font-weight: bold;
-}
-
-/* Estilos para realçar os dias com eventos */
-td.has-event {
-    background-color: #fff5e6;
-    color: #ff6600;
-}
-
-td.has-event {
-    background-color: #ffffff; /* Cor de fundo para destacar os dias com eventos */
-    color: #dd3309; /* Cor do texto para os dias com eventos */
-    font-weight: bold; /* Texto em negrito para os dias com eventos */
-}
-
-/* Estilos para os dias da semana */
-th {
-    background-color: #10eea4;
-    font-weight: bold;
-}
-
-th, td {
-    padding: 10px;
+/* Mensagem de erro */
+#errorMessage {
     text-align: center;
-    border: 1px solid #008311;
 }
 
-
-
-
+/* Responsividade para diferentes tamanhos de tela */
+@media (min-width: 600px) {
+    body {
+        font-size: 18px; /* Maior tamanho de letra para telas maiores */
+    }
+}
