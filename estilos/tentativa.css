@@ -1,0 +1,200 @@
+
+.Agenda {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: white;
+    background-color: green;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 128, 0, 0.5);
+}
+
+/* Botão de agendamento */
+#showCalendarAgenda {
+    background-color: lightgreen;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+#showCalendarAgenda:hover {
+    background-color: darkgreen;
+}
+
+/* Estilo do overlay (fundo cinza) */
+#overlayAgenda {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+.month-navigation {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#prevMonth, #nextMonth {
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#prevMonth:hover, #nextMonth:hover {
+    background-color: darkgreen;
+}
+
+#currentMonth {
+    padding: 5px 10px;
+    background-color: white;
+    color: green;
+    font-weight: bold;
+}
+
+#calendario {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 1000px;
+    background-color: white;
+    border: 3px solid green; /* Mais destacada */
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
+}
+
+#calendario th {
+    background-color: #e0e0e0;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#calendario td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.has-event {
+    background-color: #ffcccc; /* Cor de fundo para dias com eventos */
+    cursor: pointer;
+}
+
+.today {
+    background-color: #ccffcc; /* Cor de fundo para o dia atual */
+}
+
+.popup-containerAgenda {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border: 2px solid green;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
+    display: none;
+    z-index: 1000;
+}
+
+.popup-contentAgenda {
+    text-align: left;
+    position: relative;
+}
+
+.close-popupAgenda {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+#scheduleFormAgenda {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#scheduleFormAgenda label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#scheduleFormAgenda input[type="text"],
+#scheduleFormAgenda input[type="date"],
+#scheduleFormAgenda input[type="number"],
+#scheduleFormAgenda select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;  
+}
+
+#scheduleFormAgenda button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#scheduleFormAgenda button:hover {
+    background-color: darkgreen;
+}
+
+/* Estilo da tabela de agendamentos */
+#agendamentos {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 1000px;
+    background-color: white;
+    border: 2px solid green;
+    box-shadow: 0 2px 4px rgba(0, 128, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+#agendamentos th, #agendamentos td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+#agendamentos th {
+    background-color: #e0e0e0;
+}
+
+#agendamentos tr {
+    border-bottom: 0.5px solid green;
+}
+
+#agendamentos tr:hover {
+    background-color: #f1f1f1;
+}

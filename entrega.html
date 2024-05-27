@@ -3,45 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHECK-OUT</title>
+    <title>ENTREGA</title>
     <link rel="stylesheet" href="estilos/visual.css">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* Evitar barras de rolagem horizontais */
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between; 
-            min-height: 100vh;
-        } 
-        </style>
 </head>
-<body class="Emtrega">
+<body class="Entrega">
     <div id="logo">
         <a href="vamoInicial.html"><img src="Imagens/logovamo325x132.png" alt="logo" id="logo"></a>
     </div>
-    <h1>Agenda de Entrega</h1>
+    
+    <h1>ENTREGA</h1>
     <button id="showCalendarEntrega">ENTREGAR</button>
 
-    <div id="calendarPopupEntrega" class="popupEntrega">
+    <div id="overlayEntrega"></div>
+
+    <div id="calendarPopupEntrega" class="popup-containerEntrega">
         <div class="popup-contentEntrega">
-            <span class="closeEntrega">&times;</span>
+            <span class="close-popupEntrega">&times;</span>
             <form id="scheduleFormEntrega">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required><br>
-                <label for="nome">Local Entrega:</label>
-                <input type="text" id="destino" name="destino" required><br>
-                <label for="endDate">Data de Término:</label>
-                <input type="date" id="endDate" name="endDate" required><br>
-                <label for="final">km Final:</label>
-                <input type="number" id="km_final" name="km_final" required><br>
+                <label for="startDate">Data de Início:</label>
+                <input type="date" id="startDate" name="startDate" required><br>
+                <label for="origem">Local da Origem:</label>
+                <input type="text" id="origem" name="origem" required><br>
+                <label for="rota">Rota:</label>
+                <input type="text" id="rota" name="rota" required><br>
+                <label for="km_inicial">km Inicial:</label>
+                <input type="number" id="km_inicial" name="km_inicial" required><br>
                 <label for="carSelect">Escolha um carro:</label>
-                <select id="carSelect">
-                    <option value="carro0">-Selecione um carro-</option>
+                <select id="carSelect" name="carSelect" required>
+                    <option value="">-Selecione um carro-</option>
                     <option value="carro1">MOBI - PPK_1234</option>
                     <option value="carro2">AUDI - PPX_3456</option>
                 </select>
@@ -50,22 +41,21 @@
         </div>
     </div>
 
-    <h2>Entrega</h2>
+    <h2>Agendamentos</h2>
     <table id="agendamentos">
         <thead>
             <tr>
                 <th>Nome</th>
                 <th>Data de Início</th>
-                <th>Data de Término</th>
+                <th>Origem</th>
                 <th>Carro Selecionado</th>
             </tr>
         </thead>
-        <tbody id="agendamentosBodyEntrega">
+        <tbody id="agendamentosBody">
             <!-- Dados serão preenchidos dinamicamente aqui -->
         </tbody>
     </table>
 
-    <script src="script/popup.js"></script>
     <script src="script/entrega.js"></script>
 </body>
 </html>
