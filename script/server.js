@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql2');
 const app = express();
-const PORT = 3306;
+const PORT = 3000; // Mudei para 3000, pois a porta 3306 é geralmente usada pelo MySQL
 
 // Configuração para permitir requisições CORS
 app.use((req, res, next) => {
@@ -13,14 +13,17 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configuração da conexão com o banco de dados MySQL
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'FabricioRocha',
-    password: 'F1Rocha2!',
-    database: 'vamocompleto'
+    user: 'root',
+    password: '8mtkjg',
+    database: 'vamomv'
 });
+
 // Verificação da conexão com o banco de dados
 db.connect((err) => {
     if (err) {
@@ -30,160 +33,130 @@ db.connect((err) => {
     console.log('Conexão ao banco de dados estabelecida');
 });
 
+// Rota para salvar agendamento
 app.post('/vamocompleto/salvarAgendamento', (req, res) => {
     const { nome, data_inicio, data_termino, carro } = req.body;
+    const sql = 'INSERT INTO tabela_agendamentos (nome, data_inicio, data_termino, carro) VALUES (?, ?, ?, ?)';
+    const values = [nome, data_inicio, data_termino, carro];
 
-const sql = `INSERT INTO tabela_agendamentos (nome, data_inicio, data_termino, carro) VALUES (?, ?, ?, ?)`;
-const values = [nome, data_inicio, data_termino, carro];
-
-db.query(sql, values, (err, result) => {
-    if (err) {
-        console.error('Erro ao inserir agendamento:', err);
-        res.status(500).send('Erro ao salvar agendamento no banco de dados');
-    } else {
-        console.log('Agendamento inserido com sucesso');
-        res.status(200).send('Agendamento salvo com sucesso');
-    }
-});
-});
-  
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Erro ao inserir agendamento:', err);
+            res.status(500).send('Erro ao salvar agendamento no banco de dados');
+        } else {
+            console.log('Agendamento inserido com sucesso');
+            res.status(200).send('Agendamento salvo com sucesso');
+        }
+    });
 });
 
-//-----------------------------------------------------------------------
-
-
-
-
+// Rota para servir a página inicial
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Rota para servir a página do dashboard
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
+// Rota para servir o arquivo JSON de carros
 app.get('/banco/carros.json', (req, res) => {
     res.sendFile(path.join(__dirname, 'banco', 'carros.json'));
 });
 
-//Login ------------------------------------------------------------
-
+// Rota para login
 app.post('/login', (req, res) => {
-   
     const { username, password } = req.body;
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
-        res.json( {success: true} );
-        console.log ("goldoVasco");
+        res.json({ success: true });
+        console.log("Login bem-sucedido");
         res.redirect('/dashboard');
     } else {
-        res.status(401).json({ success: false, message: 'Usuario invalido tente de novo' });
+        res.status(401).json({ success: false, message: 'Usuário inválido, tente de novo' });
     }
 });
 
-// Fim do Login ------------------------------------------------------
-
-
-
-
-// Configuração da conexão com o banco de dados----------------------------------------------
-
-connection.connect((err) => {
-    if (err) {
-        console.error('Erro ao conectar ao banco de dados:', err);
-        return;
-    }
-    console.log('Conectado ao banco de dados MySQL');
-});
-
-// Rotas
+// Rota para buscar refeições
 app.get('/refeicao', (req, res) => {
-    connection.query('SELECT * FROM refeicao', (err, results) => {
+    db.query('SELECT * FROM refeicao', (err, results) => {
         if (err) {
-            console.error('Erro ao buscar refeicao:', err);
-            res.status(500).send('Erro ao buscar refeicao');
+            console.error('Erro ao buscar refeição:', err);
+            res.status(500).send('Erro ao buscar refeição');
             return;
         }
         res.json(results);
     });
 });
 
+// Rota para inserir refeições
 app.post('/refeicao', (req, res) => {
     const { descricao, valor, data_compra, foto } = req.body;
-    connection.query(
-        'INSERT INTO refeicao (descricao, valor, data_compra, foto) VALUES (?, ?, ?, ?)',
-        [descricao, valor, data_compra, foto],
-        (err, results) => {
-            if (err) {
-                console.error('Erro ao inserir refeicao:', err);
-                res.status(500).send('Erro ao inserir refeicao');
-                return;
-            }
-            res.status(201).send('Compra inserida com sucesso');
+    const sql = 'INSERT INTO refeicao (descricao, valor, data_compra, foto) VALUES (?, ?, ?, ?)';
+    const values = [descricao, valor, data_compra, foto];
+
+    db.query(sql, values, (err, results) => {
+        if (err) {
+            console.error('Erro ao inserir refeição:', err);
+            res.status(500).send('Erro ao inserir refeição');
+            return;
         }
-    );
+        res.status(201).send('Compra inserida com sucesso');
+    });
 });
 
-//Fim da Configuração do Banco de Dados ---------------------------------
-
-// Configuração de agendamentos---------------------------------------
-
+// Rota para agendar
 app.post('/agenda', (req, res) => {
     const { nome, startDate, endDate } = req.body;
 
-    // Formate as datas para o formato YYYY-MM-DD esperado pelo MySQL
     const data_inicio = new Date(startDate).toISOString().slice(0, 10);
     const data_termino = new Date(endDate).toISOString().slice(0, 10);
 
-    // Insira os dados na tabela agendamentos
-    connection.query(
-        'INSERT INTO agendamentos (nome, data_inicio, data_termino) VALUES (?, ?, ?)',
-        [nome, data_inicio, data_termino],
-        (err, results) => {
-            if (err) {
-                console.error('Erro ao inserir agendamento:', err);
-                res.status(500).send('Erro ao inserir agendamento');
-                return;
-            }
-            res.status(201).send('Agendamento inserido com sucesso');
+    const sql = 'INSERT INTO agendamentos (nome, data_inicio, data_termino) VALUES (?, ?, ?)';
+    const values = [nome, data_inicio, data_termino];
+
+    db.query(sql, values, (err, results) => {
+        if (err) {
+            console.error('Erro ao inserir agendamento:', err);
+            res.status(500).send('Erro ao inserir agendamento');
+            return;
         }
-    );
+        res.status(201).send('Agendamento inserido com sucesso');
+    });
 });
 
+// Rota para buscar agendamentos
 app.get('/agendamentos', (req, res) => {
-    // Aqui você deve buscar os agendamentos do banco de dados e retorná-los como um JSON
-    // Execute a consulta SQL para buscar os agendamentos
-    connection.query('SELECT * FROM agendamentos', (err, results) => {
+    db.query('SELECT * FROM agendamentos', (err, results) => {
         if (err) {
             console.error('Erro ao buscar agendamentos:', err);
             res.status(500).send('Erro ao buscar agendamentos');
             return;
         }
         console.log('Agendamentos encontrados:', results);
-        res.json(results); // Envie os resultados como JSON de volta ao cliente
+        res.json(results);
     });
 });
 
-// Fim das buscas de agendamento --------------------------------------------
-
-// Busca na tabela_agendamentos----------------------------------------------
-
+// Rota para buscar eventos por data
 app.get('/eventos/:dia/:mes/:ano', (req, res) => {
     const { dia, mes, ano } = req.params;
-    // Faça uma consulta SQL para verificar se há eventos agendados para a data fornecida
-    const queryString = `SELECT * FROM tabela_agendamentos WHERE dia = ? AND mes = ? AND ano = ?`;
-    connection.query(queryString, [dia, mes, ano], (error, results) => {
-        if (error) {
-            console.log("Erro ao consultar o banco de dados:", error);
+    const sql = 'SELECT * FROM tabela_agendamentos WHERE DAY(data_inicio) = ? AND MONTH(data_inicio) = ? AND YEAR(data_inicio) = ?';
+    const values = [dia, mes, ano];
+
+    db.query(sql, values, (err, results) => {
+        if (err) {
+            console.log("Erro ao consultar o banco de dados:", err);
             res.status(500).send("Erro ao consultar eventos");
         } else {
-            // Se houver resultados, há eventos para essa data
             const hasEvents = results.length > 0;
-            res.json({ hasEvents }); // Retorna um objeto JSON com a informação
+            res.json({ hasEvents });
         }
     });
 });
 
-// Fim da busca na tabela_agendamentos---------------------------------------
+// Iniciar o servidor
+app.listen(PORT, () => {
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
+});

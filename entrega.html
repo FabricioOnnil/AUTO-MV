@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="estilos/visual.css">
 </head>
 <body>
-    <h1>Agenda Encerrada</h1>
-    <button id="showCalendar">ENTREGAR</button>
+    <h1>Agenda de Entrega</h1>
+    <button id="showCalendarEntrega">ENTREGAR</button>
 
-    <div id="calendarPopup" class="popup">
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <form id="scheduleForm">
+    <div id="calendarPopupEntrega" class="popupEntrega">
+        <div class="popup-contentEntrega">
+            <span class="closeEntrega">&times;</span>
+            <form id="scheduleFormEntrega">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required><br>
                 <label for="nome">Local Entrega:</label>
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <h2>Agendamentos</h2>
+    <h2>Entrega</h2>
     <table id="agendamentos">
         <thead>
             <tr>
@@ -43,11 +43,12 @@
                 <th>Carro Selecionado</th>
             </tr>
         </thead>
-        <tbody id="agendamentosBody">
+        <tbody id="agendamentosBodyEntrega">
             <!-- Dados serão preenchidos dinamicamente aqui -->
         </tbody>
     </table>
 
-    <script src="script/agenda.js"></script>
+    <script src="script/popup.js"></script>
+    <script src="script/entrega.js"></script>
 </body>
 </html>
