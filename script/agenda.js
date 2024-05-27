@@ -85,3 +85,25 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   });
 });
+/*
+document.addEventListener('DOMContentLoaded', function() {
+    const showCalendarButton = document.getElementById('showCalendar');
+    const overlay = document.getElementById('overlay');
+    const calendarPopup = document.getElementById('calendarPopup');
+    const closePopupButton = document.querySelector('.close-popup');
+
+    showCalendarButton.addEventListener('click', function() {
+        overlay.style.display = 'block';
+        calendarPopup.style.display = 'block';
+    });
+
+    closePopupButton.addEventListener('click', function() {
+        overlay.style.display = 'none';
+        calendarPopup.style.display = 'none';
+    });
+
+    overlay.addEventListener('click', function() {
+        overlay.style.display = 'none';
+        calendarPopup.style.display = 'none';
+    });
+});*/

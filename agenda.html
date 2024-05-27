@@ -3,34 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHECK-IN</title>
+    <title>AGENDA</title>
     <link rel="stylesheet" href="estilos/visual.css">
+    <style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Evitar barras de rolagem horizontais */
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between; 
+        min-height: 100vh;
+    }
+    </style>
 </head>
-<body>
+<body class="Agenda">
     <div id="logo">
         <a href="vamoInicial.html"><img src="Imagens/logovamo325x132.png" alt="logo" id="logo"></a>
     </div>
     
     <h1>AGENDA</h1>
-    <button id="showCalendar">AGENDAR</button>
+    <button id="showCalendarAgenda">AGENDAR</button>
 
-    <div id="calendarPopup" class="popup">
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <form id="scheduleForm">
+    <div id="overlayAgenda"></div>
+
+    <div id="calendarPopupAgenda" class="popup-containerAgenda">
+        <div class="popup-contentAgenda">
+            <span class="close-popupAgenda">&times;</span>
+            <form id="scheduleFormAgenda">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required><br>
                 <label for="startDate">Data de Início:</label>
                 <input type="date" id="startDate" name="startDate" required><br>
-                <label for="nome">Local da Origem:</label>
+                <label for="origem">Local da Origem:</label>
                 <input type="text" id="origem" name="origem" required><br>
-                <label for="nome">Rota:</label>
+                <label for="rota">Rota:</label>
                 <input type="text" id="rota" name="rota" required><br>
-                <label for="inicial">km Inicial:</label>
+                <label for="km_inicial">km Inicial:</label>
                 <input type="number" id="km_inicial" name="km_inicial" required><br>
                 <label for="carSelect">Escolha um carro:</label>
-                <select id="carSelect">
-                    <option value="carro0">-Selecione um carro-</option>
+                <select id="carSelect" name="carSelect" required>
+                    <option value="">-Selecione um carro-</option>
                     <option value="carro1">MOBI - PPK_1234</option>
                     <option value="carro2">AUDI - PPX_3456</option>
                 </select>
@@ -54,8 +73,7 @@
         </tbody>
     </table>
 
-    <!-- Referência para o arquivo JavaScript do pop-up -->
-    <script src="popup.js"></script>
+    <script src="script/popup.js"></script>
     <script src="script/agenda.js"></script>
 </body>
 </html>

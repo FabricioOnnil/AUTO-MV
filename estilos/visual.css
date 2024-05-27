@@ -27,7 +27,8 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 70px;
+    padding-bottom: 20px;
 }
 
 #cabeçalho img {
@@ -48,19 +49,39 @@ body {
     height: auto;
 }
 
-/* Centralizar e alinhar as imagens dos botões em paralelo */
-#botoes {
+/* Centralizar e alinhar as imagens dos botões em paralelo 
+#bot_links {
     align-items: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: center;
-    gap: 100px; 
+    gap: 1px; 
     width: 100vw;
     height: 100vh;
     max-width: 900px;
     margin-bottom: 2px;
-    padding: 0 10px; /* Adicionar padding para evitar overflow */
+    padding: 20px 20px; /* Adicionar padding para evitar overflow 
+} */
+
+#bot_links {
+    align-items: center;
+    display: flex;
+    flex-direction: column; /* Coluna para alinhar as imagens verticalmente */
+    justify-content: center;
+    gap: 100px; /* Espaçamento entre os botões */
+    margin: 20 20px auto; /* Centraliza o contêiner horizontalmente */
 }
+
+#bot_links a {
+    display: inline-block; /* Garante que o link envolva apenas o conteúdo (imagem) */
+}
+
+#bot_links img {
+    display: block; /* Remove qualquer espaço em branco ao redor da imagem */
+    max-width: 100%; /* Ajusta a largura máxima da imagem */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
 
 #botoes button {
     background: none;
@@ -73,7 +94,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100px; /* Define uma altura para os botões */
-    margin-bottom: 10px; /* Adicionar margem inferior para espaçamento entre os botões */
+    margin-bottom: 0px; /* Adicionar margem inferior para espaçamento entre os botões */
 }
 
 #botoes button img {
@@ -110,7 +131,7 @@ footer img {
     }
 }
 
-/*----------------------------------*/
+/*Login----------------------------------*/
 
 /* Estilos gerais para garantir a responsividade */
 * {
@@ -193,9 +214,9 @@ html, body {
     }
 }
 
-/*-----------------------------------------------------*/
+/*Agenda-----------------------------------------------------*/
 
-body {
+.Agenda {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -214,6 +235,32 @@ h1 {
     box-shadow: 0 2px 4px rgba(0, 128, 0, 0.5);
 }
 
+/* Botão de agendamento */
+#showCalendarAgenda {
+    background-color: lightgreen;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+#showCalendarAgenda:hover {
+    background-color: darkgreen;
+}
+
+/* Estilo do overlay (fundo cinza) */
+#overlayAgenda {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
 .month-navigation {
     margin: 20px;
     display: flex;
@@ -272,7 +319,7 @@ h1 {
     background-color: #ccffcc; /* Cor de fundo para o dia atual */
 }
 
-.popup-container {
+.popup-containerAgenda {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -282,20 +329,90 @@ h1 {
     background-color: white;
     padding: 20px;
     border: 2px solid green;
-    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
     display: none;
     z-index: 1000;
 }
 
-.popup-content {
-    text-align: center;
+.popup-contentAgenda {
+    text-align: left;
+    position: relative;
 }
 
-.close-popup {
-    float: right;
+.close-popupAgenda {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     cursor: pointer;
 }
 
+/* Estilo do formulário */
+#scheduleFormAgenda {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#scheduleFormAgenda label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#scheduleFormAgenda input[type="text"],
+#scheduleFormAgenda input[type="date"],
+#scheduleFormAgenda input[type="number"],
+#scheduleFormAgenda select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#scheduleFormAgenda button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+    font-weight: bold;
+}
+
+#scheduleFormAgenda button:hover {
+    background-color: darkgreen;
+}
+
+/* Estilo da tabela de agendamentos */
+#agendamentos {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 1000px;
+    background-color: white;
+    border: 2px solid green;
+    box-shadow: 0 2px 4px rgba(0, 128, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+#agendamentos th, #agendamentos td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+#agendamentos th {
+    background-color: #e0e0e0;
+}
+
+#agendamentos tr {
+    border-bottom: 0.5px solid green;
+}
+
+#agendamentos tr:hover {
+    background-color: #f1f1f1;
+}
 
 /*----------------------------*/
 
@@ -377,17 +494,18 @@ div {
 
 /* Estilo padrão para o botão */
 #showCalendar {
-    background-color: lightgreen; /* Fundo verde claro */
-    color: black; /* Texto preto */
-    border: none; /* Sem borda */
-    padding: 10px 20px; /* Espaçamento interno */
-    cursor: pointer; /* Cursor em forma de ponteiro */
-    transition: background-color 0.3s; /* Transição suave para mudança de cor de fundo */
+    background-color: lightgreen; 
+    color: black; 
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
 }
 
 /* Estilo hover para o botão */
 #showCalendar:hover {
-    background-color: darkgreen; /* Fundo verde escuro quando o mouse passar por cima */
+    background-color: darkgreen; 
 }
 
 /*---------------------*/
@@ -396,12 +514,12 @@ div {
 #overlay {
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0;    
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Cinza com 50% de opacidade */
-    z-index: 999; /* Z-index alto para cobrir todo o conteúdo */
-    display: none; /* Inicialmente oculto */
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
+    display: none; 
 }
 
 /* Estilo do container da janela pop-up */
@@ -411,22 +529,23 @@ div {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    border: 2px solid green; /* Borda verde */
-    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5); /* Sombra verde */
-    z-index: 1000; /* Z-index mais alto para aparecer sobre o overlay */
+    border: 2px solid green;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5); 
+    z-index: 1000; 
     padding: 20px;
-    display: none; /* Inicialmente oculto */
+    display: none; /
 }
 
 /* Estilo do conteúdo da janela pop-up */
 .popup-content {
     text-align: center;
+    text-align: relative;
 }
 
 /* Estilo para o botão de fechar a janela pop-up */
 .close-popup {
     position: absolute;
-    top: 5px;
+    top: 10px;
     right: 10px;
     cursor: pointer;
 }
