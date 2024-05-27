@@ -4,58 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa</title>
-    <!-- Adicione a chave da API do Google Maps aqui -->
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDc_w37trL25tuSK2q-m8hKTuAg5u440Q"></script>    
-    <link rel="stylesheet" href="estilos/visual.css"> 
+    <link rel="stylesheet" href="estilos/visual.css">   
 
 </head>
+
 <body>
     <div id="logo">
         <a href="vamoInicial.html"><img src="Imagens/logovamo325x132.png" alt="logo" id="logo"></a>
     </div>
         
-    <h1>VAMO</h1>
-    <button id="openModalBtn">Rota</button>
-    <!--<button id="geoLocationBtn">Localizar-me</button> -->
-    <!-- Estrutura da janela modal -->
+    <button id="openModalBtn">ROTA</button>
+    
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-             <form id="routeForm">
+            <form id="routeForm">
                 <label for="origin">Origem:</label>
-                <input type="text" id="origin" name="origin" required><br><br>
+                <select id="origin" required>
+                  <option value="Alegre, es">MV-Alegre</option>
+                  <option value="Castelo, es">MV-Castelo</option>
+                  <option value="Muniz Freire, es">MV-Muniz Freire</option>
+                </select><br><br>
 
                 <label for="destination">Destino:</label>
-                <input type="text" id="destination" name="destination" required><br><br>
-        <button type="submit">Calcular Rota</button>
-    </form>
-    </div>
-    </div>
-    <div id="map"></div>
-    <div>
-        <strong>Inicio:</strong>
-        <select id="start" onchange="calcRoute();">
-          <option value="Alegre, es">MV-Alegre</option>
-          <option value="Castelo, es">MV-Castelo</option>
-          <option value="jMuniz Freire, es">MV - Muniz Freire</option>        
-        </select>
-        <strong>Fim: </strong>
-        <select id="end" onchange="calcRoute();">
-            <option value="Alegre, es">MV-Alegre</option>
-            <option value="Castelo, es">MV-Castelo</option>
-            <option value="jMuniz Freire, es">MV - Muniz Freire</option>
-        </select>
-        <strong>Indo: </strong>
-        <select id="mode" onchange="calcRoute();">
-          <option value="DRIVING">Dirigindo</option>
-          <option value="WALKING">Andando</option>
-          <option value="BICYCLING">Bicicletando</option>
-          <option value="TRANSIT">Transito</option>
-        </select>
+                <input type="text" id="destination" name="destination" placeholder="Digite o endereço ou clique no mapa" required><br><br>
+
+                <button type="submit">Calcular Rota</button>
+            </form>
         </div>
-        <div>
-            </div>
-    <script src="script/maps.js"></script> <!-- Arquivo JS para inicializar o mapa -->
+    </div>
+
+    <div id="map"></div>
+       
+    <script src="script/maps.js"></script> 
     
 </body>
 </html>
