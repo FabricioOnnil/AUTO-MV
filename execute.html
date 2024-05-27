@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vamo</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDc_w37trL25tuSK2q-m8hKTuAg5u440Q"></script> 
     <link rel="stylesheet" href="estilos/visual.css">
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
-<body>
-    <section>
-        <header>
-            <img src="Imagens/logoazulsemfindo.png" alt="Logo" id="logo">
-        </header>
-    </section>
+<body onload="initMaps()">
+    <div id="logo">
+        <a href="vamoInicial.html"><img src="Imagens/logovamo325x132.png" alt="logo" id="logo"></a>
+    </div>
     
     <div id="map"></div>
     
