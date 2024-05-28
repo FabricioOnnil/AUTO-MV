@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('canvas');
     const snapButton = document.getElementById('snap');
     const purchaseForm = document.getElementById('purchaseForm');
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modal-image');
+    const closeModal = document.getElementById('close');
 
     let capturedImage = null;
 
@@ -18,15 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => {
                 console.error("Erro ao acessar a câmera: ", err);
+                alert("Erro ao acessar a câmera: " + err.message);
             });
+    } else {
+        alert("Navegador não suporta acesso à câmera.");
     }
 
     // Capturar imagem ao clicar no botão "Foto Nota Fiscal"
     snapButton.addEventListener('click', (event) => {
         event.preventDefault();
-        const context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        capturedImage = canvas.toDataURL('image/png');
+        if (video.srcObject) {
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            capturedImage = canvas.toDataURL('image/png');
+            modalImage.src = capturedImage;
+            modal.style.display = "block";
+        } else {
+            alert("Câmera não está acessível.");
+        }
+    });
+
+    // Fechar modal
+    closeModal.addEventListener('click', () => {
+        modal.style.display = "none";
     });
 
     // Registrar compra ao submeter o formulário
@@ -60,5 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
         capturedImage = null;
         const context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
+        modal.style.display = "none";
+    });
+
+    // Fechar modal ao clicar fora do conteúdo
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
     });
 });
