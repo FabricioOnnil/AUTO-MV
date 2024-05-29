@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ENTREGA</title>
     <link rel="stylesheet" href="estilos/visual.css">
+    <style>
+        body {
+            background-image:  linear-gradient( rgb(180, 230, 180), rgb(232, 241, 232));
+        }
+    </style>
 </head>
 <body class="Entrega">
     <section id="cabeçalho">
@@ -23,7 +28,7 @@
                 <input type="text" id="nome" name="nome" required><br>
                 <label for="startDate">Data de Início:</label>
                 <input type="date" id="startDate" name="startDate" required><br>
-                <label for="origem">Local da Origem:</label>
+                <label for="origem">Local da Entrega:</label>
                 <input type="text" id="origem" name="origem" required><br>
                 <label for="rota">Rota:</label>
                 <input type="text" id="rota" name="rota" required><br>
@@ -54,7 +59,11 @@
             <!-- Dados serão preenchidos dinamicamente aqui -->
         </tbody>
     </table>
-
+    <footer>
+        <a href="https://mvgi.com.br/">
+            <img src="Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
+        </a>
+    </footer>
     <script src="script/entrega.js"></script>
 </body>
 </html>
