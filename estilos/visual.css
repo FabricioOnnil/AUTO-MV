@@ -16,7 +16,6 @@ html, body {
     justify-content: center;
     height: 100vh;
     background-color: #f4f4f4;
-    margin: 0;
     overflow-x: hidden; /* Evitar barras de rolagem horizontais */
     justify-content: space-between;
    
@@ -106,13 +105,13 @@ button:hover {
 }
 
 
-/* Centralizar e tornar responsivo o cabeçalho */
+
 #cabeçalho {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     padding-bottom: 30px;
 }
 
@@ -417,26 +416,70 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
 }
 
-#calendario th {
-    background-color: #e0e0e0;
-    padding: 10px;
-    border: 1px solid #ccc;
-}
-
-#calendario td {
+#calendario th, #calendario td {
     text-align: center;
     padding: 8px;
     border: 1px solid #ccc;
+    white-space: nowrap;
+
+    
 }
 
+
 .has-event {
-    background-color: #ffcccc; /* Cor de fundo para dias com eventos */
+    background-color: #07691c; /* Cor de fundo para dias com eventos */
     cursor: pointer;
 }
 
 .today {
     background-color: #ccffcc; /* Cor de fundo para o dia atual */
 }
+
+.popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border: 2px solid green;
+    box-shadow: 0 0px 10px rgba(0, 128, 0, 0.5);
+    display: none;
+    z-index: 1000;
+}
+
+.popup-content {
+    text-align: center;
+    position: relative;
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .month-navigation {
+        flex-direction: column;
+    }
+
+    #prevMonth, #nextMonth, #currentMonth {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    #calendario {
+        width: 100%;
+    }
+}
+
+/*----------------------------------------*/
+
 
 .popup-containerAgenda {
     position: fixed;
