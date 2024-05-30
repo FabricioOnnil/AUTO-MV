@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const mysql = require('mysql2/promise');  // Usar mysql2/promise para suportar promessas
+const mysql = require('mysql2');
+const util = require('util');  // Importar util para promisify
+
 const app = express();
 const PORT = 3000;
 
@@ -17,24 +19,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configuração da conexão com o banco de dados MySQL
-const dbConfig = {
+const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '8mtkjg',
-    database: 'vamomv'
-};
+    database: 'vamo_auto_mv'
+});
 
-const db = mysql.createPool(dbConfig);
-
-// Verificação da conexão com o banco de dados
-db.getConnection()
-    .then(conn => {
-        console.log('Conexão ao banco de dados estabelecida');
-        conn.release();
-    })
-    .catch(err => {
+// Conectar ao banco de dados
+db.connect((err) => {
+    if (err) {
         console.error('Erro ao conectar ao banco de dados:', err);
-    });
+        return;
+    }
+    console.log('Conectado ao banco de dados.');
+});
+
+// Promisify db.query para usar com async/await
+const query = util.promisify(db.query).bind(db);
 
 // Rota para salvar agendamento
 app.post('/vamocompleto/salvarAgendamento', async (req, res) => {
@@ -43,12 +45,26 @@ app.post('/vamocompleto/salvarAgendamento', async (req, res) => {
     const values = [nome, data_inicio, data_termino, carro];
 
     try {
-        const [result] = await db.query(sql, values);
+        await query(sql, values);
         console.log('Agendamento inserido com sucesso');
         res.status(200).send('Agendamento salvo com sucesso');
     } catch (err) {
         console.error('Erro ao inserir agendamento:', err);
         res.status(500).send('Erro ao salvar agendamento no banco de dados');
+    }
+});
+
+// Rota para armazenar dados
+app.post('/api/armazenar', async (req, res) => {
+    const { nome, email } = req.body;
+    const queryText = 'INSERT INTO usuarios (nome, email) VALUES (?, ?)';
+    
+    try {
+        await query(queryText, [nome, email]);
+        res.status(200).send('Dados armazenados com sucesso.');
+    } catch (err) {
+        console.error('Erro ao inserir dados:', err);
+        res.status(500).send('Erro ao armazenar dados.');
     }
 });
 
@@ -73,22 +89,35 @@ const users = [
     { username: 'user2', password: 'pass2' }
 ];
 
-// Rota para login
-app.post('/login', (req, res) => {
+/// Rota para autenticação de login
+app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-        console.log("Login bem-sucedido");
-        res.json({ success: true });
-    } else {
-        res.status(401).json({ success: false, message: 'Usuário inválido, tente de novo' });
+    console.log('Recebido', {username, password});
+
+    const sql = 'SELECT * FROM usuarios WHERE primeiro_nome = ? AND senha_usuario = ?';
+    const values = [username, password];
+
+    try {
+        const [results] = await query(sql, values);
+        console.log('Resultados da consulta:', results);
+
+        if (results.length > 0) {
+            // Usuário encontrado e senha correta
+            res.json({ success: true });
+        } else {
+            // Usuário não encontrado ou senha incorreta
+            res.status(401).json({ success: false, message: 'Usuário ou senha incorretos.' });
+        }
+    } catch (err) {
+        console.error('Erro ao autenticar usuário:', err);
+        res.status(500).send('Erro ao autenticar usuário');
     }
 });
 
 // Rota para buscar refeições
 app.get('/refeicao', async (req, res) => {
     try {
-        const [results] = await db.query('SELECT * FROM refeicao');
+        const results = await query('SELECT * FROM refeicao');
         res.json(results);
     } catch (err) {
         console.error('Erro ao buscar refeição:', err);
@@ -103,7 +132,7 @@ app.post('/refeicao', async (req, res) => {
     const values = [descricao, valor, data_compra, foto];
 
     try {
-        await db.query(sql, values);
+        await query(sql, values);
         res.status(201).send('Compra inserida com sucesso');
     } catch (err) {
         console.error('Erro ao inserir refeição:', err);
@@ -111,7 +140,7 @@ app.post('/refeicao', async (req, res) => {
     }
 });
 
-// Rota para agendar
+/* Rota para agendar
 app.post('/agenda', async (req, res) => {
     const { nome, startDate, endDate } = req.body;
 
@@ -122,41 +151,41 @@ app.post('/agenda', async (req, res) => {
     const values = [nome, data_inicio, data_termino];
 
     try {
-        await db.query(sql, values);
+        await query(sql, values);
         res.status(201).send('Agendamento inserido com sucesso');
     } catch (err) {
         console.error('Erro ao inserir agendamento:', err);
         res.status(500).send('Erro ao inserir agendamento');
     }
-});
+});*/
 
-// Rota para buscar agendamentos
+/* Rota para buscar agendamentos
 app.get('/agendamentos', async (req, res) => {
     try {
-        const [results] = await db.query('SELECT * FROM agendamentos');
+        const results = await query('SELECT * FROM agendamentos');
         console.log('Agendamentos encontrados:', results);
         res.json(results);
     } catch (err) {
         console.error('Erro ao buscar agendamentos:', err);
         res.status(500).send('Erro ao buscar agendamentos');
     }
-});
+}); */
 
-// Rota para buscar eventos por data
+/* Rota para buscar eventos por data
 app.get('/eventos/:dia/:mes/:ano', async (req, res) => {
     const { dia, mes, ano } = req.params;
     const sql = 'SELECT * FROM tabela_agendamentos WHERE DAY(data_inicio) = ? AND MONTH(data_inicio) = ? AND YEAR(data_inicio) = ?';
     const values = [dia, mes, ano];
 
     try {
-        const [results] = await db.query(sql, values);
+        const results = await query(sql, values);
         const hasEvents = results.length > 0;
         res.json({ hasEvents });
     } catch (err) {
         console.log("Erro ao consultar o banco de dados:", err);
         res.status(500).send("Erro ao consultar eventos");
     }
-});
+});*/
 
 // Iniciar o servidor
 app.listen(PORT, () => {
