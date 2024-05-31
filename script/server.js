@@ -38,6 +38,20 @@ db.connect((err) => {
 // Promisify db.query para usar com async/await
 const query = util.promisify(db.query).bind(db);
 
+// Servir arquivos estáticos
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// Rota para servir a página inicial
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+});
+
+// Rota para servir a página do dashboard
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend', 'dashboard.html'));
+});
+
+
 // Rota para salvar agendamento
 app.post('/vamocompleto/salvarAgendamento', async (req, res) => {
     const { nome, data_inicio, data_termino, carro } = req.body;
@@ -68,15 +82,6 @@ app.post('/api/armazenar', async (req, res) => {
     }
 });
 
-// Rota para servir a página inicial
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Rota para servir a página do dashboard
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dashboard.html'));
-});
 
 // Rota para servir o arquivo JSON de carros
 app.get('/banco/carros.json', (req, res) => {
