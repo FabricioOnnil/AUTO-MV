@@ -1,38 +1,37 @@
 const mysql = require('mysql');
 
+// Configurar a conexão com o banco de dados
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: 'locahost',
   user: 'root',
   password: '8mtkjg',
-  database: 'vamomv'
+  database: 'vamo_auto_mv'
 });
 
-connection.connect(err => {
+// Conectar ao banco de dados
+connection.connect((err) => {
   if (err) {
-    console.error('Erro ao conectar ao banco de dados:', err);
+    console.error('Erro ao conectar ao banco de dados: ' + err.stack);
     return;
   }
-  console.log('Conectado ao banco de dados MySQL.');
-
-  const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS agendamentos (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      nome VARCHAR(255) NOT NULL,
-      startDate DATE NOT NULL,
-      origem VARCHAR(255) NOT NULL,
-      rota VARCHAR(255) NOT NULL,
-      km_inicial INT NOT NULL,
-      carSelect VARCHAR(255) NOT NULL
-    )
-  `;
-
-  connection.query(createTableQuery, (err, results, fields) => {
-    if (err) {
-      console.error('Erro ao criar tabela:', err);
-      return;
-    }
-    console.log('Tabela agendamentos pronta.');
-  });
+  console.log('Conexão bem-sucedida ao banco de dados com o ID ' + connection.threadId);
 });
 
-module.exports = connection;
+// Função para inserir os dados na tabela abastecimento
+function inserirAbastecimento(descricao, valor, data, imagem) {
+  const sql = "INSERT INTO abastecimento (descricao_abast, valor_abast, data_abast, img_abast) VALUES (?, ?, ?, ?)";
+  const values = [descricao, valor, data, imagem];
+  
+  connection.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Erro ao inserir registro de abastecimento: ' + err.message);
+      return;
+    }
+    console.log('Registro de abastecimento inserido com sucesso.');
+  });
+}
+
+module.exports = {
+  inserirAbastecimento
+};
+

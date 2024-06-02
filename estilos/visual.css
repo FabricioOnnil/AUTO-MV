@@ -106,7 +106,7 @@ button:hover {
 
 
 
-#cabeçalho {
+#cabecalho {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -115,7 +115,7 @@ button:hover {
     padding-bottom: 30px;
 }
 
-#cabeçalho img {
+#cabecalho img {
     max-width: 100%;
     height: auto;
 }
@@ -752,7 +752,7 @@ button {
     cursor: pointer; /* Cursor em forma de ponteiro para indicar que é clicável */
 }
 
-/* Estilos gerais para o cabeçalho e corpo */
+/* Estilos gerais para o cabecalho e corpo */
 body {
     font-family: Arial, sans-serif; /* Fonte do corpo do documento */
     line-height: 1.6; /* Espaçamento entre linhas */
@@ -760,7 +760,7 @@ body {
 
 h1 {
     color: green; /* Torna o texto "Bem-Vindo" verde */
-    text-align: center; /* Centraliza o cabeçalho */
+    text-align: center; /* Centraliza o cabecalho */
     background-color: rgb(219, 243, 235);
 }
 
