@@ -3,9 +3,25 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql2');
 const util = require('util');
-const db = require('./database');
+const multer = require('multer');
 const app = express();
 const PORT = 3000;
+
+require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
+
+// Configuração do pool de conexões
+const pool = mysql.createPool({
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'vamo_auto_mv',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
+
+// Exporta o pool de conexões para uso em outros módulos
+module.exports = pool.promise();
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -18,64 +34,33 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '8mtkjg',
-    database: 'vamo_auto_mv'
-});
 
-
-
-const query = util.promisify(db.query).bind(db);
+const query = util.promisify(pool.query).bind(pool);
 
 app.use(express.static('public'));
 
+// Configuração do multer para upload de arquivos
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+    res.sendFile(path.join(__dirname, '../frontend', 'abastecimento.html'));
 });
 
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend', 'dashboard.html'));
-});
+app.post('/registrarAbastecimento', upload.single('imagem'), async (req, res) => {
+    const { descricao, valor, data } = req.body;
+    const imagem = req.file;
 
-app.post('/api/login', async (req, res) => {
-    const { username, password } = req.body;
-    console.log('Recebido', {username, password});
+    // Validação de campos básica
+    if (!descricao || isNaN(parseFloat(valor)) || !Date.parse(data) || !imagem) {
+        return res.status(400).json({ success: false, message: 'Todos os campos são obrigatórios e devem estar em formatos válidos.' });
+    }
 
-    const sql = 'SELECT * FROM usuario WHERE primeiro_nome = ? AND senha_usuario = ?';
-    const values = [username, password];
+    const sql = 'INSERT INTO abastecimento (descricao_abast, valor_abast, data_abast, img_abast) VALUES (?, ?, ?, ?)';
+    const values = [descricao, valor, data, imagem.buffer];
 
     try {
-        const [results] = await query(sql, values);
-        console.log('Resultados da consulta:', results);
-
-        if (results.length > 0) {
-            res.json({ success: true });
-        } else {
-            res.status(401).json({ success: false, message: 'Usuário ou senha incorretos.' });
-        }
-    } catch (err) {
-        console.error('Erro ao autenticar usuário:', err);
-        res.status(500).send('Erro ao autenticar usuário');
-    }
-});
-
-app.post('/registrarAbastecimento', (req, res) => {
-    const { descricao, valor, data, imagem } = req.body;
-
-    // Chamar a função do módulo de banco de dados para inserir os dados na tabela
-    db.inserirAbastecimento(descricao, valor, data, imagem)
-        .then(result => {
-            res.json({ success: true, message: 'Dados inseridos com sucesso.' });
-        })
-        .catch(error => {
-            res.status(500).json({ success: false, message: 'Erro ao inserir dados no banco de dados.' });
-        });
-});
-
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
-
-
+        await query(sql, values);
+        res.json({ success: true, message: 'Dados inseridos com sucesso.' });
+    } catch (err)
+})
