@@ -27,6 +27,25 @@ document.addEventListener("DOMContentLoaded", function() {
         carro2: 'AUDI - PPX_3456'
     };
 
+    // Função para armazenar os dados no localStorage
+    function storeFormData(nome, startDate, origem, carName) {
+        const formData = {
+            nome,
+            startDate,
+            origem,
+            carName
+        };
+
+        // Obter os agendamentos existentes do localStorage
+        const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+
+        // Adicionar o novo agendamento
+        agendamentos.push(formData);
+
+        // Salvar de volta no localStorage
+        localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+    }
+
     scheduleForm.addEventListener("submit", function(event) {
         event.preventDefault(); // Evita o comportamento padrão de envio do formulário
 
@@ -38,6 +57,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Obter o nome do carro do mapa
         const carName = carMap[carSelect] || 'Carro não selecionado';
+
+        // Armazenar os dados no localStorage
+        storeFormData(nome, startDate, origem, carName);
 
         // Adicionar os dados na tabela
         const agendamentosBody = document.getElementById("agendamentosBody");
@@ -60,4 +82,26 @@ document.addEventListener("DOMContentLoaded", function() {
         // Limpar o formulário
         scheduleForm.reset();
     });
+
+    // Carregar os dados do localStorage e preencher a tabela de agendamentos
+    function loadFormData() {
+        const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+        const agendamentosBody = document.getElementById("agendamentosBody");
+
+        agendamentos.forEach(formData => {
+            const newRow = agendamentosBody.insertRow();
+
+            const nomeCell = newRow.insertCell(0);
+            const startDateCell = newRow.insertCell(1);
+            const origemCell = newRow.insertCell(2);
+            const carSelectCell = newRow.insertCell(3);
+
+            nomeCell.textContent = formData.nome;
+            startDateCell.textContent = formData.startDate;
+            origemCell.textContent = formData.origem;
+            carSelectCell.textContent = formData.carName;
+        });
+    }
+
+    loadFormData();
 });

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const currentMonthSpan = document.getElementById('currentMonth');
     const prevMonthBtn = document.getElementById('prevMonth');
     const nextMonthBtn = document.getElementById('nextMonth');
-    const popupContainer = document.getElementById('popup-containerTwo'); 
+    const popupContainer = document.getElementById('popup-containerTwo');
     const closeButton = document.querySelector('.close-popup');
 
     let currentDate = new Date();
@@ -18,26 +18,18 @@ document.addEventListener("DOMContentLoaded", function() {
         currentMonthSpan.textContent = `${currentDate.toLocaleString('pt-BR', { month: 'long' })} ${currentYear}`;
     }
 
-    function hasEvents(day, month, year) {
-           // Faça uma requisição para o backend para verificar se há eventos agendados
-    fetch(`http://localhost:3000/eventos/${day}/${month}/${year}`)
-    .then(response => response.json())
-    .then(data => {
-        if (data.hasEvents) {
-            // Se houver eventos, adicione a classe e o evento de clique
-            const cell = getCellByDate(day);
-            cell.classList.add('has-event');
-            cell.addEventListener('click', () => showPopup(day, month, year));
-        }
-    })
-    .catch(error => {
-        console.error('Erro ao verificar eventos:', error);
-    });
+    function getEventsForDay(day, month, year) {
+        const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+        return agendamentos.filter(agendamento => {
+            const agendamentoDate = new Date(agendamento.startDate);
+            return agendamentoDate.getDate() === day && agendamentoDate.getMonth() === month && agendamentoDate.getFullYear() === year;
+        });
     }
 
     function showPopup(day, month, year) {
         popupContainer.style.display = 'block';
-        console.log(`Mostrando eventos para ${day}/${month + 1}/${year}`);
+        const events = getEventsForDay(day, month, year);
+        console.log(`Eventos para ${day}/${month + 1}/${year}:`, events);
     }
 
     function fillCalendar(month, year) {
@@ -60,10 +52,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             const cell = row.insertCell();
             cell.textContent = day;
-            if (hasEvents(day, month, year)) {
+
+            const events = getEventsForDay(day, month, year);
+            if (events.length > 0) {
                 cell.classList.add('has-event');
                 cell.addEventListener('click', () => showPopup(day, month, year));
             }
+
             if (day === currentDay && month === currentMonth && year === currentYear) {
                 cell.classList.add('today');
             }
@@ -96,19 +91,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
     fillCalendar(currentMonth, currentYear); // Chama inicialmente para o mês atual
 });
-
-// Função para obter a célula correspondente à data
-function getCellByDate(day) {
-    // Obtém todas as células da tabela
-    const cells = document.querySelectorAll('#calendarioBody td');
-
-    // Itera sobre as células para encontrar a célula correspondente ao dia
-    for (let cell of cells) {
-        if (cell.textContent === day.toString()) {
-            return cell;
-        }
-    }
-
-    // Retorna null se a célula correspondente não for encontrada
-    return null;
-}
