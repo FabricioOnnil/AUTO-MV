@@ -25,20 +25,25 @@
             <span class="close-popupEntrega">&times;</span>
             <form id="scheduleFormEntrega">
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required><br>
-                <label for="startDate">Data de Início:</label>
-                <input type="date" id="startDate" name="startDate" required><br>
-                <label for="origem">Local da Entrega:</label>
-                <input type="text" id="origem" name="origem" required><br>
+                <input type="text" id="nome" name="nome" required>
+                <label for="startDate">Data:</label>
+                <input type="date" id="startDate" name="startDate" required>
+                <label for="startTime">Hora: </label>
+                <input type="time" id="startTime" name="startTime" required>
+                <label for="destiny">Escritório de Entrega:</label>
+                <select id="destinySelect" name="destinySelect" requered>
+                    <option value="">-Selecione o Escritório-</option>
+                    <option value="Escritório 1">  Alegre </option>
+                    <option value="E 2">  Castelo </option>
+                    <option value="Escritorio 3">  Muniz Freire </option>
+                    <option value="Escritorio 3">  Guaçuí </option>
+                </select>
                 <label for="rota">Rota:</label>
-                <input type="text" id="rota" name="rota" required><br>
-                <label for="km_inicial">km Inicial:</label>
-                <input type="number" id="km_inicial" name="km_inicial" required><br>
-                <label for="carSelect">Escolha um carro:</label>
-                <select id="carSelect" name="carSelect" required>
-                    <option value="">-Selecione um carro-</option>
-                    <option value="carro1">MOBI - PPK_1234</option>
-                    <option value="carro2">AUDI - PPX_3456</option>
+                <input type="text" id="rota" name="rota" required>
+                <label for="km_final">km Final:</label>
+                <input type="number" id="km_final" name="km_final" required>
+                <label for="carSelect">Entrega do Carro:</label>
+                <select id="carSelect" name="carSelect" required> <!--Aqui Preciso que seja só um descarte do carro selecionado no agendamento-->
                 </select>
                 <button type="submit">Agendar</button>
             </form>

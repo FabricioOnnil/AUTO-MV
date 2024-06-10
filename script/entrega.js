@@ -1,8 +1,3 @@
-
-
-
-
-
 // Função para abrir a janela pop-up
 function openPopup() {
     const overlay = document.getElementById('overlayEntrega');

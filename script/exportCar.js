@@ -4,9 +4,9 @@ const fs = require('fs');
 // Configuração da conexão com o banco de dados
 const connection = mysql.createConnection({
     host: '10.3.152.165',    
-    user: 'FabricioRocha',  
-    password: 'F1Rocha2!', 
-    database: 'vamocompleto' 
+    user: 'root',  
+    password: '8mtkjg', 
+    database: 'vamo_auto_mv' 
 });
 
 // Conectar ao banco de dados
