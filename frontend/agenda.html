@@ -13,7 +13,7 @@
     
 </head>
 <body class="Agenda">
-    <section id="cabeçalho">
+    <section id="cabecalho">
         <a href="/frontend/dashboard.html"><img src="/Imagens/logonew325.png" alt="Logo Vamo"></a></section>
         
     <h1>AGENDAR O USO DO CARRO</h1><br>
@@ -26,15 +26,23 @@
             <span class="close-popupAgenda">&times;</span>
             <form id="scheduleFormAgenda">
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required><br>
-                <label for="startDate">Data de Início:</label>
-                <input type="date" id="startDate" name="startDate" required><br>
-                <label for="origem">Local da Origem:</label>
-                <input type="text" id="origem" name="origem" required><br>
+                <input type="text" id="nome" name="nome" required>
+                <label for="startDate">Data de recepção:</label>
+                <input type="date" id="startDate" name="startDate" required>
+                <label for="startTime">Hora: </label>
+                <input type="time" id="startTime" name="startTime" required>
+                <label for="origemSelect">Escritório de Origem:</label>
+                <select id="origemSelect" name="origemSelect" requered>
+                    <option value="">-Selecione o Escritório-</option>
+                    <option value="Escritório 1">  Alegre </option>
+                    <option value="E 2">  Castelo </option>
+                    <option value="Escritorio 3">  Muniz Freire </option>
+                    <option value="Escritorio 3">  Guaçuí </option>
+                </select>
                 <label for="rota">Rota:</label>
-                <input type="text" id="rota" name="rota" required><br>
+                <input type="text" id="rota" name="rota" required>
                 <label for="km_inicial">km Inicial:</label>
-                <input type="number" id="km_inicial" name="km_inicial" required><br>
+                <input type="number" id="km_inicial" name="km_inicial" required>
                 <label for="carSelect">Escolha um carro:</label>
                 <select id="carSelect" name="carSelect" required>
                     <option value="">-Selecione um carro-</option>
