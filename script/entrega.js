@@ -14,86 +14,72 @@ function closePopup() {
     popupContainer.style.display = 'none';
 }
 
-// Função para armazenar os dados no localStorage
-function storeFormData(nome, startDate, origem, rota, km_inicial, carName) {
-    const formData = {
-        nome,
-        startDate,
-        origem,
-        rota,
-        km_inicial,
-        carName
-    };
-
-    // Obter os agendamentos existentes do localStorage
-    const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-
-    // Adicionar o novo agendamento
-    agendamentos.push(formData);
-
-    // Salvar de volta no localStorage
-    localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+// Função para formatar a data no padrão brasileiro
+function formatDateToBrazilian(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
 }
 
 document.addEventListener("DOMContentLoaded", function() {
     const closePopupButton = document.querySelector('.close-popupEntrega');
-    const showCalendarButton = document.getElementById('showCalendarEntrega');
+    const scheduleForm = document.getElementById('scheduleFormEntrega');
+    const carSelect = document.getElementById('carSelect');
+    const agendamentosBody = document.getElementById("agendamentosBody");
 
-    showCalendarButton.addEventListener('click', function() {
-        openPopup(); // Abre a janela pop-up quando o botão é clicado
-    });
+    // Função para abrir o pop-up com os dados preenchidos
+    function showPopupWithFormData(formData, rowIndex) {
+        document.getElementById("nome").value = formData.nome;
+        document.getElementById("startDate").value = formData.startDate;
+        document.getElementById("startTime").value = formData.startTime || "";
+        document.getElementById("destinySelect").value = formData.destiny || "";
+        document.getElementById("rota").value = formData.rota || "";
+        document.getElementById("km_final").value = formData.km_final || "";
+        carSelect.innerHTML = `<option value="${formData.carSelect}">${formData.carName}</option>`;
+        document.getElementById("rowIndex").value = rowIndex;
 
-    closePopupButton.addEventListener('click', function() {
-        closePopup(); // Fecha a janela pop-up quando o botão de fechar é clicado
-    });
+        openPopup(); // Abre a janela pop-up
+    }
 
-    // Agendamento de data
-    document.getElementById('scheduleFormEntrega').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const nome = document.getElementById('nome').value;
-        const startDate = document.getElementById('startDate').value;
-        const origem = document.getElementById('origem').value;
-        const rota = document.getElementById('rota').value;
-        const km_inicial = document.getElementById('km_inicial').value;
-        const carSelect = document.getElementById('carSelect').value;
-        const carName = carSelect === 'carro1' ? 'MOBI - PPK_1234' : 'AUDI - PPX_3456';
-
-        console.log('Agendamento:', { nome, startDate, origem, rota, km_inicial, carName });
-
-        // Armazenar os dados no localStorage
-        storeFormData(nome, startDate, origem, rota, km_inicial, carName);
-
-        closePopup(); // Fecha a janela pop-up após o envio do formulário
-        alert('Agendamento salvo com sucesso!');
-
-        // Limpar formulário
-        event.target.reset();
-
-        // Atualizar a tabela com os novos dados
-        loadFormData();
-    });
-
-    // Carregar os dados do localStorage e preencher a tabela de agendamentos
-    function loadFormData() {
+    // Função para carregar os agendamentos do localStorage e preencher a tabela
+    function loadAgendamentos() {
         const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-        const agendamentosBody = document.getElementById("agendamentosBody");
-        agendamentosBody.innerHTML = '';
+        agendamentosBody.innerHTML = "";
 
-        agendamentos.forEach(formData => {
+        agendamentos.forEach((formData, index) => {
             const newRow = agendamentosBody.insertRow();
+            newRow.insertCell(0).textContent = formData.nome;
+            newRow.insertCell(1).textContent = formatDateToBrazilian(formData.startDate);
+            newRow.insertCell(2).textContent = formData.origem;
+            newRow.insertCell(3).textContent = formData.carName;
 
-            const nomeCell = newRow.insertCell(0);
-            const startDateCell = newRow.insertCell(1);
-            const origemCell = newRow.insertCell(2);
-            const carSelectCell = newRow.insertCell(3);
-
-            nomeCell.textContent = formData.nome;
-            startDateCell.textContent = formData.startDate;
-            origemCell.textContent = formData.origem;
-            carSelectCell.textContent = formData.carName;
+            const actionCell = newRow.insertCell(4);
+            const entregaButton = document.createElement("button");
+            entregaButton.textContent = "Entrega";
+            entregaButton.addEventListener("click", () => showPopupWithFormData(formData, index));
+            actionCell.appendChild(entregaButton);
         });
     }
 
-    loadFormData();
+    // Fechar a janela pop-up quando o botão de fechar é clicado
+    if (closePopupButton) {
+        closePopupButton.addEventListener('click', closePopup);
+    }
+
+    // Manipular o envio do formulário de entrega
+    if (scheduleForm) {
+        scheduleForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const rowIndex = document.getElementById("rowIndex").value;
+            const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+            agendamentos.splice(rowIndex, 1); // Remove o item correspondente
+            localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+            closePopup();
+            loadAgendamentos();
+        });
+    }
+
+    loadAgendamentos();
 });

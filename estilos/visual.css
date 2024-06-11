@@ -32,8 +32,8 @@ h1 {
 }
 
 button {
-    background-color: lightgreen;
-    color: black;
+    background-color: rgba(9, 117, 9, 0.986);
+    color: rgb(194, 19, 19);
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -42,7 +42,7 @@ button {
 }
 
 button:hover {
-    background-color: darkgreen;
+    background-color: rgb(15, 241, 15);
 }
 
 
@@ -110,9 +110,9 @@ button:hover {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 5px;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
 }
 
 #cabecalho img {
@@ -300,7 +300,7 @@ html, body {
 }
 
 #loginForm button:hover {
-    background-color: darkgreen; /* Mudança de cor ao passar o mouse */
+    background-color: rgb(20, 248, 20); /* Mudança de cor ao passar o mouse */
 }
 
 /* Mensagem de erro */
@@ -358,10 +358,15 @@ h1 {
     background-color: lightgreen;
     color: black;
     border: none;
-    padding: 10px 20px;
+    padding: 0;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-bottom: 20px;
+}
+#showCalendarAgenda img {
+    display: block; 
+    width: 100%; 
+    height: 100%; 
 }
 
 #showCalendarAgenda:hover {
@@ -546,7 +551,7 @@ h1 {
 }
 
 #scheduleFormAgenda button:hover {
-    background-color: darkgreen;
+    background-color: rgba(19, 202, 13, 0.986);
 }
 
 /* Estilo da tabela de agendamentos */
@@ -620,7 +625,7 @@ h1 {
     background-color: lightgreen;
     color: black;
     border: none;
-    padding: 10px 20px;
+    padding: 0;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-bottom: 20px;
@@ -628,6 +633,11 @@ h1 {
 
 #showCalendarEntrega:hover {
     background-color: darkgreen;
+}
+#showCalendarEntrega img {
+    display: block; 
+    width: 100%; 
+    height: 100%; 
 }
 
 #overlayEntrega {
@@ -693,7 +703,7 @@ h1 {
 }
 
 #scheduleFormEntrega button {
-    background-color: green;
+    background-color: rgb(7, 97, 19);
     color: white;
     border: none;
     padding: 15px 20px;
@@ -705,7 +715,7 @@ h1 {
 }
 
 #scheduleFormEntrega button:hover {
-    background-color: darkgreen;
+    background-color: rgb(17, 163, 24);
 }
 
 /*----------------------*/
@@ -868,17 +878,19 @@ h1 {
 }
 
 button {
-    background-color: lightgreen;
-    color: black;
+    background-color: rgba(0, 128, 0, 0.048);
+    color: rgb(243, 242, 242);
     border: none;
-    padding: 10px 20px;
+    padding: 0;
     cursor: pointer;
     transition: background-color 0.3s;
     margin: 10px;
 }
 
 button:hover {
-    background-color: darkgreen;
+    background-color: rgba(62, 238, 62, 0.11);
+    font-weight: bolder;
+    color: rgb(5, 85, 5, 0.959)
 }
 
 #map {
