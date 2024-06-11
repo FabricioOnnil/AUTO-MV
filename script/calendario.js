@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const nextMonthBtn = document.getElementById('nextMonth');
     const popupContainer = document.getElementById('popup-containerTwo');
     const closeButton = document.querySelector('.close-popup');
+    const eventDetails = document.getElementById('eventDetails');
 
     let currentDate = new Date();
     let currentYear = currentDate.getFullYear();
@@ -29,7 +30,12 @@ document.addEventListener("DOMContentLoaded", function() {
     function showPopup(day, month, year) {
         popupContainer.style.display = 'block';
         const events = getEventsForDay(day, month, year);
-        console.log(`Eventos para ${day}/${month + 1}/${year}:`, events);
+
+        if (events.length > 0) {
+            eventDetails.innerHTML = events.map(event => `<p><strong>Nome:</strong> ${event.nome}<br><strong>Rota:</strong> ${event.rota}</p>`).join('');
+        } else {
+            eventDetails.innerHTML = "<p>Não há eventos para este dia.</p>";
+        }
     }
 
     function fillCalendar(month, year) {
