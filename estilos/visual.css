@@ -355,7 +355,7 @@ h1 {
 
 /* Botão de agendamento */
 #showCalendarAgenda {
-    background-color: lightgreen;
+    background-color: rgba(144, 238, 144, 0.062);
     color: black;
     border: none;
     padding: 0;
@@ -370,7 +370,7 @@ h1 {
 }
 
 #showCalendarAgenda:hover {
-    background-color: darkgreen;
+    background-color: rgba(0, 100, 0, 0.021);
 }
 
 /* Estilo do overlay (fundo cinza) */

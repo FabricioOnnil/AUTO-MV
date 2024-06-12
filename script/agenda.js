@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const nome = document.getElementById("nome").value;
             const startDate = document.getElementById("startDate").value;
-            const origem = document.getElementById("originSelect").value; // corrigido para originSelect
+            const origem = document.getElementById("originSelect").value; 
             const carSelect = document.getElementById("carSelect").value;
             const carName = carMap[carSelect] || 'Carro não selecionado';
 
