@@ -878,7 +878,7 @@ h1 {
 }
 
 button {
-    background-color: rgba(0, 128, 0, 0.048);
+    background-color: rgba(0, 128, 0, 0);
     color: rgb(243, 242, 242);
     border: none;
     padding: 0;
