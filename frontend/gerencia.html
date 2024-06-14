@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicial</title>
+    <link rel="stylesheet" href="/estilos/visual.css">
+    <style>
+        body {
+            background-image: linear-gradient(rgb(240, 240, 240), rgba(12, 235, 23, 0.37));
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        /* Estilo para os popups */
+        .popup {
+            display: none;  /* Escondido por padrão */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90%;
+            overflow-y: auto;
+            margin: 20px;
+        }
+        .popup-content h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .close-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            float: right;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="date"] {
+            padding: 6px;
+        }
+        .form-group input[type="checkbox"] {
+            width: auto;
+        }
+        .form-group button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .table th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <section id="cabecalho">
+        <a href="../frontend/vamoInicial.html"><img src="../Imagens/logonew525.png" alt="Logo Vamo"></a>
+    </section><br>
+    <h1>LOGIN GERENCIADO</h1><br>
+
+    <div class="container">
+        <h1>Gerenciamento</h1>
+        <button onclick="openPopup('carPopup')">Cadastrar Carros</button>
+        <button onclick="openPopup('acessoPopup')">Cadastrar Acesso</button>
+        <button onclick="openPopup('globalValuesPopup')">Mostrar Valores Globais</button>
+        <button onclick="alert('Botão 4')">Botão 4</button>
+    </div>
+
+    <!-- Popup para Cadastro de Carros -->
+    <div id="carPopup" class="popup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup('carPopup')">Fechar</button>
+            <h1>Cadastro de Carros</h1>
+            <form>
+                <div class="form-group">
+                    <label for="nomeCarro">Nome do Carro:</label>
+                    <input type="text" id="nomeCarro" name="nomeCarro" required>
+                </div>
+                <div class="form-group">
+                    <label for="marca">Marca:</label>
+                    <input type="text" id="marca" name="marca" required>
+                </div>
+                <div class="form-group">
+                    <label for="anoFabricacao">Ano de Fabricação:</label>
+                    <input type="number" id="anoFabricacao" name="anoFabricacao" required>
+                </div>
+                <div class="form-group">
+                    <label for="quilometragemInicial">Quilometragem Inicial:</label>
+                    <input type="number" id="quilometragemInicial" name="quilometragemInicial" required>
+                </div>
+                <div class="form-group">
+                    <label for="placa">Placa:</label>
+                    <input type="text" id="placa" name="placa" required>
+                </div>
+                <div class="form-group">
+                    <label for="propriedade">Propriedade ou Alugado:</label>
+                    <input type="checkbox" id="alugado" name="propriedade" value="alugado" onclick="toggleAlugadoDates()"> Alugado
+                </div>
+                <div class="form-group alugado-dates" style="display: none;">
+                    <label for="dataInicio">Data de Início do Aluguel:</label>
+                    <input type="date" id="dataInicio" name="dataInicio">
+                </div>
+                <div class="form-group alugado-dates" style="display: none;">
+                    <label for="dataTermino">Data de Término do Aluguel:</label>
+                    <input type="date" id="dataTermino" name="dataTermino">
+                </div>
+                <div class="form-group">
+                    <label for="capacidadeTanque">Capacidade do Tanque (litros):</label>
+                    <input type="number" id="capacidadeTanque" name="capacidadeTanque" required>
+                </div>
+                <div class="form-group">
+                    <label for="mediaConsumo">Média de Consumo de Combustível (km/l):</label>
+                    <input type="number" id="mediaConsumo" name="mediaConsumo" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Popup para Cadastro de Acesso -->
+    <div id="acessoPopup" class="popup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup('acessoPopup')">Fechar</button>
+            <h1>Cadastro de Acesso</h1>
+            <form>
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="sobrenome">Sobrenome:</label>
+                    <input type="text" id="sobrenome" name="sobrenome" required>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha de Login:</label>
+                    <input type="password" id="senha" name="senha" required>
+                </div>
+                <div class="form-group">
+                    <label for="numeroHabilitacao">Número do Documento de Habilitação:</label>
+                    <input type="text" id="numeroHabilitacao" name="numeroHabilitacao" required>
+                </div>
+                <div class="form-group">
+                    <label for="orgaoExpedidor">Órgão Expedidor:</label>
+                    <input type="text" id="orgaoExpedidor" name="orgaoExpedidor" required>
+                </div>
+                <div class="form-group">
+                    <label for="validadeHabilitacao">Data da Validade da Carteira de Habilitação:</label>
+                    <input type="date" id="validadeHabilitacao" name="validadeHabilitacao" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Popup para Valores Globais -->
+    <div id="globalValuesPopup" class="popup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup('globalValuesPopup')">Fechar</button>
+            <h1>Valores Globais</h1>
+            <div class="form-group">
+                <label for="filter">Filtrar por:</label>
+                <select id="filter" onchange="filterValues()">
+                    <option value="all">Tempo Total</option>
+                    <option value="year">Ano</option>
+                    <option value="month">Mês</option>
+                    <option value="last15">Últimos 15 dias</option>
+                </select>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>km Percorrida</th>
+                        <th>Custo Combustível</th>
+                        <th>Litros compra</th>
+                        <th>Litros Gastos</th>
+                        <th>Custo Reparos</th>
+                        <th>Custo Alimentação</th>
+                        <th>Horas Agendadas</th>
+                        <th>Horas Não Agendadas</th>
+                    </tr>
+                </thead>
+                <tbody id="globalValuesTable">
+                    <!-- Os dados serão preenchidos aqui -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = 'flex';
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+
+        function toggleAlugadoDates() {
+            const alugadoCheckbox = document.getElementById('alugado');
+            const alugadoDates = document.querySelectorAll('.alugado-dates');
+            alugadoDates.forEach(dateField => {
+                dateField.style.display = alugadoCheckbox.checked ? 'block' : 'none';
+            });
+        }
+
+        // Dados de exemplo para preencher a tabela de valores globais
+        const globalValues = [
+            { period: 'all', km: 10000, fuelCost: 5000, fuelAcquired: 2000, fuelUsed: 1800, repairCost: 2000, foodCost: 1000, hoursScheduled: 500, hoursNotScheduled: 300 },
+            { period: 'year', km: 2000, fuelCost: 1000, fuelAcquired: 400, fuelUsed: 360, repairCost: 400, foodCost: 200, hoursScheduled: 100, hoursNotScheduled: 60 },
+            { period: 'month', km: 500, fuelCost: 250, fuelAcquired: 100, fuelUsed: 90, repairCost: 100, foodCost: 50, hoursScheduled: 25, hoursNotScheduled: 15 },
+            { period: 'last15', km: 200, fuelCost: 100, fuelAcquired: 40, fuelUsed: 36, repairCost: 40, foodCost: 20, hoursScheduled: 10, hoursNotScheduled: 6 },
+        ];
+
+        function filterValues() {
+            const filter = document.getElementById('filter').value;
+            const tableBody = document.getElementById('globalValuesTable');
+            tableBody.innerHTML = '';  // Limpa a tabela
+
+            const filteredValues = globalValues.filter(value => value.period === filter || filter === 'all');
+
+            filteredValues.forEach(value => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${value.km}</td>
+                    <td>${value.fuelCost}</td>
+                    <td>${value.fuelAcquired}</td>
+                    <td>${value.fuelUsed}</td>
+                    <td>${value.repairCost}</td>
+                    <td>${value.foodCost}</td>
+                    <td>${value.hoursScheduled}</td>
+                    <td>${value.hoursNotScheduled}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Inicializa a tabela com todos os dados
+        filterValues();
+    </script>
+    <footer>
+        <a href="https://mvgi.com.br/">
+            <img src="../Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
+        </a>
+    </footer>
+</body>
+</html>
