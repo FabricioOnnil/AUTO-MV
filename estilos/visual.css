@@ -1,338 +1,10 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Estilo global para o corpo da página */
-html, body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-    overflow-x: hidden; /* Evitar barras de rolagem horizontais */
-    justify-content: space-between;
-   
-   
-}
-
-h1 {
-    color: white;
-    background-color: green;
-    padding: 10px 20px;
-    text-align: center;
-    width: 100%;
-    box-shadow: 0 2px 4px rgba(0, 128, 0, 0.5);
-}
-
-button {
-    background-color: rgba(9, 117, 9, 0.986);
-    color: rgb(194, 19, 19);
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 10px;
-}
-
-button:hover {
-    background-color: rgb(15, 241, 15);
-}
-
-
-#map {
-    width: 90%;
-    max-width: 800px;
-    height: 400px;
-    margin: 20px auto;
-    border: 2px solid green;
-}
-
-#start, #end, #mode {
-    margin: 10px;
-    padding: 10px;
-    font-size: 16px;
-}
-
-
-.select-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; 
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    text-align: center;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-
-
-#cabecalho {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 5px;
-    padding-bottom: 10px;
-}
-
-#cabecalho img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Centralizar e tornar responsivo o logo principal */
-#inicial {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-#inicial img {
-    max-width: 100%;
-    height: auto;
-}
-
-#bot_links {
-    align-items: center;
-    display: flex;
-    flex-direction: column; /* Coluna para alinhar as imagens verticalmente */
-    justify-content: center;
-    gap: 100px; /* Espaçamento entre os botões */
-    margin: 20 20px auto; /* Centraliza o contêiner horizontalmente */
-}
-
-#bot_links a {
-    display: inline-block; /* Garante que o link envolva apenas o conteúdo (imagem) */
-}
-
-#bot_links img {
-    display: block; /* Remove qualquer espaço em branco ao redor da imagem */
-    max-width: 100%; /* Ajusta a largura máxima da imagem */
-    height: auto; /* Mantém a proporção da imagem */
-}
-
-
-#botoes button {
-    background: none;
-    border: none;
-    padding-top: 200px;
-    
-    cursor: pointer;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px; /* Define uma altura para os botões */
-    margin-bottom: 0px; /* Adicionar margem inferior para espaçamento entre os botões */
-}
-
-#botoes button img {
-    object-fit: cover; /* Garante que a imagem ocupe todo o espaço do botão */
-}
-
-/* Centralizar e tornar responsivo o link de imagem no rodapé */
-footer {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding: 0 10px; /* Adicionar padding para evitar overflow */
-    margin-top: auto;
-}
-
-footer img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Responsividade para telas menores */
-@media (max-width: 600px) {
-    #botoes {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #botoes button {
-        margin-bottom: 10=0px;
-    }
-
-    #botoes button:last-child {
-        margin-bottom: 0;
-    }
-}
-
-@media (max-width: 600px) {
-    #map {
-        height: 300px;
-    }
-
-    .modal-content {
-        width: 95%;
-        margin-top: 30%;
-    }
-
-    h1, button {
-        width: 95%;
-        text-align: center;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*Login----------------------------------*/
-
-/* Estilos gerais para garantir a responsividade */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f4f4;
-    font-size: 16px; /* Tamanho de letra padrão para páginas modernas */
-}
-
-/* Estilização do logo */
-#logo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-#logo img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Estilização do formulário */
-#loginForm {
-    background-color: #fff;
-    padding: 20px;
-    border: 2px solid green; /* Borda verde */
-    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.1); /* Sombra leve com cor verde */
-    border-radius: 8px; /* Bordas arredondadas */
-    width: 90%; /* Largura responsiva */
-    max-width: 360px; /* Máximo de largura para o formulário */
-}
-
-#loginForm label {
-    font-weight: bold; /* Negrito para os rótulos */
-}
-
-#loginForm input[type="text"],
-#loginForm input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px; /* Espaço acima do campo */
-    margin-bottom: 15px; /* Espaço abaixo do campo */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#loginForm button {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 100%;
-}
-
-#loginForm button:hover {
-    background-color: rgb(20, 248, 20); /* Mudança de cor ao passar o mouse */
-}
-
-/* Mensagem de erro */
-#errorMessage {
-    text-align: center;
-}
-
-/* Responsividade para diferentes tamanhos de tela */
-@media (min-width: 600px) {
-    body {
-        font-size: 18px; /* Maior tamanho de letra para telas maiores */
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*Agenda-----------------------------------------------------*/
-
+/*--- A --*/
 
 .Agenda {
     font-family: Arial, sans-serif;
@@ -344,217 +16,6 @@ html, body {
     background-color: #f4f4f4;
 }
 
-h1 {
-    color: white;
-    background-color: green;
-    padding: 10px 20px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 128, 0, 0.5);
-}
-
-/* Botão de agendamento */
-#showCalendarAgenda {
-    background-color: rgba(144, 238, 144, 0.062);
-    color: black;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 20px;
-}
-#showCalendarAgenda img {
-    display: block; 
-    width: 100%; 
-    height: 100%; 
-}
-
-#showCalendarAgenda:hover {
-    background-color: rgba(0, 100, 0, 0.021);
-}
-
-/* Estilo do overlay (fundo cinza) */
-#overlayAgenda {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    display: none;
-}
-.month-navigation {
-    margin: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-#prevMonth, #nextMonth {
-    padding: 10px 20px;
-    background-color: green;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#prevMonth:hover, #nextMonth:hover {
-    background-color: darkgreen;
-}
-
-#currentMonth {
-    padding: 5px 10px;
-    background-color: white;
-    color: green;
-    font-weight: bold;
-}
-
-#calendario {
-    border-collapse: collapse;
-    width: 80%;
-    max-width: 1000px;
-    background-color: white;
-    border: 3px solid green; /* Mais destacada */
-    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
-}
-
-#calendario th, #calendario td {
-    text-align: center;
-    padding: 8px;
-    border: 1px solid #ccc;
-    white-space: nowrap;
-
-    
-}
-
-
-.has-event {
-    background-color: #07691c; /* Cor de fundo para dias com eventos */
-    cursor: pointer;
-}
-
-.today {
-    background-color: #ccffcc; /* Cor de fundo para o dia atual */
-}
-
-.popup-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 600px;
-    background-color: white;
-    padding: 20px;
-    border: 2px solid green;
-    box-shadow: 0 0px 10px rgba(0, 128, 0, 0.5);
-    display: none;
-    z-index: 1000;
-}
-
-.popup-content {
-    text-align: center;
-    position: relative;
-}
-
-.close-popup {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-@media (max-width: 600px) {
-    .month-navigation {
-        flex-direction: column;
-    }
-
-    #prevMonth, #nextMonth, #currentMonth {
-        width: 100%;
-        text-align: center;
-        margin: 5px 0;
-    }
-
-    #calendario {
-        width: 100%;
-    }
-}
-
-/*----------------------------------------*/
-
-
-.popup-containerAgenda {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 600px;
-    background-color: white;
-    padding: 20px;
-    border: 2px solid green;
-    box-shadow: 0 0px 10px rgba(0, 128, 0, 0.5);
-    display: none;
-    z-index: 1000;
-}
-
-.popup-contentAgenda {
-    text-align: left;
-    position: relative;
-}
-
-.close-popupAgenda {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-
-#scheduleFormAgenda {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
-
-#scheduleFormAgenda label {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-#scheduleFormAgenda input[type="text"],
-#scheduleFormAgenda input[type="date"],
-#scheduleFormAgenda input[type="number"],
-#scheduleFormAgenda select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;  
-}
-
-#scheduleFormAgenda button {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 100%;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-#scheduleFormAgenda button:hover {
-    background-color: rgba(19, 202, 13, 0.986);
-}
-
-/* Estilo da tabela de agendamentos */
 #agendamentos {
     border-collapse: collapse;
     width: 80%;
@@ -583,24 +44,188 @@ h1 {
     background-color: #f1f1f1;
 }
 
-/*------------------------------------------------------------------*/
+/*--- B --*/
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgb(240, 240, 240), rgba(12, 235, 23, 0.37));
+    overflow-x: hidden; /* Evitar barras de rolagem horizontais */
+    line-height: 1.6;   
+}
+
+#bot_links {
+    align-items: center;
+    display: flex;
+    flex-direction: column; /* Coluna para alinhar as imagens verticalmente */
+    justify-content: center;
+    gap: 100px; /* Espaçamento entre os botões */
+    margin: 20 20px auto; /* Centraliza o contêiner horizontalmente */
+}
+
+#bot_links a {
+    display: inline-block; /* Garante que o link envolva apenas o conteúdo (imagem) */
+}
+
+#bot_links img {
+    display: block; /* Remove qualquer espaço em branco ao redor da imagem */
+    max-width: 100%; /* Ajusta a largura máxima da imagem */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+#botoes button {
+    background: none;
+    border: none;
+    padding-top: 200px;    
+    cursor: pointer;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Define uma altura para os botões */
+    margin-bottom: 0px; /* Adicionar margem inferior para espaçamento entre os botões */
+}
+
+#botoes button img {
+    object-fit: cover; /* Garante que a imagem ocupe todo o espaço do botão */
+}
+
+button {
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 10px auto;
+    display: block;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: transparent;
+    font-weight: bolder;
+    color: rgba(20, 236, 20, 0.959);
+}
+
+/*--- C --*/
+
+#calendario {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 1000px;
+    background-color: white;
+    border: 3px solid green; /* Mais destacada */
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
+}
+
+#calendario th, #calendario td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+    white-space: nowrap;    
+}
+
+#cabecalho {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+}
+
+#cabecalho img {
+    max-width: 100%;
+    height: auto;
+}
+
+.close-btn {
+    background-color: #f44336;
+    color: white;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.close-popupAgenda {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.close-popupEntrega {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.container {
+    text-align: center;
+}
 
 
+#currentMonth {
+    padding: 5px 10px;
+    background-color: white;
+    color: green;
+    font-weight: bold;
+}
 
+/*--- D --*/
 
+div {
+    text-align: center; 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+/*--- E --*/
 
 .Entrega {
     font-family: Arial, sans-serif;
@@ -612,251 +237,73 @@ h1 {
     background-color: #f4f4f4;
 }
 
+#errorMessage {
+    text-align: center;
+}
+
+/*--- F --*/
+
+footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 10px; /* Adicionar padding para evitar overflow */
+    margin-top: auto;
+}
+
+footer img {
+    max-width: 100%;
+    height: auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+.form-group input[type="date"] {
+    padding: 6px;
+}
+.form-group input[type="checkbox"] {
+    width: auto;
+}
+.form-group button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/*--- G --*/
+/*--- H --*/
+
 h1 {
     color: white;
     background-color: green;
     padding: 10px 20px;
-    width: 100%;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 128, 0, 0.5);
-}
-
-#showCalendarEntrega {
-    background-color: lightgreen;
-    color: black;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 20px;
-}
-
-#showCalendarEntrega:hover {
-    background-color: darkgreen;
-}
-#showCalendarEntrega img {
-    display: block; 
-    width: 100%; 
-    height: 100%; 
-}
-
-#overlayEntrega {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    display: none;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
 }
 
-.popup-containerEntrega {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 600px;
-    background-color: white;
-    padding: 20px;
-    border: 2px solid green;
-    box-shadow: 0 0px 10px rgba(0, 128, 0, 0.5);
-    display: none;
-    z-index: 1000;
-}
-
-.popup-contentEntrega {
-    text-align: left;
-    position: relative;
-}
-
-.close-popupEntrega {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+.has-event {
+    background-color: #07691c; /* Cor de fundo para dias com eventos */
     cursor: pointer;
 }
 
-#scheduleFormEntrega {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
-
-#scheduleFormEntrega label {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-#scheduleFormEntrega input[type="text"],
-#scheduleFormEntrega input[type="date"],
-#scheduleFormEntrega input[type="number"],
-#scheduleFormEntrega select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;  
-}
-
-#scheduleFormEntrega button {
-    background-color: rgb(7, 97, 19);
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 100%;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-#scheduleFormEntrega button:hover {
-    background-color: rgb(17, 163, 24);
-}
-
-/*----------------------*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Estilos para o logo com borda e sombra */
-#logo-container {
-    border: 2px solid green; /* Borda verde sólida */
-    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5); /* Sombra verde suave */
-    padding: 10px; /* Espaço dentro do div */
-    display: inline-block; /* Tamanho conforme o conteúdo */
-}
-
-/* Estilos para os botões para combinarem com o tamanho do texto "Bem-Vindo" */
-button {
-    background-color: transparent; /* Fundo transparente */
-    border: none; /* Sem bordas */
-    color: inherit; /* Cor herdada do pai */
-    font-size: inherit; /* Tamanho de fonte herdado */
-    padding: 5px 10px; /* Padding para fazer o botão um pouco maior */
-    margin: 2px 0; /* Margem de 2px em cima e embaixo */
-    cursor: pointer; /* Cursor em forma de ponteiro para indicar que é clicável */
-}
-
-/* Estilos gerais para o cabecalho e corpo */
-body {
-    font-family: Arial, sans-serif; /* Fonte do corpo do documento */
-    line-height: 1.6; /* Espaçamento entre linhas */
-}
-
-h1 {
-    color: green; /* Torna o texto "Bem-Vindo" verde */
-    text-align: center; /* Centraliza o cabecalho */
-    background-color: rgb(219, 243, 235);
-}
-
-/* Ajustando o layout dos botões para estarem centralizados */
-div {
-    text-align: center; /* Centraliza os botões dentro do div */
-}
-
-/* Estilo padrão para o botão */
-#showCalendar {
-    background-color: lightgreen; 
-    color: black; 
-    border: none; 
-    padding: 10px 20px; 
-    cursor: pointer; 
-    transition: background-color 0.3s;
-    margin-bottom: 20px;
-}
-
-/* Estilo hover para o botão */
-#showCalendar:hover {
-    background-color: darkgreen; 
-}
-
-/*---------------------*/
-
-/* Estilo do overlay (fundo cinza) */
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;    
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: 999; 
-    display: none; 
-}
-
-/* Estilo do container da janela pop-up */
-.popup-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 2px solid green;
-    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5); 
-    z-index: 1000; 
-    padding: 20px;
-    display: none; /
-}
-
-/* Estilo do conteúdo da janela pop-up */
-.popup-content {
-    text-align: center;
-    text-align: relative;
-}
-
-/* Estilo para o botão de fechar a janela pop-up */
-.close-popup {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ----- Mapa -----*/
-
-body {
+html {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -864,34 +311,91 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-}
-
-h1 {
-    color: white;
-    background-color: green;
-    padding: 10px 20px;
-    text-align: center;
     width: 100%;
-    box-shadow: 0 2px 4px rgba(0, 128, 0, 0.5);
+    height: 100vh;
+    background-image: linear-gradient(rgb(240, 240, 240), rgba(12, 235, 23, 0.37));
+    overflow-x: hidden; /* Evitar barras de rolagem horizontais */
+    line-height: 1.6;   
 }
 
-button {
-    background-color: rgba(0, 128, 0, 0);
-    color: rgb(243, 242, 242);
+
+
+/*--- I --*/
+
+#inicial {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#inicial img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*--- J --*/
+/*--- K --*/
+/*--- L --*/
+
+#logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+#logo-container {
+    border: 2px solid rgb(4, 128, 0); 
+    box-shadow: 0 8px 16px rgba(2, 78, 2, 0.548); 
+    padding: 10px; 
+    display: inline-block; 
+}
+
+#loginForm {
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid green; 
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.1); 
+    border-radius: 8px; 
+    width: 90%; 
+    max-width: 360px; 
+}
+
+#loginForm label {
+    font-weight: bold; 
+}
+
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px; 
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#loginForm button {
+    background-color: green;
+    color: white;
     border: none;
-    padding: 0;
+    padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 10px;
+    border-radius: 4px;
+    width: 100%;
 }
 
-button:hover {
-    background-color: rgba(62, 238, 62, 0.11);
+#loginForm button:hover {
+    background-color: transparent;
     font-weight: bolder;
-    color: rgb(5, 85, 5, 0.959)
+    color: rgba(20, 236, 20, 0.959);
 }
+/*--- M --*/
 
 #map {
     width: 90%;
@@ -901,16 +405,51 @@ button:hover {
     border: 2px solid green;
 }
 
-#start, #end, #mode {
-    margin: 10px;
-    padding: 10px;
-    font-size: 16px;
+@media (max-width: 600px) {
+    #botoes {
+        flex-direction: column;
+        align-items: center;
+    }
+    #botoes button {
+        margin-bottom: 10=0px;
+    }
+    #botoes button:last-child {
+        margin-bottom: 0;
+    }
 }
 
-.select-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+@media (max-width: 600px) {
+    #map {
+        height: 300px;
+    }
+    .modal-content {
+        width: 95%;
+        margin-top: 30%;
+    }
+    h1, button {
+        width: 95%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .month-navigation {
+        flex-direction: column;
+    }
+    #prevMonth, #nextMonth, #currentMonth {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
+    #calendario {
+        width: 100%;
+    }
+}
+
+@media (min-width: 600px) {
+    body {
+        font-size: 18px; /* Maior tamanho de letra para telas maiores */
+    }
 }
 
 .modal {
@@ -936,33 +475,335 @@ button:hover {
     text-align: center;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+.month-navigation {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+/*--- N --*/
+
+/*--- O --*/
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;    
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
+    display: none; 
+}
+
+#overlayAgenda {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+#overlayEntrega {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+/*--- P --*/
+
+.popup {
+    display: none;  /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+
+
+.popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+    border: 2px solid green;
+    box-shadow: 0 0px 10px rgba(0, 128, 0, 0.5);
+    display: none;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.popup-containerAgenda {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+    border: 2px solid green;
+    box-shadow: 0 0px 10px rgba(0, 128, 0, 0.5);
+    display: none;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.popup-containerEntrega {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: white;
+    border: 2px solid green;
+    box-shadow: 0 0px 10px rgba(0, 128, 0, 0.5);
+    display: none;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90%;
+    overflow-y: auto;
+    margin: 20px;
+}
+.popup-content {
+    text-align: center;
+    position: relative;
+}
+
+.popup-content h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.popup-contentAgenda {
+    text-align: left;
+    position: relative;
+}
+
+.popup-contentEntrega {
+    text-align: left;
+    position: relative;
+}
+
+#prevMonth, #nextMonth {
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-@media (max-width: 600px) {
-    #map {
-        height: 300px;
-    }
-
-    .modal-content {
-        width: 95%;
-        margin-top: 30%;
-    }
-
-    h1, button {
-        width: 95%;
-        text-align: center;
-    }
+#prevMonth:hover, #nextMonth:hover {
+    background-color: darkgreen;
 }
-/* -----------------------------------*/
+
+/*--- Q --*/
+/*--- R --*/
+/*--- S --*/
+
+#scheduleFormAgenda {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#scheduleFormEntrega {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#scheduleFormAgenda label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#scheduleFormEntrega label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#scheduleFormAgenda input[type="text"],
+#scheduleFormAgenda input[type="date"],
+#scheduleFormAgenda input[type="number"],
+#scheduleFormAgenda select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;  
+}
+
+#scheduleFormEntrega input[type="text"],
+#scheduleFormEntrega input[type="date"],
+#scheduleFormEntrega input[type="number"],
+#scheduleFormEntrega select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;  
+}
+
+#scheduleFormAgenda button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#scheduleFormEntrega button {
+    background-color: rgb(7, 97, 19);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#scheduleFormAgenda button:hover {
+    background-color: transparent;
+    font-weight: bolder;
+    color: rgba(20, 236, 20, 0.959);
+}
+
+#scheduleFormEntrega button:hover {
+    background-color: transparent;
+    font-weight: bolder;
+    color: rgba(20, 236, 20, 0.959);
+}
+
+.select-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#showCalendar {
+    background-color: rgba(144, 238, 144, 0.062);
+    color: black; 
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+#showCalendarAgenda {
+    background-color: rgba(144, 238, 144, 0.062);
+    color: black;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+#showCalendarAgenda img {
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+}
+
+#showCalendar:hover {
+    background-color: darkgreen; 
+}
+
+#showCalendarAgenda:hover {
+    background-color: rgba(0, 100, 0, 0.021);
+}
+
+#showCalendarEntrega {
+    background-color: rgba(144, 238, 144, 0.062);
+    color: black;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+#showCalendarEntrega:hover {
+    background-color: darkgreen;
+}
+#showCalendarEntrega img {
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+}
+
+#start, #end, #mode {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/*--- T --*/
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+.today {
+    background-color: #ccffcc; /* Cor de fundo para o dia atual */
+}
+
+/*--- U --*/
+/*--- V --*/
+/*--- X --*/
+/*--- Y --*/
+/*--- W --*/
+/*--- Z --*/
+
+
