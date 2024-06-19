@@ -27,33 +27,57 @@
             <h1>Cadastro de Carros</h1>
             <form>
                 <div class="form-group">
-                    <label for="nomeCarro">Nome do Carro:</label>
-                    <input type="text" id="nomeCarro" name="nomeCarro" required>
-                    <label for="marca">Marca:</label>
-                    <input type="text" id="marca" name="marca" required>
-                    <label for="anoFabricacao">Ano de Fabricação:</label>
-                    <input type="number" id="anoFabricacao" name="anoFabricacao" required>
-                    <label for="quilometragemInicial">Quilometragem Inicial:</label>
-                    <input type="number" id="quilometragemInicial" name="quilometragemInicial" required>
-                    <label for="placa">Placa:</label>
-                    <input type="text" id="placa" name="placa" required>
-                    <label for="propriedade"></label>
-                    
-                    <input type="checkbox" id="alugado" name="propriedade" value="alugado" onclick="toggleAlugadoDates()"> Alugado
-                    <div class="form-group alugado-dates" style="display: none;">
+                    <label for="registrationCar"></label>
+                    <input type="checkbox" id="contract" name="registrationCar" value="contract" onclick="contractRegistration()"> Contrato
+                    <div class="form-group contract-registration" style="display: none;">
                         <label for="dataInicio">Data de Início do Aluguel:</label>
                         <input type="date" id="dataInicio" name="dataInicio">
-                    </div>
-                    <div class="form-group alugado-dates" style="display: none;">
                         <label for="dataTermino">Data de Término do Aluguel:</label>
                         <input type="date" id="dataTermino" name="dataTermino">
+                        <label for="usuarioResponsavel">Responsável</label>
+                        <input type="text" id="usuarioResponsavel" name="usuarioResponsavel">
+                        <label for="codigoReserva">Codigo Reserva</label>
+                        <input type="text" id="codigoReserva" name="codigoReserva">
+                        <label for="codigoAluguel">Contrato Aluguel</label>
+                        <input type="text" id="codigoAluguel" name="codigoAluguel">
+                        <label for="tarifaContrato">Tarifa Mensal</label>
+                        <input type="number" step="0.01" id="tarifaContrato" name="tarifaContrato">
+                        <label for="kmExcedente">Valor Km Excedente</label>
+                        <input type="number" step="0.01" id="kmExcedente" name="kmExcedente">
+                        <label for="distanciaDia">Franquia km/dia</label>
+                        <input type="number" id="distanciaDia" name="distanciaDia">
                     </div>
-                    <label for="capacidadeTanque">Capacidade do Tanque (litros):</label>
-                    <input type="number" id="capacidadeTanque" name="capacidadeTanque" required>
-                    <label for="mediaConsumo">Média de Consumo de Combustível (km/l):</label>
-                    <input type="number" id="mediaConsumo" name="mediaConsumo" step="0.1" required>
-                    <button type="submit">Cadastrar</button>
                 </div>
+                <div class="form-group fixedCost">
+                    <label for="fixedCost"></label>
+                    <input type="checkbox" id="cost" name="fixedCost" value="cost" onclick="fixedCost()"> Custos Fixos
+                    <div class="form-group fixed-cost" style="display: none;">
+                        <label for="damageLimit">Valor Limite Reparos</label>
+                        <input type="number" step="0.01" id="damageLimit" name="damageLimit">
+                        <label for="otherDamage">Danos a Terceiros</label>
+                        <input type="number" step="0.01" id="otherDamage" name="otherDamage">
+                        <label for="totalLoss"> PT/Furto/Roubo</label>
+                        <input type="number" step="0.01" id="totalLoss" name="totalLoss">
+                        <label for="insurancePeriod"> Ínicio Vigência Seguro</label>
+                        <input type="date" id="insurancePeriod" name="insurancePeriod">
+                    </div>
+                </div>
+                    <div class="form-group car-registration" style="display: none;">
+                        <label for="nomeCarro">Modelo:</label>
+                        <input type="text" id="nomeCarro" name="nomeCarro" required>
+                        <label for="placa">Placa:</label>
+                        <input type="text" id="placa" name="placa" required>
+                        <label for="anoFabricacao">Ano de Fabricação:</label>
+                        <input type="number" id="anoFabricacao" name="anoFabricacao" required>
+                        <label for="quilometragemInicial">km Aluguel:</label>
+                        <input type="number" id="quilometragemInicial" name="quilometragemInicial" required>
+                        <label for="capacidadeTanque">Capacidade do Tanque (litros):</label>
+                        <input type="number" id="capacidadeTanque" name="capacidadeTanque" required>
+                        <label for="mediaConsumo">Média de Consumo de Combustível (km/l):</label>
+                        <input type="number" id="mediaConsumo" name="mediaConsumo" step="0.1" required>
+                        <button type="submit">Cadastrar</button>
+                    </div>
+                
             </form>
         </div>
     </div>
@@ -126,11 +150,19 @@
             document.getElementById(popupId).style.display = 'none';
         }
 
-        function toggleAlugadoDates() {
-            const alugadoCheckbox = document.getElementById('alugado');
-            const alugadoDates = document.querySelectorAll('.alugado-dates');
-            alugadoDates.forEach(dateField => {
-                dateField.style.display = alugadoCheckbox.checked ? 'block' : 'none';
+        function contractRegistration() {
+            const registrationCheckbox = document.getElementById('contract');
+            const registrationSections = document.querySelectorAll('.contract-registration');
+            registrationSections.forEach(section => {
+                section.style.display = registrationCheckbox.checked ? 'block' : 'none';
+            });
+        }
+
+        function fixedCost() {
+            const fixedCheckbox = document.getElementById('cost');
+            const fixedSections = document.querySelectorAll('.fixed-cost');
+            fixedSections.forEach(section => {
+                section.style.display = fixedCheckbox.checked ? 'block' : 'none';
             });
         }
 
