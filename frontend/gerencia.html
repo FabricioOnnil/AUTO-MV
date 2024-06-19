@@ -45,10 +45,11 @@
                         <label for="kmExcedente">Valor Km Excedente</label>
                         <input type="number" step="0.01" id="kmExcedente" name="kmExcedente">
                         <label for="distanciaDia">Franquia km/dia</label>
-                        <input type="number" id="distanciaDia" name="distanciaDia">
+                        <input type="number" id="distanciaDia" name="distanciaDia">                        
                     </div>
                 </div>
-                <div class="form-group fixedCost">
+
+                <div class="form-group">
                     <label for="fixedCost"></label>
                     <input type="checkbox" id="cost" name="fixedCost" value="cost" onclick="fixedCost()"> Custos Fixos
                     <div class="form-group fixed-cost" style="display: none;">
@@ -60,24 +61,28 @@
                         <input type="number" step="0.01" id="totalLoss" name="totalLoss">
                         <label for="insurancePeriod"> Ínicio Vigência Seguro</label>
                         <input type="date" id="insurancePeriod" name="insurancePeriod">
+                        <label for="quilometragemInicial">km Aluguel:</label>
+                        <input type="number" id="quilometragemInicial" name="quilometragemInicial" required>
                     </div>
                 </div>
-                    <div class="form-group car-registration" style="display: none;">
+
+                <div class="form-group">
+                    <label for="registerCar"></label>
+                    <input type="checkbox" id="car" name="registerCar" value="car" onclick="registerCar()">Modelo Carro
+                    <div class="form-group registerCar" style="display: none;">
                         <label for="nomeCarro">Modelo:</label>
                         <input type="text" id="nomeCarro" name="nomeCarro" required>
                         <label for="placa">Placa:</label>
                         <input type="text" id="placa" name="placa" required>
                         <label for="anoFabricacao">Ano de Fabricação:</label>
-                        <input type="number" id="anoFabricacao" name="anoFabricacao" required>
-                        <label for="quilometragemInicial">km Aluguel:</label>
-                        <input type="number" id="quilometragemInicial" name="quilometragemInicial" required>
+                        <input type="number" id="anoFabricacao" name="anoFabricacao" required>                        
                         <label for="capacidadeTanque">Capacidade do Tanque (litros):</label>
                         <input type="number" id="capacidadeTanque" name="capacidadeTanque" required>
                         <label for="mediaConsumo">Média de Consumo de Combustível (km/l):</label>
                         <input type="number" id="mediaConsumo" name="mediaConsumo" step="0.1" required>
                         <button type="submit">Cadastrar</button>
                     </div>
-                
+                </div>                
             </form>
         </div>
     </div>
@@ -151,18 +156,26 @@
         }
 
         function contractRegistration() {
-            const registrationCheckbox = document.getElementById('contract');
-            const registrationSections = document.querySelectorAll('.contract-registration');
-            registrationSections.forEach(section => {
-                section.style.display = registrationCheckbox.checked ? 'block' : 'none';
+            const contractCheckbox = document.getElementById('contract');
+            const contractRegistration = document.querySelectorAll('.contract-registration');
+            contractRegistration.forEach(section => {
+                section.style.display = contractCheckbox.checked ? 'block' : 'none';
             });
         }
 
         function fixedCost() {
-            const fixedCheckbox = document.getElementById('cost');
-            const fixedSections = document.querySelectorAll('.fixed-cost');
-            fixedSections.forEach(section => {
-                section.style.display = fixedCheckbox.checked ? 'block' : 'none';
+            const costCheckbox = document.getElementById('cost');
+            const fixedCost = document.querySelectorAll('.fixed-cost');
+            fixedCost.forEach(section => {
+                section.style.display = costCheckbox.checked ? 'block' : 'none';
+            });
+        }
+
+        function registerCar() {
+            const carCheckbox = document.getElementById('car');
+            const registerCar = document.querySelectorAll('.registerCar');
+            registerCar.forEach(section => {
+                section.style.display = carCheckbox.checked ? 'block' : 'none';
             });
         }
 
