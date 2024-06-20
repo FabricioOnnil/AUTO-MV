@@ -226,6 +226,11 @@ button:hover {
     text-align: center;
 }
 
+.contCar {
+    text-align: center;
+    background-color: var(--varFundo);
+    border-radius: green 2px;
+}
 
 #currentMonth {
     padding: 5px 10px;

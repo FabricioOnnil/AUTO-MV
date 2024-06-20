@@ -14,11 +14,12 @@
     </section><br>
     <h1>LOGIN GERENCIADO</h1><br>
 
-    <div class="container">
-        <h1>Gerenciamento</h1>
-        <button onclick="openPopup('carPopup')">Contrato Carros</button>
-        <button onclick="openPopup('custPopup')">Custo fixo Carros</button>
-        <button onclick="openPopup('infoPopup')">Informação Carros</button>
+    <div class="container">      
+    <div class="contCar">
+        <button onclick="openPopup('carPopup')">Contrato</button>
+        <button onclick="openPopup('custPopup')">Custo fixo</button>
+        <button onclick="openPopup('infoPopup')">Informação</button>
+    </div>
         <button onclick="openPopup('acessoPopup')">Cadastrar Acesso</button>
         <button onclick="openPopup('globalValuesPopup')">Mostrar Valores Globais</button>
         <button onclick="alert('Botão 4')">Botão 4</button>
@@ -81,6 +82,7 @@
             </form>
         </div>
     </div> 
+</div>
     <div id="infoPopup" class="popup">
         <div class="popup-content">
             <button class="close-btn" onclick="closePopup('infoPopup')">Fechar</button>
