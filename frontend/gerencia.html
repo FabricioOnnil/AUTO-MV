@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicial</title>
-    <link rel="stylesheet" href="/estilos/visual.css">    
+    <link rel="stylesheet" href="/estilos/visual.css">
 </head>
 <body>
     <section id="cabecalho">
-        <a href="../frontend/vamoInicial.html"><img src="../Imagens/logonew525.png" alt="Logo Vamo"></a>
+        <a href="../frontend/vamoInicial.html">
+            <img src="../Imagens/logonew525.png" alt="Logo Vamo">
+        </a>
     </section><br>
     <h1>LOGIN GERENCIADO</h1><br>
 
     <div class="container">
         <h1>Gerenciamento</h1>
-        <button onclick="openPopup('carPopup')">Cadastrar Carros</button>
+        <button onclick="openPopup('carPopup')">Contrato Carros</button>
+        <button onclick="openPopup('custPopup')">Custo fixo Carros</button>
+        <button onclick="openPopup('infoPopup')">Informação Carros</button>
         <button onclick="openPopup('acessoPopup')">Cadastrar Acesso</button>
         <button onclick="openPopup('globalValuesPopup')">Mostrar Valores Globais</button>
         <button onclick="alert('Botão 4')">Botão 4</button>
@@ -24,12 +28,12 @@
     <div id="carPopup" class="popup">
         <div class="popup-content">
             <button class="close-btn" onclick="closePopup('carPopup')">Fechar</button>
-            <h1>Cadastro de Carros</h1>
+            <h1>Contrato dos Carros</h1>
             <form>
                 <div class="form-group">
-                    <label for="registrationCar"></label>
-                    <input type="checkbox" id="contract" name="registrationCar" value="contract" onclick="contractRegistration()"> Contrato
-                    <div class="form-group contract-registration" style="display: none;">
+                    <!--<label for="registrationCar">Cadastro de Contrato</label>
+                    <input type="checkbox" id="contract" name="registrationCar" value="contract" onclick="contractRegistration()">Contrato</input>
+                    <div class="form-group contract-registration" style="display: none;">-->
                         <label for="dataInicio">Data de Início do Aluguel:</label>
                         <input type="date" id="dataInicio" name="dataInicio">
                         <label for="dataTermino">Data de Término do Aluguel:</label>
@@ -45,44 +49,60 @@
                         <label for="kmExcedente">Valor Km Excedente</label>
                         <input type="number" step="0.01" id="kmExcedente" name="kmExcedente">
                         <label for="distanciaDia">Franquia km/dia</label>
-                        <input type="number" id="distanciaDia" name="distanciaDia">                        
+                        <input type="number" id="distanciaDia" name="distanciaDia">
+                        <button type="submit">Cadastrar</button>
                     </div>
                 </div>
-
+            </form>
+        </div>
+    </div>     
+    <div id="custPopup" class="popup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup('custPopup')">Fechar</button>
+            <h1>Custos Fixo</h1>
+            <form>         
                 <div class="form-group">
-                    <label for="fixedCost"></label>
-                    <input type="checkbox" id="cost" name="fixedCost" value="cost" onclick="fixedCost()"> Custos Fixos
-                    <div class="form-group fixed-cost" style="display: none;">
+                    <!--<label for="fixedCost">Custos Fixos</label>
+                    <input type="checkbox" id="cost" name="fixedCost" value="cost" onclick="fixedCost()">Custos Fixos</input>
+                    <div class="form-group fixed-cost" style="display: none;">-->
                         <label for="damageLimit">Valor Limite Reparos</label>
                         <input type="number" step="0.01" id="damageLimit" name="damageLimit">
                         <label for="otherDamage">Danos a Terceiros</label>
                         <input type="number" step="0.01" id="otherDamage" name="otherDamage">
-                        <label for="totalLoss"> PT/Furto/Roubo</label>
+                        <label for="totalLoss">PT/Furto/Roubo</label>
                         <input type="number" step="0.01" id="totalLoss" name="totalLoss">
-                        <label for="insurancePeriod"> Ínicio Vigência Seguro</label>
+                        <label for="insurancePeriod">Início Vigência Seguro</label>
                         <input type="date" id="insurancePeriod" name="insurancePeriod">
                         <label for="quilometragemInicial">km Aluguel:</label>
                         <input type="number" id="quilometragemInicial" name="quilometragemInicial" required>
+                        <button type="submit">Cadastrar</button>
                     </div>
                 </div>
-
+            </form>
+        </div>
+    </div> 
+    <div id="infoPopup" class="popup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup('infoPopup')">Fechar</button>
+            <h1>Informações dos Carros</h1>
+            <form>  
                 <div class="form-group">
-                    <label for="registerCar"></label>
-                    <input type="checkbox" id="car" name="registerCar" value="car" onclick="registerCar()">Modelo Carro
-                    <div class="form-group registerCar" style="display: none;">
+                    <!--<label for="registerCar">Modelo Carro</label>
+                    <input type="checkbox" id="car" name="registerCar" value="car" onclick="registerCar()">Modelo Carro</input>
+                    <div class="form-group registerCar" style="display: none;">-->
                         <label for="nomeCarro">Modelo:</label>
                         <input type="text" id="nomeCarro" name="nomeCarro" required>
                         <label for="placa">Placa:</label>
                         <input type="text" id="placa" name="placa" required>
                         <label for="anoFabricacao">Ano de Fabricação:</label>
-                        <input type="number" id="anoFabricacao" name="anoFabricacao" required>                        
+                        <input type="number" id="anoFabricacao" name="anoFabricacao" required>
                         <label for="capacidadeTanque">Capacidade do Tanque (litros):</label>
                         <input type="number" id="capacidadeTanque" name="capacidadeTanque" required>
                         <label for="mediaConsumo">Média de Consumo de Combustível (km/l):</label>
                         <input type="number" id="mediaConsumo" name="mediaConsumo" step="0.1" required>
                         <button type="submit">Cadastrar</button>
                     </div>
-                </div>                
+                </div>
             </form>
         </div>
     </div>
@@ -157,24 +177,24 @@
 
         function contractRegistration() {
             const contractCheckbox = document.getElementById('contract');
-            const contractRegistration = document.querySelectorAll('.contract-registration');
-            contractRegistration.forEach(section => {
+            const contractSections = document.querySelectorAll('.contract-registration');
+            contractSections.forEach(section => {
                 section.style.display = contractCheckbox.checked ? 'block' : 'none';
             });
         }
 
         function fixedCost() {
             const costCheckbox = document.getElementById('cost');
-            const fixedCost = document.querySelectorAll('.fixed-cost');
-            fixedCost.forEach(section => {
+            const fixedCostSections = document.querySelectorAll('.fixed-cost');
+            fixedCostSections.forEach(section => {
                 section.style.display = costCheckbox.checked ? 'block' : 'none';
             });
         }
 
         function registerCar() {
             const carCheckbox = document.getElementById('car');
-            const registerCar = document.querySelectorAll('.registerCar');
-            registerCar.forEach(section => {
+            const registerCarSections = document.querySelectorAll('.registerCar');
+            registerCarSections.forEach(section => {
                 section.style.display = carCheckbox.checked ? 'block' : 'none';
             });
         }
