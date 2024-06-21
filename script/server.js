@@ -3,11 +3,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql2');
 const util = require('util');
+const dotenv = require('dotenv');
 const multer = require('multer');
 const app = express();
 const PORT = 3000;
 
-require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
+//require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
+dotenv.config();
 
 // Configuração do pool de conexões
 const pool = mysql.createPool({
@@ -56,7 +58,7 @@ app.post('/registrarAbastecimento', upload.single('imagem'), async (req, res) =>
         return res.status(400).json({ success: false, message: 'Todos os campos são obrigatórios e devem estar em formatos válidos.' });
     }
 
-    const sql = 'INSERT INTO abastecimento (descricao_abast, valor_abast, data_abast, img_abast) VALUES (?, ?, ?, ?)';
+    const sql = 'INSERT INTO fuelStation (fuelDescription, fuelPrice, fuelDate, fuelImg) VALUES (?, ?, ?, ?)';
     const values = [descricao, valor, data, imagem.buffer];
 
     try {
@@ -64,3 +66,47 @@ app.post('/registrarAbastecimento', upload.single('imagem'), async (req, res) =>
         res.json({ success: true, message: 'Dados inseridos com sucesso.' });
     } catch (err)
 })
+
+app.post('/saveInfo', (req, res) => {
+    const {
+        nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo
+    } = req.body;
+
+    const query = `
+        INSERT INTO Car (model, plate, manufactureYear, fuelTank, consumptionAverage)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    pool.query(query, [nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo], (error, results) => {
+        if (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error saving car information.' });
+        } else {
+            res.status(200).json({ message: 'Car information saved successfully.' });
+        }
+    });
+});
+
+app.post('/saveAcesso', (req, res) => {
+    const {
+        nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao
+    } = req.body;
+
+    const query = `
+        INSERT INTO user (firstName, secondName, password, licenseDriving, sectorShipping, dateExpiration)
+        VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+    pool.query(query, [nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao], (error, results) => {
+        if (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Error saving access information.' });
+        } else {
+            res.status(200).json({ message: 'Access information saved successfully.' });
+        }
+    });
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
