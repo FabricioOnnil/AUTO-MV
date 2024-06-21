@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             closePopup('infoPopup');
         }).catch(error => {
             console.error('Error:', error);
-            alert('Failed to save information.');
+            alert('Falha ao salvar informações.');
         });
     });
 
@@ -41,14 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        }).then(response => response.json())
-        .then(result => {
+        }).then(async (response) => {
+            const contentType = response.headers.get("content-type");
+
+            if (response.ok && contentType && contentType.indexOf("application/json") !== -1) {
+                return response.json();
+            } else if (!response.ok && contentType && contentType.indexOf("application/json") !== -1) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Erro ao salvar o acesso');
+            } else {
+                throw new Error('Erro inesperado ao salvar o acesso');
+            }
+        }).then(result => {
             alert(result.message);
             acessoForm.reset();
             closePopup('acessoPopup');
         }).catch(error => {
             console.error('Error:', error);
-            alert('Failed to save access.');
+            alert(`Falha ao salvar o acesso: ${error.message}`);
         });
     });
 });

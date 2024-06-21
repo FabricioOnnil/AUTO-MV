@@ -8,10 +8,8 @@ const multer = require('multer');
 const app = express();
 const PORT = 3000;
 
-//require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
 dotenv.config();
 
-// Configuração do pool de conexões
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
@@ -22,8 +20,7 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// Exporta o pool de conexões para uso em outros módulos
-module.exports = pool.promise();
+const query = util.promisify(pool.query).bind(pool);
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -36,12 +33,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-const query = util.promisify(pool.query).bind(pool);
-
 app.use(express.static('public'));
 
-// Configuração do multer para upload de arquivos
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -53,7 +46,6 @@ app.post('/registrarAbastecimento', upload.single('imagem'), async (req, res) =>
     const { descricao, valor, data } = req.body;
     const imagem = req.file;
 
-    // Validação de campos básica
     if (!descricao || isNaN(parseFloat(valor)) || !Date.parse(data) || !imagem) {
         return res.status(400).json({ success: false, message: 'Todos os campos são obrigatórios e devem estar em formatos válidos.' });
     }
@@ -64,13 +56,13 @@ app.post('/registrarAbastecimento', upload.single('imagem'), async (req, res) =>
     try {
         await query(sql, values);
         res.json({ success: true, message: 'Dados inseridos com sucesso.' });
-    } catch (err)
-})
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Erro ao salvar dados.' });
+    }
+});
 
 app.post('/saveInfo', (req, res) => {
-    const {
-        nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo
-    } = req.body;
+    const { nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo } = req.body;
 
     const query = `
         INSERT INTO Car (model, plate, manufactureYear, fuelTank, consumptionAverage)
@@ -80,17 +72,15 @@ app.post('/saveInfo', (req, res) => {
     pool.query(query, [nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo], (error, results) => {
         if (error) {
             console.error(error);
-            res.status(500).json({ message: 'Error saving car information.' });
+            res.status(500).json({ message: 'Erro ao salvar as informações do carro.' });
         } else {
-            res.status(200).json({ message: 'Car information saved successfully.' });
+            res.status(200).json({ message: 'Informações do carro salvas com sucesso.' });
         }
     });
 });
 
 app.post('/saveAcesso', (req, res) => {
-    const {
-        nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao
-    } = req.body;
+    const { nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao } = req.body;
 
     const query = `
         INSERT INTO user (firstName, secondName, password, licenseDriving, sectorShipping, dateExpiration)
@@ -100,13 +90,13 @@ app.post('/saveAcesso', (req, res) => {
     pool.query(query, [nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao], (error, results) => {
         if (error) {
             console.error(error);
-            res.status(500).json({ message: 'Error saving access information.' });
+            res.status(500).json({ success: false, message: 'Erro ao salvar informações de acesso.' });
         } else {
-            res.status(200).json({ message: 'Access information saved successfully.' });
+            res.status(200).json({ success: true, message: 'Informações de acesso salvas com sucesso' });
         }
     });
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
