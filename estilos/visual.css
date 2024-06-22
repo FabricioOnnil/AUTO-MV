@@ -4,20 +4,19 @@
     box-sizing: border-box;
 }
 :root {
-
-    --varFundo: linear-gradient(rgba(110, 247, 110, 0.664), rgb(240, 240, 240), rgba(189, 248, 192, 0.37));
+    --varGreen: #789900;
+    --varGreenshodow: #78990075;
+    --varWhite: #FFFFFF;
+    --varYellow: #FFC72C;
+    --varBlue: #307FE2;
+    --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/cachoeirafundo.jpg);
+    --varBoxshadowClassic: 0 8px 16px rgba(0, 128, 0, 0.5);
+    --varBackgroundClassic: linear-gradient(#fbfcf9, #789900, #789900);
+    --varBackgroundInternal: #08ad16;
+    --varBoxshadowForm:  0 4px 8px rgba(6, 97, 6, 0.637);
+    --varBackgroundForm: #f8f6f19c;
 }
 /*--- A --*/
-
-.Agenda {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
-}
 
 #agendamentos {
     border-collapse: collapse;
@@ -47,6 +46,10 @@
     background-color: #f1f1f1;
 }
 
+.animation {
+    align-items: center;
+    
+}
 /*--- B --*/
 
 body {
@@ -59,7 +62,9 @@ body {
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-image: var(--varFundo);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: var(--varBackgroundImage);
     overflow-x: hidden; /* Evitar barras de rolagem horizontais */
     line-height: 1.6;   
 }
@@ -228,7 +233,7 @@ button:hover {
 
 .contCar {
     text-align: center;
-    background-color: var(--varFundo);
+    background-color: var(--varBackgroundClassic);
     border-radius: green 2px;
 }
 
@@ -310,12 +315,13 @@ footer img {
 /*--- H --*/
 
 h1 {
-    color: white;
-    background-color: green;
+    color: var(--varWhite);
+    background-color: var(--varBackgroundInternal);
     padding: 10px 20px;
     text-align: center;
     width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
+    box-shadow: var(--varBoxshadowClassic);
+    border-radius: 10px;
 }
 
 .has-event {
@@ -333,7 +339,7 @@ html {
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-image: var(--varFundo);
+    background-image: var(--varBackgroundClassic);
     overflow-x: hidden; /* Evitar barras de rolagem horizontais */
     line-height: 1.6;   
 }
@@ -358,10 +364,24 @@ html {
 /*--- K --*/
 /*--- L --*/
 
+label{
+    color: black;
+}
+
 #logo {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+}
+
+.logoHeader{
+    max-width: 100%;
+    height: auto;
+}
+
+.logoFooter {
+    max-width: auto;
+    height: auto;
 }
 
 #logo img {
@@ -376,12 +396,21 @@ html {
     display: inline-block; 
 }
 
-#loginForm {
-    background-color: #fff;
+.loginForm {
+    background-color: var(--varBackgroundForm);
     padding: 20px;
-    border: 2px solid green; 
-    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.1); 
-    border-radius: 8px; 
+    border: 2px solid var(--varGreenshodow); 
+    box-shadow: var(--varBoxshadowForm); 
+    border-radius: 10px; 
+    width: 90%; 
+    max-width: 360px; 
+}
+#loginForm {
+    background-color: var(--varBackgroundForm);
+    padding: 20px;
+    border: 2px solid var(--varGreenshodow); 
+    box-shadow: var(--varBoxshadowForm); 
+    border-radius: 10px; 
     width: 90%; 
     max-width: 360px; 
 }
@@ -401,7 +430,8 @@ html {
 }
 
 #loginForm button {
-    background-color: green;
+    background-color: var(--varBackgroundInternal);
+    box-shadow: var(--varBoxshadowForm);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -674,6 +704,16 @@ html {
 /*--- Q --*/
 /*--- R --*/
 /*--- S --*/
+
+.schedule {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
 
 #scheduleFormAgenda {
     display: flex;
