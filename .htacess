@@ -1,0 +1,8 @@
+<Directory /path/to/your/project>
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require all granted
+    <LimitExcept GET POST>
+        Deny from all
+    </LimitExcept>
+</Directory>

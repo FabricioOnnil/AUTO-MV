@@ -27,39 +27,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    acessoForm.addEventListener('submit', (e) => {
+    acessoForm.addEventListener('submit', async(e) => {
         e.preventDefault();
+
         const formData = new FormData(acessoForm);
         const data = {};
+
         formData.forEach((value, key) => {
             data[key] = value;
         });
+        
 
-        fetch('/saveAcesso', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(async (response) => {
-            const contentType = response.headers.get("content-type");
+       try {
+            const response = await fetch('/php/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
 
-            if (response.ok && contentType && contentType.indexOf("application/json") !== -1) {
-                return response.json();
-            } else if (!response.ok && contentType && contentType.indexOf("application/json") !== -1) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Erro ao salvar o acesso');
-            } else {
-                throw new Error('Erro inesperado ao salvar o acesso');
+            const contentType = response.headers.get('content-type');
+            if (!response.ok) {
+                if (contentType && contentType.indexOf('application/json') !== -1) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Erro ao salvar o acesso');
+                } else {
+                    throw new Error('Erro inesperado ao salvar o acesso');
+                }
             }
-        }).then(result => {
+
+            const result = await response.json();
             alert(result.message);
             acessoForm.reset();
             closePopup('acessoPopup');
-        }).catch(error => {
+        } catch (error) {
             console.error('Error:', error);
             alert(`Falha ao salvar o acesso: ${error.message}`);
-        });
+        }
     });
 });
 
