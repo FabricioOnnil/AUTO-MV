@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reparos</title>
+    <link rel="stylesheet" href="/estilos/visual.css">
+    
+</head>
+<body>
+    <section id="cabecalho">
+        <a href="dashboard.html"><img src="/Imagens/logonew525.png" alt="Logo Vamo"></a>
+    </section><br>
+    <h1>REPAROS</h1><br>
+    
+    <form id="purchaseForm" class="loginForm" action="/registrarReparos" method="POST" enctype="multipart/form-data">
+        <label for="descricao">Descrição de Reparos:</label>
+        <input type="text" id="descricao" name="descricao" required><br>
+
+        <label for="valor"> Valor da Compra (R$):</label>
+        <input type="number" step="0.01" id="valor" name="valor" required><br>
+
+        <label for="data">Data da Compra: </label>
+        <input type="date" id="data" name="data" required><br>
+
+        <label for="imagem">Imagem Nota Fiscal:</label>
+        <input type="file" id="imagem" name="imagem" accept="image/*" required><br>
+
+        <button type="submit"><img src="/Imagens/registrarbutton.png" alt="registrar compra"></img></button>
+    </form>
+
+    <footer>
+        <a href="https://mvgi.com.br/">
+            <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
+        </a>
+    </footer>
+    <script src="refeicao.js"></script>
+</body>
+</html>

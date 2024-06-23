@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENTREGA</title>
+    <link rel="stylesheet" href="/estilos/visual.css">
+    
+</head>
+<body class="Entrega">
+    <section id="cabecalho">
+        <a href="dashboard.html"><img src="/Imagens/logonew525.png" alt="Logo Vamo"></a></section><br>
+    
+    <h1>ENTREGA DO CARRO</h1><br>
+
+    <div id="overlayEntrega"></div>
+
+    <div id="calendarPopupEntrega" class="popup-containerEntrega">
+        <div class="popup-contentEntrega">
+            <span class="close-popupEntrega">&times;</span>
+            
+            <form id="scheduleFormEntrega">
+                <input type="hidden" id="rowIndex" name="rowIndex">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+                <label for="startDate">Data:</label>
+                <input type="date" id="startDate" name="startDate" required>
+                <label for="startTime">Hora: </label>
+                <input type="time" id="startTime" name="startTime" required>
+                <label for="destiny">Escritório de Entrega:</label>
+                <select id="destinySelect" name="destinySelect" required>
+                    <option value="">-Selecione o Escritório-</option>
+                    <option value="Escritório 1">Alegre</option>
+                    <option value="E 2">Castelo</option>
+                    <option value="Escritorio 3">Muniz Freire</option>
+                    <option value="Escritorio 3">Guaçuí</option>
+                </select>
+                <label for="km_final">km Final:</label>
+                <input type="number" id="km_final" name="km_final" required>
+                <label for="carSelect">Entrega do Carro:</label>
+                <select id="carSelect" name="carSelect" required>
+                    <!-- Opções serão preenchidas dinamicamente -->
+                </select>
+                <button type="submit">Confirmar Entrega</button>
+            </form>
+
+            
+            
+        </div>
+    </div>
+
+    <h2>Agendados</h2>
+    <table id="agendamentos">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Data de Início</th>
+                <th>Origem</th>
+                <th>Carro Selecionado</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody id="agendamentosBody">
+            <!-- Dados serão preenchidos dinamicamente aqui -->
+        </tbody>
+    </table>
+
+    <section id="img_section">
+        <a href="refeicao.html"><img src="/Imagens/refeiçãoIcon.png" alt="Link 1"></a>
+        <a href="abastecimento.html"><img src="/Imagens/gasolIcon.png" alt="Link 2"></a>
+        <a href="reparos.html"><img src="/Imagens/Engrenagem150x150.png" alt="Link 3"></a>
+        <a href="relatorio.html"><img src="/Imagens/call-report-icon-3150x150.png" alt="Link 4"></a>
+    </section>
+
+    <footer>
+        <a href="https://mvgi.com.br/">
+            <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
+        </a>
+    </footer>
+    <script src="entrega.js"></script>
+</body>
+</html>
