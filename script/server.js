@@ -51,14 +51,16 @@ const upload = multer({ storage: storage });
 
 //--------------------------------app.gets----------------------------------
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend', 'vamoInicial.html'));
-});
 
 
 app.get('/vamo', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend', 'vamo.html'));
 });
+
+/*app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend', 'vamoInicial.html'));
+});
+
 
 app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
@@ -106,7 +108,7 @@ app.get('/relatorio', (req, res) => {
 
 app.get('/reparos', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend', 'reparos.html'));
-});
+});*/
 
 //------------------Fim app.get----------------------------------------
 

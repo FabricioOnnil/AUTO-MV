@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="/estilos/visual.css">
     
 </head>
-<body class="Entrega">
-    <section id="cabecalho">
+<body class="schedule">
+    <section id="header">
         <a href="dashboard.html"><img src="/Imagens/logonew525.png" alt="Logo Vamo"></a></section><br>
     
     <h1>ENTREGA DO CARRO</h1><br>
 
-    <div id="overlayEntrega"></div>
+    <div id="overlaySchedule"></div>
 
-    <div id="calendarPopupEntrega" class="popup-containerEntrega">
-        <div class="popup-contentEntrega">
-            <span class="close-popupEntrega">&times;</span>
+    <div id="calendarPopupDelivery" class="popup-containerDelivery">
+        <div class="popup-contentDelivery">
+            <span class="close-popupDelivery">&times;</span>
             
-            <form id="scheduleFormEntrega">
+            <form id="scheduleFormDelivery">
                 <input type="hidden" id="rowIndex" name="rowIndex">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required>
@@ -50,7 +50,7 @@
     </div>
 
     <h2>Agendados</h2>
-    <table id="agendamentos">
+    <table id="appointments">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -60,7 +60,7 @@
                 <th>Ação</th>
             </tr>
         </thead>
-        <tbody id="agendamentosBody">
+        <tbody id="appointmentssBody">
             <!-- Dados serão preenchidos dinamicamente aqui -->
         </tbody>
     </table>
@@ -71,6 +71,6 @@
             <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
         </a>
     </footer>
-    <script src="entrega.js"></script>
+    <script src="/entrega.js"></script>
 </body>
 </html>

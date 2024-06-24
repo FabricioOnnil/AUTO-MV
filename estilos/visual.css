@@ -9,7 +9,7 @@
     --varWhite: #FFFFFF;
     --varYellow: #FFC72C;
     --varBlue: #307FE2;
-    --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/kisspng-cloud-wallpaper-blue-sky-and-white-clouds-5a6b27b9e20c68.9830134015169719619259.png);
+   /* --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/porta_chaves_fita_cassete_retro_3_modelos_de_cores_327_1_20170512184231.webp);*/
     --varBoxshadowClassic: 0 8px 16px rgba(0, 128, 0, 0.5);
     --varBackgroundClassic: linear-gradient(#fbfcf9, #789900, #789900);
     --varBackgroundInternal: #08ad16;
@@ -18,7 +18,7 @@
 }
 /*--- A --*/
 
-#agendamentos {
+#appointments {
     border-collapse: collapse;
     width: 80%;
     max-width: 1000px;
@@ -28,21 +28,21 @@
     margin-bottom: 20px;
 }
 
-#agendamentos th, #agendamentos td {
+#appointments th, #appointments td {
     text-align: center;
     padding: 8px;
     border: 1px solid #ccc;
 }
 
-#agendamentos th {
+#appointments th {
     background-color: #e0e0e0;
 }
 
-#agendamentos tr {
+#appointments tr {
     border-bottom: 0.5px solid green;
 }
 
-#agendamentos tr:hover {
+#appointments tr:hover {
     background-color: #f1f1f1;
 }
 
@@ -125,7 +125,7 @@ button:hover {
 
 /*--- C --*/
 
-#calendario {
+#calendar {
     border-collapse: collapse;
     width: 80%;
     max-width: 1000px;
@@ -134,26 +134,13 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
 }
 
-#calendario th, #calendario td {
+#calendar th, #calendar td {
     text-align: center;
     padding: 8px;
     border: 1px solid #ccc;
     white-space: nowrap;    
 }
 
-#cabecalho {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 5px;
-    padding-bottom: 10px;
-}
-
-#cabecalho img {
-    max-width: 100%;
-    height: auto;
-}
 /*
 #close {
     color: #aaa;
@@ -199,7 +186,7 @@ button:hover {
     padding: 10px;
 }
 
-.close-popupAgenda {
+.close-popupSchedule {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -213,7 +200,7 @@ button:hover {
     padding: 10px;
 }
 
-.close-popupEntrega {
+.close-popupDelivery {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -252,7 +239,7 @@ div {
 
 /*--- E --*/
 
-.Entrega {
+.delivery {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -329,7 +316,21 @@ h1 {
     cursor: pointer;
 }
 
-html {
+#header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+}
+
+#header img {
+    max-width: 100%;
+    height: auto;
+}
+
+html, body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -339,23 +340,22 @@ html {
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-image: var(--varBackgroundClassic);
+    background-image: var(--varBackgroundForm);
     overflow-x: hidden; /* Evitar barras de rolagem horizontais */
     line-height: 1.6;   
 }
 
 
-
 /*--- I --*/
 
-#inicial {
+#initial {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
 
-#inicial img {
+#initial img {
     max-width: 100%;
     height: auto;
 }
@@ -491,7 +491,7 @@ label{
         text-align: center;
         margin: 5px 0;
     }
-    #calendario {
+    #calendar {
         width: 100%;
     }
 }
@@ -573,7 +573,7 @@ label{
     display: none; 
 }
 
-#overlayAgenda {
+#overlaySchedule {
     position: fixed;
     top: 0;
     left: 0;
@@ -584,7 +584,7 @@ label{
     display: none;
 }
 
-#overlayEntrega {
+#overlayDelivery {
     position: fixed;
     top: 0;
     left: 0;
@@ -627,7 +627,7 @@ label{
     padding: 20px;
 }
 
-.popup-containerAgenda {
+.popup-containerSchedule {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -642,7 +642,7 @@ label{
     padding: 20px;
 }
 
-.popup-containerEntrega {
+.popup-containerDelivery {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -678,12 +678,12 @@ label{
     margin-bottom: 20px;
 }
 
-.popup-contentAgenda {
+.popup-contentSchedule {
     text-align: left;
     position: relative;
 }
 
-.popup-contentEntrega {
+.popup-contentDelivery {
     text-align: left;
     position: relative;
 }
@@ -715,32 +715,32 @@ label{
     background-color: #f4f4f4;
 }
 
-#scheduleFormAgenda {
+#scheduleForm-schedule {
     display: flex;
     flex-direction: column;
     align-items: stretch;
 }
 
-#scheduleFormEntrega {
+#scheduleFormDelivery {
     display: flex;
     flex-direction: column;
     align-items: stretch;
 }
 
-#scheduleFormAgenda label {
+#scheduleForm-schedule label {
     font-weight: bold;
     margin-top: 10px;
 }
 
-#scheduleFormEntrega label {
+#scheduleFormDelivery label {
     font-weight: bold;
     margin-top: 10px;
 }
 
-#scheduleFormAgenda input[type="text"],
-#scheduleFormAgenda input[type="date"],
-#scheduleFormAgenda input[type="number"],
-#scheduleFormAgenda select {
+#scheduleForm-schedule input[type="text"],
+#scheduleForm-schedule input[type="date"],
+#scheduleForm-schedule input[type="number"],
+#scheduleForm-schedule select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -750,10 +750,10 @@ label{
     font-size: 16px;  
 }
 
-#scheduleFormEntrega input[type="text"],
-#scheduleFormEntrega input[type="date"],
-#scheduleFormEntrega input[type="number"],
-#scheduleFormEntrega select {
+#scheduleFormDelivery input[type="text"],
+#scheduleFormDelivery input[type="date"],
+#scheduleFormDelivery input[type="number"],
+#scheduleFormDelivery select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -763,7 +763,7 @@ label{
     font-size: 16px;  
 }
 
-#scheduleFormAgenda button {
+#scheduleForm-schedule button {
     background-color: green;
     color: white;
     border: none;
@@ -775,7 +775,7 @@ label{
     font-size: 18px;
 }
 
-#scheduleFormEntrega button {
+#scheduleFormDelivery button {
     background-color: rgb(7, 97, 19);
     color: white;
     border: none;
@@ -787,13 +787,13 @@ label{
     font-size: 18px;
 }
 
-#scheduleFormAgenda button:hover {
+#scheduleForm-schedule button:hover {
     background-color: transparent;
     font-weight: bolder;
     color: rgba(20, 236, 20, 0.959);
 }
 
-#scheduleFormEntrega button:hover {
+#scheduleFormDelivery button:hover {
     background-color: transparent;
     font-weight: bolder;
     color: rgba(20, 236, 20, 0.959);
@@ -815,7 +815,7 @@ label{
     margin-bottom: 20px;
 }
 
-#showCalendarAgenda {
+#showCalendarSchedule {
     background-color: rgba(144, 238, 144, 0.062);
     color: black;
     border: none;
@@ -824,7 +824,7 @@ label{
     transition: background-color 0.3s;
     margin-bottom: 20px;
 }
-#showCalendarAgenda img {
+#showCalendarSchedule img {
     display: block; 
     width: 100%; 
     height: 100%; 
@@ -834,11 +834,11 @@ label{
     background-color: darkgreen; 
 }
 
-#showCalendarAgenda:hover {
+#showCalendarSchedule:hover {
     background-color: rgba(0, 100, 0, 0.021);
 }
 
-#showCalendarEntrega {
+#showCalendarDelivery {
     background-color: rgba(144, 238, 144, 0.062);
     color: black;
     border: none;
@@ -848,10 +848,10 @@ label{
     margin-bottom: 20px;
 }
 
-#showCalendarEntrega:hover {
+#showCalendarDelivery:hover {
     background-color: darkgreen;
 }
-#showCalendarEntrega img {
+#showCalendarDelivery img {
     display: block; 
     width: 100%; 
     height: 100%; 
