@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
 
        try {
-            const response = await fetch('/loginSave', {
+            const response = await fetch('http://localhost:3000/loginSave', {
                 method: 'POST',                
                 body: formData
             });

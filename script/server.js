@@ -1,5 +1,5 @@
 
-require('dotenv').config();
+
 
 const express = require('express');
 const app = express();
@@ -41,8 +41,7 @@ app.use(bodyParser.json());
 app.use(express.static('../AUTO-MV'));
 app.use('/estilos', express.static(path.join(__dirname, '../estilos')));
 app.use(express.static(path.join(__dirname, '../frontend')));
-app.use(express.static(path.join(__dirname, '../imagens')))
-
+app.use(express.static(path.join(__dirname, '../imagens')));
 
 // Configuração do multer para upload de arquivos
 const storage = multer.memoryStorage();
