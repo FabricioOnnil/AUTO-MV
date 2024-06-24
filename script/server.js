@@ -130,12 +130,6 @@ app.post('/loginSave', (req, res) => {
     });
 });
 
-
-
-
-
-
-
 app.post('/registrarAbastecimento', upload.single('imagem'), async (req, res) => {
     const { descricao, valor, data } = req.body;
     const imagem = req.file;
