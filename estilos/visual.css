@@ -14,37 +14,11 @@
     --varBlue: #307FE2;
    /* --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/porta_chaves_fita_cassete_retro_3_modelos_de_cores_327_1_20170512184231.webp);*/
     --varBoxshadowClassic: 0 8px 16px rgba(0, 128, 0, 0.5);
-    --varBackgroundClassic: linear-gradient(#fbfcf9, #789900, #789900);
+    --varBackgroundClassic: linear-gradient(#7899001a, #ffc72c38, #3080e2d7);
     --varBackgroundInternal: #08ad16;
     --varBoxshadowForm:  0 4px 8px rgba(6, 97, 6, 0.637);
     --varBackgroundForm: #f8f6f19c;
 }
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --varFontMukta: 'Mukta Vaani', sans-serif;
-    --varFontUbuntu: 'Ubuntu', monospace;
-    --varFontRubik: 'Rubik', sans-serif;
-    --varGreen: #789900;
-    --varGreenshodow: #78990075;
-    --varWhite: #FFFFFF;
-    --varYellow: #FFC72C;
-    --varBlue: #307FE2;
-    --varBoxshadowClassic: 0 8px 16px rgba(0, 128, 0, 0.5);
-    --varBackgroundClassic: linear-gradient(#fbfcf9, #789900, #789900);
-    --varBackgroundInternal: #08ad16;
-    --varBoxshadowForm: 0 4px 8px rgba(6, 97, 6, 0.637);
-    --varBackgroundForm: #f8f6f19c;
-}
-
-
-
-
 
 /*--- A --*/
 
@@ -117,7 +91,7 @@ body {
     justify-content: flex-start;
     width: 100%;
     height: 100vh;
-    background-color: var(--varWhite);
+    background-color: var(--varBackgroundClassic);
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -458,21 +432,6 @@ footer img {
 
 /*--- H --*/
 
-h1 {
-    color: var(--varWhite);
-    margin-top: 200px;
-    font-display: bold;
-    font-size: 32px;
-    font-style: var(--varFontUbuntu);
-    background-color: var(--varBackgroundInternal);
-    padding: 10px 20px;
-    text-align: center;
-    width: 100%;
-    box-shadow: var(--varBoxshadowClassic);
-    border-radius: 10px;
-}
-
-
 .has-event {
     background-color: #07691c; /* Cor de fundo para dias com eventos */
     cursor: pointer;
@@ -486,7 +445,7 @@ h1 {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #7899001f;
+    background-color: #ffffff05;
     padding: 10px;
     text-align: center;
     z-index: 1000;
@@ -501,29 +460,9 @@ h1 {
     height: auto;
 }
 
-
-#header {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #7899001f;
-    padding: 10px;
-    text-align: center;
-    z-index: 1000;
-    height: 60px;
-}
-
-#header img.logoHeader {
-    height: 40px;
-}
-
 h1 {
     color: var(--varWhite);
-    margin-top: 20px;
+    margin-top: 60px;
     font-display: bold;
     font-size: 32px;
     font-style: var(--varFontUbuntu);
@@ -534,6 +473,7 @@ h1 {
     box-shadow: var(--varBoxshadowClassic);
     border-radius: 10px;
 } 
+
 html, body {
     font-family: var(--varFontMukta);
     margin: 0;
@@ -545,7 +485,7 @@ html, body {
     width: 100%;
     height: 100vh;
     background-color: var(--varWhite);
-    background-image: var(--varGreen);
+    background-image: var(--varBackgroundClassic);
     overflow-x: hidden; /* Evitar barras de rolagem horizontais */
     line-height: 1.6;   
 }
@@ -580,7 +520,8 @@ label{
 }
 
 .logoHeader{
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     height: auto;
 }
 
@@ -696,7 +637,7 @@ label{
 
 main {
     width: 100%;
-    padding-top: 80px; /* Espaço para o header fixo */
+    padding-top: 8px; /* Espaço para o header fixo */
     display: flex;
     flex-direction: column;
     align-items: center;

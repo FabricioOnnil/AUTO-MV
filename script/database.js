@@ -1,7 +1,7 @@
-const mysql = require('mysql');
+import { createConnection } from 'mysql';
 
 // Configurar a conexão com o banco de dados
-const connection = mysql.createConnection({
+const connection = createConnection({
   host: 'locahost',
   user: 'root',
   password: '8mtkjg',
@@ -31,7 +31,7 @@ function inserirAbastecimento(descricao, valor, data, imagem) {
   });
 }
 
-module.exports = {
+export default {
   inserirAbastecimento
 };
 
