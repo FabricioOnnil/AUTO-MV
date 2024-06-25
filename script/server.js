@@ -1,7 +1,7 @@
 
 
 
-const express = require('express');
+const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -9,6 +9,8 @@ const mysql = require('mysql2');
 const util = require('util');
 const dotenv = require('dotenv');
 const multer = require('multer');
+
+
 
 const PORT = 3000;
 
@@ -48,18 +50,19 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 
-//--------------------------------app.gets----------------------------------
+//--------------------------------app.gets Express-----------------------------
 
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend', 'vamoInicial.html'));
+});
 
 app.get('/vamo', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend', 'vamo.html'));
 });
 
-/*app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend', 'vamoInicial.html'));
-});
 
+/*
 
 app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
