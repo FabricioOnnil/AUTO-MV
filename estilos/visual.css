@@ -1123,6 +1123,15 @@ th, td {
 }
 
 /*--- U --*/
+
+.unic {
+    
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
 /*--- V --*/
 /*--- X --*/
 /*--- Y --*/
