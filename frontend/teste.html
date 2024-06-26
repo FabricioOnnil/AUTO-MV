@@ -199,3 +199,35 @@ app.delete('/deleteInfo/:id', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor está rodando em http://localhost:${PORT}`);
 });
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<body>
+    <h1>Formulario</h1>
+    <form action="">
+    <p>Titulo:</p>
+    <input type="text" name="titulo">
+    <p>Conteudo: </p>
+    <textarea name="conteudo" id="cont"></textarea>
+    <buttonType="submit">Cadastrar Postagem</button>
+</form>
+</body>
+</html>
+
+app.post('/ContratoCarro', (req, res)=> {
+    Post.create({
+    dataInicio: req.body.dataInicio
+    
+    }).then(function(){
+        res.send("Cadastro realizado com Sucesso!");
+        //res.redirect('a rota');
+    }).catch(function(erro){
+        res.send("Aconteceu um erro: " + erro);
+    })
+})

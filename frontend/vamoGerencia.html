@@ -30,7 +30,7 @@
         <div class="popup-content">
             <button class="close-btn" onclick="closePopup('carPopup')">Fechar</button>
             <h1>Contrato dos Carros</h1>
-            <form>
+            <form action="/ContratoCarro" method="POST">
                 <div class="form-group">
                     <!--<label for="registrationCar">Cadastro de Contrato</label>
                     <input type="checkbox" id="contract" name="registrationCar" value="contract" onclick="contractRegistration()">Contrato</input>
@@ -61,7 +61,7 @@
         <div class="popup-content">
             <button class="close-btn" onclick="closePopup('custPopup')">Fechar</button>
             <h1>Custos Fixo</h1>
-            <form>         
+            <form action="" method="POST">         
                 <div class="form-group">
                     <!--<label for="fixedCost">Custos Fixos</label>
                     <input type="checkbox" id="cost" name="fixedCost" value="cost" onclick="fixedCost()">Custos Fixos</input>
@@ -87,7 +87,7 @@
         <div class="popup-content">
             <button class="close-btn" onclick="closePopup('infoPopup')">Fechar</button>
             <h1>Informações dos Carros</h1>
-            <form>  
+            <form action="" method="POST">  
                 <div class="form-group">
                     <!--<label for="registerCar">Modelo Carro</label>
                     <input type="checkbox" id="car" name="registerCar" value="car" onclick="registerCar()">Modelo Carro</input>
@@ -114,7 +114,7 @@
         <div class="popup-content">
             <button class="close-btn" onclick="closePopup('acessoPopup')">Fechar</button>
             <h1>Cadastro de Acesso</h1>
-            <form action="/loginSave" method="POST" id="formDateUser">
+            <form action="" method="POST" id="formDateUser">
                 <div class="form-group">
                     <label for="nome">Nome:</label>
                     <input type="text" id="nome" name="name" required>

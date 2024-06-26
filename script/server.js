@@ -2,19 +2,21 @@ import express from 'express';
 import { create } from 'express-handlebars';
 import { fileURLToPath } from 'url';
 import path, { join } from 'path';
-import Sequelize from 'sequelize';
+import db from './db';
+import Post from './Post';
+import bodyParser from 'body-parser';
 
 const app = express();
-
+const PORT = process.env.PORT || 8081;
 // Definindo __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Conexão com o banco de dados MySql
-const sequelize = new Sequelize('vamo_auto_mv', 'root', '8mtkjg', {
-    host: "localhost",
-    dialect: 'mysql'
-});
+//bodyParser
+app.use(bodyParser.urlencoded({extend: false}));
+app.use(bodyParser.json());
+
+
 
 sequelize.authenticate().then(function() {
     console.log("Conectado com sucesso!");
@@ -26,14 +28,20 @@ sequelize.authenticate().then(function() {
 app.set('views', join(__dirname, '..', 'views'));
 
 // Configuração do Template Engine
-const hbs = create({ defaultLayout: 'main' });
-app.engine('handlebars', hbs.engine);
+const templateEngine = create({ defaultLayout: 'main' });
+app.engine('handlebars', templateEngine.engine);
 app.set('view engine', 'handlebars');
 
 // Configuração para servir arquivos estáticos
 app.use(express.static(join(__dirname, '..'))); // Isso serve a pasta raiz que contém todas as outras pastas
 
+
+
 // ROTAS para servir arquivos HTML estáticos
+
+app.get('/cad', (req, res) => {
+    res.render('formulario');
+})
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, '..', 'frontend', 'vamoIndex.html'));
 });
@@ -85,6 +93,11 @@ app.get('/vamoGerencia', (req, res) => {
 app.get('/vamoMapa', (req, res) => {
     res.sendFile(join(__dirname, '..', 'frontend', 'vamoMapa.html'));
 });
+
+
+
+
+//-----------------------------------------------
 
 app.listen(8081, function() {
     console.log("Servidor aberto na url http://localhost:8081");

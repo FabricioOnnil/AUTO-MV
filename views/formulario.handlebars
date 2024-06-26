@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario</title>
-</head>
-<body>
-    <h1>Formulario</h1>
-    <form action="">
-    <p>Titulo:</p>
-    <input type="text" name="titulo">
-    <p>Conteudo: </p>
-    <textarea name="conteudo" id="cont"></textarea>
-    <buttonType="submit">Cadastrar Postagem</button>
+<form action="" method="">
+       <label for="dataTermino">Data de Término do Aluguel:</label>
+       <input type="date" id="dataInicio" name="dataInicio">
+       <label for="dataInicio">Data de Início do Aluguel:</label>
+       <input type="date" id="dataTermino" name="dataTermino">
+       <label for="usuarioResponsavel">Responsável</label>
+       <input type="text" id="usuarioResponsavel" name="usuarioResponsavel">
+       <label for="codigoReserva">Codigo Reserva</label>
+       <input type="text" id="codigoReserva" name="codigoReserva">
+       <label for="codigoAluguel">Contrato Aluguel</label>
+       <input type="text" id="codigoAluguel" name="codigoAluguel">
+       <label for="tarifaContrato">Tarifa Mensal</label>
+       <input type="number" step="0.01" id="tarifaContrato" name="tarifaContrato">
+       <label for="kmExcedente">Valor Km Excedente</label>
+       <input type="number" step="0.01" id="kmExcedente" name="kmExcedente">
+       <label for="distanciaDia">Franquia km/dia</label>
+       <input type="number" id="distanciaDia" name="distanciaDia">
+       <button type="submit">Cadastrar</button>    
+   
 </form>
-</body>
-</html>
