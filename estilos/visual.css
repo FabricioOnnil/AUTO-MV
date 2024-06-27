@@ -3,10 +3,34 @@
     padding: 0;
     box-sizing: border-box;
 }
+/*Fonte Ubuntu -------*/
+@font-face {
+    font-family: 'ubuntu';
+    src: url('"C:\Users\Fabricio Rocha\DOWNLOAD\fonte\Ubuntu\Ubuntu-Regular.ttf"') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*Fonte Rubik */
+@font-face {
+    font-family: 'rubik';
+    src: url('"C:\Users\Fabricio Rocha\DOWNLOAD\fonte\Rubik\Rubik-VariableFont_wght.ttf"') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*Fonte Mukta_Vaani */
+@font-face {
+    font-family: 'Mukta_vaani';
+    src: url('"C:\Users\Fabricio Rocha\DOWNLOAD\fonte\Mukta_Vaani\MuktaVaani-Regular.ttf"') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
-    --varFontMukta: 'Mukta Vaani', sans-serif;
-    --varFontUbuntu: 'Ubuntu', monospace;
-    --varFontRubik: 'Rubik', sans-serif;
+    --font-ubuntu: 'ubuntu', sans-serif;
+    --font-rubik: 'rubik', sans-serif;
+    --font-Mukta: 'Mukta_vaani', sans-serif;
     --varGreen: #789900;
     --varGreenshodow: #78990075;
     --varWhite: #FFFFFF;
@@ -14,7 +38,7 @@
     --varBlue: #307FE2;
     --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/floresta.png) ;
     --varBoxshadowClassic: 0 8px 16px rgba(0, 128, 0, 0.5);
-    --varBackgroundClassic: linear-gradient(#7899001a, #ffc72c38, #3080e2d7);
+    --varBackgroundClassic: linear-gradient(#7899001a, #ffc72c38, #3080e27c);
     --varBackgroundInternal: #08ad16;
     --varBoxshadowForm:  0 4px 8px rgba(6, 97, 6, 0.637);
     --varBackgroundForm: #f8f6f19c;
@@ -72,30 +96,19 @@
     overflow-x: hidden;  Evitar barras de rolagem horizontais */
 
 body {
-    font-family: var(--varFontMukta);
+    font-family: var(--font-ubuntu);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-color: var(--varWhite);
-    
-    line-height: 1.6;
-}
-
-body {
-    font-family: var(--varFontMukta);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--varBackgroundClassic);
+    background-color: var(--varWhite); 
+    background-color: var(--varBackgroundClassic);   
     line-height: 1.6;
     overflow-x: hidden;
 }
+
 
 #bot_links {
     align-items: center;
@@ -137,6 +150,7 @@ body {
 
 #botoes button {
     background: none;
+    font-family: var(--font-Mukta);
     border: none;
     padding-top: 200px;    
     cursor: pointer;
@@ -153,6 +167,7 @@ body {
 }
 
 button {
+    font-family: var(--font-Mukta);
     background-color: transparent;
     color: inherit;
     border: none;
@@ -183,6 +198,7 @@ button:hover {
 /*--- C --*/
 
 #calendar {
+    font-family: var(--font-Mukta);
     border-collapse: collapse;
     width: 80%;
     max-width: 1000px;
@@ -192,6 +208,7 @@ button:hover {
 }
 
 #calendar th, #calendar td {
+    font-family: var(--font-Mukta);
     text-align: center;
     padding: 8px;
     border: 1px solid #ccc;
@@ -199,6 +216,7 @@ button:hover {
 }
 
 #calendar-container {
+    font-family: var(--font-Mukta);
     margin-top: 50px; /* Altura suficiente para não cobrir o header */
     padding: 20px;
     box-sizing: border-box;
@@ -218,6 +236,7 @@ button:hover {
     cursor: pointer;
 }*/
 .close-btn {
+    font-family: var(--font-Mukta);
     background-color: #f44336;
     color: white;
     float: right;
@@ -329,7 +348,7 @@ div {
 /*--- E --*/
 
 .delivery {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-ubuntu);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -341,11 +360,6 @@ div {
 #errorMessage {
     text-align: center;
 }
-
-
-
-
-
 
 
 
@@ -462,6 +476,7 @@ footer img {
 }
 
 h1 {
+    font-family: var(--font-ubuntu);
     color: var(--varWhite);
     margin-top: 60px;    
     font-size: 32px;
@@ -477,7 +492,7 @@ h1 {
 
 
 html, body {
-    font-family: var(--varFontMukta);
+    font-family: var(--font-Mukta);
     margin: 0;
     padding: 0;
     display: flex;
