@@ -39,7 +39,10 @@ app.set('view engine', 'handlebars');
 
 // Configuração para servir arquivos estáticos
 app.use(express.static(join(__dirname, '..'))); 
-
+app.use(express.static(path.join(__dirname, 'frontend')));
+app.use('/Imagens', express.static(path.join(__dirname, 'Imagens')));
+app.use('/script', express.static(path.join(__dirname, 'script')));
+app.use('/styles', express.static(path.join(__dirname, 'styles')));
 
 
 
@@ -263,12 +266,6 @@ app.delete('/infoCarro/:id', (req, res) => {
 
 
 
-
-
-
-
-
-
 // ROTAS para servir arquivos HTML estáticos
 
 
@@ -329,6 +326,6 @@ app.get('/vamoMapa', (req, res) => {
 
 //-----------------------------------------------
 
-app.listen(8081, function() {
-    console.log("Servidor aberto na url http://localhost:8081");
+app.listen(PORT, function() {
+    console.log(`Servidor aberto na url http://localhost:${PORT}`);
 });

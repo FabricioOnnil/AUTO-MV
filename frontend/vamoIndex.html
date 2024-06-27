@@ -6,27 +6,47 @@
     <link rel="stylesheet" href="/estilos/visual.css">
     <style>
         section {
-  display: flex; /* Usar Flexbox para centralização */
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-  height: 100vh; /* Faz a seção ocupar a altura total da tela */
-}
+            display: flex; /* Usar Flexbox para centralização */
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            height: 100vh; /* Faz a seção ocupar a altura total da tela */
+        }          
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        video {
+            width: 100%;
+            max-width: 600px; /* Ajuste o valor conforme necessário */
+        }
+        .hidden {
+            display: none;
+        }
+        .unic {
+            width: 100%;
+            max-width: 200px; /* Ajuste o valor conforme necessário */
+        }
     </style>
     <title>COMEÇA AQUI</title>
 </head>
 <body >
     
    
-      
-        <section>
-            <a href="vamoInicial.html"><img class="unic" src="/Imagens/logonew325blue.png" alt="Logo Vamo"></a>
-        </section><br>
+    <div class="container">
+        <video id="introVideo" src="/Imagens/lovamo.mp4" muted playsinline preload="auto"></video>
+        <section id="imageSection" class="hidden">
+            <a href="/frontend/vamoInicial.html"><img class="unic" src="/Imagens/logonew725.png" alt="Logo Vamo"></a>
+        </section>
+    </div>
     
            
-    <footer>
+<footer>
         <a href="https://mvgi.com.br/">
             <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
         </a>
-    </footer>
+</footer>
+<script src="/script/inicial.js"></script>
 </body>
 </html>
