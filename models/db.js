@@ -1,11 +1,12 @@
 import Sequelize from 'sequelize';
+
 // Conexão com o banco de dados MySql
 const sequelize = new Sequelize('vamo_auto_mv', 'root', '8mtkjg', {
     host: "localhost",
     dialect: 'mysql'
 });
 
-module.exports = {
+export default {
     Sequelize: Sequelize,
-    sequelize: sequileze
+    sequelize: sequelize
 }
