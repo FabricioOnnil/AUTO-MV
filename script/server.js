@@ -41,6 +41,10 @@ app.set('view engine', 'handlebars');
 app.use(express.static(join(__dirname, '..'))); 
 
 
+
+
+
+
 // Rota para cadastrar um acesso------------------------------------------------------------------
 app.post('/acesso', (req, res) => {
     Acesso.create({
@@ -91,6 +95,10 @@ app.delete('/acesso/:id', (req, res) => {
         res.status(500).send("Erro ao deletar acesso: " + error);
     });
 });
+
+
+
+
 
 
 // Rotas para ContratoCarro------------------------------------------------------------------------
@@ -145,6 +153,11 @@ app.delete('/contratoCarro/:id', (req, res) => {
         res.status(500).send("Erro ao deletar contrato: " + error);
     });
 });
+
+
+
+
+
 
 // Rota para cadastrar custos fixos-------------------------------------------------------------------
 app.post('/custosFixos', (req, res) => {
@@ -245,11 +258,20 @@ app.delete('/infoCarro/:id', (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 // ROTAS para servir arquivos HTML estáticos
 
-app.get('/cad', (req, res) => {
-    res.render('formulario');
-})
+
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, '..', 'frontend', 'vamoIndex.html'));
 });
