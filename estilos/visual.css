@@ -38,10 +38,10 @@
     --varBlue: #307FE2;
     --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/floresta.png) ;
     --varBoxshadowClassic: 0 8px 16px rgba(0, 128, 0, 0.5);
-    --varBackgroundClassic: linear-gradient(#78990018, #ffc72c31, #3080e27c);
+    --varBackgroundClassic: linear-gradient(#78990025, #ffc72c27, #3080e22c);
     --varBackgroundInternal: #08ad16;
     --varBoxshadowForm:  0 4px 8px #3c4d02e8;
-    --varBackgroundForm: #f8f6f12a;
+    --varBackgroundForm:  #789900;
 }
 
 /*--- A --*/
@@ -90,25 +90,6 @@
 
 
 /*--- B --*/
-
-
-   /* background-image: ;
-    overflow-x: hidden;  Evitar barras de rolagem horizontais */
-
-body {
-    font-family: var(--font-ubuntu);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--varWhite); 
-    background-color: var(--varBackgroundClassic);   
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
 
 #bot_links {
     align-items: center;
@@ -185,9 +166,32 @@ button:hover {
     color: var(--varBlue);
 }
 
+#button_dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px; /* Ajuste para considerar a altura do cabeçalho fixo */
+    gap: 2px;
+    text-align: center;    
+}
 
 
+#button_dashboard,
+#img_section {
+    width: 100%; /* Ajuste conforme necessário */
+    padding: 0;
+    box-sizing: border-box;
+    margin-bottom: 2px;
+    
+}
 
+#button_dashboard button {
+    background: none;
+    border: none;
+    margin-bottom: 1px;
+    cursor: pointer;
+    gap: 10px;
+}
 
 
 
@@ -382,6 +386,7 @@ footer {
     width: 100%;
     padding: 0 10px; 
     margin-top: auto;
+    text-align: center;
 }
 
 footer img {
@@ -458,11 +463,13 @@ footer img {
 .has-event {
     background-color: var(--varYellow);
     color: black; /* Cor de fundo para dias com eventos */
+    font-weight: bold;
     cursor: pointer;
 }
 
 #header {
     width: 100%;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     position: fixed;
@@ -470,9 +477,10 @@ footer img {
     left: 0;
     right: 0;
     background-color: #ffffff05;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-align: center;
-    z-index: 1000;
+    z-index: 1;
     height: 60px;
 }
 
@@ -482,12 +490,13 @@ footer img {
 #header img {
     max-width: 100%;
     height: auto;
+    padding-bottom: 10px;
 }
 
 h1 {
     font-family: var(--font-ubuntu);
     color: var(--varWhite);
-    margin-top: 80px;    
+    margin-top: 8px;    
     font-size: 32px;
     font-style: var(--varFontUbuntu);
     background-color: var(--varGreen);
@@ -497,7 +506,6 @@ h1 {
     box-shadow: var(--varBoxshadowForm);
     border-radius: 10px;
 } 
-
 
 
 html, body {
@@ -515,11 +523,50 @@ html, body {
     background-size: cover; 
     background-position: center; 
     overflow-x: hidden; 
-    line-height: 1.6;   
+    line-height: 1.0; 
+    padding-top: 60px; /* Espaço para o header fixo */
+    overflow-y: auto; /* Evita barra de rolagem lateral */
+    overflow-x: auto;
 }
+/*html, body {
+    font-family: var(--font-Mukta);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--varWhite);
+    background-image: var(--varBackgroundClassic);
+    background-size: cover; 
+    background-position: center; 
+    overflow-x: hidden; 
+    line-height: 1.0; 
+    padding-top: 50px;
+}*/
 
 
 /*--- I --*/
+
+#img_section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: auto;
+    gap: 2px;
+    text-align: center;
+}
+
+#img_section a {
+    margin: 80px;
+}
+
+#img_section img {
+    width: 150px;
+    height: auto;
+}
 
 #initial {
     width: 100%;
@@ -533,13 +580,21 @@ html, body {
     height: auto;
 }
 
+input, select, textarea {
+    font-family: var(--font-Mukta);
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
 /*--- J --*/
 /*--- K --*/
 /*--- L --*/
 
 label{
-    color: var(--varBackgroundInternal);
-    font-family: var(--font-ubuntu);
+    color: var(--varWhite);
+    font-family: var(--font-Mukta);
 }
 
 #logo {
@@ -582,7 +637,7 @@ label{
     max-width: 360px; 
 }
 #loginForm {
-    background-color: var(--varBackgroundForm);
+    background-color: var(--varGreen);
     padding: 20px;
     border: 2px solid var(--varGreenshodow); 
     box-shadow: var(--varBoxshadowForm); 
@@ -605,6 +660,7 @@ label{
     border-radius: 4px;
 }
 
+
 #loginForm button {
     background-color: var(--varBlue);
     box-shadow: var(--varBoxshadowForm);
@@ -623,30 +679,6 @@ label{
 }
 
 
-#loginForm {
-    background-color: var(--varBackgroundForm);
-    padding: 20px;
-    border: 2px solid var(--varGreenshodow);
-    box-shadow: var(--varBoxshadowForm);
-    border-radius: 10px;
-    width: 90%;
-    max-width: 360px;
-}
-
-#loginForm label {
-    font-weight: bold;
-}
-
-#loginForm input[type="text"],
-#loginForm input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0 15px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-
 /*--- M --*/
 
 
@@ -656,6 +688,14 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%; /* Ajuste conforme necessário */
+    margin-bottom: 20px;
 }
 
 #map {
@@ -710,6 +750,14 @@ main {
 @media (min-width: 600px) {
     body {
         font-size: 18px; /* Maior tamanho de letra para telas maiores */
+    }
+}
+@media(max-width: 600px) {
+    form {
+        padding: 15px;
+    }
+    input, select, textarea {
+        padding: 8px;
     }
 }
 
@@ -770,16 +818,6 @@ main {
 }
 
 /*--- N --*/
-
-
-
-
-
-
-
-
-
-
 
 /*--- O --*/
 
@@ -859,18 +897,21 @@ main {
 }
 
 .popup-containerSchedule {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 600px;
-    background-color: white;
-    border: 2px solid green;
-    box-shadow: 0 0px 10px rgba(0, 128, 0, 0.5);
-    display: none;
-    z-index: 1000;
+    background-color: var(--varBackgroundForm);
+    border: 2px solid var(--varGreen);
+    box-shadow:var(--varBoxshadowForm);
+    box-sizing: border-box;
+    display: flexbox; 
+    gap: 10px;    
+    left: 50%;     
+    max-width: 90%;
+    margin: auto;    
     padding: 20px;
+    position: fixed;    
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    z-index: 1000;      
 }
 
 .popup-containerDelivery {
@@ -920,6 +961,8 @@ main {
 .popup-contentSchedule {
     text-align: left;
     position: relative;
+    padding: 2px;
+    border-radius: 5px;
 }
 
 .popup-contentDelivery {
@@ -1040,10 +1083,28 @@ main {
     color: var(--varBlue);
 }
 
+
+
+#schedules {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+#schedules th, #schedules td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+#schedules th {
+    background-color: #f4f4f4
+}
 .select-container {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+
 }
 
 #showCalendar {
@@ -1137,9 +1198,9 @@ th, td {
 }
 
 .today {
-    background-color: var(--varWhite);
+    background-color: rgba(2, 75, 2, 0.555);
     font-weight: bold;
-    color: green; /* Cor de fundo para o dia atual */
+    color: var(--varWhite); /* Cor de fundo para o dia atual */
 }
 
 thead {

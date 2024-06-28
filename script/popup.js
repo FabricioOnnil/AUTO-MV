@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const showCalendarButton = document.getElementById('showCalendarAgenda');
-    const overlay = document.getElementById('overlayAgenda');
-    const calendarPopup = document.getElementById('calendarPopupAgenda');
-    const closePopupButton = document.querySelector('.close-popupAgenda');
+    const showCalendarButton = document.getElementById('showCalendarSchedule');
+    const overlay = document.getElementById('overlaySchedule');
+    const calendarPopup = document.getElementById('calendarPopupSchedule');
+    const closePopupButton = document.querySelector('.close-popupSchedule');
 
     showCalendarButton.addEventListener('click', function() {
         overlay.style.display = 'block';

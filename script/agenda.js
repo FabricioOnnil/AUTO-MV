@@ -1,40 +1,75 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const showCalendarButton = document.getElementById('showCalendarAgenda');
-    const overlay = document.getElementById('overlayAgenda');
-    const calendarPopup = document.getElementById('calendarPopupAgenda');
-    const closePopupButton = document.querySelector('.close-popupAgenda');
-    const scheduleForm = document.getElementById("scheduleFormAgenda");
+    const showCalendarButton = document.getElementById('showCalendarSchedule');
+    const showSchedulesButton = document.getElementById('showSchedulesButton');
+    const overlaySchedule = document.getElementById('overlaySchedule');
+    const overlaySchedules = document.getElementById('overlaySchedules');
+    const calendarPopupSchedule = document.getElementById('calendarPopupSchedule');
+    const schedulesPopup = document.getElementById('schedulesPopup');
+    const closePopupScheduleButton = document.querySelector('.close-popupSchedule');
+    const closePopupSchedulesButton = document.querySelector('.close-popupSchedules');
+    const scheduleForm = document.getElementById("scheduleFormSchedule");
 
     console.log("DOM loaded");
 
     if (showCalendarButton) {
         showCalendarButton.addEventListener('click', function() {
             console.log("Show calendar button clicked");
-            overlay.style.display = 'block';
-            calendarPopup.style.display = 'block';
+            overlaySchedule.style.display = 'block';
+            calendarPopupSchedule.style.display = 'block';
         });
     } else {
         console.error("showCalendarButton not found");
     }
 
-    if (closePopupButton) {
-        closePopupButton.addEventListener('click', function() {
-            console.log("Close popup button clicked");
-            overlay.style.display = 'none';
-            calendarPopup.style.display = 'none';
+    if (showSchedulesButton) {
+        showSchedulesButton.addEventListener('click', function() {
+            console.log("Show schedules button clicked");
+            overlaySchedules.style.display = 'block';
+            schedulesPopup.style.display = 'block';
+            loadFormData();
         });
     } else {
-        console.error("closePopupButton not found");
+        console.error("showSchedulesButton not found");
     }
 
-    if (overlay) {
-        overlay.addEventListener('click', function() {
-            console.log("Overlay clicked");
-            overlay.style.display = 'none';
-            calendarPopup.style.display = 'none';
+    if (closePopupScheduleButton) {
+        closePopupScheduleButton.addEventListener('click', function() {
+            console.log("Close popup button clicked");
+            overlaySchedule.style.display = 'none';
+            calendarPopupSchedule.style.display = 'none';
         });
     } else {
-        console.error("overlay not found");
+        console.error("closePopupScheduleButton not found");
+    }
+
+    if (closePopupSchedulesButton) {
+        closePopupSchedulesButton.addEventListener('click', function() {
+            console.log("Close schedules popup button clicked");
+            overlaySchedules.style.display = 'none';
+            schedulesPopup.style.display = 'none';
+        });
+    } else {
+        console.error("closePopupSchedulesButton not found");
+    }
+
+    if (overlaySchedule) {
+        overlaySchedule.addEventListener('click', function() {
+            console.log("Overlay clicked");
+            overlaySchedule.style.display = 'none';
+            calendarPopupSchedule.style.display = 'none';
+        });
+    } else {
+        console.error("overlaySchedule not found");
+    }
+
+    if (overlaySchedules) {
+        overlaySchedules.addEventListener('click', function() {
+            console.log("Overlay clicked");
+            overlaySchedules.style.display = 'none';
+            schedulesPopup.style.display = 'none';
+        });
+    } else {
+        console.error("overlaySchedules not found");
     }
 
     const carMap = {
@@ -42,16 +77,19 @@ document.addEventListener("DOMContentLoaded", function() {
         carro2: 'AUDI - PPX_3456'
     };
 
-    function storeFormData(nome, startDate, origem, carName) {
+    function storeFormData(nome, startDate, startTime, origem, rota, km_initial, carName) {
         const formData = {
             nome,
             startDate,
+            startTime,
             origem,
+            rota,
+            km_initial,
             carName
         };
-        const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-        agendamentos.push(formData);
-        localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+        const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
+        schedules.push(formData);
+        localStorage.setItem('schedules', JSON.stringify(schedules));
         console.log("Form data stored", formData);
     }
 
@@ -70,23 +108,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const nome = document.getElementById("nome").value;
             const startDate = document.getElementById("startDate").value;
+            const startTime = document.getElementById("startTime").value;
             const origem = document.getElementById("originSelect").value; 
+            const rota = document.getElementById("rota").value;
+            const km_initial = document.getElementById("km_initial").value;
             const carSelect = document.getElementById("carSelect").value;
             const carName = carMap[carSelect] || 'Carro não selecionado';
 
-            storeFormData(nome, startDate, origem, carName);
+            storeFormData(nome, startDate, startTime, origem, rota, km_initial, carName);
 
             const formattedDate = formatDateToBrazilian(startDate);
 
-            const agendamentosBody = document.getElementById("agendamentosBody");
-            const newRow = agendamentosBody.insertRow();
+            const schedulesBody = document.getElementById("schedulesBody");
+            const newRow = schedulesBody.insertRow();
             newRow.insertCell(0).textContent = nome;
             newRow.insertCell(1).textContent = formattedDate;
-            newRow.insertCell(2).textContent = origem;
-            newRow.insertCell(3).textContent = carName;
+            newRow.insertCell(2).textContent = startTime;
+            newRow.insertCell(3).textContent = origem;
+            newRow.insertCell(4).textContent = rota;
+            newRow.insertCell(5).textContent = km_initial;
+            newRow.insertCell(6).textContent = carName;
 
-            overlay.style.display = 'none';
-            calendarPopup.style.display = 'none';
+            overlaySchedule.style.display = 'none';
+            calendarPopupSchedule.style.display = 'none';
             scheduleForm.reset();
         });
     } else {
@@ -94,19 +138,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function loadFormData() {
-        const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-        const agendamentosBody = document.getElementById("agendamentosBody");
+        const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
+        const schedulesBody = document.getElementById("schedulesBody");
+        schedulesBody.innerHTML = ''; // Limpa o conteúdo atual da tabela
 
-        agendamentos.forEach(formData => {
-            const newRow = agendamentosBody.insertRow();
+        schedules.forEach(formData => {
+            const newRow = schedulesBody.insertRow();
             newRow.insertCell(0).textContent = formData.nome;
             newRow.insertCell(1).textContent = formatDateToBrazilian(formData.startDate);
-            newRow.insertCell(2).textContent = formData.origem;
-            newRow.insertCell(3).textContent = formData.carName;
+            newRow.insertCell(2).textContent = formData.startTime;
+            newRow.insertCell(3).textContent = formData.origem;
+            newRow.insertCell(4).textContent = formData.rota;
+            newRow.insertCell(5).textContent = formData.km_initial;
+            newRow.insertCell(6).textContent = formData.carName;
         });
 
-        console.log("Form data loaded", agendamentos);
+        console.log("Form data loaded", schedules);
     }
 
-    loadFormData();
 });
