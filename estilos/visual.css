@@ -38,10 +38,10 @@
     --varBlue: #307FE2;
     --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/floresta.png) ;
     --varBoxshadowClassic: 0 8px 16px rgba(0, 128, 0, 0.5);
-    --varBackgroundClassic: linear-gradient(#7899001a, #ffc72c38, #3080e27c);
+    --varBackgroundClassic: linear-gradient(#78990018, #ffc72c31, #3080e27c);
     --varBackgroundInternal: #08ad16;
-    --varBoxshadowForm:  0 4px 8px rgba(6, 97, 6, 0.637);
-    --varBackgroundForm: #f8f6f19c;
+    --varBoxshadowForm:  0 4px 8px #3c4d02e8;
+    --varBackgroundForm: #f8f6f12a;
 }
 
 /*--- A --*/
@@ -150,7 +150,7 @@ body {
 
 #botoes button {
     background: none;
-    font-family: var(--font-Mukta);
+    font-family: var(--font-ubuntu);
     border: none;
     padding-top: 200px;    
     cursor: pointer;
@@ -167,7 +167,7 @@ body {
 }
 
 button {
-    font-family: var(--font-Mukta);
+    font-family: var(--font-ubuntu);
     background-color: transparent;
     color: inherit;
     border: none;
@@ -176,13 +176,13 @@ button {
     transition: background-color 0.3s;
     margin: 10px auto;
     display: block;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 button:hover {
     background-color: transparent;
     font-weight: bolder;
-    color: rgba(20, 236, 20, 0.959);
+    color: var(--varBlue);
 }
 
 
@@ -197,26 +197,34 @@ button:hover {
 
 /*--- C --*/
 
+.centerLogo{
+        display: flex; /* Usar Flexbox para centralização */
+        justify-content: center; /* Centraliza horizontalmente */
+        align-items: center; /* Centraliza verticalmente */
+        height: 100vh; /* Faz a seção ocupar a altura total da tela */
+}
+
 #calendar {
-    font-family: var(--font-Mukta);
+    font-family: var(--font-ubuntu);
     border-collapse: collapse;
     width: 80%;
     max-width: 1000px;
-    background-color: white;
-    border: 3px solid green; /* Mais destacada */
-    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.5);
+    background-color: var(--varGreen);
+    border: 3px solid var(--varGreen); /* Mais destacada */
+    box-shadow: 0 4px 8px var(--varBoxshadowForm);
+    color: var(--varWhite)
 }
 
 #calendar th, #calendar td {
-    font-family: var(--font-Mukta);
+    font-family: var(--font-ubuntu);
     text-align: center;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #FFFFFF;
     white-space: nowrap;    
 }
 
 #calendar-container {
-    font-family: var(--font-Mukta);
+    font-family: var(--font-ubuntu);
     margin-top: 50px; /* Altura suficiente para não cobrir o header */
     padding: 20px;
     box-sizing: border-box;
@@ -314,8 +322,8 @@ button:hover {
 
 #currentMonth {
     padding: 5px 10px;
-    background-color: white;
-    color: green;
+    background-color: var(--varWhite);
+    color: var(--varGreen);
     font-weight: bold;
 }
 
@@ -416,7 +424,7 @@ footer img {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #007BFF;
+    background-color: var(--varBlue);
     color: white;
     border: none;
     border-radius: 4px;
@@ -448,7 +456,8 @@ footer img {
 /*--- H --*/
 
 .has-event {
-    background-color: #07691c; /* Cor de fundo para dias com eventos */
+    background-color: var(--varYellow);
+    color: black; /* Cor de fundo para dias com eventos */
     cursor: pointer;
 }
 
@@ -478,14 +487,14 @@ footer img {
 h1 {
     font-family: var(--font-ubuntu);
     color: var(--varWhite);
-    margin-top: 60px;    
+    margin-top: 80px;    
     font-size: 32px;
     font-style: var(--varFontUbuntu);
     background-color: var(--varGreen);
     padding: 10px 20px;
     text-align: center;
     width: 100%;
-    box-shadow: var(--varBoxshadowClassic);
+    box-shadow: var(--varBoxshadowForm);
     border-radius: 10px;
 } 
 
@@ -529,7 +538,8 @@ html, body {
 /*--- L --*/
 
 label{
-    color: black;
+    color: var(--varBackgroundInternal);
+    font-family: var(--font-ubuntu);
 }
 
 #logo {
@@ -539,6 +549,7 @@ label{
 }
 
 .logoHeader{
+    
     width: 100%;
     height: 100%;
     height: auto;
@@ -564,7 +575,7 @@ label{
 .loginForm {
     background-color: var(--varBackgroundForm);
     padding: 20px;
-    border: 2px solid var(--varGreenshodow); 
+    border: 2px solid var(--varGreen); 
     box-shadow: var(--varBoxshadowForm); 
     border-radius: 10px; 
     width: 90%; 
@@ -595,7 +606,7 @@ label{
 }
 
 #loginForm button {
-    background-color: var(--varBackgroundInternal);
+    background-color: var(--varBlue);
     box-shadow: var(--varBoxshadowForm);
     color: white;
     border: none;
@@ -608,8 +619,9 @@ label{
 #loginForm button:hover {
     background-color: transparent;
     font-weight: bolder;
-    color: rgba(20, 236, 20, 0.959);
+    color: var(--varBlue);
 }
+
 
 #loginForm {
     background-color: var(--varBackgroundForm);
@@ -634,22 +646,6 @@ label{
     border-radius: 4px;
 }
 
-#loginForm button {
-    background-color: var(--varBackgroundInternal);
-    box-shadow: var(--varBoxshadowForm);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-    width: 100%;
-}
-
-#loginForm button:hover {
-    background-color: transparent;
-    font-weight: bolder;
-    color: rgba(20, 236, 20, 0.959);
-}
 
 /*--- M --*/
 
@@ -839,7 +835,7 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--varGreen);
     justify-content: center;
     align-items: center;
     overflow-y: auto;
@@ -854,9 +850,9 @@ main {
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 600px;
-    background-color: white;
-    border: 2px solid green;
-    box-shadow: 0 0px 10px rgba(0, 128, 0, 0.5);
+    background-color: var(--varYellow);
+    border: 2px solid var(--varGreen);
+    box-shadow: 0 0px 10px var(--varBoxshadowForm);
     display: none;
     z-index: 1000;
     padding: 20px;
@@ -895,17 +891,18 @@ main {
 #popup-containerTwo {
     display: none;
     position: absolute;
-    background: white;
-    border: 1px solid black;
+    background: #789900a4;
+    border: 1px solid var(--varGreen);
+    box-shadow: var(--varBoxshadowForm);
     padding: 10px;
     z-index: 2000;
 }
 
 .popup-content {
-    background-color: white;
+    background-color: var(--varWhite);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--varBoxshadowForm);
     width: 90%;
     max-width: 1000px;
     max-height: 90%;
@@ -932,21 +929,23 @@ main {
 
 #prevMonth, #nextMonth {
     padding: 10px 20px;
-    background-color: green;
-    color: white;
+    background-color: var(--varGreen);
+    color: #FFFFFF;
+    box-shadow: var(--varBoxshadowForm);
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 #prevMonth:hover, #nextMonth:hover {
-    background-color: darkgreen;
+    background-color: var(--varYellow);
 }
 
 /*--- Q --*/
 /*--- R --*/
 /*--- S --*/
 
+       
 .schedule {
     font-family: Arial, sans-serif;
     display: flex;
@@ -1006,7 +1005,7 @@ main {
 }
 
 #scheduleForm-schedule button {
-    background-color: green;
+    background-color: var(--varBlue);
     color: white;
     border: none;
     padding: 15px 20px;
@@ -1018,7 +1017,7 @@ main {
 }
 
 #scheduleFormDelivery button {
-    background-color: rgb(7, 97, 19);
+    background-color: var(--varBlue);
     color: white;
     border: none;
     padding: 15px 20px;
@@ -1032,13 +1031,13 @@ main {
 #scheduleForm-schedule button:hover {
     background-color: transparent;
     font-weight: bolder;
-    color: rgba(20, 236, 20, 0.959);
+    color: var(--varBlue);
 }
 
 #scheduleFormDelivery button:hover {
     background-color: transparent;
     font-weight: bolder;
-    color: rgba(20, 236, 20, 0.959);
+    color: var(--varBlue);
 }
 
 .select-container {
@@ -1048,7 +1047,7 @@ main {
 }
 
 #showCalendar {
-    background-color: rgba(144, 238, 144, 0.062);
+    background-color: var(--varYellow);
     color: black; 
     border: none; 
     padding: 10px 20px; 
@@ -1073,7 +1072,7 @@ main {
 }
 
 #showCalendar:hover {
-    background-color: darkgreen; 
+    background-color: rgb(0, 207, 0); 
 }
 
 #showCalendarSchedule:hover {
@@ -1138,9 +1137,16 @@ th, td {
 }
 
 .today {
-    background-color: #ccffcc; /* Cor de fundo para o dia atual */
+    background-color: var(--varWhite);
+    font-weight: bold;
+    color: green; /* Cor de fundo para o dia atual */
 }
 
+thead {
+    background-color: var(--varWhite);
+    color: var(--varGreen);
+
+}
 /*--- U --*/
 
 .unic {
