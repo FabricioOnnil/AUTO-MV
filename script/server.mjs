@@ -8,6 +8,7 @@ import Acesso from '../models/Acesso.mjs';
 import ContratoCarro from '../models/ContratoCarro.mjs';
 import CustosFixos from '../models/CustoFixo.mjs';
 import infoCarro from '../models/InfoCarro.mjs';
+import User from '../models/User.mjs'; // Adicione a importação do modelo User
 
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -187,29 +188,7 @@ app.delete('/infoCarro/:id', (req, res) => {
     });
 });
 
-/* Rotas para servir arquivos HTML estáticos
-const htmlRoutes = [
-  'vamoInicial',
-  'vamoLogin',
-  'vamoCalendario',
-  'vamoDashboard',
-  'vamoAgenda',
-  'vamoEntrega',
-  'vamoRefeicao',
-  'vamoAbastecimento',
-  'vamoRelatorio',
-  'vamoReparos',
-  'vamoGerencia',
-  'vamoMapa'
-];
-
-htmlRoutes.forEach(route => {
-  app.get(`/${route}`, (req, res) => {
-    res.sendFile(join(__dirname, '..', 'frontend', `${route}.html`));
-  });
-});*/
-
-
+// Rotas para servir arquivos HTML estáticos
 
 app.get('/vamoLogin', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoLogin.html'));
@@ -255,11 +234,32 @@ app.get('/vamoMapa', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoMapa.html'));
 });
 
+// Rotas POST para login
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({
+      where: { name: username, password: password }
+    });
+
+    if (user) {
+      res.status(200).json({ message: 'Login successful' });
+    } else {
+      res.status(401).json({ message: 'Usuário ou senha incorretos' });
+    }
+  } catch (error) {
+    console.error('Erro ao consultar o banco de dados:', error);
+    res.status(500).json({ message: 'Erro no servidor. Por favor, tente novamente mais tarde.' });
+  }
+});
 
 // Rota principal
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoInicial.html'));
 });
+
 // Iniciar o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
