@@ -1315,7 +1315,7 @@ button {
     border: none; /* Remove a borda padrão */
     border-radius: 4px; /* Raio da borda */
     cursor: pointer; /* Cursor do mouse */
-    background-color: #4CAF50; /* Cor de fundo */
+    background-color: #4caf4f05; /* Cor de fundo */
     color: white; /* Cor do texto */
     display: inline-block; /* Garante que os botões sejam exibidos em linha */
     margin: 5px 0; /* Margem superior e inferior de 5px, margem zero nas laterais */
