@@ -8,71 +8,68 @@
     
 </head>
 <body >
-    <section id="header">
-    <a href="dashboard.html"><img src="/Imagens/logonew325.png" alt="Logo Vamo"></a>
-    </section>
-    <br>
-    <h1>USO DO CARRO</h1><br>
-    <button id="showCalendarSchedule"><img src="/Imagens/agendarbutton.png" alt="Botão agenda"></button>
-
-    <div id="overlaySchedule"></div>
-
-    <div id="calendarPopupSchedule" class="popup-containerSchedule">
-        <div class="popup-contentSchedule">
-            <span class="close-popupSchedule">Fechar</span>
-            <form id="scheduleForm-schedule">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required>
-                <label for="startDate">Data Agendada:</label>
-                <input type="date" id="startDate" name="startDate" required>
-                <label for="startTime">Hora: </label>
-                <input type="time" id="startTime" name="startTime" required>
-                <label for="originSelect">Escritório de Origem:</label>
-                <select id="originSelect" name="originSelect" required>
-                    <option value="">-Selecione o Escritório-</option>
-                    <option value="Alegre-ES">  Alegre </option>
-                    <option value="Castelo-ES">  Castelo </option>
-                    <option value="Muniz Freire-ES">  Muniz Freire </option>
-                    <option value="Guaçuí-ES">  Guaçuí </option>
-                </select>
-                <label for="rota">Rota:</label>
-                <input type="text" id="rota" name="rota" required>
-                <label for="km_initial">km Inicial:</label>
-                <input type="number" id="km_initial" name="km_initial" required>
-                <label for="carSelect">Escolha um carro:</label>
-                <select id="carSelect" name="carSelect" required>
-                    <option value="">-Selecione um carro-</option>
-                    <option value="carro1">MOBI - PPK_1234</option>
-                    <option value="carro2">AUDI - PPX_3456</option>
-                </select>
-                <button type="submit">Agendar</button>
-            </form>
+    <main>
+        <section id="header">
+            <a href="/vamoInicial"><img class="logoHeader" src="/Imagens/logonew725green2.png" alt="Logo Vamo"></a> </section><br>
+        <br>
+        <h1>USO DO CARRO</h1><br>
+        <button id="showCalendarSchedule"><img src="/Imagens/agendarbutton.png" alt="Botão agenda"></button>
+        <div id="overlaySchedule"></div>
+        <div id="calendarPopupSchedule" class="popup-containerSchedule">
+            <div class="popup-contentSchedule">
+                <span class="close-popupSchedule">Fechar</span>
+                <form id="scheduleForm-schedule">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                    <label for="startDate">Data Agendada:</label>
+                    <input type="date" id="startDate" name="startDate" required>
+                    <label for="startTime">Hora: </label>
+                    <input type="time" id="startTime" name="startTime" required>
+                    <label for="originSelect">Escritório de Origem:</label>
+                    <select id="originSelect" name="originSelect" required>
+                        <option value="">-Selecione o Escritório-</option>
+                        <option value="Alegre-ES">  Alegre </option>
+                        <option value="Castelo-ES">  Castelo </option>
+                        <option value="Muniz Freire-ES">  Muniz Freire </option>
+                        <option value="Guaçuí-ES">  Guaçuí </option>
+                    </select>
+                    <label for="rota">Rota:</label>
+                    <input type="text" id="rota" name="rota" required>
+                    <label for="km_initial">km Inicial:</label>
+                    <input type="number" id="km_initial" name="km_initial" required>
+                    <label for="carSelect">Escolha um carro:</label>
+                    <select id="carSelect" name="carSelect" required>
+                        <option value="">-Selecione um carro-</option>
+                        <option value="carro1">MOBI - PPK_1234</option>
+                        <option value="carro2">AUDI - PPX_3456</option>
+                    </select>
+                    <button type="submit">Agendar</button>
+                </form>
+            </div>
         </div>
-    </div>
-
-    <h2>Agendamentos</h2>
-    <table id="schedules">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Data Agendada</th>
-                <th>Hora</th>
-                <th>Origem</th>
-                <th>Rota</th>
-                <th>km Inicial</th>
-                <th>Carro Selecionado</th>
-            </tr>
-        </thead>
-        <tbody id="schedulesBody">
-            <!-- Dados serão preenchidos dinamicamente aqui -->
-        </tbody>
-    </table>
-
-    <footer>
-        <a href="https://mvgi.com.br/">
-            <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
-        </a>
-    </footer>
+        <h2>Agendamentos</h2>
+        <table id="schedules" class="tableReport" >
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Data Agendada</th>
+                    <th>Hora</th>
+                    <th>Origem</th>
+                    <th>Rota</th>
+                    <th>km Inicial</th>
+                    <th>Carro Selecionado</th>
+                </tr>
+            </thead>
+            <tbody id="schedulesBody">
+                <!-- Dados serão preenchidos dinamicamente aqui -->
+            </tbody>
+        </table>
+        <footer>
+            <a href="https://mvgi.com.br/">
+                <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
+            </a>
+        </footer>
+    </main>
     <script src="/script/popup.js"></script>
     <script src="/script/agenda.js"></script>
 </body>

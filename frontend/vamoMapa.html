@@ -10,33 +10,33 @@
     
 </head>
 <body >
-    <section id="header">
-        <a href="dashboard.html"><img src="/Imagens/logonew525.png" alt="Logo Vamo"></a></section><br>
     
-    <h1>MAPA</h1><br>
-    <div class="route-form">
-        <form id="routeForm">
-            <label for="origin">Origem:</label>
-            <select id="origin" required>
-                <option value="Alegre, es">MV-Alegre</option>
-                <option value="Castelo, es">MV-Castelo</option>
-                <option value="Muniz Freire, es">MV-Muniz Freire</option>
-            </select>
-
-            <label for="destination">Destino:</label>
-            <input type="text" id="destination" name="destination" placeholder="Digite o endereço ou clique no mapa" required>
-
-            <button type="submit">Calcular Rota</button>
-        </form>
-    </div>
-
-    <div id="map" style="height: 500px;"></div>
     
-    <footer>
-        <a href="https://mvgi.com.br/">
-            <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
-        </a>
-    </footer>
+    <main>
+        <section id="header">
+            <a href="dashboard.html"><img id="img_section" src="/Imagens/logonew725green2.png" alt="Logo Vamo"></a></section><br>
+        <h1>MAPA</h1><br>
+        <div>
+            <form id="routeForm" class="route-form" >
+                <label for="origin" class="route-label">Origem:</label>
+                <select id="origin" class="route-formInput" required>
+                    <option value="Alegre, es">MV-Alegre</option>
+                    <option value="Castelo, es">MV-Castelo</option>
+                    <option value="Muniz Freire, es">MV-Muniz Freire</option>
+                </select>
+                <label for="destination" class="route-label">Destino:</label>
+                <input type="text" class="route-formInput" id="destination" name="destination" placeholder="Digite o endereço ou clique no mapa" required>
+                <button type="submit" class="routeForm">Rota</button>
+            </form>
+        </div>
+        <div id="map" style="height: 800px;"></div>
+        
+        <footer>
+            <a href="https://mvgi.com.br/">
+                <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
+            </a>
+        </footer>
+    </main>
 
     <script src="/script/maps.js"></script>
 </body>

@@ -1,7 +1,7 @@
 // ContratoCarro.js
 
 import Sequelize from 'sequelize';
-import db from './db.js';
+import db from './db.mjs';
 
 const sequelize = db.sequelize;
 

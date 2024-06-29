@@ -1,30 +1,85 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const infoForm = document.querySelector('#infoPopup form');
+    const contratoForm = document.querySelector('#carPopup form');
+    const custoFixoForm = document.querySelector('#custPopup form');
+    const infoCarForm = document.querySelector('#infoPopup form');
     const acessoForm = document.querySelector('#acessoPopup form');
 
-    infoForm.addEventListener('submit', (e) => {
+    contratoForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const formData = new FormData(infoForm);
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
-
-        fetch('/saveInfo', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(response => response.json())
-        .then(result => {
+    
+        const formData = new FormData(contratoForm);
+    
+        try {
+            const response = await fetch('/contratoCarro', {
+                method: 'POST',
+                body: formData
+            });
+    
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                throw new Error(`Erro ao cadastrar contrato de carro: ${errorMessage}`);
+            }
+    
+            const result = await response.json();
             alert(result.message);
-            infoForm.reset();
+            contratoForm.reset();
+            closePopup('carPopup');
+        } catch (error) {
+            console.error('Erro:', error);
+            alert(`Falha ao cadastrar contrato de carro: ${error.message}`);
+        }
+    });
+
+    custoFixoForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+    
+        const formData = new FormData(custoFixoForm);
+    
+        try {
+            const response = await fetch('/custoFixo', {
+                method: 'POST',
+                body: formData
+            });
+    
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                throw new Error(`Erro ao cadastrar custo fixo: ${errorMessage}`);
+            }
+    
+            const result = await response.json();
+            alert(result.message);
+            custoFixoForm.reset();
+            closePopup('custPopup');
+        } catch (error) {
+            console.error('Erro:', error);
+            alert(`Falha ao cadastrar custo fixo: ${error.message}`);
+        }
+    });
+
+    infoCarForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+    
+        const formData = new FormData(infoCarForm);
+    
+        try {
+            const response = await fetch('/infoCar', {
+                method: 'POST',
+                body: formData
+            });
+    
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                throw new Error(`Erro ao cadastrar informações de carro: ${errorMessage}`);
+            }
+    
+            const result = await response.json();
+            alert(result.message);
+            infoCarForm.reset();
             closePopup('infoPopup');
-        }).catch(error => {
-            console.error('Error:', error);
-            alert('Falha ao salvar informações.');
-        });
+        } catch (error) {
+            console.error('Erro:', error);
+            alert(`Falha ao cadastrar informações de carro: ${error.message}`);
+        }
     });
 
     acessoForm.addEventListener('submit', async(e) => {
@@ -34,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
 
        try {
-            const response = await fetch('http://localhost:3000/loginSave', {
+            const response = await fetch('/acesso', {
                 method: 'POST',                
                 body: formData
             });

@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-import db from './db.js'; // Importe sua configuração de conexão com o banco de dados
+import db from './db.mjs'; // Importe sua configuração de conexão com o banco de dados
 
 const sequelize = db.sequelize;
 

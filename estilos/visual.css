@@ -1,30 +1,17 @@
+
+/*Fonte Ubuntu -------*/
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/*Fonte Rubik */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/*Fonte Mukta_Vaani */
+@import url('https://fonts.googleapis.com/css2?family=Mukta+Vaani:wght@200;300;400;500;600;700;800&family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-/*Fonte Ubuntu -------*/
-@font-face {
-    font-family: 'ubuntu';
-    src: url('"C:\Users\Fabricio Rocha\DOWNLOAD\fonte\Ubuntu\Ubuntu-Regular.ttf"') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/*Fonte Rubik */
-@font-face {
-    font-family: 'rubik';
-    src: url('"C:\Users\Fabricio Rocha\DOWNLOAD\fonte\Rubik\Rubik-VariableFont_wght.ttf"') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/*Fonte Mukta_Vaani */
-@font-face {
-    font-family: 'Mukta_vaani';
-    src: url('"C:\Users\Fabricio Rocha\DOWNLOAD\fonte\Mukta_Vaani\MuktaVaani-Regular.ttf"') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 :root {
@@ -46,47 +33,11 @@
 
 /*--- A --*/
 
-#appointments {
-    border-collapse: collapse;
-    width: 80%;
-    max-width: 1000px;
-    background-color: white;
-    border: 2px solid green;
-    box-shadow: 0 2px 4px rgba(0, 128, 0, 0.5);
-    margin-bottom: 20px;
-}
-
-#appointments th, #appointments td {
-    text-align: center;
-    padding: 8px;
-    border: 1px solid #ccc;
-}
-
-#appointments th {
-    background-color: #e0e0e0;
-}
-
-#appointments tr {
-    border-bottom: 0.5px solid green;
-}
-
-#appointments tr:hover {
-    background-color: #f1f1f1;
-}
 
 .animation {
     align-items: center;
     
 }
-
-
-
-
-
-
-
-
-
 
 
 /*--- B --*/
@@ -167,22 +118,44 @@ button:hover {
 }
 
 #button_dashboard {
+    width: 20%; /* Largura da primeira section */
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 150px; /* Ajuste para considerar a altura do cabeçalho fixo */
-    gap: 2px;
-    text-align: center;    
+    background-color: #ffffff00; /* Cor de fundo opcional */
+    padding: 10px; /* Espaçamento interno */
+    box-sizing: border-box;
+    
+}
+ .button_dashboard {
+    width: 80%; /* Largura da segunda section */
+    display: flex;
+    justify-content: space-around; /* Espaçamento uniforme entre os botões */
+    align-items: center;
+    padding: 10px; /* Espaçamento interno */
+    box-sizing: border-box;
+    
+ }
+ .button_dashboard button,
+.button_dashboard a {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.button_dashboard button img,
+.button_dashboard a img {
+    max-width: 100%;
+    height: auto;
 }
 
 
 #button_dashboard,
-#img_section {
+#relator {
     width: 100%; /* Ajuste conforme necessário */
     padding: 0;
     box-sizing: border-box;
-    margin-bottom: 2px;
-    
+    margin: 0 auto;    
 }
 
 #button_dashboard button {
@@ -316,6 +289,7 @@ button:hover {
 
 .container {
     text-align: center;
+    height: 80%;
 }
 
 .contCar {
@@ -412,7 +386,7 @@ footer img {
 }
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 .form-group input, .form-group select {
     width: 100%;
@@ -469,62 +443,77 @@ footer img {
 
 #header {
     width: 100%;
-    margin-bottom: 20px;
+    margin: 0;
     display: flex;
     justify-content: center;
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
     background-color: #ffffff05;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    z-index: 1;
-    height: 60px;
+    padding: 1px; 
+    box-sizing: border-box;
+    z-index: 1000;
+    height: 20vh; 
 }
 
+
 #header img.logoHeader {
-    height: 120px;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 #header img {
     max-width: 100%;
     height: auto;
-    padding-bottom: 10px;
+    display: block;
 }
 
-h1 {
+h1, h2, h3, h4 {
     font-family: var(--font-ubuntu);
-    color: var(--varWhite);
-    margin-top: 8px;    
+    margin-top: 8px; 
+    padding: 10px 10px;
+}
+h1 {
+    color: var(--varWhite);      
     font-size: 32px;
-    font-style: var(--varFontUbuntu);
-    background-color: var(--varGreen);
-    padding: 10px 20px;
+    background-color: var(--varGreen);    
     text-align: center;
-    width: 100%;
+    width: 98%;
     box-shadow: var(--varBoxshadowForm);
     border-radius: 10px;
 } 
 
+h2 {
+    color: var(--varGreen);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 25px;
+    background-color: #ffffff5b;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+    width: 98%;
+    box-shadow: var(--varBoxshadowForm);
+    border-radius: 10px;
+}
 
 html, body {
     font-family: var(--font-Mukta);
-    margin: 0;
+    margin: 0 0 0 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: var(--varWhite);
     background-image: var(--varBackgroundClassic);
     background-size: cover; 
     background-position: center; 
     overflow-x: hidden; 
     line-height: 1.0; 
-    padding-top: 60px; /* Espaço para o header fixo */
+    padding: 0; /* Espaço para o header fixo */
     overflow-y: auto; /* Evita barra de rolagem lateral */
     overflow-x: auto;
 }
@@ -551,20 +540,19 @@ html, body {
 /*--- I --*/
 
 #img_section {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: auto;
+    display: block;
+    justify-content: center;
+    margin: 0 auto;
     gap: 2px;
-    text-align: center;
+    height: auto;
 }
 
 #img_section a {
-    margin: 80px;
+    margin: 0 auto;
 }
 
 #img_section img {
-    width: 150px;
+    max-width: 99%;
     height: auto;
 }
 
@@ -594,7 +582,8 @@ input, select, textarea {
 
 label{
     color: var(--varWhite);
-    font-family: var(--font-Mukta);
+    font-family: var(--font-ubuntu);
+    font-size: 16px;
 }
 
 #logo {
@@ -606,7 +595,6 @@ label{
 .logoHeader{
     
     width: 100%;
-    height: 100%;
     height: auto;
 }
 
@@ -616,8 +604,8 @@ label{
 }
 
 #logo img {
-    max-width: 100%;
-    height: auto;
+    max-width: 95%;
+    height: 95%;
 }
 
 #logo-container {
@@ -637,6 +625,7 @@ label{
     max-width: 360px; 
 }
 #loginForm {
+    font-family: var(--font-Mukta);
     background-color: var(--varGreen);
     padding: 20px;
     border: 2px solid var(--varGreenshodow); 
@@ -684,10 +673,12 @@ label{
 
 main {
     width: 100%;
-    padding-top: 8px; /* Espaço para o header fixo */
+    margin-top: 0%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 
@@ -699,11 +690,12 @@ main {
 }
 
 #map {
-    width: 90%;
-    max-width: 800px;
-    height: 400px;
+    width: 100%;
+    max-width: 90%;
+    height: 100%;
     margin: 20px auto;
-    border: 2px solid green;
+    border: 2px solid var(--varGreen);
+    box-shadow: var(--varBoxshadowForm);
 }
 
 @media (max-width: 600px) {
@@ -833,7 +825,7 @@ main {
 }
 
 #overlaySchedule {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -899,19 +891,35 @@ main {
 .popup-containerSchedule {
     background-color: var(--varBackgroundForm);
     border: 2px solid var(--varGreen);
-    box-shadow:var(--varBoxshadowForm);
-    box-sizing: border-box;
-    display: flexbox; 
-    gap: 10px;    
-    left: 50%;     
+    box-shadow: var(--varBoxshadowForm);
+    box-sizing: content-box;
+    display: block;
+    gap: 10px;
+    left: 50%;
     max-width: 90%;
-    margin: auto;    
+    margin: 20px;
     padding: 20px;
-    position: fixed;    
+    position: fixed;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    z-index: 1000;      
+    width: 60%;
+    z-index: 1000;    /* Ajuste para altura máxima de 90% da viewport */
+    max-height: 90vh; /* Altura máxima de 90% da altura da viewport */
+    overflow-y: auto; /* Adiciona scroll caso o conteúdo ultrapasse a altura máxima */     
+}
+
+.popup-containerSchedule::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+
+.popup-containerSchedule::-webkit-scrollbar-track {
+    background: var(--varGreen); /* Cor de fundo da barra de rolagem */
+}
+
+.popup-containerSchedule::-webkit-scrollbar-thumb {
+    background-color: var(--varYellow); /* Cor do indicador de rolagem */
+    border-radius: 6px; /* Raio da borda do indicador de rolagem */
+    border: 3px solid var(--varGreenshodow); /* Borda do indicador de rolagem */
 }
 
 .popup-containerDelivery {
@@ -959,10 +967,12 @@ main {
 }
 
 .popup-contentSchedule {
+    margin:2px;
     text-align: left;
     position: relative;
-    padding: 2px;
-    border-radius: 5px;
+    padding: 5px;
+    border-radius: 5px;    
+    
 }
 
 .popup-contentDelivery {
@@ -986,6 +996,54 @@ main {
 
 /*--- Q --*/
 /*--- R --*/
+.route-form{
+    display: flex; /* Usa flexbox para alinhar os elementos na mesma linha */
+    gap: 1px;
+    background-color: var(--varBackgroundForm);
+    padding: 0px;
+    border: 2px solid var(--varGreen); 
+    box-shadow: var(--varBoxshadowForm); 
+    border-radius: 10px; 
+    width: 90%; 
+    max-width: 900px; 
+}
+.route-form,
+.route-form button{
+    flex: 1; /* Faz os inputs e botão ocuparem o espaço disponível */
+    margin-right: 5px;
+}
+.route-form button {
+    flex: 0 0 auto;
+}
+
+.route-formInput{
+    flex: 1;
+    margin-right: 5px;
+    width: 200px; 
+    height: 40px;
+}
+.route-label {   
+     text-align: center;
+     padding-bottom: 0px;
+     padding-top: 18px;
+}
+
+.routeForm {
+    background-color: var(--varYellow);
+    box-shadow: var(--varBoxshadowForm);
+    color: white;
+    border: none;
+    padding: 0px 0px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 10%;
+}
+
+.routeForm:hover {
+    background-color: var(--varBlue);
+    font-weight: bolder;
+    color: var(--varWhite);
+}
 /*--- S --*/
 
        
@@ -1003,6 +1061,10 @@ main {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    height: 100vh;
+    width: 100%;
+    margin-top: 0px; /* Espaçamento superior */
+    margin-bottom: 0px; /* Espaçamento inferior */
 }
 
 #scheduleFormDelivery {
@@ -1083,24 +1145,6 @@ main {
     color: var(--varBlue);
 }
 
-
-
-#schedules {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 18px;
-    text-align: left;
-}
-
-#schedules th, #schedules td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-}
-
-#schedules th {
-    background-color: #f4f4f4
-}
 .select-container {
     display: flex;
     justify-content: center;
@@ -1180,7 +1224,7 @@ main {
 .table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .table th, .table td {
     border: 1px solid #ddd;
@@ -1208,6 +1252,26 @@ thead {
     color: var(--varGreen);
 
 }
+
+.tableReport {
+    width: 100%;
+    border-collapse: collapse;
+    border-color: var(--varWhite);
+    margin-top: 10px;
+    background-color: #ffffff8f;
+    width: 98%;
+}
+.tableReport th, .tableReport td {
+    border: 1px solid var(--varWhite);
+    padding: 5px;
+}
+
+.tableReport th {
+    background-color: var(--varBlue);
+    color: var(--varWhite);
+    text-align: center;
+}
+
 /*--- U --*/
 
 .unic {
@@ -1227,12 +1291,32 @@ thead {
 
 
 
+/* Estilos globais para inputs e selects */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%; /* Largura total */
+    padding: 10px; /* Espaçamento interno */
+    font-size: 14px; /* Tamanho da fonte */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 4px; /* Raio da borda */
+    box-sizing: border-box; /* Inclui padding e border na largura */
+    margin: 5px 0; /* Margem superior e inferior de 5px, margem zero nas laterais */
+    display: block; /* Garante que cada input/select seja exibido em uma linha */
+}
 
-
-
-
-
-
-
-
-
+button {
+    padding: 10px; /* Espaçamento interno */
+    font-size: 14px; /* Tamanho da fonte */
+    border: none; /* Remove a borda padrão */
+    border-radius: 4px; /* Raio da borda */
+    cursor: pointer; /* Cursor do mouse */
+    background-color: #4CAF50; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    display: inline-block; /* Garante que os botões sejam exibidos em linha */
+    margin: 5px 0; /* Margem superior e inferior de 5px, margem zero nas laterais */
+}

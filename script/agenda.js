@@ -8,7 +8,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const closePopupScheduleButton = document.querySelector('.close-popupSchedule');
     const closePopupSchedulesButton = document.querySelector('.close-popupSchedules');
     const scheduleForm = document.getElementById("scheduleFormSchedule");
+    const popup = document.getElementById('calendarPopupSchedule');
+    const closeBtn = popup.querySelector('.close-popupSchedule');
 
+    
     console.log("DOM loaded");
 
     if (showCalendarButton) {

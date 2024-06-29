@@ -7,43 +7,44 @@
     <link rel="stylesheet" href="/estilos/visual.css">
 </head>
 <body>
-    <section id="header">
-        <a href="/vamoInicial"><img class="logoHeader" src="/Imagens/logonew725green2.png" alt="Logo Vamo"></a>
-    </section><br>
-    <h1>fabricio</h1>
-    <br>
-    <div class="month-navigation">
-        <button id="prevMonth">Mês Anterior</button>
-        <span id="currentMonth"></span>
-        <button id="nextMonth">Próximo Mês</button>
-        <button>Voltar</button>
-    </div>
-    <table id="calendar">
-        <thead>
-            <tr>
-                <th>Domingo</th>
-                <th>Segunda-feira</th>
-                <th>Terça-feira</th>
-                <th>Quarta-feira</th>
-                <th>Quinta-feira</th>
-                <th>Sexta-feira</th>
-                <th>Sábado</th>
-            </tr>
-        </thead>
-        <tbody id="calendarioBody"></tbody>
-    </table>
-    <div id="popup-containerTwo" class="popup-container" style="display: none;">
-        <div class="popup-content">
-            <span class="close-popup">&times;</span>
-            <h2>Eventos do dia</h2>
-            <div id="eventDetails">Detalhes do evento aparecerão aqui.</div>
+    <main>
+        <section id="header">
+            <a href="/vamoInicial"><img class="logoHeader" src="/Imagens/logonew725green2.png" alt="Logo Vamo"></a> </section><br>
+        <h1>fabricio</h1>
+        <br>
+        <div class="month-navigation">
+            <button id="prevMonth">Mês Anterior</button>
+            <span id="currentMonth"></span>
+            <button id="nextMonth">Próximo Mês</button>
+            <button>Voltar</button>
         </div>
-    </div>
-    <footer>
-        <a href="https://mvgi.com.br/">
-            <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
-        </a>
-    </footer>
+        <table id="calendar">
+            <thead>
+                <tr>
+                    <th>Domingo</th>
+                    <th>Segunda-feira</th>
+                    <th>Terça-feira</th>
+                    <th>Quarta-feira</th>
+                    <th>Quinta-feira</th>
+                    <th>Sexta-feira</th>
+                    <th>Sábado</th>
+                </tr>
+            </thead>
+            <tbody id="calendarioBody"></tbody>
+        </table>
+        <div id="popup-containerTwo" class="popup-container" style="display: none;">
+            <div class="popup-content">
+                <span class="close-popup">&times;</span>
+                <h2>Eventos do dia</h2>
+                <div id="eventDetails">Detalhes do evento aparecerão aqui.</div>
+            </div>
+        </div>
+        <footer>
+            <a href="https://mvgi.com.br/">
+                <img src="/Imagens/Logo-MV-grstao-integrada-horizontal-fundo-claro.png" alt="Logo MV Gestão Integrada">
+            </a>
+        </footer>
+    </main>
     <script src="/script/calendario.js"></script>
 </body>
 </html>
