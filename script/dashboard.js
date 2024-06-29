@@ -1,16 +1,13 @@
 function goToSchedule() {
     // Redirecionar para a página agenda.html
-    window.location.href = "vamoAgenda.html";
+    window.location.href = "/vamoAgenda";
      }
 function goToDeliver() {
    // Redirecionar para a página entrega.html
-   window.location.href = "vamoEntrega.html";
+   window.location.href = "/vamoEntrega";
      }
 function goToLocation() {
    // Redirecionar para a página mapa.html
-   window.location.href = "vamoMapa.html";
+   window.location.href = "/vamoMapa";
      }
-function goToDriving() {
-   // Redirecionar para a pagina trajeto.html
-   window.location.href = "execute.html";
-     }
+

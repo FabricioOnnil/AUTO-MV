@@ -179,6 +179,7 @@ button:hover {
         justify-content: center; /* Centraliza horizontalmente */
         align-items: center; /* Centraliza verticalmente */
         height: 100vh; /* Faz a seção ocupar a altura total da tela */
+        width: 100vw;
 }
 
 #calendar {
@@ -358,22 +359,9 @@ footer {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 0 10px; 
-    margin-top: auto;
+    padding-top: 0px;
+    margin-top: 2px;
     text-align: center;
-}
-
-footer img {
-    max-width: 100%;
-    height: auto;
-}
-
-footer {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding: 10px;
-    margin-top: auto;
 }
 
 footer img {
@@ -472,7 +460,7 @@ footer img {
 h1, h2, h3, h4 {
     font-family: var(--font-ubuntu);
     margin-top: 8px; 
-    padding: 10px 10px;
+    padding: 10px;
 }
 h1 {
     color: var(--varWhite);      
@@ -617,11 +605,11 @@ label{
 
 .loginForm {
     background-color: var(--varBackgroundForm);
-    padding: 20px;
+    padding: 10px;
     border: 2px solid var(--varGreen); 
     box-shadow: var(--varBoxshadowForm); 
     border-radius: 10px; 
-    width: 90%; 
+    width: 100%; 
     max-width: 360px; 
 }
 #loginForm {
@@ -673,7 +661,7 @@ label{
 
 main {
     width: 100%;
-    margin-top: 0%;
+    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -685,7 +673,7 @@ main {
 .main-container {
     display: flex;
     justify-content: space-between;
-    width: 80%; /* Ajuste conforme necessário */
+    width: 90%; /* Ajuste conforme necessário */
     margin-bottom: 20px;
 }
 
