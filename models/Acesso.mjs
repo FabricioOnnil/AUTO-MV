@@ -28,6 +28,14 @@ const Acesso = sequelize.define('acesso', {
     dateExpiration:{
         type: Sequelize.DATE,
         allowNull: false
+    },
+    createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     }
 })
 

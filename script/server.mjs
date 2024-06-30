@@ -4,11 +4,13 @@ import { create } from 'express-handlebars';
 import { fileURLToPath } from 'url';
 import path, { join } from 'path';
 import db from '../models/db.mjs';
-import Acesso from '../models/Acesso.mjs';
-import ContratoCarro from '../models/ContratoCarro.mjs';
-import CustosFixos from '../models/CustoFixo.mjs';
-import infoCarro from '../models/InfoCarro.mjs';
-import User from '../models/User.mjs'; // Adicione a importação do modelo User
+import acessoRoutes from '../routes/acessoRoutes.mjs';
+import contratoCarroRoutes from '../routes/contratoCarroRoutes.mjs';
+import custosFixosRoutes from '../routes/custosFixosRoutes.mjs';
+import infoCarroRoutes from '../routes/infoCarroRoutes.mjs';
+import foodRoutes from '../routes/foodRoutes.mjs';
+import fuelStationRoutes from '../routes/fuelStationRoutes.mjs';
+
 
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -52,140 +54,49 @@ app.use((err, req, res, next) => {
   res.status(500).send('Algo deu errado!');
 });
 
-// Rota para cadastrar um acesso
-app.post('/acesso', (req, res) => {
-  Acesso.create(req.body)
-    .then(() => {
-      res.send("Acesso cadastrado com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao cadastrar acesso: " + error.message);
+// Rotas para cada tabela
+
+// Rotas para a tabela Acesso
+app.use('/API', acessoRoutes);
+
+// Rotas para a tabela ContratoCarro
+app.use('/API', contratoCarroRoutes);
+
+// Rotas para a tabela CustosFixos
+app.use('/API', custosFixosRoutes);
+
+// Rotas para a tabela InfoCarro
+app.use('/API', infoCarroRoutes);
+
+// Rotas para a tabela Food
+app.use('/API', foodRoutes);
+
+// Rotas para a tabela FuelStation
+app.use('/API', fuelStationRoutes);
+
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({
+      where: { name: username, password: password }
     });
+
+    if (user) {
+      res.status(200).json({ message: 'Login successful' });
+    } else {
+      res.status(401).json({ message: 'Usuário ou senha incorretos' });
+    }
+  } catch (error) {
+    console.error('Erro ao consultar o banco de dados:', error);
+    res.status(500).json({ message: 'Erro no servidor. Por favor, tente novamente mais tarde.' });
+  }
 });
 
-// Rota para atualizar informações de um acesso
-app.put('/acesso/:id', (req, res) => {
-  const acessoId = req.params.id;
-  Acesso.update(req.body, { where: { id: acessoId } })
-    .then(() => {
-      res.send("Acesso atualizado com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao atualizar acesso: " + error.message);
-    });
-});
-
-// Rota para deletar um acesso
-app.delete('/acesso/:id', (req, res) => {
-  const acessoId = req.params.id;
-  Acesso.destroy({ where: { id: acessoId } })
-    .then(() => {
-      res.send("Acesso deletado com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao deletar acesso: " + error.message);
-    });
-});
-
-// Rotas para ContratoCarro
-app.post('/contratoCarro', (req, res) => {
-  ContratoCarro.create(req.body)
-    .then(() => {
-      res.send("Contrato de carro cadastrado com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao cadastrar contrato de carro: " + error.message);
-    });
-});
-
-app.put('/contratoCarro/:id', (req, res) => {
-  const contratoId = req.params.id;
-  ContratoCarro.update(req.body, { where: { id: contratoId } })
-    .then(() => {
-      res.send("Contrato atualizado com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao atualizar contrato: " + error.message);
-    });
-});
-
-app.delete('/contratoCarro/:id', (req, res) => {
-  const contratoId = req.params.id;
-  ContratoCarro.destroy({ where: { id: contratoId } })
-    .then(() => {
-      res.send("Contrato deletado com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao deletar contrato: " + error.message);
-    });
-});
-
-// Rota para cadastrar custos fixos
-app.post('/custosFixos', (req, res) => {
-  CustosFixos.create(req.body)
-    .then(() => {
-      res.send("Custos fixos cadastrados com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao cadastrar custos fixos: " + error.message);
-    });
-});
-
-app.put('/custosFixos/:id', (req, res) => {
-  const custoId = req.params.id;
-  CustosFixos.update(req.body, { where: { id: custoId } })
-    .then(() => {
-      res.send("Custos fixos atualizados com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao atualizar custos fixos: " + error.message);
-    });
-});
-
-app.delete('/custosFixos/:id', (req, res) => {
-  const custoId = req.params.id;
-  CustosFixos.destroy({ where: { id: custoId } })
-    .then(() => {
-      res.send("Custos fixos deletados com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao deletar custos fixos: " + error.message);
-    });
-});
-
-// Rota para cadastrar um carro
-app.post('/infoCarro', (req, res) => {
-  infoCarro.create(req.body)
-    .then(() => {
-      res.send("Carro cadastrado com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao cadastrar carro: " + error.message);
-    });
-});
-
-// Rota para atualizar informações de um carro
-app.put('/infoCarro/:id', (req, res) => {
-  const carroId = req.params.id;
-  infoCarro.update(req.body, { where: { id: carroId } })
-    .then(() => {
-      res.send("Carro atualizado com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao atualizar carro: " + error.message);
-    });
-});
-
-// Rota para deletar um carro
-app.delete('/infoCarro/:id', (req, res) => {
-  const carroId = req.params.id;
-  infoCarro.destroy({ where: { id: carroId } })
-    .then(() => {
-      res.send("Carro deletado com sucesso!");
-    })
-    .catch((error) => {
-      res.status(500).send("Erro ao deletar carro: " + error.message);
-    });
+// Rota principal
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoInicial.html'));
 });
 
 // Rotas para servir arquivos HTML estáticos
@@ -234,31 +145,6 @@ app.get('/vamoMapa', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoMapa.html'));
 });
 
-// Rotas POST para login
-
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    const user = await User.findOne({
-      where: { name: username, password: password }
-    });
-
-    if (user) {
-      res.status(200).json({ message: 'Login successful' });
-    } else {
-      res.status(401).json({ message: 'Usuário ou senha incorretos' });
-    }
-  } catch (error) {
-    console.error('Erro ao consultar o banco de dados:', error);
-    res.status(500).json({ message: 'Erro no servidor. Por favor, tente novamente mais tarde.' });
-  }
-});
-
-// Rota principal
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoInicial.html'));
-});
 
 // Iniciar o servidor
 app.listen(PORT, () => {

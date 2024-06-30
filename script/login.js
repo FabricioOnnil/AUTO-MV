@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Erro ao fazer login:', error);
-            errorMessage.textContent = 'Erro no servidor. Por favor, tente novamente mais tarde.';
+            errorMessage.textContent = 'Algo deu errado. Por favor, tente novamente..';
         }
     });
 });
