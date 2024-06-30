@@ -185,3 +185,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 });
+
+//---Agendamentos
+
+const showTableButton = document.getElementById('showTablePopup');
+const overlayTable = document.getElementById('overlayTable');
+const tablePopup = document.getElementById('tablePopup');
+
+
+showTableButton.addEventListener('click', function() {
+    overlayTable.style.display = 'block';
+    tablePopup.style.display = 'block';
+});
+
+const closeTableButton = tablePopup.querySelector('.close-popup');
+closeTableButton.addEventListener('click', function() {
+    overlayTable.style.display = 'none';
+    tablePopup.style.display = 'none';
+});

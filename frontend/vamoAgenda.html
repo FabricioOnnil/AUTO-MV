@@ -47,7 +47,11 @@
                 </form>
             </div>
         </div>
-        <h2>Agendamentos</h2>
+        <button id="showTablePopup"><img src="/Imagens/agendamentos.png" alt=""></button>
+<div id="overlayTable"></div>
+<div id="tablePopup" class="popup-container">
+    <div class="popup-content">
+        <span class="close-popup">Fechar</span>
         <table id="schedules" class="tableReport" >
             <thead>
                 <tr>
@@ -59,11 +63,13 @@
                     <th>km Inicial</th>
                     <th>Carro Selecionado</th>
                 </tr>
-            </thead>
+            </thead>            
             <tbody id="schedulesBody">
                 <!-- Dados serão preenchidos dinamicamente aqui -->
             </tbody>
         </table>
+    </div>
+</div>
         <footer>
             <a href="https://mvgi.com.br/">
                 <img src="/Imagens/mvtranslucido2.png" alt="Logo MV Gestão Integrada">
