@@ -5,18 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GERENCIAL</title>
     <link rel="stylesheet" href="/estilos/visual.css">
-    <style>
-        h1 {
-            background-color: #FFFFFF;
-            color: #789900;
-        }
-    </style>
 </head>
 
-<body class="gerencia" >
+<body>
     <main >
         <section id="header">
-            <a href="vamoInicial.html">
+            <a href="#">
                 <img src="../Imagens/logonew725.png" alt="Logo Vamo">
             </a>
         </section><br>
@@ -26,22 +20,22 @@
             <button onclick="openPopup('carPopup')">Contrato</button>
             <button onclick="openPopup('custPopup')">Custo fixo</button>
             <button onclick="openPopup('infoPopup')">Informação</button>
+            <button onclick="openPopup('acessoPopup')">Acesso</button>
         </div>
-            <button onclick="openPopup('acessoPopup')">Cadastrar Acesso</button>
-            <button onclick="openPopup('globalValuesPopup')">Mostrar Valores Globais</button>
-            <button onclick="alert('Botão 4')">Botão 4</button>
+            <button onclick="openPopup('globalValuesPopup')">Valores Globais</button>
+            <button onclick="alert('Botão 4')">Individual</button>
         </div>
         <!-- Popup para Cadastro de Carros -->
         <div id="carPopup" class="popup">
             <div class="popup-content">
                 <button class="close-btn" onclick="closePopup('carPopup')">Fechar</button>
-                <h1>Contrato dos Carros</h1>
-                <form action="/contratoCarro" method="POST">
+                <h1 class="paragrafo">Contrato dos Carros</h1>
+                <form action="/contratoCarro" method="POST" >
                     <div class="form-group">
                         <!--<label for="registrationCar">Cadastro de Contrato</label>
                         <input type="checkbox" id="contract" name="registrationCar" value="contract" onclick="contractRegistration()">Contrato</input>
                         <div class="form-group contract-registration" style="display: none;">-->
-                            <label for="dataInicio">Data de Início do Aluguel:</label>
+                            <label for="dataInicio" class=>Data de Início do Aluguel:</label>
                             <input type="date" id="dataInicio" name="dataInicio">
                             <label for="dataTermino">Data de Término do Aluguel:</label>
                             <input type="date" id="dataTermino" name="dataTermino">
@@ -66,7 +60,7 @@
         <div id="custPopup" class="popup">
             <div class="popup-content">
                 <button class="close-btn" onclick="closePopup('custPopup')">Fechar</button>
-                <h1>Custos Fixo</h1>
+                <h1 class="paragrafo">Custos Fixo</h1>
                 <form action="/custoFixo" method="POST">
                     <div class="form-group">
                         <!--<label for="fixedCost">Custos Fixos</label>
@@ -92,7 +86,7 @@
         <div id="infoPopup" class="popup">
             <div class="popup-content">
                 <button class="close-btn" onclick="closePopup('infoPopup')">Fechar</button>
-                <h1>Informações dos Carros</h1>
+                <h1 class="paragrafo">Informações dos Carros</h1>
                 <form action="/infoCar" method="POST">
                     <div class="form-group">
                         <!--<label for="registerCar">Modelo Carro</label>
@@ -118,7 +112,7 @@
         <div id="acessoPopup" class="popup">
             <div class="popup-content">
                 <button class="close-btn" onclick="closePopup('acessoPopup')">Fechar</button>
-                <h1>Cadastro de Acesso</h1>
+                <h1 >Cadastro de Acesso</h1>
                 <form action="/acesso" method="POST" id="formDateUser">
                     <div class="form-group">
                         <label for="nome">Nome:</label>
@@ -126,14 +120,14 @@
                         <label for="sobrenome">Sobrenome:</label>
                         <input type="text" id="sobrenome" name="lastName" required>
                         <label for="senha">Senha de Login:</label>
-                        <input type="password" id="senha" name="password" required>
+                        <input type="text" id="senha" name="password" required>
                         <label for="numeroHabilitacao">Número do Documento de Habilitação:</label>
                         <input type="number" id="numeroHabilitacao" name="licensDriving" required>
                         <label for="orgaoExpedidor">Órgão Expedidor:</label>
                         <input type="text" id="orgaoExpedidor" name="sectorShipping" required>
                         <label for="validadeHabilitacao">Data da Validade da Carteira de Habilitação:</label>
                         <input type="date" id="validadeHabilitacao" name="dateExpiration" required>
-                        <button type="submit">Cadastrar</button>
+                        <button type="submit" class="button_confirm">Cadastrar</button>
                     </div>
                 </form>
             </div>

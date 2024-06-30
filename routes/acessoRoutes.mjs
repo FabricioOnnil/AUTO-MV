@@ -28,8 +28,12 @@ router.get('/acessos', (req, res) => {
         res.status(500).send("Erro ao buscar acesso: " + error.message);
       });
   });
+// Rota para cadastrar um novo acesso
+
 
 router.post('/acesso', (req, res) => {
+  
+  const { name, lastName, password, licensDriving, sectorShipping, dateExpiration } = req.body;
   Acesso.create(req.body)
     .then(() => res.send("Acesso cadastrado com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao cadastrar acesso: " + error.message));

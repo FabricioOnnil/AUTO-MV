@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const popup = document.getElementById('calendarPopupSchedule');
     const closeBtn = popup.querySelector('.close-popupSchedule');
 
-    
+   
+
     console.log("DOM loaded");
 
     if (showCalendarButton) {

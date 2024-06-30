@@ -14,6 +14,36 @@ import fuelStationRoutes from '../routes/fuelStationRoutes.mjs';
 
 const app = express();
 const PORT = process.env.PORT || 8081;
+// Configuração para servir arquivos estáticos
+app.use(express.static(join(__dirname, '..')));
+app.use(express.static(path.join(__dirname, 'frontend')));
+app.use('/Imagens', express.static(path.join(__dirname, 'Imagens')));
+app.use('/script', express.static(path.join(__dirname, 'script')));
+app.use('/styles', express.static(path.join(__dirname, 'styles')));
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('AUTO-MV'));
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
+app.use('/acesso', acessoRoutes);
+
+// Middleware para tratamento de erros global
+app.use((err, req, res, next) => {
+  console.error('Erro:', err.stack);
+  res.status(500).send('Algo deu errado!');
+});
 
 // Definindo __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -23,15 +53,6 @@ const __dirname = path.dirname(__filename);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Conexão com o banco de dados
-db.sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Conectado com sucesso ao banco de dados!");
-  })
-  .catch((error) => {
-    console.error("Falha ao se conectar ao banco de dados:", error);
-  });
 
 // Configuração do diretório de views
 app.set('views', join(__dirname, '..', 'views'));
@@ -40,19 +61,6 @@ app.set('views', join(__dirname, '..', 'views'));
 const templateEngine = create({ defaultLayout: 'main' });
 app.engine('handlebars', templateEngine.engine);
 app.set('view engine', 'handlebars');
-
-// Configuração para servir arquivos estáticos
-app.use(express.static(join(__dirname, '..')));
-app.use(express.static(path.join(__dirname, 'frontend')));
-app.use('/Imagens', express.static(path.join(__dirname, 'Imagens')));
-app.use('/script', express.static(path.join(__dirname, 'script')));
-app.use('/styles', express.static(path.join(__dirname, 'styles')));
-
-// Middleware para tratamento de erros global
-app.use((err, req, res, next) => {
-  console.error('Erro:', err.stack);
-  res.status(500).send('Algo deu errado!');
-});
 
 // Rotas para cada tabela
 

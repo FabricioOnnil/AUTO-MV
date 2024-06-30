@@ -5,7 +5,7 @@ let marker; // Para armazenar o marcador de destino
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: new google.maps.LatLng(-20.75829, -41.53501), // Localização inicial
+        center: new google.maps.LatLng(-20.758579817596832, -41.534791575265274), // Localização inicial
         zoom: 15
     });
     directionsService = new google.maps.DirectionsService();

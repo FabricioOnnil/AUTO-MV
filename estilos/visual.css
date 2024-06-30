@@ -23,12 +23,12 @@
     --varWhite: #FFFFFF;
     --varYellow: #FFC72C;
     --varBlue: #307FE2;
-    --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/floresta.png) ;
+    --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/floresta.png);
     --varBoxshadowClassic: 0 8px 16px rgba(0, 128, 0, 0.5);
     --varBackgroundClassic: linear-gradient(#78990025, #ffc72c27, #3080e22c);
     --varBackgroundInternal: #08ad16;
     --varBoxshadowForm:  0 4px 8px #3c4d02e8;
-    --varBackgroundForm:  #789900;
+    --varBackgroundForm:  #fffffff1;
 }
 
 /*--- A --*/
@@ -41,6 +41,7 @@
 
 
 /*--- B --*/
+
 
 #bot_links {
     align-items: center;
@@ -95,20 +96,24 @@
 }
 
 #botoes button img {
+    box-shadow: var(--varBoxshadowForm);
     object-fit: cover; /* Garante que a imagem ocupe todo o espaço do botão */
 }
 
-button {
+button {    
+    align-items: center;
+    background-color: #13631600; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    color: white; 
+    display: inline-block; 
     font-family: var(--font-ubuntu);
-    background-color: transparent;
-    color: inherit;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+    font-size: 20px;    
+    margin: 0; 
+    padding: 10px;
+    padding-left: 90px; 
     transition: background-color 0.3s;
-    margin: 10px auto;
-    display: block;
-    font-size: 20px;
 }
 
 button:hover {
@@ -187,7 +192,7 @@ button:hover {
     border-collapse: collapse;
     width: 80%;
     max-width: 1000px;
-    background-color: var(--varGreen);
+    background-color: var(--varBlue);
     border: 3px solid var(--varGreen); /* Mais destacada */
     box-shadow: 0 4px 8px var(--varBoxshadowForm);
     color: var(--varWhite)
@@ -235,7 +240,7 @@ button:hover {
 
 .close-btn:hover,
 .close-btn:focus {
-    color: black;
+    color: rgb(223, 12, 12);
     text-decoration: none;
     cursor: pointer;
 }
@@ -370,7 +375,9 @@ footer img {
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 2px;
+    width: 98%;
+    height: 100%;
 }
 .form-group label {
     display: block;
@@ -396,7 +403,7 @@ footer img {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 
@@ -459,14 +466,15 @@ footer img {
 }
 
 h1, h2, h3, h4 {
+    
     font-family: var(--font-ubuntu);
-    margin-top: 8px; 
-    padding: 10px;
+    margin-top: 4px; 
+    padding: 8px;
 }
 h1 {
-    color: var(--varWhite);      
-    font-size: 32px;
-    background-color: var(--varGreen);    
+    background-color: #FFFFFF;
+    color: #789900;  
+    font-size: 32px;       
     text-align: center;
     width: 98%;
     box-shadow: var(--varBoxshadowForm);
@@ -474,16 +482,19 @@ h1 {
 } 
 
 h2 {
-    color: var(--varGreen);
+    background-color: var(--varBlue);
+    border-radius: 10px;
+    box-shadow: var(--varBoxshadowForm);
+    color: var(--varWhite);
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: 25px;
-    background-color: #ffffff5b;
+    
     padding: 10px 10px 10px 10px;
     text-align: center;
     width: 98%;
-    box-shadow: var(--varBoxshadowForm);
-    border-radius: 10px;
+    
+    
 }
 
 html, body {
@@ -496,7 +507,7 @@ html, body {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: var(--varWhite);
+    background-color: var(--varGreen);
     background-image: var(--varBackgroundClassic);
     background-size: cover; 
     background-position: center; 
@@ -504,7 +515,6 @@ html, body {
     line-height: 1.0; 
     padding: 0; /* Espaço para o header fixo */
     overflow-y: auto; /* Evita barra de rolagem lateral */
-    overflow-x: auto;
 }
 /*html, body {
     font-family: var(--font-Mukta);
@@ -570,9 +580,11 @@ input, select, textarea {
 /*--- L --*/
 
 label{
-    color: var(--varWhite);
+    color: var(--varGreen);
     font-family: var(--font-ubuntu);
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: bolder;
+    text-align: start;
 }
 
 #logo {
@@ -606,47 +618,47 @@ label{
 
 .loginForm {
     background-color: var(--varBackgroundForm);
-    padding: 10px;
     border: 2px solid var(--varGreen); 
     box-shadow: var(--varBoxshadowForm); 
-    border-radius: 10px; 
-    width: 100%; 
+    border-radius: 10px;
     max-width: 360px; 
-}
-#loginForm {
-    font-family: var(--font-Mukta);
-    background-color: var(--varGreen);
-    padding: 20px;
-    border: 2px solid var(--varGreenshodow); 
-    box-shadow: var(--varBoxshadowForm); 
-    border-radius: 10px; 
-    width: 90%; 
-    max-width: 360px; 
+    padding: 10px;
+    width: 100%;    
 }
 
-#loginForm label {
-    font-weight: bold; 
+
+.loginForm label {
+    font-weight: bold;
+    font-family: var(--font-ubuntu);
+    font-size: 16px;
 }
 
-#loginForm input[type="text"],
-#loginForm input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px; 
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
+.loginForm input[type="text"],
+.loginForm input[type="number"],
+.loginForm input[type="date"],
+.loginForm input[type="time"],
+.loginForm input[type="email"],
+.loginForm input[type="password"],
+.loginForm select {
+    border: 1px solid #ccccccf1;
     border-radius: 4px;
+    margin-top: 10px; 
+    margin-bottom: 2px;
+    padding: 8px;
+    width: 100%;
 }
 
 
 #loginForm button {
     background-color: var(--varBlue);
+    border: none;    
+    border-radius: 4px;
     box-shadow: var(--varBoxshadowForm);
     color: white;
-    border: none;
-    padding: 10px 20px;
     cursor: pointer;
-    border-radius: 4px;
+    display: flex;
+    justify-content: center;    
+    padding: 10px 20px;    
     width: 100%;
 }
 
@@ -824,6 +836,11 @@ main {
     display: none;
 }
 
+#overlaySchedule, #calendarPopupSchedule {
+    display: none;
+}
+
+
 #overlayDelivery {
     position: fixed;
     top: 0;
@@ -846,6 +863,31 @@ main {
 
 
 /*--- P --*/
+
+.paragrafo{
+    background-color: #789900;
+    color: #FFFFFF;
+}
+
+/* placeholder */
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #999;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #999;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #999;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #999;
+}
+
+/* Para um placeholder específico */
+input[type=text]::placeholder {
+    color: #999;
+}
 
 .popup {
     display: none;  /* Escondido por padrão */
@@ -940,13 +982,13 @@ main {
 .popup-content {
     background-color: var(--varWhite);
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 0 10px var(--varBoxshadowForm);
     width: 90%;
     max-width: 1000px;
     max-height: 90%;
-    overflow-y: auto;
     margin: 20px;
+    overflow-y: auto;
     text-align: center;
     position: relative;
 }
@@ -1019,7 +1061,7 @@ main {
 }
 
 .routeForm {
-    background-color: var(--varYellow);
+    background-color: var(--varGreen);
     box-shadow: var(--varBoxshadowForm);
     color: white;
     border: none;
@@ -1030,9 +1072,10 @@ main {
 }
 
 .routeForm:hover {
-    background-color: var(--varBlue);
-    font-weight: bolder;
+    background-color: var(--varYellow);
     color: var(--varWhite);
+    font-weight: bolder;
+    
 }
 /*--- S --*/
 
@@ -1246,19 +1289,19 @@ thead {
 .tableReport {
     width: 100%;
     border-collapse: collapse;
-    border-color: var(--varWhite);
+    border-color: var(--varBlue);
     margin-top: 10px;
-    background-color: #ffffff8f;
+    background-color: var(--varWhite);
     width: 98%;
 }
 .tableReport th, .tableReport td {
-    border: 1px solid var(--varWhite);
+    border: 1px solid var(--varBlue);
     padding: 5px;
 }
 
 .tableReport th {
-    background-color: var(--varBlue);
-    color: var(--varWhite);
+    background-color: var(--varWhite);
+    color: var(--varBlue);
     text-align: center;
 }
 
@@ -1289,7 +1332,8 @@ input[type="time"],
 input[type="email"],
 input[type="password"],
 select {
-    width: 100%; /* Largura total */
+    width: 100%;
+    font-family: var(--font-Mukta); /* Largura total */
     padding: 10px; /* Espaçamento interno */
     font-size: 14px; /* Tamanho da fonte */
     border: 1px solid #ccc; /* Borda */
@@ -1299,14 +1343,5 @@ select {
     display: block; /* Garante que cada input/select seja exibido em uma linha */
 }
 
-button {
-    padding: 10px; /* Espaçamento interno */
-    font-size: 14px; /* Tamanho da fonte */
-    border: none; /* Remove a borda padrão */
-    border-radius: 4px; /* Raio da borda */
-    cursor: pointer; /* Cursor do mouse */
-    background-color: #4caf4f05; /* Cor de fundo */
-    color: white; /* Cor do texto */
-    display: inline-block; /* Garante que os botões sejam exibidos em linha */
-    margin: 5px 0; /* Margem superior e inferior de 5px, margem zero nas laterais */
-}
+
+

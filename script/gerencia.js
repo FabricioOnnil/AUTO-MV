@@ -4,114 +4,121 @@ document.addEventListener('DOMContentLoaded', () => {
     const infoCarForm = document.querySelector('#infoPopup form');
     const acessoForm = document.querySelector('#acessoPopup form');
 
-    contratoForm.addEventListener('submit', async (e) => {
+    contratoForm.addEventListener('submit', (e) => {
         e.preventDefault();
-    
+
         const formData = new FormData(contratoForm);
-    
-        try {
-            const response = await fetch('/contratoCarro', {
-                method: 'POST',
-                body: formData
-            });
-    
+
+        fetch('/contratoCarro', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
             if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(`Erro ao cadastrar contrato de carro: ${errorMessage}`);
+                return response.text().then(errorMessage => {
+                    throw new Error(`Erro ao cadastrar contrato de carro: ${errorMessage}`);
+                });
             }
-    
-            const result = await response.json();
+            return response.json();
+        })
+        .then(result => {
             alert(result.message);
             contratoForm.reset();
             closePopup('carPopup');
-        } catch (error) {
+        })
+        .catch(error => {
             console.error('Erro:', error);
             alert(`Falha ao cadastrar contrato de carro: ${error.message}`);
-        }
+        });
     });
 
-    custoFixoForm.addEventListener('submit', async (e) => {
+    custoFixoForm.addEventListener('submit', (e) => {
         e.preventDefault();
-    
+
         const formData = new FormData(custoFixoForm);
-    
-        try {
-            const response = await fetch('/custoFixo', {
-                method: 'POST',
-                body: formData
-            });
-    
+
+        fetch('/custoFixo', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
             if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(`Erro ao cadastrar custo fixo: ${errorMessage}`);
+                return response.text().then(errorMessage => {
+                    throw new Error(`Erro ao cadastrar custo fixo: ${errorMessage}`);
+                });
             }
-    
-            const result = await response.json();
+            return response.json();
+        })
+        .then(result => {
             alert(result.message);
             custoFixoForm.reset();
             closePopup('custPopup');
-        } catch (error) {
+        })
+        .catch(error => {
             console.error('Erro:', error);
             alert(`Falha ao cadastrar custo fixo: ${error.message}`);
-        }
+        });
     });
 
-    infoCarForm.addEventListener('submit', async (e) => {
+    infoCarForm.addEventListener('submit', (e) => {
         e.preventDefault();
-    
+
         const formData = new FormData(infoCarForm);
-    
-        try {
-            const response = await fetch('/infoCar', {
-                method: 'POST',
-                body: formData
-            });
-    
+
+        fetch('/infoCar', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
             if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(`Erro ao cadastrar informações de carro: ${errorMessage}`);
+                return response.text().then(errorMessage => {
+                    throw new Error(`Erro ao cadastrar informações de carro: ${errorMessage}`);
+                });
             }
-    
-            const result = await response.json();
+            return response.json();
+        })
+        .then(result => {
             alert(result.message);
             infoCarForm.reset();
             closePopup('infoPopup');
-        } catch (error) {
+        })
+        .catch(error => {
             console.error('Erro:', error);
             alert(`Falha ao cadastrar informações de carro: ${error.message}`);
-        }
+        });
     });
 
-    acessoForm.addEventListener('submit', async(e) => {
+    acessoForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         const formData = new FormData(acessoForm);
-            
 
-       try {
-            const response = await fetch('/acesso', {
-                method: 'POST',                
-                body: formData
-            });
-
+        fetch('/acesso', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
             const contentType = response.headers.get('content-type');
             if (!response.ok) {
                 if (contentType && contentType.indexOf('application/json') !== -1) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || 'Erro ao salvar o acesso');
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || 'Erro ao salvar o acesso');
+                    });
                 } else {
                     throw new Error('Erro inesperado ao salvar o acesso');
                 }
             }
-
-            const result = await response.json();
+            return response.json();
+        })
+        .then(result => {
             alert(result.message);
             acessoForm.reset();
             closePopup('acessoPopup');
-        } catch (error) {
-            console.error('Error:', error);
+        })
+        .catch(error => {
+            console.error('Erro:', error);
             alert(`Falha ao salvar o acesso: ${error.message}`);
-        }
+        });
     });
 });
 
