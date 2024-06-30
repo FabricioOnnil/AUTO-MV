@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const username = document.getElementById('username').value;
+        const name = document.getElementById('name').value;
         const password = document.getElementById('password').value;
 
         try {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ name, password })
             });
 
             const result = await response.json();
@@ -22,8 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Redireciona para o dashboard
                 window.location.href = '/vamoDashboard';
             } else {
-                // Exibe mensagem de erro
-                errorMessage.textContent = result.message;
+                if (result && result.message) {
+                    errorMessage.textContent = result.message;
+                } else {
+                    errorMessage.textContent = 'Erro desconhecido. Por favor, tente novamente.';
+                }
                 form.reset();
             }
         } catch (error) {

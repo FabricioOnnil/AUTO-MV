@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const popup = document.getElementById('calendarPopupSchedule');
     const closeBtn = popup.querySelector('.close-popupSchedule');
 
-   
 
     console.log("DOM loaded");
 
@@ -106,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (scheduleForm) {
-        scheduleForm.addEventListener("submit", function(event) {
+        scheduleForm.addEventListener("submit", async function(event) {
             event.preventDefault();
             console.log("Form submitted");
 
@@ -117,30 +116,55 @@ document.addEventListener("DOMContentLoaded", function() {
             const rota = document.getElementById("rota").value;
             const km_initial = document.getElementById("km_initial").value;
             const carSelect = document.getElementById("carSelect").value;
-            const carName = carMap[carSelect] || 'Carro não selecionado';
 
-            storeFormData(nome, startDate, startTime, origem, rota, km_initial, carName);
+            const formData = {
+                nome,
+                startDate,
+                startTime,
+                originSelect: origem,
+                rota,
+                km_initial,
+                carSelect
+            };
 
-            const formattedDate = formatDateToBrazilian(startDate);
+            try {
+                const response = await fetch('/submit-schedule', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
 
-            const schedulesBody = document.getElementById("schedulesBody");
-            const newRow = schedulesBody.insertRow();
-            newRow.insertCell(0).textContent = nome;
-            newRow.insertCell(1).textContent = formattedDate;
-            newRow.insertCell(2).textContent = startTime;
-            newRow.insertCell(3).textContent = origem;
-            newRow.insertCell(4).textContent = rota;
-            newRow.insertCell(5).textContent = km_initial;
-            newRow.insertCell(6).textContent = carName;
+                if (response.ok) {
+                    const carName = carMap[carSelect] || 'Carro não selecionado';
+                    const formattedDate = formatDateToBrazilian(startDate);
 
-            overlaySchedule.style.display = 'none';
-            calendarPopupSchedule.style.display = 'none';
-            scheduleForm.reset();
+                    const schedulesBody = document.getElementById("schedulesBody");
+                    const newRow = schedulesBody.insertRow();
+                    newRow.insertCell(0).textContent = nome;
+                    newRow.insertCell(1).textContent = formattedDate;
+                    newRow.insertCell(2).textContent = startTime;
+                    newRow.insertCell(3).textContent = origem;
+                    newRow.insertCell(4).textContent = rota;
+                    newRow.insertCell(5).textContent = km_initial;
+                    newRow.insertCell(6).textContent = carName;
+
+                    overlaySchedule.style.display = 'none';
+                    calendarPopupSchedule.style.display = 'none';
+                    scheduleForm.reset();
+                    console.log("Form data stored in database and displayed");
+                } else {
+                    console.error("Failed to store form data:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error storing form data:", error);
+            }
         });
     } else {
         console.error("scheduleForm not found");
     }
-
+    
     function loadFormData() {
         const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
         const schedulesBody = document.getElementById("schedulesBody");

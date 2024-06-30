@@ -15,4 +15,8 @@ sequelize.authenticate()
     console.error("Falha ao se conectar ao banco de dados:", error);
   });
 
-export default sequelize;
+
+  export default {
+    Sequelize,
+    sequelize
+  };

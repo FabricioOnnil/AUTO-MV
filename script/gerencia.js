@@ -69,11 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             body: formData
         })
-        .then(response => {
+        .then(async response => {
             if (!response.ok) {
-                return response.text().then(errorMessage => {
-                    throw new Error(`Erro ao cadastrar informações de carro: ${errorMessage}`);
-                });
+                const errorMessage = await response.text();
+                throw new Error(`Erro ao cadastrar informações de carro: ${errorMessage}`);
             }
             return response.json();
         })
