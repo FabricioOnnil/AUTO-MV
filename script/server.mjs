@@ -169,6 +169,10 @@ app.get('/vamoMapa', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoMapa.html'));
 });
 
+app.get('/vamoInformado', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoInformado.html'));
+});
+
 // Middleware para tratamento de erros global
 app.use((err, req, res, next) => {
   console.error('Erro:', err.stack);

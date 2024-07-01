@@ -5,75 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Compras</title>
     <link rel="stylesheet" href="/estilos/visual.css">
-    <style>
-        body{
-            
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        table, th, td {
-            border: 2px solid green;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #a9c4a9;
-        }
-
-        tr:nth-child(even) {
-            background-color: #e3f2e1;
-        }
-
-        tr:nth-child(odd) {
-            background-color: #d8e8d8;
-        }
-    </style>
-    </head>
-<body >
+</head>
+<body>
     <main>
         <section id="header">
-            <a href="dashboard.html"><img src="/Imagens/logonew725.png" alt="Logo Vamo"></a></section><br>
+            <a href="dashboard.html"><img src="/Imagens/logonew725.png" alt="Logo Vamo"></a>
+        </section>
         <h1>Relatório de Compras</h1>
-        <h2>Refeições</h2>
-        <table id="table-refeicoes" class="tableReport">
-            <thead>
-                <tr>
-                    <th>Descrição</th>
-                    <th>Valor (R$)</th>
-                    <th>Data</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-        <h2>Reparos</h2>
-        <table id="table-reparos"  class="tableReport">
-            <thead>
-                <tr>
-                    <th>Descrição</th>
-                    <th>Valor (R$)</th>
-                    <th>Data</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        
+        <section>
+            <h2>Refeições</h2>
+            <button onclick="openTablePopup('table-refeicoes')">Abrir Tabela de Refeições</button>
+            <table id="table-refeicoes">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Nota Fiscal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dados serão inseridos dinamicamente via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+        
+        <section>
+            <h2>Reparos</h2>
+            <button onclick="openTablePopup('table-reparos')">Abrir Tabela de Reparos</button>
+            <table id="table-reparos">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dados serão inseridos dinamicamente via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+        
         <footer>
             <a href="https://mvgi.com.br/">
                 <img src="/Imagens/mvtranslucido2.png" alt="Logo MV Gestão Integrada">
             </a>
         </footer>
     </main>
-    <script src="/script/relatorio.js"></script>
+
+    <script src="/scripts/main.js"></script>
 </body>
 </html>

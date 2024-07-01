@@ -125,6 +125,9 @@ function openPopup(popupId) {
     document.getElementById(popupId).style.display = 'flex';
 }
 
+function redirecionar(url) {
+    window.location.href = url;
+}
 function closePopup(popupId) {
     document.getElementById(popupId).style.display = 'none';
 }
@@ -155,10 +158,10 @@ function registerCar() {
 
 // Dados de exemplo para preencher a tabela de valores globais
 const globalValues = [
-    { period: 'all', km: 10000, fuelCost: 5000, fuelAcquired: 2000, fuelUsed: 1800, repairCost: 2000, foodCost: 1000, hoursScheduled: 500, hoursNotScheduled: 300 },
-    { period: 'year', km: 2000, fuelCost: 1000, fuelAcquired: 400, fuelUsed: 360, repairCost: 400, foodCost: 200, hoursScheduled: 100, hoursNotScheduled: 60 },
-    { period: 'month', km: 500, fuelCost: 250, fuelAcquired: 100, fuelUsed: 90, repairCost: 100, foodCost: 50, hoursScheduled: 25, hoursNotScheduled: 15 },
-    { period: 'last15', km: 200, fuelCost: 100, fuelAcquired: 40, fuelUsed: 36, repairCost: 40, foodCost: 20, hoursScheduled: 10, hoursNotScheduled: 6 },
+    { period: 'Total', days: 0, km: 10000, fuelCost: 5000, fuelAcquired: 2000, fuelUsed: 1800, repairCost: 2000, foodCost: 1000, hoursScheduled: 500, hoursNotScheduled: 300 },
+    { period: 'Ano', days: 365, km: 2000, fuelCost: 1000, fuelAcquired: 400, fuelUsed: 360, repairCost: 400, foodCost: 200, hoursScheduled: 100, hoursNotScheduled: 60 },
+    { period: 'Mês', days: 30, km: 500, fuelCost: 250, fuelAcquired: 100, fuelUsed: 90, repairCost: 100, foodCost: 50, hoursScheduled: 25, hoursNotScheduled: 15 },
+    { period: '15 dias', days: 15, km: 200, fuelCost: 100, fuelAcquired: 40, fuelUsed: 36, repairCost: 40, foodCost: 20, hoursScheduled: 10, hoursNotScheduled: 6 },
 ];
 
 function filterValues() {
@@ -166,22 +169,58 @@ function filterValues() {
     const tableBody = document.getElementById('globalValuesTable');
     tableBody.innerHTML = '';  // Limpa a tabela
 
-    const filteredValues = globalValues.filter(value => value.period === filter || filter === 'all');
-
-    filteredValues.forEach(value => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${value.km}</td>
-            <td>${value.fuelCost}</td>
-            <td>${value.fuelAcquired}</td>
-            <td>${value.fuelUsed}</td>
-            <td>${value.repairCost}</td>
-            <td>${value.foodCost}</td>
-            <td>${value.hoursScheduled}</td>
-            <td>${value.hoursNotScheduled}</td>
-        `;
-        tableBody.appendChild(row);
-    });
+    if (filter === 'global') {
+        globalValues.forEach(value => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${value.period}</td>
+                <td>${value.km}</td>
+                <td>${value.fuelCost}</td>
+                <td>${value.fuelAcquired}</td>
+                <td>${value.fuelUsed}</td>
+                <td>${value.repairCost}</td>
+                <td>${value.foodCost}</td>
+                <td>${value.hoursScheduled}</td>
+                <td>${value.hoursNotScheduled}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } else if (filter === 'media') {
+        globalValues.forEach(value => {
+            if (value.period !== 'all' && value.period !== 'global') {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${value.period}</td>
+                    <td>${(value.km / value.days).toFixed(2)}</td>
+                    <td>${(value.fuelCost / value.days).toFixed(2)}</td>
+                    <td>${(value.fuelAcquired / value.days).toFixed(2)}</td>
+                    <td>${(value.fuelUsed / value.days).toFixed(2)}</td>
+                    <td>${(value.repairCost / value.days).toFixed(2)}</td>
+                    <td>${(value.foodCost / value.days).toFixed(2)}</td>
+                    <td>${(value.hoursScheduled / value.days).toFixed(2)}</td>
+                    <td>${(value.hoursNotScheduled / value.days).toFixed(2)}</td>
+                `;
+                tableBody.appendChild(row);
+            }
+        });
+    } else {
+        const filteredValue = globalValues.find(value => value.period === filter);
+        if (filteredValue) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${filteredValue.period}</td>
+                <td>${filteredValue.km}</td>
+                <td>${filteredValue.fuelCost}</td>
+                <td>${filteredValue.fuelAcquired}</td>
+                <td>${filteredValue.fuelUsed}</td>
+                <td>${filteredValue.repairCost}</td>
+                <td>${filteredValue.foodCost}</td>
+                <td>${filteredValue.hoursScheduled}</td>
+                <td>${filteredValue.hoursNotScheduled}</td>
+            `;
+            tableBody.appendChild(row);
+        }
+    }
 }
 
 // Inicializa a tabela com todos os dados

@@ -23,7 +23,7 @@
             <button onclick="openPopup('acessoPopup')">Acesso</button>
         </div>
             <button onclick="openPopup('globalValuesPopup')">Valores Globais</button>
-            <button onclick="alert('Botão 4')">Individual</button>
+            <button onclick="redirecionar('/vamoInformado')">Individual</button>
         </div>
         <!-- Popup para Cadastro de Carros -->
         <div id="carPopup" class="popup">
@@ -140,21 +140,24 @@
                 <div class="form-group">
                     <label for="filter">Filtrar por:</label>
                     <select id="filter" onchange="filterValues()">
-                        <option value="all">Tempo Total</option>
-                        <option value="year">Ano</option>
-                        <option value="month">Mês</option>
-                        <option value="last15">Últimos 15 dias</option>
+                        <option value="Total">Total</option>
+                        <option value="Ano">Ano</option>
+                        <option value="Mês">Mês</option>
+                        <option value="15 dias">Ultimos 15 dias</option>
+                        <option value="media">Média</option>
+                        <option value="global">Global</option>
                     </select>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>km Percorrida</th>
-                            <th>Custo Combustível</th>
-                            <th>Litros compra</th>
-                            <th>Litros Gastos</th>
-                            <th>Custo Reparos</th>
-                            <th>Custo Alimentação</th>
+                            <th>Descrição</th>
+                            <th>km Percorrido</th>
+                            <th>Custo Total Combustível</th>
+                            <th>Total Litros</th>
+                            <th>Total Gasto</th>
+                            <th>Custo de Reparos</th>
+                            <th>Custo de Alimentação</th>
                             <th>Horas Agendadas</th>
                             <th>Horas Não Agendadas</th>
                         </tr>

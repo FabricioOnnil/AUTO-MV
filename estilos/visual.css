@@ -121,7 +121,7 @@ button {
 button:hover {
     background-color: transparent;
     font-weight: bolder;
-    color: var(--varBlue);
+    color: var(--varYellow);
 }
 
 #button_dashboard {
@@ -448,7 +448,7 @@ footer img {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #ffffff05;
+    background-color: #ffffff00;
     padding: 1px; 
     box-sizing: border-box;
     z-index: 1000;
