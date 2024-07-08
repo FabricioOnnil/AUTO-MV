@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 
 // Conexão com o banco de dados MySQL
-const sequelize = new Sequelize('vamo_auto_mv', 'root', '8mtkjg', {
+const sequelize = new Sequelize('vamo_mv', 'root', '8mtkjg', {
     host: "localhost",
     dialect: 'mysql'
 });
@@ -20,3 +20,5 @@ sequelize.authenticate()
     Sequelize,
     sequelize
   };
+
+  authenticate();

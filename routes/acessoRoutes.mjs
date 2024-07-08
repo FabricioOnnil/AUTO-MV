@@ -1,5 +1,5 @@
 import express from 'express';
-import Acesso from '../models/Acesso.mjs';
+import Acesso from '../models/usuarioData.js';
 
 const router = express.Router();
 
