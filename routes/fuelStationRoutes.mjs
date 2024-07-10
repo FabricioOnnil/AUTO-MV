@@ -1,13 +1,13 @@
 import express from 'express';
-import FuelStation from '../models/FuelStation.mjs';
+import abastecimento from '../models/abastecimentoData.js';
 
-const router = express.Router();
+const abastecimentoRouter = express.Router();
 
 // Rota para obter todos os postos de combustível
-router.get('/fuelStations', (req, res) => {
-  FuelStation.findAll()
-    .then(fuelStations => {
-      res.json(fuelStations);
+abastecimentoRouter.get('/fuelStations', (req, res) => {
+  abastecimento.findAll()
+    .then(abastecimento => {
+      res.json(abastecimento);
     })
     .catch((error) => {
       res.status(500).send("Erro ao obter postos de combustível: " + error.message);
@@ -15,12 +15,12 @@ router.get('/fuelStations', (req, res) => {
 });
 
 // Rota para obter um posto de combustível específico
-router.get('/fuelStation/:id', (req, res) => {
-  const fuelStationId = req.params.id;
-  FuelStation.findByPk(fuelStationId)
-    .then(fuelStation => {
-      if (fuelStation) {
-        res.json(fuelStation);
+abastecimentoRouter.get('/abastecimento/:id', (req, res) => {
+  const abastecimentoId = req.params.id;
+  abastecimento.findByPk(abastecimentoId)
+    .then(abastecimento => {
+      if (abastecimento) {
+        res.json(abastecimento);
       } else {
         res.status(404).send("Posto de combustível não encontrado");
       }
@@ -31,8 +31,8 @@ router.get('/fuelStation/:id', (req, res) => {
 });
 
 // Rota para cadastrar um posto de combustível
-router.post('/fuelStation', (req, res) => {
-  FuelStation.create(req.body)
+abastecimentoRouter.post('/abastecimento', (req, res) => {
+  abastecimento.create(req.body)
     .then(() => {
       res.send("Posto de combustível cadastrado com sucesso!");
     })
@@ -42,9 +42,9 @@ router.post('/fuelStation', (req, res) => {
 });
 
 // Rota para atualizar informações de um posto de combustível
-router.put('/fuelStation/:id', (req, res) => {
-  const fuelStationId = req.params.id;
-  FuelStation.update(req.body, { where: { idFuel: fuelStationId } })
+abastecimentoRouter.put('/abastecimento/:id', (req, res) => {
+  const abastecimentoId = req.params.id;
+  abastecimento.update(req.body, { where: { idFuel: abastecimentoId } })
     .then(() => {
       res.send("Posto de combustível atualizado com sucesso!");
     })
@@ -54,9 +54,9 @@ router.put('/fuelStation/:id', (req, res) => {
 });
 
 // Rota para deletar um posto de combustível
-router.delete('/fuelStation/:id', (req, res) => {
-  const fuelStationId = req.params.id;
-  FuelStation.destroy({ where: { idFuel: fuelStationId } })
+abastecimentoRouter.delete('/abastecimento/:id', (req, res) => {
+  const abastecimentoId = req.params.id;
+  abastecimento.destroy({ where: { idFuel: abastecimentoId } })
     .then(() => {
       res.send("Posto de combustível deletado com sucesso!");
     })
@@ -65,4 +65,4 @@ router.delete('/fuelStation/:id', (req, res) => {
     });
 });
 
-export default router;
+export default abastecimentoRouter;

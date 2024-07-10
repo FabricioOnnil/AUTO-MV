@@ -1,10 +1,10 @@
 import express from 'express';
 import usuario from '../models/usuarioData.js';
 
-const router = express.Router();
+const userRouter = express.Router();
 
 // Rota para buscar todos os usuario
-router.get('/usuario', (req, res) => {
+userRouter.get('/usuario', (req, res) => {
   usuario.findAll()
     .then((usuario) => {
       res.json(usuario);
@@ -16,7 +16,7 @@ router.get('/usuario', (req, res) => {
 
 
 // Rota para buscar um usuario pelo ID
-  router.get('/usuario/:id', (req, res) => {
+  userRouter.get('/usuario/:id', (req, res) => {
     const usuarioId = req.params.id;
     usuario.findOne({ where: { i_usuario_user: usuarioId } })
       .then((usuario) => {
@@ -32,14 +32,14 @@ router.get('/usuario', (req, res) => {
   });
 
 // Rota para cadastrar um novo usuario
-router.post('/usuario', (req, res) => {
+userRouter.post('/usuario', (req, res) => {
 usuario.create(req.body)
     .then(() => res.send("usuario cadastrado com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao cadastrar usuario: " + error.message));
 });
 
 //Rota para atualizar um usuario pelo ID
-router.put('/usuario/:id', (req, res) => {
+userRouter.put('/usuario/:id', (req, res) => {
   const usuarioId = req.params.id;
   usuario.update(req.body, { where: { i_usuario_user: usuarioId } })
     .then(() => res.send("usuario atualizado com sucesso!"))
@@ -47,7 +47,7 @@ router.put('/usuario/:id', (req, res) => {
 });
 
 // Rota para deletar um usuario pelo ID
-router.delete('/usuario/:id', (req, res) => {
+userRouter.delete('/usuario/:id', (req, res) => {
   const usuarioId = req.params.id;
   usuario.destroy({ where: {  i_usuario_user: usuarioId } })
     .then(() => res.send("usuario deletado com sucesso!"))
@@ -55,4 +55,4 @@ router.delete('/usuario/:id', (req, res) => {
 });
 
 
-export default router;
+export default userRouter;

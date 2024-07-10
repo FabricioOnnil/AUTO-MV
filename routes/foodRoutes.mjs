@@ -1,56 +1,56 @@
 import express from 'express';
-import Food from '../models/Food.mjs';
+import comida from '../models/comidaData.js';
 
-const router = express.Router();
+const comidaRouter = express.Router();
 
-router.get('/food', (req, res) => {
-    Food.findAll()
-      .then((food) => {
-        res.json(food);
+// Rota para buscar todas as refeições.
+comidaRouter.get('/comida', (req, res) => {
+    comida.findAll()
+      .then((comida) => {
+        res.json(comida);
       })
       .catch((error) => {
-        console.error('Erro ao buscar refeição:', error);
-        res.status(500).json({ message: 'Erro ao buscar refeição.' });
+        res.status(500).send("Erro ao buscar refeição: " + error.message);
       });
   });
   
-  // Rota para buscar um food por ID
-  router.get('/food/:id', (req, res) => {
-    const foodId = req.params.id;
-    Food.findByPk(foodId)
-      .then((food) => {
-        if (food) {
-          res.json(food);
+  // Rota para buscar uma refeição por ID.
+  comidaRouter.get('/comida/:id', (req, res) => {
+    const comidaId = req.params.id;
+    comida,findOne({ where: { i_comida_idFood: comidaId } })
+      .then((comida) => {
+        if (!comida) {
+          res.status(404).send("refeição não encontrada");
         } else {
-          res.status(404).json({ message: 'Refeição não encontrada.' });
+          res.json(comida);
         }
       })
       .catch((error) => {
-        console.error('Erro ao buscar refeição por ID:', error);
-        res.status(500).json({ message: 'Erro ao buscar refeição por ID.' });
+        res.status(500).send("Erro ao buscar refeição: " + error.message);
       });
   });
 
-  
-router.post('/food', (req, res) => {
-  Food.create(req.body)
+//Rota para cadastrar uma nova refeição.
+comidaRouter.post('/comida', (req, res) => {
+  comida.create(req.body)
     .then(() => res.send("Refeição cadastrado com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao cadastrar refeição: " + error.message));
 });
 
-router.put('/food/:id', (req, res) => {
-  const foodId = req.params.id;
-  Food.update(req.body, { where: { idFood: foodId } })
-    .then(() => res.send("Refeição atualizado com sucesso!"))
+//Rota para atualizar uma refeição pelo ID.
+comidaRouter.put('/comida/:id', (req, res) => {
+  const comidaId = req.params.id;
+  comida.update(req.body, { where: { i_comida_idFood: comidaId } })
+    .then(() => res.send("Refeição atualizada com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao atualizar refeição: " + error.message));
 });
 
-router.delete('/food/:id', (req, res) => {
-  const foodId = req.params.id;
-  Food.destroy({ where: { idFood: foodId } })
-    .then(() => res.send("Refeição deletado com sucesso!"))
+comidaRouter.delete('/comida/:id', (req, res) => {
+  const comidaId = req.params.id;
+  comida.destroy({ where: { i_comida_idFood: comidaId } })
+    .then(() => res.send("Refeição deletada com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao deletar refeição: " + error.message));
 });
 
-export default router;
+export default comidaRouter;
 
