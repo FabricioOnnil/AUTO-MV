@@ -21,4 +21,4 @@ sequelize.authenticate()
     sequelize
   };
 
-  authenticate();
+  

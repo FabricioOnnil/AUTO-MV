@@ -10,8 +10,8 @@ carRouter.get('/carro', (req, res) => {
       res.json(carro);
     })
     .catch((error) => {
-      console.error('Erro ao buscar contratos:', error);
-      res.status(500).send('Erro ao buscar contratos.');
+      console.error('Erro ao buscar carro:', error);
+      res.status(500).send('Erro ao buscar carro.');
     });
 });
 

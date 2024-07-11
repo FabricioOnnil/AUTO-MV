@@ -1,17 +1,21 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import { create } from 'express-handlebars';
 import { fileURLToPath } from 'url';
 import path, { join } from 'path';
-import db from '../models/db.mjs';
-import acessoRoutes from '../routes/acessoRoutes.mjs';
-import contratoCarroRoutes from '../routes/contratoCarroRoutes.mjs';
-import custosFixosRoutes from '../routes/custosFixosRoutes.mjs';
-import infoCarroRoutes from '../routes/infoCarroRoutes.mjs';
-import foodRoutes from '../routes/foodRoutes.mjs';
-import fuelStationRoutes from '../routes/fuelStationRoutes.mjs';
-import User from '../models/User.mjs'; // Importação direta do modelo User
-import Schedule from '../models/Schedule.mjs'; // Importação direta do modelo Schedule
+import db from '../models/db.js';
+import usuario from '../models/usuarioData.js'; // Importação direta do modelo usuario
+import agenda from '../models/agendaData.js'; // Importação direta do modelo agenda
+import carro from '../models/carroData.js';
+import comida from '../models/comidaData.js';
+import reparo from '../models/reparoData.js';
+import abastecimento from '../models/abastecimentoData.js';
+import carCosts from '../routes/custosRouter.js';
+import carContract from '../routes/contratoRoutes.js';
+import userRouter from '../routes/acessoRoutes.js';
+import carRouter from '../routes/carroRoutes.js'
+import comidaRouter from '../routes/foodRoutes.js';
+import abstRouter from '../routes/fuelStationRoutes.js';
+
 
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -44,16 +48,20 @@ app.use((req, res, next) => {
   next();
 });
 
-// Conexão com o banco de dados
-db.sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Conectado com sucesso ao banco de dados!");
-  })
-  .catch((error) => {
-    console.error("Falha ao se conectar ao banco de dados:", error);
-  });
+// Conexão com o banco de dados e sincronização dos modelos
 
+(async () => {
+
+  try {
+      await db.sequelize.authenticate();
+      console.log("Conectado com sucesso ao banco de dados!");
+      await db.sequelize.sync();
+      console.log("Modelos sincronizados com sucesso!");
+  } catch (error) {
+      console.error("Falha ao se conectar ao banco de dados ou cincronizar modelos:", error);
+  }
+})();
+  
 // Configuração do diretório de views
 app.set('views', join(__dirname, '..', 'views'));
 
@@ -63,21 +71,21 @@ app.engine('handlebars', templateEngine.engine);
 app.set('view engine', 'handlebars');
 
 // Rotas para cada tabela
-app.use('/API/acesso', acessoRoutes);
-app.use('/API/contratoCarro', contratoCarroRoutes);
-app.use('/API/custosFixos', custosFixosRoutes);
-app.use('/API/infoCarro', infoCarroRoutes);
-app.use('/API/food', foodRoutes);
-app.use('/API/fuelStation', fuelStationRoutes);
+app.use('/API/acesso', userRouter);
+app.use('/API/contratoCarro', carContract);
+app.use('/API/custosFixos', carCosts);
+app.use('/API/infoCarro', carRouter);
+app.use('/API/food', comidaRouter);
+app.use('/API/fuelStation', abstRouter);
 
 app.post('/login', async (req, res) => {
   const { name, password } = req.body;
 
   try {
-    const user = await User.findOne({
+    const user = await usuario.findOne({
       where: {
-        firstName: name,
-        secret: password
+        s_usuario_name: name,
+        s_usuario_password: password
       }
     });
 
@@ -93,23 +101,27 @@ app.post('/login', async (req, res) => {
     res.status(500).send('Erro interno do servidor');
   }
 });
-app.post('/submit-schedule', async (req, res) => {
+
+app.post('/submit-agenda', async (req, res) => {
   const { nome, startDate, startTime, originSelect, rota, km_initial, carSelect } = req.body;
-  const carMap = {
-    carro1: 'MOBI - PPK_1234',
-    carro2: 'AUDI - PPX_3456'
-  };
-  const carName = carMap[carSelect] || 'Carro não selecionado';
 
   try {
-    await Schedule.create({
-      nameSchedule: nome,
-      scheduleStartDate: startDate,
+    const carros = await carro.findAll();
+    const carMap = {};
+    carros.forEach(carro => {
+      carMap[`carro${carro.i_carro_idcar}`] = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
+
+    });
+
+    const carName = carMap[carSelect] || 'Carro não selecionado';
+    await agenda.create({
+      nameagenda: nome,
+      agendaStartDate: startDate,
       startTime: startTime,
       originSelect: originSelect,
       startRote: rota,
       km_initial: km_initial,
-      scheduleCar: carName
+      agendaCar: carName
     });
 
     res.status(200).send('Form data stored successfully');
@@ -118,6 +130,9 @@ app.post('/submit-schedule', async (req, res) => {
     res.status(500).send('Error storing form data');
   }
 });
+
+
+// ----------------------------------------------R O T A S------------------------------------------------------------//
 
 // Rota principal
 app.get('/', (req, res) => {
