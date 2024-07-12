@@ -107,13 +107,14 @@ app.post('/submit-agenda', async (req, res) => {
 
   try {
     const carros = await carro.findAll();
+
     const carMap = {};
     carros.forEach(carro => {
       carMap[`carro${carro.i_carro_idcar}`] = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
-
     });
 
     const carName = carMap[carSelect] || 'Carro não selecionado';
+
     await agenda.create({
       nameagenda: nome,
       agendaStartDate: startDate,
@@ -124,10 +125,10 @@ app.post('/submit-agenda', async (req, res) => {
       agendaCar: carName
     });
 
-    res.status(200).send('Form data stored successfully');
+    res.status(200).send('Formulário recebido com sucesso!');
   } catch (error) {
-    console.error("Error storing form data:", error);
-    res.status(500).send('Error storing form data');
+    console.error("Erro ao receber formulário.", error);
+    res.status(500).send('Erro ao armazenar formulário');
   }
 });
 
