@@ -46,15 +46,28 @@ const reparo = db.sequelize.define('reparo', {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
-    },},
+    },
+
+    i_reparo_usuario_key:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+
+    i_usuarioReparo_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        primaryKey: true,
+    },
+
+    i_agendamento_agendado_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    }},
     {
         tableName: 'reparo',
         timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
 
-})
-
-
-
+});
 
 
 export default reparo;

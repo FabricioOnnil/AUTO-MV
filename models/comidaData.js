@@ -47,6 +47,27 @@ const comida = db.sequelize.define('comida', {
     allowNull: false,
     defaultValue: DataTypes.NOW,
   },
+
+  i_comida_usuario_key: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+
+  i_comida_agendamento: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  i_comida_usuarioComida: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+
+  i_comida_usuarioVisita: {
+    type:DataTypes.INTEGER,
+    allowNull: true,
+
+  },
 }, {
     tableName: 'comida',
     timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically

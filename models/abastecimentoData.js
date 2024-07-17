@@ -63,11 +63,34 @@ const abastecimento = db.sequelize.define('abastecimento', {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
+    },
+
+    //Chave estrangeira entre o Usuario e o abastecimento
+    i_abastecimento_usuario_key: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+
+    //Chave estrangeira entre o carro e o abastecimento
+    i_abastecimento_carroAbastecimentoKey: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+
+    //Chave estrangeira entre o agendamento e abastecimento
+    i_abastecimento_agendamentoKey: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+
+    //Chave estrangeira entre visita do usuario e o abastecimento
+    i_abastecimento_usuarioVisitKey: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
     },},
     {
        tableName: 'abastecimento',
        timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
-})
-
+});
 
 export default abastecimento;

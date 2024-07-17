@@ -133,6 +133,12 @@ const carro = sequelize.define('carro', {
         allowNull: false,
         defaultValue: DataTypes.NOW,
     },
+
+    i_carro_carroAbastecimento: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+
+    },
     }, {
         tableName: 'carro',
         timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
