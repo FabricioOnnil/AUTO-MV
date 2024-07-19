@@ -4,7 +4,7 @@ import abastecimento from '../models/abastecimentoData.js';
 const abstRouter = express.Router();
 
 // Rota para obter todos os postos de abastecimento
-abstRouter.get('/fuelStations', (req, res) => {
+abstRouter.get('/abastecimento', (req, res) => {
   abastecimento.findAll()
     .then(abastecimento => {
       res.json(abastecimento);
@@ -34,7 +34,7 @@ abstRouter.get('/abastecimento/:id', (req, res) => {
 // Rota para cadastrar um  novo abastecimento
 abstRouter.post('/abastecimento', (req, res) => {
   abastecimento.create(req.body)
-  .then(() => res.send("abasteciento cadastrado com sucesso!"))
+  .then(() => res.send("abastecimento cadastrado com sucesso!"))
   .catch((error) => res.status(500).send("Erro ao cadastrar abastecimento: " + error.message));
 });
 
