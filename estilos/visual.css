@@ -306,6 +306,7 @@ button:hover {
     border-radius: green 2px;
 }
 
+
 #currentMonth {
     padding: 5px 10px;
     background-color: var(--varWhite);
@@ -1029,6 +1030,25 @@ input[type=text]::placeholder {
 
 /*--- Q --*/
 /*--- R --*/
+
+.registerButton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--varBlue);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.registerButton:hover {
+    background-color: transparent;
+    font-weight: bolder;
+    color: var(--varBlue);
+}
+
 .route-form{
     display: flex; /* Usa flexbox para alinhar os elementos na mesma linha */
     gap: 1px;
