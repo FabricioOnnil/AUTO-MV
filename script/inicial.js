@@ -13,5 +13,4 @@ document.addEventListener("DOMContentLoaded", function() {
     video.addEventListener('ended', () => {
         video.classList.add('hidden');
         imageSection.classList.remove('hidden');
-    });
 });

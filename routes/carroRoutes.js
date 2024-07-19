@@ -15,10 +15,10 @@ carRouter.get('/carro', (req, res) => {
     });
 });
 
-//Rota paara buscar um carro pelo ID.
+//Rota para buscar um carro pelo ID.
 carRouter.get('/carro/:id', (req, res) => {
   const idCar = req.params.id;
-  usuario.findOne({ where: { i_carro_idcar: idCar } })
+  carro.findOne({ where: { i_carro_idcar: idCar } })
     .then((carro) => {
       if (!carro) {
           res.status(404).send('Carro não encontrado.');

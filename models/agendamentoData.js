@@ -19,7 +19,7 @@ const agendamento = db.sequelize.define('agendamento', {
         allowNull: true,
     },
 },{
-    tableName: 'reparo',
+    tableName: 'agendamento',
     timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
     
     });

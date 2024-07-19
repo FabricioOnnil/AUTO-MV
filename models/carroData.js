@@ -102,7 +102,7 @@ const carro = sequelize.define('carro', {
         allowNull: false
     },
 
-    //Daa de inicio do aluguel.
+    //Data de inicio do aluguel.
     d_carro_startDateSafe:{
         type: DataTypes.DATE,
         allowNull: false
