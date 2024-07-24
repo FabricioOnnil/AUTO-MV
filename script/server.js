@@ -67,7 +67,7 @@ app.use((req, res, next) => {
   } catch (error) {
     console.error("Falha ao se conectar ao banco de dados ou sincronizar modelos:", error);
   }
-})();
+});
 
 // Configuração do diretório de views
 app.set('views', join(__dirname, '..', 'views'));
