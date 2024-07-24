@@ -1,23 +1,37 @@
 import express from 'express';
 import { create } from 'express-handlebars';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 import path, { join } from 'path';
-import db from '../models/db.js';
-import usuario from '../models/usuarioData.js'; // Importação direta do modelo usuario
-import agenda from '../models/agendaData.js'; // Importação direta do modelo agenda
-import carro from '../models/carroData.js';
-import comida from '../models/comidaData.js';
-import reparo from '../models/reparoData.js';
-import abastecimento from '../models/abastecimentoData.js';
-import carCosts from '../routes/custosRouter.js';
-import carContract from '../routes/contratoRoutes.js';
-import userRouter from '../routes/acessoRoutes.js';
-import carRouter from '../routes/carroRoutes.js'
-import comidaRouter from '../routes/foodRoutes.js';
-import abstRouter from '../routes/fuelStationRoutes.js';
+import db from '../models/db.mjs';
 
+import abastecimento from '../models/abastecimentoData.mjs';
+import agenda from '../models/agendaData.mjs';
+import agendamento from '../models/agendamentoData.mjs';
+import carroAbastecimento from '../models/carroAbastecimentoData.mjs';
+import carro from '../models/carroData.mjs';
+import comida from '../models/comidaData.mjs';
+import diario from '../models/diario.mjs';
+import reparo from '../models/reparoData.mjs';
+import usuario from '../models/usuarioData.mjs'; 
+import usuarioVisita from '../models/usuarioVisitaData.mjs';
+
+import userRouter from '../routes/acessoRoutes.mjs';
+import agendamentoRouter from '../routes/agendamentoRoutes.mjs';
+import agendaRouter from '../routes/agendaRoutes.mjs';
+import carroAbastecimentoRouter from '../routes/carroAbastecimento.mjs';
+import carRouter from '../routes/carroRoutes.mjs';
+import carContract from '../routes/contratoRoutes.mjs';
+import carCosts from '../routes/custosRouter.mjs';
+import diarioRouter from '../routes/diarioRoutes.mjs';
+import comidaRouter from '../routes/foodRoutes.mjs';
+import abstRouter from '../routes/fuelStationRoutes.mjs';
+import reparoRouter from '../routes/reparoRoutes.mjs';
+import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.mjs';
 
 const app = express();
+app.use(cors());
+
 const PORT = process.env.PORT || 8081;
 
 // Definindo __dirname
@@ -30,6 +44,8 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/Imagens', express.static(path.join(__dirname, 'Imagens')));
 app.use('/script', express.static(path.join(__dirname, 'script')));
 app.use('/styles', express.static(path.join(__dirname, 'styles')));
+app.use('/routes', express.static(path.join(__dirname, 'routes')));
+app.use('/models', express.static(path.join(__dirname, 'models')));
 
 // Middleware para parsing do corpo das requisições
 app.use(express.json());
@@ -41,27 +57,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// Middleware para CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
-
 // Conexão com o banco de dados e sincronização dos modelos
-
 (async () => {
-
   try {
-      await db.sequelize.authenticate();
-      console.log("Conectado com sucesso ao banco de dados!");
-      await db.sequelize.sync();
-      console.log("Modelos sincronizados com sucesso!");
+    await db.sequelize.authenticate();
+    console.log("Conectado com sucesso ao banco de dados!");
+    await db.sequelize.sync();
+    console.log("Modelos sincronizados com sucesso!");
   } catch (error) {
-      console.error("Falha ao se conectar ao banco de dados ou cincronizar modelos:", error);
+    console.error("Falha ao se conectar ao banco de dados ou sincronizar modelos:", error);
   }
 })();
-  
+
 // Configuração do diretório de views
 app.set('views', join(__dirname, '..', 'views'));
 
@@ -77,7 +84,9 @@ app.use('/API/custosFixos', carCosts);
 app.use('/API/infoCarro', carRouter);
 app.use('/API/food', comidaRouter);
 app.use('/API/fuelStation', abstRouter);
+app.use('/API/agendamento', agendamentoRouter);
 
+// Rota de login
 app.post('/login', async (req, res) => {
   const { name, password } = req.body;
 
@@ -131,7 +140,6 @@ app.post('/submit-agenda', async (req, res) => {
     res.status(500).send('Erro ao armazenar formulário');
   }
 });
-
 
 // ----------------------------------------------R O T A S------------------------------------------------------------//
 
