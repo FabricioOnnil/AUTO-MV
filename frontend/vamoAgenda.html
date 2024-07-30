@@ -13,7 +13,7 @@
             <a href="#"><img class="logoHeader" src="/Imagens/logonew725.png" alt="Logo Vamo"></a> </section><br>
         <br>
         <h1>USO DO CARRO</h1><br>
-        <button id="showCalendarSchedule"><img src="/Imagens/agendarbutton.png" alt="Botão agenda"></button>
+        <button id="showCalendarSchedule"><!--<img src="/Imagens/agendarbutton.png" alt="Botão agenda">-->AGENDAR</button>
         <div id="overlaySchedule"></div>
         <div id="calendarPopupSchedule" class="popup-containerSchedule">
             <div class="popup-contentSchedule">
@@ -23,8 +23,10 @@
                     <input type="text" id="nome" name="nome" required>
                     <label for="startDate">Data Agendada:</label>
                     <input type="date" id="startDate" name="startDate" required>
-                    <label for="startTime">Hora: </label>
+                    <label for="startTime">Hora de retirada: </label>
                     <input type="time" id="startTime" name="startTime" required>
+                    <label for="deliverEndDate">Data de Entrega:</label>
+                    <input type="date" id="deliverEndDate" name="deliverEndDate">
                     <label for="originSelect">Escritório de Origem:</label>
                     <select id="originSelect" name="originSelect" required>
                         <option value="">-Selecione o Escritório-</option>
@@ -47,7 +49,7 @@
                 </form>
             </div>
         </div>
-        <button id="showTablePopup"><img src="/Imagens/agendamentos.png" alt=""></button>
+        <button id="showTablePopup"><!--<img src="/Imagens/agendamentos.png" alt="">-->AGENDAMENTOS</button>
 <div id="overlayTable"></div>
 <div id="tablePopup" class="popup-container">
     <div class="popup-content">

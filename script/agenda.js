@@ -1,16 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const showCalendarButton = document.getElementById('showCalendarSchedule');
-    const showSchedulesButton = document.getElementById('showSchedulesButton');
-    const overlaySchedule = document.getElementById('overlaySchedule');
-    const overlaySchedules = document.getElementById('overlaySchedules');
-    const calendarPopupSchedule = document.getElementById('calendarPopupSchedule');
-    const schedulesPopup = document.getElementById('schedulesPopup');
+    const showCalendarButton = document.getElementById('showCalendarSchedule');  
+    const showTablePopup = docuyment.getElemetById('showTablePopup'); 
+    const overlaySchedule = document.getElementById('overlaySchedule');    
+    const calendarPopupSchedule = document.getElementById('calendarPopupSchedule');    
     const closePopupScheduleButton = document.querySelector('.close-popupSchedule');
-    const closePopupSchedulesButton = document.querySelector('.close-popupSchedules');
-    const scheduleForm = document.getElementById("scheduleFormSchedule");
+    const closePopupSchedulesButton = document.querySelector('.close-popupSchedules');    
     const popup = document.getElementById('calendarPopupSchedule');
     const closeBtn = popup.querySelector('.close-popupSchedule');
-
 
     console.log("DOM loaded");
 
@@ -24,15 +20,14 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("showCalendarButton not found");
     }
 
-    if (showSchedulesButton) {
-        showSchedulesButton.addEventListener('click', function() {
-            console.log("Show schedules button clicked");
-            overlaySchedules.style.display = 'block';
-            schedulesPopup.style.display = 'block';
-            loadFormData();
+    if (showTablePopup) {
+        showCalendarButton.addEventListener('click', function() {
+            console.log("show table button clicked");
+            overlaySchedule.style.display = 'block';
+            calendarPopupSchedule.style.display = 'block';
         });
     } else {
-        console.error("showSchedulesButton not found");
+        console.error("showTableButton not found");
     }
 
     if (closePopupScheduleButton) {
@@ -65,44 +60,12 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("overlaySchedule not found");
     }
 
-    if (overlaySchedules) {
-        overlaySchedules.addEventListener('click', function() {
-            console.log("Overlay clicked");
-            overlaySchedules.style.display = 'none';
-            schedulesPopup.style.display = 'none';
-        });
-    } else {
-        console.error("overlaySchedules not found");
-    }
-
+    // Lembrar de Puxar direto banco de dados
     const carMap = {
         carro1: 'MOBI - PPK_1234',
         carro2: 'AUDI - PPX_3456'
-    };
-
-    function storeFormData(nome, startDate, startTime, origem, rota, km_initial, carName) {
-        const formData = {
-            nome,
-            startDate,
-            startTime,
-            origem,
-            rota,
-            km_initial,
-            carName
-        };
-        const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
-        schedules.push(formData);
-        localStorage.setItem('schedules', JSON.stringify(schedules));
-        console.log("Form data stored", formData);
-    }
-
-    function formatDateToBrazilian(dateString) {
-        const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-    }
+    };    
+    
 
     if (scheduleForm) {
         scheduleForm.addEventListener("submit", async function(event) {
@@ -112,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const nome = document.getElementById("nome").value;
             const startDate = document.getElementById("startDate").value;
             const startTime = document.getElementById("startTime").value;
-            const origem = document.getElementById("originSelect").value; 
+            const origin = document.getElementById("originSelect").value; 
             const rota = document.getElementById("rota").value;
             const km_initial = document.getElementById("km_initial").value;
             const carSelect = document.getElementById("carSelect").value;
@@ -121,14 +84,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 nome,
                 startDate,
                 startTime,
-                originSelect: origem,
+                originSelect: origin,
                 rota,
                 km_initial,
                 carSelect
             };
 
             try {
-                const response = await fetch('/submit-schedule', {
+                const response = await fetch('/submit-agenda', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -145,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     newRow.insertCell(0).textContent = nome;
                     newRow.insertCell(1).textContent = formattedDate;
                     newRow.insertCell(2).textContent = startTime;
-                    newRow.insertCell(3).textContent = origem;
+                    newRow.insertCell(3).textContent = origin;
                     newRow.insertCell(4).textContent = rota;
                     newRow.insertCell(5).textContent = km_initial;
                     newRow.insertCell(6).textContent = carName;
@@ -165,6 +128,31 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("scheduleForm not found");
     }
     
+    function storeFormData(nome, startDate, startTime, origin, rota, km_initial, carName) {
+        const formData = {
+            nome,
+            startDate,
+            startTime,
+            origin,
+            rota,
+            km_initial,
+            carName
+        };
+
+        const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
+        schedules.push(formData);
+        localStorage.setItem('schedules', JSON.stringify(schedules));
+        console.log("Form data stored", formData);
+    }
+
+    function formatDateToBrazilian(dateString) {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
     function loadFormData() {
         const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
         const schedulesBody = document.getElementById("schedulesBody");
@@ -175,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
             newRow.insertCell(0).textContent = formData.nome;
             newRow.insertCell(1).textContent = formatDateToBrazilian(formData.startDate);
             newRow.insertCell(2).textContent = formData.startTime;
-            newRow.insertCell(3).textContent = formData.origem;
+            newRow.insertCell(3).textContent = formData.origin;
             newRow.insertCell(4).textContent = formData.rota;
             newRow.insertCell(5).textContent = formData.km_initial;
             newRow.insertCell(6).textContent = formData.carName;
