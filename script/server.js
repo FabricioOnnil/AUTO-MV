@@ -1,33 +1,35 @@
-import express from 'express';
-import { create } from 'express-handlebars';
+import express from 'express'
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import path, { join } from 'path';
-import db from '../models/db.mjs';
+import db from '../models/db.js';
 
-import abastecimento from '../models/abastecimentoData.mjs';
-import agenda from '../models/agendaData.mjs';
-import agendamento from '../models/agendamentoData.mjs';
-import carroAbastecimento from '../models/carroAbastecimentoData.mjs';
-import carro from '../models/carroData.mjs';
-import comida from '../models/comidaData.mjs';
-import diario from '../models/diario.mjs';
-import reparo from '../models/reparoData.mjs';
-import usuario from '../models/usuarioData.mjs'; 
-import usuarioVisita from '../models/usuarioVisitaData.mjs';
+import abastecimento from '../models/abastecimentoData.js';
+import agenda from '../models/agendaData.js';
+import agendamento from '../models/agendamentoData.js';
+import carroAbastecimento from '../models/carroAbastecimentoData.js';
+import carro from '../models/carroData.js';
+import comida from '../models/comidaData.js';
+import diario from '../models/diarioData.js';
+import reparo from '../models/reparoData.js';
+import usuario from '../models/usuarioData.js'; 
+import usuarioVisita from '../models/usuarioVisitaData.js';
 
-import userRouter from '../routes/acessoRoutes.mjs';
-import agendamentoRouter from '../routes/agendamentoRoutes.mjs';
-import agendaRouter from '../routes/agendaRoutes.mjs';
-import carroAbastecimentoRouter from '../routes/carroAbastecimento.mjs';
-import carRouter from '../routes/carroRoutes.mjs';
-import carContract from '../routes/contratoRoutes.mjs';
-import carCosts from '../routes/custosRouter.mjs';
-import diarioRouter from '../routes/diarioRoutes.mjs';
-import comidaRouter from '../routes/foodRoutes.mjs';
-import abstRouter from '../routes/fuelStationRoutes.mjs';
-import reparoRouter from '../routes/reparoRoutes.mjs';
-import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.mjs';
+import userRouter from '../routes/acessoRoutes.js';
+import agendamentoRouter from '../routes/agendamentoRoutes.js';
+import agendaRouter from '../routes/agendaRoutes.js';
+import carroAbastecimentoRouter from '../routes/carroAbastecimento.js';
+import carRouter from '../routes/carroRoutes.js';
+import carContract from '../routes/contratoRoutes.js';
+import carCosts from '../routes/custosRouter.js';
+import diarioRouter from '../routes/diarioRoutes.js';
+import comidaRouter from '../routes/foodRoutes.js';
+import abstRouter from '../routes/fuelStationRoutes.js';
+import reparoRouter from '../routes/reparoRoutes.js';
+import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.js';
+
+Sequelize = db.Sequelize;
+sequelize = db.sequelize;
 
 const app = express();
 app.use(cors());
@@ -60,9 +62,9 @@ app.use((req, res, next) => {
 // Conexão com o banco de dados e sincronização dos modelos
 (async () => {
   try {
-    await db.sequelize.authenticate();
+    await sequelize.authenticate();
     console.log("Conectado com sucesso ao banco de dados!");
-    await db.sequelize.sync();
+    await sequelize.sync();
     console.log("Modelos sincronizados com sucesso!");
   } catch (error) {
     console.error("Falha ao se conectar ao banco de dados ou sincronizar modelos:", error);
@@ -72,10 +74,6 @@ app.use((req, res, next) => {
 // Configuração do diretório de views
 app.set('views', join(__dirname, '..', 'views'));
 
-// Configuração do Template Engine
-const templateEngine = create({ defaultLayout: 'main' });
-app.engine('handlebars', templateEngine.engine);
-app.set('view engine', 'handlebars');
 
 // Rotas para cada tabela
 app.use('/API/acesso', userRouter);

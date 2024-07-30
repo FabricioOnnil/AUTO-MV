@@ -17,8 +17,8 @@ sequelize.authenticate()
 
 
   export default {
-    Sequelize,
-    sequelize
+    Sequelize: Sequelize,
+    sequelize: sequelize
   };
 
   

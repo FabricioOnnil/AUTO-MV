@@ -9,6 +9,7 @@ const carroAbastecimento = db.sequelize.define('carroAbastecimento', {
       primaryKey: true
     },
 
+    //refrente ao carro e o abastecimento.
     i_carroAbastecimento_abastecimento: {
         type: DataTypes.INTEGER,
         allowNull: false,

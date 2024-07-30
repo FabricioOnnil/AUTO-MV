@@ -8,12 +8,12 @@ const agendamento = db.sequelize.define('agendamento', {
       autoIncrement: true,
       primaryKey: true
     },
-
+    //chave para usuario dentro do agendamento.
     i_agendamento_usuarioKey: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
-
+    //chave do carro no agendamento.
     i_agendamento_carroKey: {
         type: DataTypes.INTEGER,
         allowNull: true,
