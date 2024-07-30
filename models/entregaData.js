@@ -60,6 +60,10 @@ const entrega = db.sequelize.define('entrega', {
        defaultValue: DataTypes.NOW,
      },
 
+     //Referencia externa do agendamento. 10 
+     i_entrega_agendamento: {
+        type: DataTypes.INTEGER
+     }
     }, {
         tableName: 'entrega',
         timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
