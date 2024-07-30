@@ -32,7 +32,7 @@ import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.mjs';
 const app = express();
 app.use(cors());
 
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 3306;
 
 // Definindo __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -87,7 +87,7 @@ app.use('/API/fuelStation', abstRouter);
 app.use('/API/agendamento', agendamentoRouter);
 
 // Rota de login
-app.post('/login', async (req, res) => {
+app.post('/acesso', async (req, res) => {
   const { name, password } = req.body;
 
   try {
