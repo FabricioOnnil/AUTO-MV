@@ -17,13 +17,13 @@ const entrega = db.sequelize.define('entrega', {
     },
 
     //Data da entrega. 3
-    d_entrega_endDate: {
+    d_entrega_deliveryEndDate: {
         type: DataTypes.DATE,
         allowNull: false
     },
 
     //Hora da Entrega. 4
-    d_entrega_endTime: {
+    d_entrega_deliveryEndTime: {
         type: DataTypes.TIME,
         allowNull: false
     },
@@ -41,7 +41,7 @@ const entrega = db.sequelize.define('entrega', {
     },
 
     //Carro entregue. 7
-    i_entrega_deliverCar: {
+    i_entrega_deliveryCar: {
        type: DataTypes.INTEGER,
         allowNull: false
     },

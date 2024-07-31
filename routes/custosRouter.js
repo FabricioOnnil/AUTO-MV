@@ -1,5 +1,5 @@
 import express from 'express';
-import carro from '../models/carroData.js';
+import carro from '../models/custosCarroData.js';
 
 const carCosts = express.Router();
 
@@ -18,7 +18,7 @@ carCosts.get ('/custos', (req, res) =>{
 //Rota para buscar o custoFixo pelo ID.
 carCosts.get('/custos/:id', (req, res) => {
     const idCusto = req.params.id;
-    carro.findOne ({ where: { i_carro_idcar: idCusto} })
+    carro.findOne ({ where: { i_custosCarro_custosId: idCusto} })
      .then((custos) => {
         if(!custos) {
             res.status(404).send('custo não encontrado.');
@@ -41,7 +41,7 @@ carCosts.post('/custos', (req, res) => {
 //Rota para atualizar um custo pelo ID. 
 carCosts.put('/custos/:id', (req, res) => {
     const idCusto = req.params.id;
-    carro.update(req.body, { where: { i_carro_idcar: idCusto} })
+    carro.update(req.body, { where: { i_custosCarro_custosId: idCusto} })
     .then(() => res.send("Custos atualizados com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao atualizar carro: " + error.message));
 });
@@ -49,7 +49,7 @@ carCosts.put('/custos/:id', (req, res) => {
 //Rota para deletar um custo pelo ID.
 carCosts.delete('/custos/:id', (req, res) => {
     const idCusto = req.params.id;
-    carro.destroy({ where: { i_carro_idcar: idCusto } })
+    carro.destroy({ where: { i_custosCarro_custosId: idCusto } })
     .then(() => res.send("Custo deletado com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao deletar custos: " + error.message));
 });

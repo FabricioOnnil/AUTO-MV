@@ -14,11 +14,13 @@ import diario from '../models/diarioData.js';
 import reparo from '../models/reparoData.js';
 import usuario from '../models/usuarioData.js'; 
 import usuarioVisita from '../models/usuarioVisitaData.js';
+import entrega from '../models/entregaData.js';
 
 import userRouter from '../routes/acessoRoutes.js';
 import agendamentoRouter from '../routes/agendamentoRoutes.js';
 import agendaRouter from '../routes/agendaRoutes.js';
 import carroAbastecimentoRouter from '../routes/carroAbastecimento.js';
+import entregaRouter from '../routes/entregaRoutes.js';
 import carRouter from '../routes/carroRoutes.js';
 import carContract from '../routes/contratoRoutes.js';
 import carCosts from '../routes/custosRouter.js';
@@ -83,6 +85,7 @@ app.use('/API/infoCarro', carRouter);
 app.use('/API/food', comidaRouter);
 app.use('/API/fuelStation', abstRouter);
 app.use('/API/agendamento', agendamentoRouter);
+app.use('/API/entrega', entregaRouter);
 
 // Rota de login
 app.post('/acesso', async (req, res) => {
@@ -110,7 +113,13 @@ app.post('/acesso', async (req, res) => {
 });
 
 
+app.post('/contratoCarro', async (req, res) => {
+  const contratoCarro = {  inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
 
+  try {
+    const contratoCarro = await contratoCarro.findAll();
+  }
+})
 app.post('/submit-agenda', async (req, res) => {
   const { nome, startDate, startTime, originSelect, rota, km_initial, carSelect } = req.body;
 
