@@ -9,6 +9,8 @@ import agenda from '../models/agendaData.js';
 import agendamento from '../models/agendamentoData.js';
 import carroAbastecimento from '../models/carroAbastecimentoData.js';
 import carro from '../models/carroData.js';
+import contratoCarro from '../models/contratoCarroData.js';
+import custosCarro from '../models/custosCarroData.js';
 import comida from '../models/comidaData.js';
 import diario from '../models/diarioData.js';
 import reparo from '../models/reparoData.js';
@@ -42,6 +44,18 @@ const PORT = process.env.PORT || 3306;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Conexão com o banco de dados e sincronização dos modelos
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Conectado com sucesso ao banco de dados!");
+    await sequelize.sync();
+    console.log("Modelos sincronizados com sucesso!");
+  } catch (error) {
+    console.error("Falha ao se conectar ao banco de dados ou sincronizar modelos:", error);
+  }
+});
+
 // Configuração para servir arquivos estáticos
 app.use(express.static(join(__dirname, '..')));
 app.use(express.static(path.join(__dirname, 'frontend')));
@@ -61,21 +75,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Conexão com o banco de dados e sincronização dos modelos
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("Conectado com sucesso ao banco de dados!");
-    await sequelize.sync();
-    console.log("Modelos sincronizados com sucesso!");
-  } catch (error) {
-    console.error("Falha ao se conectar ao banco de dados ou sincronizar modelos:", error);
-  }
-});
-
 // Configuração do diretório de views
 app.set('views', join(__dirname, '..', 'views'));
-
 
 // Rotas para cada tabela
 app.use('/API/acesso', userRouter);
@@ -112,15 +113,28 @@ app.post('/acesso', async (req, res) => {
   }
 });
 
-
 app.post('/contratoCarro', async (req, res) => {
-  const contratoCarro = {  inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
+
+  const contratoCarro = { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
+
+  try {    
+    const contratoCarro = await contratoCarro.findAll();
+  }catch{}
+  
+});
+
+app.post('/custosCarro', async (req,res) => {
+
+  const custosCarro = { limiteReparo, reparosOutros, perdaTotal, dataInicio, dataTermino, distanciaLimite } = req.body;
 
   try {
-    const contratoCarro = await contratoCarro.findAll();
-  }
+    const custosCarro = await custosCarro.findAll();
+  }catch{}
 })
-app.post('/submit-agenda', async (req, res) => {
+
+
+app.post('/agenda', async (req, res) => {
+
   const { nome, startDate, startTime, originSelect, rota, km_initial, carSelect } = req.body;
 
   try {
@@ -148,6 +162,7 @@ app.post('/submit-agenda', async (req, res) => {
     console.error("Erro ao receber formulário.", error);
     res.status(500).send('Erro ao armazenar formulário');
   }
+
 });
 
 // ----------------------------------------------R O T A S------------------------------------------------------------//
