@@ -79,7 +79,7 @@ app.use((req, res, next) => {
 app.set('views', join(__dirname, '..', 'views'));
 
 // Rotas para cada tabela
-app.use('/API/acesso', userRouter);
+app.use('/API/login', userRouter);
 app.use('/API/contratoCarro', carContract);
 app.use('/API/custosFixos', carCosts);
 app.use('/API/infoCarro', carRouter);
@@ -89,7 +89,7 @@ app.use('/API/agendamento', agendamentoRouter);
 app.use('/API/entrega', entregaRouter);
 
 // Rota de login
-app.post('/acesso', async (req, res) => {
+app.post('/login', async (req, res) => {
   const { name, password } = req.body;
 
   try {
@@ -102,17 +102,19 @@ app.post('/acesso', async (req, res) => {
 
     if (user) {
       // Usuário encontrado, autenticação bem-sucedida
-      res.status(200).send('Login bem-sucedido');
+      res.status(200).json('Login bem-sucedido');
     } else {
       // Usuário não encontrado, autenticação falhou
-      res.status(401).send('Credenciais inválidas');
+      res.status(401).json('Credenciais inválidas');
     }
   } catch (error) {
     console.error('Erro ao consultar o banco de dados:', error);
-    res.status(500).send('Erro interno do servidor');
+    res.status(500).json('Erro interno do servidor');
   }
 });
 
+
+// Rota de Contrato do Carro
 app.post('/contratoCarro', async (req, res) => {
 
   const contratoCarro = { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
