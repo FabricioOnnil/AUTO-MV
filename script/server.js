@@ -99,7 +99,8 @@ app.post('/login', async (req, res) => {
         s_usuario_password: password
       }
     });
-
+    console.log('Resultado da consulta:', user);
+    
     if (user) {
       // Usuário encontrado, autenticação bem-sucedida
       res.status(200).json('Login bem-sucedido');
