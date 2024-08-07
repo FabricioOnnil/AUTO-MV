@@ -14,6 +14,24 @@
     box-sizing: border-box;
 }
 
+/*div {
+        display: flex;
+        flex-direction: column;  Direção das sections - vertical por padrão 
+        justify-content: space-around; Espaçamento uniforme entre as sections 
+    }    
+    Aplica um tamanho máximo às imagens dentro da div 
+    div img {
+        max-width: 100%;  Imagens não podem ser maiores que a largura da div 
+        height: auto;  Mantém a proporção original da imagem 
+    }
+    @media screen and (max-width: 768px) {
+    div {
+        flex-direction: row; Altera para uma direção horizontal em telas menores 
+        justify-content: space-evenly;  Espaçamento uniforme horizontal 
+    }
+    }*/
+
+
 :root {
     --font-ubuntu: 'ubuntu', sans-serif;
     --font-rubik: 'rubik', sans-serif;
@@ -96,30 +114,26 @@
     margin-bottom: 0px; /* Adicionar margem inferior para espaçamento entre os botões */
 }
 
-#botoes button img {
-    box-shadow: var(--varBoxshadowForm);
-    object-fit: cover; /* Garante que a imagem ocupe todo o espaço do botão */
-}
 
 button {    
     align-items: center;
     background-color: #13631600; 
     border: none; 
-    border-radius: 4px; 
+    font-weight: bold;
     cursor: pointer; 
     color: white; 
     display: inline-block; 
     font-family: var(--font-ubuntu);
-    font-size: 20px;    
+    font-size: 30px;    
     margin: 0; 
-    padding: 10px;
+    padding: 18px;
     padding-left: 90px; 
     transition: background-color 0.3s;
     justify-content: center;
 }
 
 button:hover {
-    background-color: transparent;
+    background-color: var(--varWhite);
     font-weight: bolder;
     color: var(--varYellow);
 }
@@ -159,11 +173,6 @@ button:hover {
     box-sizing: border-box;
     margin: 0 auto;    
 }
-
-
-
-
-
 
 
 
