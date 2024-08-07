@@ -3,6 +3,8 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import path, { join } from 'path';
 import db from '../models/db.js';
+import sequelize from '../models/db.js';
+import Sequelize from '../models/db.js';
 
 import abastecimento from '../models/abastecimentoData.js';
 import agenda from '../models/agendaData.js';
@@ -32,8 +34,7 @@ import abstRouter from '../routes/fuelStationRoutes.js';
 import reparoRouter from '../routes/reparoRoutes.js';
 import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.js';
 
-Sequelize = db.Sequelize;
-sequelize = db.sequelize;
+
 
 const app = express();
 

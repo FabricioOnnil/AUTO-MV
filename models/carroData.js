@@ -7,7 +7,7 @@ const sequelize = db.sequelize;
 const carro = sequelize.define('carro', {
     // id da tabela.
     i_carro_idcar: {
-        typ:Sequelize.INTEGER,
+        type:Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
