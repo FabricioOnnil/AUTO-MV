@@ -123,15 +123,18 @@ button:hover {
     font-weight: bolder;
     color: var(--varYellow);
 }
-
+/*Trocar nome*/
 #button_dashboard {
-    width: 20%; /* Largura da primeira section */
+    width: 100%; /* Largura da primeira section */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff00; /* Cor de fundo opcional */
     padding: 10px; /* Espaçamento interno */
-    box-sizing: border-box;
+    background: none;
+    border: none;
+    margin-bottom: 1px;
+    cursor: pointer;
+    gap: 10px;
     
 }
  .button_dashboard {
@@ -140,7 +143,6 @@ button:hover {
     justify-content: space-around; /* Espaçamento uniforme entre os botões */
     align-items: center;
     padding: 10px; /* Espaçamento interno */
-    box-sizing: border-box;
     
  }
  .button_dashboard button,
@@ -150,13 +152,6 @@ button:hover {
     cursor: pointer;
 }
 
-.button_dashboard button img,
-.button_dashboard a img {
-    max-width: 100%;
-    height: auto;
-}
-
-
 #button_dashboard,
 #relator {
     width: 100%; /* Ajuste conforme necessário */
@@ -165,13 +160,6 @@ button:hover {
     margin: 0 auto;    
 }
 
-#button_dashboard button {
-    background: none;
-    border: none;
-    margin-bottom: 1px;
-    cursor: pointer;
-    gap: 10px;
-}
 
 
 
