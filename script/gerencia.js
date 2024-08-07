@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData(acessoForm);
 
-        fetch('/acesso', {
+        fetch('/login', {
             method: 'POST',
             body: formData
         })

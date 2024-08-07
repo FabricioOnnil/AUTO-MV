@@ -36,9 +36,11 @@ Sequelize = db.Sequelize;
 sequelize = db.sequelize;
 
 const app = express();
+
 app.use(cors());
 
-const PORT = process.env.PORT || 3306;
+var path = require('path');
+const PORT = 3000;
 
 // Definindo __dirname
 const __filename = fileURLToPath(import.meta.url);
