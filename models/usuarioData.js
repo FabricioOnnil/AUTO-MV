@@ -40,7 +40,7 @@ const usuario = db.sequelize.define('usuario', {
     },
 
     //Data de validade do documento de habilitação.
-    d_usuario_dateExpiration: {
+    dt_usuario_dateExpiration: {
       type: DataTypes.DATE,
       allowNull: false
     },
@@ -50,10 +50,17 @@ const usuario = db.sequelize.define('usuario', {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
+    },
+  
+    //Data de atualização da Linha.
+    dt_usuario_updateAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },},
      {
         tableName: 'usuario',
-        timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
+        timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically
   });
 
 
