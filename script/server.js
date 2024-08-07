@@ -39,7 +39,6 @@ const app = express();
 
 app.use(cors());
 
-var path = require('path');
 const PORT = 3000;
 
 // Definindo __dirname
@@ -73,7 +72,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Middleware para logging
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
+ 
   next();
 });
 
@@ -117,7 +116,7 @@ app.post('/login', async (req, res) => {
 });
 
 
-// Rota de Contrato do Carro
+/* Rota de Contrato do Carro
 app.post('/contratoCarro', async (req, res) => {
 
   const contratoCarro = { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
@@ -147,7 +146,7 @@ app.post('/agenda', async (req, res) => {
 
     const carMap = {};
     carros.forEach(carro => {
-      carMap[`carro${carro.i_carro_idcar}`] = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
+     // carMap[`carro${carro.i_carro_idcar}`] = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
     });
 
     const carName = carMap[carSelect] || 'Carro não selecionado';
@@ -168,7 +167,7 @@ app.post('/agenda', async (req, res) => {
     res.status(500).send('Erro ao armazenar formulário');
   }
 
-});
+});*/
 
 // ----------------------------------------------R O T A S------------------------------------------------------------//
 
