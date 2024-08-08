@@ -45,7 +45,7 @@
     --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/floresta.png);
     --varBoxshadowClassic: 0 8px 16px rgba(0, 128, 0, 0.5);
     --varBackgroundClassic: linear-gradient(#78990025, #ffc72c27, #3080e22c);
-    --varBackgroundInternal: #08ad16;
+    --varBackgroundInternal: #3080e291;
     --varBoxshadowForm:  0 4px 8px #3c4d02e8;
     --varBackgroundForm:  #fffffff1;
 }
@@ -138,7 +138,7 @@ button:hover {
     color: var(--varYellow);
 }
 /*Trocar nome*/
-#button_dashboard {
+#button_define {
     width: 100%; /* Largura da primeira section */
     display: flex;
     justify-content: center;
@@ -151,7 +151,7 @@ button:hover {
     gap: 10px;
     
 }
- .button_dashboard {
+ .button_define {
     width: 80%; /* Largura da segunda section */
     display: flex;
     justify-content: space-around; /* Espaçamento uniforme entre os botões */
@@ -159,14 +159,14 @@ button:hover {
     padding: 10px; /* Espaçamento interno */
     
  }
- .button_dashboard button,
-.button_dashboard a {
+ .button_define button,
+.button_define a {
     border: none;
     background: none;
     cursor: pointer;
 }
 
-#button_dashboard,
+#button_define,
 #relator {
     width: 100%; /* Ajuste conforme necessário */
     padding: 0;
@@ -246,7 +246,7 @@ button:hover {
 
 .close-popup {
     position: absolute;
-    top: 10px;
+    top: 1px;
     right: 10px;
     cursor: pointer;
     background-color: #f44336;
@@ -266,7 +266,7 @@ button:hover {
 
 .close-popupSchedule {
     position: absolute;
-    top: 10px;
+    top: 1px;
     right: 10px;
     cursor: pointer;
     background-color: #f44336;
@@ -910,49 +910,45 @@ input[type=text]::placeholder {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 600px;
-    background-color: var(--varYellow);
-    border: 2px solid var(--varGreen);
+    width: 97%;
+    background-color: #3080e2d3;
+    border: 2px solid #307FE2;
     box-shadow: 0 0px 10px var(--varBoxshadowForm);
     display: none;
     z-index: 1000;
-    padding: 20px;
 }
 
 .popup-containerSchedule {
     background-color: var(--varBackgroundForm);
-    border: 2px solid var(--varGreen);
     box-shadow: var(--varBoxshadowForm);
-    box-sizing: content-box;
+    border-color: #307FE2;
     display: block;
     gap: 10px;
     left: 50%;
     max-width: 90%;
-    margin: 20px;
-    padding: 20px;
+    margin: 2px;
+    padding: 10px;
     position: fixed;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 60%;
     z-index: 1000;    /* Ajuste para altura máxima de 90% da viewport */
-    max-height: 90vh; /* Altura máxima de 90% da altura da viewport */
-    overflow-y: auto; /* Adiciona scroll caso o conteúdo ultrapasse a altura máxima */     
+    max-height: 80vh; /* Altura máxima de 90% da altura da viewport */   
 }
-
+/*
 .popup-containerSchedule::-webkit-scrollbar {
-    width: 12px; /* Largura da barra de rolagem */
+    width: 12px; /* Largura da barra de rolagem 
 }
 
 .popup-containerSchedule::-webkit-scrollbar-track {
-    background: var(--varGreen); /* Cor de fundo da barra de rolagem */
+    background: var(--varBackgroundForm); /* Cor de fundo da barra de rolagem 
 }
 
 .popup-containerSchedule::-webkit-scrollbar-thumb {
-    background-color: var(--varYellow); /* Cor do indicador de rolagem */
-    border-radius: 6px; /* Raio da borda do indicador de rolagem */
-    border: 3px solid var(--varGreenshodow); /* Borda do indicador de rolagem */
-}
+    background-color: var(--varBackgroundInternal); /* Cor do indicador de rolagem 
+    border-radius: 2px; /* Raio da borda do indicador de rolagem 
+    border: 3px solid var(--varGreenshodow); /* Borda do indicador de rolagem 
+}*/
 
 .popup-containerDelivery {
     position: fixed;
@@ -984,10 +980,9 @@ input[type=text]::placeholder {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px var(--varBoxshadowForm);
-    width: 90%;
     max-width: 1000px;
     max-height: 90%;
-    margin: 20px;
+    margin: 5px;
     overflow-y: auto;
     text-align: center;
     position: relative;
@@ -999,7 +994,7 @@ input[type=text]::placeholder {
 }
 
 .popup-contentSchedule {
-    margin:2px;
+    margin:4px;
     text-align: left;
     position: relative;
     padding: 5px;
@@ -1114,7 +1109,7 @@ input[type=text]::placeholder {
     align-items: stretch;
     height: 100vh;
     width: 100%;
-    margin-top: 0px; /* Espaçamento superior */
+    margin-top: 13px; /* Espaçamento superior */
     margin-bottom: 0px; /* Espaçamento inferior */
 }
 
@@ -1169,7 +1164,7 @@ input[type=text]::placeholder {
     border-radius: 4px;
     width: 100%;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 #scheduleFormDelivery button {
@@ -1181,13 +1176,14 @@ input[type=text]::placeholder {
     border-radius: 4px;
     width: 100%;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 #scheduleForm-schedule button:hover {
     background-color: transparent;
     font-weight: bolder;
     color: var(--varBlue);
+    font-size: 24px;
 }
 
 #scheduleFormDelivery button:hover {
@@ -1214,7 +1210,7 @@ input[type=text]::placeholder {
 
 #showCalendarSchedule {
     background-color: rgba(144, 238, 144, 0);
-    color: black;
+    color: var(--varWhite);
     border: none;
     padding: 0;
     cursor: pointer;
@@ -1233,6 +1229,8 @@ input[type=text]::placeholder {
 
 #showCalendarSchedule:hover {
     background-color: rgba(0, 100, 0, 0.021);
+    font-weight: bolder;
+    color: var(--varYellow);
 }
 
 #showCalendarDelivery {
@@ -1256,7 +1254,7 @@ input[type=text]::placeholder {
 
 #showTablePopup {
     background-color: rgba(144, 238, 144, 0);
-    color: black;
+    color: var(--varWhite);
     border: none;
     padding: 0;
     cursor: pointer;
@@ -1272,6 +1270,8 @@ input[type=text]::placeholder {
 
 #showTablePopup:hover {
     background-color: rgba(0, 100, 0, 0.021);
+    font-weight: bolder;
+    color: var(--varYellow);
 }
 
 #start, #end, #mode {
