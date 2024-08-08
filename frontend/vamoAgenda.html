@@ -31,10 +31,10 @@
                     <label for="originSelect">Escritório de Origem:</label>
                     <select id="originSelect" name="originSelect" required>
                         <option value="">-Selecione o Escritório-</option>
-                        <option value="Alegre-ES">  Alegre </option>
-                        <option value="Castelo-ES">  Castelo </option>
-                        <option value="Muniz Freire-ES">  Muniz Freire </option>
-                        <option value="Guaçuí-ES">  Guaçuí </option>
+                        <option value="1">  Alegre </option>
+                        <option value="2">  Castelo </option>
+                        <option value="3">  Muniz Freire </option>
+                        <option value="4">  Guaçuí </option>
                     </select>
                     <label for="rota">Rota:</label>
                     <input type="text" id="rota" name="rota" required>
@@ -51,8 +51,8 @@
             </div>
         </div>
         <button id="showTablePopup">AGENDAMENTOS</button>
-<div id="overlayTable"></div>
-<div id="tablePopup" class="popup-container">
+    <div id="overlayTable"></div>
+    <div id="tablePopup" class="popup-container">
     <div class="popup-content">
         <span class="close-popup">Fechar</span>
         <table id="schedules" class="tableReport" >
@@ -72,7 +72,10 @@
             </tbody>
         </table>
     </div>
+    <button id="showCalendarSchedule">CALENDARIO</button>
 </div>
+
+
         <footer>
             <a href="https://mvgi.com.br/">
                 <img src="/Imagens/mvtranslucido2.png" alt="Logo MV Gestão Integrada">

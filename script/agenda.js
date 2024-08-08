@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const closePopupScheduleButton = document.querySelector('.close-popupSchedule');
     const closePopupSchedulesButton = document.querySelector('.close-popupSchedules');    
     const popup = document.getElementById('calendarPopupSchedule');
-    const closeBtn = popup.querySelector('.close-popupSchedule');
 
     console.log("DOM loaded");
 
@@ -75,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const nome = document.getElementById("nome").value;
             const startDate = document.getElementById("startDate").value;
             const startTime = document.getElementById("startTime").value;
+            const deliverEndDate = document.getElementById("deliverEndDate").value;
             const origin = document.getElementById("originSelect").value; 
             const rota = document.getElementById("rota").value;
             const km_initial = document.getElementById("km_initial").value;
@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 nome,
                 startDate,
                 startTime,
+                deliverEndDate,
                 originSelect: origin,
                 rota,
                 km_initial,
@@ -108,10 +109,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     newRow.insertCell(0).textContent = nome;
                     newRow.insertCell(1).textContent = formattedDate;
                     newRow.insertCell(2).textContent = startTime;
-                    newRow.insertCell(3).textContent = origin;
-                    newRow.insertCell(4).textContent = rota;
-                    newRow.insertCell(5).textContent = km_initial;
-                    newRow.insertCell(6).textContent = carName;
+                    newRow.insertCell(3).textContent = deliverEndDate;
+                    newRow.insertCell(4).textContent = origin;
+                    newRow.insertCell(5).textContent = rota;
+                    newRow.insertCell(6).textContent = km_initial;
+                    newRow.insertCell(7).textContent = carName;
 
                     overlaySchedule.style.display = 'none';
                     calendarPopupSchedule.style.display = 'none';
@@ -128,11 +130,12 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("scheduleForm not found");
     }
     
-    function storeFormData(nome, startDate, startTime, origin, rota, km_initial, carName) {
+    function storeFormData(nome, startDate, startTime, deliverEndDate, origin, rota, km_initial, carName) {
         const formData = {
             nome,
             startDate,
             startTime,
+            deliverEndDate,
             origin,
             rota,
             km_initial,
@@ -163,10 +166,11 @@ document.addEventListener("DOMContentLoaded", function() {
             newRow.insertCell(0).textContent = formData.nome;
             newRow.insertCell(1).textContent = formatDateToBrazilian(formData.startDate);
             newRow.insertCell(2).textContent = formData.startTime;
-            newRow.insertCell(3).textContent = formData.origin;
-            newRow.insertCell(4).textContent = formData.rota;
-            newRow.insertCell(5).textContent = formData.km_initial;
-            newRow.insertCell(6).textContent = formData.carName;
+            newRow.insertCell(3).textContent = formData.deliverEndDate;
+            newRow.insertCell(4).textContent = formData.origin;
+            newRow.insertCell(5).textContent = formData.rota;
+            newRow.insertCell(6).textContent = formData.km_initial;
+            newRow.insertCell(7).textContent = formData.carName;
         });
 
         console.log("Form data loaded", schedules);
