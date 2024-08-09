@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const showCalendarButton = document.getElementById('showCalendarSchedule');  
-    const showTablePopup = docuyment.getElemetById('showTablePopup'); 
+    const showTablePopup = document.getElemetById('showTablePopup'); 
     const overlaySchedule = document.getElementById('overlaySchedule');    
     const calendarPopupSchedule = document.getElementById('calendarPopupSchedule');    
     const closePopupScheduleButton = document.querySelector('.close-popupSchedule');
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
             };
 
             try {
-                const response = await fetch('/submit-agenda', {
+                const response = await fetch('/agenda', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

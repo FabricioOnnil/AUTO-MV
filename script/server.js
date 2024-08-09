@@ -135,19 +135,19 @@ app.post('/custosCarro', async (req,res) => {
   try {
     const custosCarro = await custosCarro.findAll();
   }catch{}
-})
+})*/
 
 
 app.post('/agenda', async (req, res) => {
 
-  const { nome, startDate, startTime, originSelect, rota, km_initial, carSelect } = req.body;
+  const { nome, startDate, startTime, deliverEndDate, originSelect, rota, km_initial, carSelect } = req.body;
 
   try {
     const carros = await carro.findAll();
 
     const carMap = {};
     carros.forEach(carro => {
-     // carMap[`carro${carro.i_carro_idcar}`] = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
+    carMap[`carro${carro.i_carro_idcar}`] = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
     });
 
     const carName = carMap[carSelect] || 'Carro não selecionado';
@@ -156,6 +156,7 @@ app.post('/agenda', async (req, res) => {
       nameagenda: nome,
       agendaStartDate: startDate,
       startTime: startTime,
+      deliverEndDate: deliverEndDate,
       originSelect: originSelect,
       startRote: rota,
       km_initial: km_initial,
@@ -168,7 +169,7 @@ app.post('/agenda', async (req, res) => {
     res.status(500).send('Erro ao armazenar formulário');
   }
 
-});*/
+});
 
 // ----------------------------------------------R O T A S------------------------------------------------------------//
 
