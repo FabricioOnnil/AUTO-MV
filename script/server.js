@@ -4,7 +4,6 @@ import cors from 'cors';
 import path, { join } from 'path';
 import db from '../models/db.js';
 import sequelize from '../models/db.js';
-import Sequelize from '../models/db.js';
 
 import abastecimento from '../models/abastecimentoData.js';
 import agenda from '../models/agendaData.js';
@@ -40,7 +39,7 @@ const app = express();
 
 app.use(cors());
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Definindo __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -49,7 +48,7 @@ const __dirname = path.dirname(__filename);
 // Conexão com o banco de dados e sincronização dos modelos
 (async () => {
   try {
-    await sequelize.authenticate();
+    await db.sequelize.authenticate();
     console.log("Conectado com sucesso ao banco de dados!");
     await sequelize.sync();
     console.log("Modelos sincronizados com sucesso!");
@@ -73,7 +72,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Middleware para logging
 app.use((req, res, next) => {
- 
+  console.log(`Requisição ${req.method} para ${req.url}`);
   next();
 });
 

@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
     const showCalendarButton = document.getElementById('showCalendarSchedule');  
-    const showTablePopup = document.getElemetById('showTablePopup'); 
+    const showTablePopup = document.getElementById('showTablePopup'); 
     const overlaySchedule = document.getElementById('overlaySchedule');    
     const calendarPopupSchedule = document.getElementById('calendarPopupSchedule');    
     const closePopupScheduleButton = document.querySelector('.close-popupSchedule');
     const closePopupSchedulesButton = document.querySelector('.close-popupSchedules');    
-    const popup = document.getElementById('calendarPopupSchedule');
+    const scheduleForm = document.getElementById('agendaForm');
 
     console.log("DOM loaded");
 
@@ -20,18 +20,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (showTablePopup) {
-        showCalendarButton.addEventListener('click', function() {
-            console.log("show table button clicked");
+        showTablePopup.addEventListener('click', function() {
+            console.log("Show table popup button clicked");
             overlaySchedule.style.display = 'block';
             calendarPopupSchedule.style.display = 'block';
         });
     } else {
-        console.error("showTableButton not found");
+        console.error("showTablePopup not found");
     }
 
     if (closePopupScheduleButton) {
         closePopupScheduleButton.addEventListener('click', function() {
-            console.log("Close popup button clicked");
+            console.log("Close calendar popup button clicked");
             overlaySchedule.style.display = 'none';
             calendarPopupSchedule.style.display = 'none';
         });
@@ -42,8 +42,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (closePopupSchedulesButton) {
         closePopupSchedulesButton.addEventListener('click', function() {
             console.log("Close schedules popup button clicked");
-            overlaySchedules.style.display = 'none';
-            schedulesPopup.style.display = 'none';
+            overlaySchedule.style.display = 'none';
+            calendarPopupSchedule.style.display = 'none';
         });
     } else {
         console.error("closePopupSchedulesButton not found");
@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function() {
         carro2: 'AUDI - PPX_3456'
     };    
     
-
     if (scheduleForm) {
         scheduleForm.addEventListener("submit", async function(event) {
             event.preventDefault();
@@ -130,24 +129,6 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("scheduleForm not found");
     }
     
-    function storeFormData(nome, startDate, startTime, deliverEndDate, origin, rota, km_initial, carName) {
-        const formData = {
-            nome,
-            startDate,
-            startTime,
-            deliverEndDate,
-            origin,
-            rota,
-            km_initial,
-            carName
-        };
-
-        const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
-        schedules.push(formData);
-        localStorage.setItem('schedules', JSON.stringify(schedules));
-        console.log("Form data stored", formData);
-    }
-
     function formatDateToBrazilian(dateString) {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -176,22 +157,24 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Form data loaded", schedules);
     }
 
-});
+    // Agendamentos Popup
+    const overlayTable = document.getElementById('overlayTable');
+    const tablePopup = document.getElementById('tablePopup');
 
-//---Agendamentos
+    if (showTablePopup) {
+        showTablePopup.addEventListener('click', function() {
+            overlayTable.style.display = 'block';
+            tablePopup.style.display = 'block';
+        });
+    }
 
-const showTableButton = document.getElementById('showTablePopup');
-const overlayTable = document.getElementById('overlayTable');
-const tablePopup = document.getElementById('tablePopup');
+    const closeTableButton = tablePopup ? tablePopup.querySelector('.close-popup') : null;
 
+    if (closeTableButton) {
+        closeTableButton.addEventListener('click', function() {
+            overlayTable.style.display = 'none';
+            tablePopup.style.display = 'none';
+        });
+    }
 
-showTableButton.addEventListener('click', function() {
-    overlayTable.style.display = 'block';
-    tablePopup.style.display = 'block';
-});
-
-const closeTableButton = tablePopup.querySelector('.close-popup');
-closeTableButton.addEventListener('click', function() {
-    overlayTable.style.display = 'none';
-    tablePopup.style.display = 'none';
 });
