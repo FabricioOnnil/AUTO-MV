@@ -25,8 +25,8 @@ const carro = sequelize.define('carro', {
     },
 
     //Ano de fabricação.
-    s_carro_manufactureYear: {
-        type: DataTypes.STRING,
+    d_carro_manufactureYear: {
+        type: DataTypes.DATE,
         allowNull: false
     },
 
@@ -63,7 +63,9 @@ const carro = sequelize.define('carro', {
     },
     }, {
         tableName: 'carro',
-        timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
+        timestamps: true,  // Habilita o gerenciamento automático de `createdAt` e `updatedAt'
+        createdAt: 'd_carro_createdAt', // Mapeia `createdAt` para `d_carro_createdAt`
+        updatedAt: 'd_carro_updateAt' // Mapeia `updatedAt` para `d_carro_updateAt`
     });
 
 
