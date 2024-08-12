@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     newRow.insertCell(5).textContent = rota;
                     newRow.insertCell(6).textContent = km_initial;
                     newRow.insertCell(7).textContent = carName;
+                    newRow.insertCell(8).textContent = id;
 
                     overlaySchedule.style.display = 'none';
                     calendarPopupSchedule.style.display = 'none';
@@ -152,6 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
             newRow.insertCell(5).textContent = formData.rota;
             newRow.insertCell(6).textContent = formData.km_initial;
             newRow.insertCell(7).textContent = formData.carName;
+            newRow.insertCell(8).textContent = id;
         });
 
         console.log("Form data loaded", schedules);

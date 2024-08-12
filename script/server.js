@@ -103,6 +103,13 @@ app.post('/login', async (req, res) => {
     console.log('Resultado da consulta:', user);
     
     if (user) {
+      req.session.userId = user.i_usuario_user; // Armazena o ID do usuário na sessão
+      res.redirect('/agenda');
+    } else {
+      res.status(401).send('Credenciais inválidas');
+    }
+
+    if (user) {
       // Usuário encontrado, autenticação bem-sucedida
       res.status(200).json('Login bem-sucedido');
     } else {
@@ -128,6 +135,7 @@ app.post('/agenda', async (req, res) => {
     });
 
     const carName = carMap[carSelect] || 'Carro não selecionado';
+    const id = userId;
 
     await agenda.create({
       nameagenda: nome,
@@ -137,7 +145,8 @@ app.post('/agenda', async (req, res) => {
       originSelect: originSelect,
       startRote: rota,
       km_initial: km_initial,
-      agendaCar: carName
+      agendaCar: carName,
+      ident: id
     });
 
     res.status(200).send('Formulário recebido com sucesso!');
