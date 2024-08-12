@@ -9,51 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     console.log("DOM loaded");
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const carSelect = document.getElementById('carSelect');
-    
-        // Fazer a requisição para obter os carros
-        fetch('/API/infoCarro/carro')
-            .then(response => response.json())
-            .then(data => {
-                // Preencher o select com as opções dos carros
-                data.forEach(carro => {
-                    const option = document.createElement('option');
-                    option.value = `carro${carro.i_carro_idcar}`;
-                    option.textContent = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
-                    carSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Erro ao carregar os carros:', error));
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        // Função para preencher o select com os carros
-        async function preencherCarSelect() {
-            try {
-                // Fazendo requisição para a API de carros
-                const response = await fetch('/API/infoCarro/carro');
-                const carros = await response.json();
-    
-                const carSelect = document.getElementById("carSelect");
-    
-                // Para cada carro, cria uma opção e adiciona ao select
-                carros.forEach(carro => {
-                    const option = document.createElement("option");
-                    option.value = carro.i_carro_idcar; // Usa o ID do carro como valor
-                    option.text = `${carro.s_carro_model} - ${carro.s_carro_plate}`; // Mostra o modelo e placa
-                    carSelect.appendChild(option);
-                });
-            } catch (error) {
-                console.error("Erro ao buscar carros:", error);
-            }
-        }
-    
-        // Chama a função para preencher o select
-        preencherCarSelect();
-    });
-
-
     if (showCalendarButton) {
         showCalendarButton.addEventListener('click', function() {
             console.log("Show calendar button clicked");
@@ -222,4 +177,48 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+});
+
+/*document.addEventListener('DOMContentLoaded', () => {
+    const carSelect = document.getElementById('carSelect');
+
+    // Fazer a requisição para obter os carros
+    fetch('/API/infoCarro/carro')
+        .then(response => response.json())
+        .then(data => {
+            // Preencher o select com as opções dos carros
+            data.forEach(carro => {
+                const option = document.createElement('option');
+                option.value = `carro${carro.i_carro_idcar}`;
+                option.textContent = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
+                carSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Erro ao carregar os carros:', error));
+});*/
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Função para preencher o select com os carros
+    async function preencherCarSelect() {
+        try {
+            // Fazendo requisição para a API de carros
+            const response = await fetch('/API/infoCarro/carro');
+            const carros = await response.json();
+
+            const carSelect = document.getElementById("carSelect");
+
+            // Para cada carro, cria uma opção e adiciona ao select
+            carros.forEach(carro => {
+                const option = document.createElement("option");
+                option.value = carro.i_carro_idcar; // Usa o ID do carro como valor
+                option.text = `${carro.s_carro_model} - ${carro.s_carro_plate}`; // Mostra o modelo e placa
+                carSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Erro ao buscar carros:", error);
+        }
+    }
+
+    // Chama a função para preencher o select
+    preencherCarSelect();
 });

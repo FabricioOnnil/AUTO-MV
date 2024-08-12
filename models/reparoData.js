@@ -13,44 +13,44 @@ const reparo = db.sequelize.define('reparo', {
     //Descrição do reparo. 
     s_reparo_description: {
         type: DataTypes.STRING, 
-        allowNull: false    
+        allowNull: true    
     },
 
     //Valor do reparo.
     dec_reparo_prideRepair: {
         type: DataTypes.DECIMAL(9,2),
-        allowNull: false
+        allowNull: true
     },
 
     //Data do reparo.
     d_reparo_dateRepair: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
 
     // Imagem da Nota Fiscal de reparo.
     l_reparo_imgRepair: {
         type: DataTypes.BLOB('long'),
-        allowNull: false
+        allowNull: true
     },
 
     //Data de criação da linha.
     d_reparo_createdAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW,
     },
 
     //Data de atualização da linha. 
     d_reparo_updateAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW,
     },
 
     i_reparo_usuario_key:{
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
 
     i_usuarioReparo_id: {
@@ -65,7 +65,7 @@ const reparo = db.sequelize.define('reparo', {
     }},
     {
         tableName: 'reparo',
-        timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
+        timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically
 
 });
 

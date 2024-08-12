@@ -11,17 +11,17 @@ const diario = db.sequelize.define('diario', {
 
     s_diario_descricao: {
         type: DataTypes.STRING ('long'),
-        allowNull: false,
+        allowNull: true,
     },
 
     d_diario_creatAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
     },
 
     d_diario_updateAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
     },
 
     i_diario_usuarioKey: {
@@ -30,7 +30,7 @@ const diario = db.sequelize.define('diario', {
     },
 },{
 tableName: 'diario',
-timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
+timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically
 
 });
 

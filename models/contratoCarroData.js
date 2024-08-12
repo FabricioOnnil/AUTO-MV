@@ -15,68 +15,68 @@ const contratoCarro = sequelize.define('contratoCarro', {
     // Data de inicio do Contrato do Carro
     d_contratoCarro_startDateRental: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
 
     // Data de termino do Contrato do Carro
     d_contratoCarro_endDateRental: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
 
     // Responsavel pelo Contrato
     s_contratoCarro_responsible: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 
     //Codigo de reserva do Carro
     s_contratoCarro_reservationCode: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 
     // Contrato de Aluguel
     s_contratoCarro_contractRental: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 
     // Taxa mensal do Aluguel
     i_contradoCarro_rateMonthly: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
     // Valor por quilomentro excendente
     dec_contratoCarro_restKm: {
         type: DataTypes.DECIMAL,
-        allowNull: false
+        allowNull: true
     },
 
     //Valor da Franquia de quilometro por Dia
     i_contratoCarro_FranchiseKm: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
 
     //Data da criação da Linha. 
     d_contratoCarro_createdAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW,
     },
 
     // Data de Atualização da linha.
     d_contratoCarro_updateAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW,
     },
 
     }, 
     {
     tableName: 'contratoCarro',
-    timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
+    timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically
 });
 
 export default contratoCarro

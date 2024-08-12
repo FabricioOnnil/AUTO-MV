@@ -13,19 +13,19 @@ const comida = db.sequelize.define('comida', {
   //Descrição da compra de comida.
   s_comida_descriptionFood: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
 
   //Valor da refeição. 
   s_comida_valueFood: {
     type: DataTypes.DECIMAL(9, 2),
-    allowNull: false,
+    allowNull: true,
   },
 
   //Data da compra da refeição.
   d_comida_dateFood: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
   },
 
   //Imagem da Nota Fiscal
@@ -37,20 +37,20 @@ const comida = db.sequelize.define('comida', {
   //Data da criação da linha. 
   d_comida_createdAt: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
     defaultValue: DataTypes.NOW,
   },
 
   //Data da atualização da linha. 
   d_comida_updatedAt: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
     defaultValue: DataTypes.NOW,
   },
 
   i_comida_usuario_key: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
 
   i_comida_agendamento: {
@@ -70,7 +70,7 @@ const comida = db.sequelize.define('comida', {
   },
 }, {
     tableName: 'comida',
-    timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
+    timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically
 });
 
 export default comida;

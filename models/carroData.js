@@ -15,44 +15,44 @@ const carro = sequelize.define('carro', {
     //Modelo do carro.
     s_carro_model: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 
     //Placa do carro.
     s_carro_plate: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 
     //Ano de fabricação.
     d_carro_manufactureYear: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
 
     // capacidade do Tanque de combustivel
     i_carro_fuelTank: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
 
     //média de consumo
     i_carro_consumptionAverage: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
 
     //Data de criação.
     d_carro_createdAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW,
     },
 
     //Data da ultima atualização.
     d_carro_updateAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW,
     },
 
@@ -63,7 +63,7 @@ const carro = sequelize.define('carro', {
     },
     }, {
         tableName: 'carro',
-        timestamps: true,  // Habilita o gerenciamento automático de `createdAt` e `updatedAt'
+        timestamps: false,  // Habilita o gerenciamento automático de `createdAt` e `updatedAt'
         createdAt: 'd_carro_createdAt', // Mapeia `createdAt` para `d_carro_createdAt`
         updatedAt: 'd_carro_updateAt' // Mapeia `updatedAt` para `d_carro_updateAt`
     });

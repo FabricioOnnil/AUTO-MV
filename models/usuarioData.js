@@ -12,50 +12,50 @@ const usuario = db.sequelize.define('usuario', {
     //Nome do usuario (que será usado para login)
     s_usuario_name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
 
     //Sobrenome para indetificação posterior.
     s_usuario_secondName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
 
     //Senha para acesso. 
     s_usuario_password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
 
     //Documento de Habilitação.
     i_usuario_licenseDriving: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
 
     //Orgão expedidor do documento.
     s_usuario_sectorShipping: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
 
     //Data de validade do documento de habilitação.
     dt_usuario_dateExpiration: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
     },
 
     //Data de criação da Linha.
     dt_usuario_createdAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: DataTypes.NOW,
     },
   
     //Data de atualização da Linha.
     dt_usuario_updateAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: DataTypes.NOW,
     },},
      {

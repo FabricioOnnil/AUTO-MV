@@ -15,54 +15,54 @@ const custosCarro = sequelize.define('custosCarro', {
     // custo de limite para reparos
     dec_custosCarro_repairLimitValue: {
         type:DataTypes.DECIMAL,
-        allowNull: false
+        allowNull: true
     },
 
     // Limite de custo para reparos de terceiros.
     dec_custosCarro_damageOther: {
         type: DataTypes.DECIMAL,
-        allowNull: false
+        allowNull: true
     },
 
     // Custo maximo de perda Total.
     dec_custosCarro_totalLoss: {
         type: DataTypes.DECIMAL,
-        allowNull: false
+        allowNull: true
     },
 
     // Data do inicio do contrato.
     d_custosCarro_starDateSafe: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
 
     // Data do fim do contrato.
     d_custosCarro_endDateSafe: {
         type:DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
 
     // Quilometragem de aluguel.
     i_carro_rentalKm: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },
 
     // Data de criação da Linha
     d_custosCarro_createdAt: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
 
     // Data de atualização da Linha.
     d_custosCarro_updateAt: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
 }, 
 {
 tableName: 'custosCarro',
-timestamps: true, // This is true by default and manages `createdAt` and `updatedAt` automatically
+timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically
 });
 
 export default custosCarro;

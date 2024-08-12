@@ -12,13 +12,13 @@ const carroAbastecimento = db.sequelize.define('carroAbastecimento', {
     //refrente ao carro e o abastecimento.
     i_carroAbastecimento_abastecimento: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
     },
 
     //Data de criação da linha.
     i_carroAbastecimento_carro: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         
     },
 });
