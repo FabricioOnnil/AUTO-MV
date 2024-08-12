@@ -115,28 +115,6 @@ app.post('/login', async (req, res) => {
   }
 });
 
-
-/* Rota de Contrato do Carro
-app.post('/contratoCarro', async (req, res) => {
-
-  const contratoCarro = { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
-
-  try {    
-    const contratoCarro = await contratoCarro.findAll();
-  }catch{}
-  
-});
-
-app.post('/custosCarro', async (req,res) => {
-
-  const custosCarro = { limiteReparo, reparosOutros, perdaTotal, dataInicio, dataTermino, distanciaLimite } = req.body;
-
-  try {
-    const custosCarro = await custosCarro.findAll();
-  }catch{}
-})*/
-
-
 app.post('/agenda', async (req, res) => {
 
   const { nome, startDate, startTime, deliverEndDate, originSelect, rota, km_initial, carSelect } = req.body;
@@ -169,6 +147,30 @@ app.post('/agenda', async (req, res) => {
   }
 
 });
+
+
+
+
+
+//Rota de Contrato do Carro
+app.post('/contratoCarro', async (req, res) => {
+
+  const contratoCarro = { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
+
+  try {    
+    const contratoCarro = await contratoCarro.findAll();
+  }catch{}
+  
+});
+
+app.post('/custosCarro', async (req,res) => {
+
+  const custosCarro = { limiteReparo, reparosOutros, perdaTotal, dataInicio, dataTermino, distanciaLimite } = req.body;
+
+  try {
+    const custosCarro = await custosCarro.findAll();
+  }catch{}
+})
 
 // ----------------------------------------------R O T A S------------------------------------------------------------//
 
