@@ -103,7 +103,7 @@ app.post('/login', async (req, res) => {
     console.log('Resultado da consulta:', user);
     
     if (user) {
-      req.session.userId = user.i_usuario_user; // Armazena o ID do usuário na sessão
+      req.session.userId = user.i_usuario_user; 
       res.redirect('/agenda');
     } else {
       res.status(401).send('Credenciais inválidas');
