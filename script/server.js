@@ -126,9 +126,15 @@ app.post('/agenda', async (req, res) => {
 
   const { nome, startDate, startTime, deliverEndDate, originSelect, rota, km_initial, carSelect } = req.body;
 
+  if (!req.session || !reparo.session.userId) {
+    console.error("Usuário não autenticado ou sessão não inicializada.");
+    return res.status(401).send('Usuário não autenticado.');
+  }
+
   const userId = req.session.userId;
 
   try {
+
     const carros = await carro.findAll();
 
     const carMap = {};
@@ -149,6 +155,7 @@ app.post('/agenda', async (req, res) => {
         s_agenda_originSelect: originSelect,
         i_agenda_startRote: rota,
         i_agenda_kmInitial: km_initial,
+        s_agenda_sheduleCar: carName,
         d_agenda_createdAt: new Date(),
         d_agenda_updateAt: new Date(),
         i_agenda_usuario: userId
