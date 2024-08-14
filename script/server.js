@@ -1,7 +1,8 @@
-import express from 'express'
+import express from 'express';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import path, { join } from 'path';
+import session from 'express-session'; // Adicionar o middleware de sessão
 import db from '../models/db.js';
 import sequelize from '../models/db.js';
 
@@ -15,7 +16,7 @@ import custosCarro from '../models/custosCarroData.js';
 import comida from '../models/comidaData.js';
 import diario from '../models/diarioData.js';
 import reparo from '../models/reparoData.js';
-import usuario from '../models/usuarioData.js'; 
+import usuario from '../models/usuarioData.js';
 import usuarioVisita from '../models/usuarioVisitaData.js';
 import entrega from '../models/entregaData.js';
 
@@ -33,11 +34,19 @@ import abstRouter from '../routes/fuelStationRoutes.js';
 import reparoRouter from '../routes/reparoRoutes.js';
 import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.js';
 
-
-
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Configuração de sessão
+app.use(session({
+  secret: 'seu_segredo_aqui',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Defina 'secure' para true em produção com HTTPS
+}));
 
 const PORT = process.env.PORT || 3000;
 
@@ -55,7 +64,7 @@ const __dirname = path.dirname(__filename);
   } catch (error) {
     console.error("Falha ao se conectar ao banco de dados ou sincronizar modelos:", error);
   }
-});
+})();
 
 // Configuração para servir arquivos estáticos
 app.use(express.static(join(__dirname, '..')));
@@ -65,10 +74,6 @@ app.use('/script', express.static(path.join(__dirname, 'script')));
 app.use('/styles', express.static(path.join(__dirname, 'styles')));
 app.use('/routes', express.static(path.join(__dirname, 'routes')));
 app.use('/models', express.static(path.join(__dirname, 'models')));
-
-// Middleware para parsing do corpo das requisições
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Middleware para logging
 app.use((req, res, next) => {
@@ -104,16 +109,8 @@ app.post('/login', async (req, res) => {
     
     if (user) {
       req.session.userId = user.i_usuario_user; 
-      res.redirect('/agenda');
-    } else {
-      res.status(401).send('Credenciais inválidas');
-    }
-
-    if (user) {
-      // Usuário encontrado, autenticação bem-sucedida
       res.status(200).json('Login bem-sucedido');
     } else {
-      // Usuário não encontrado, autenticação falhou
       res.status(401).json('Credenciais inválidas');
     }
   } catch (error) {
@@ -122,11 +119,11 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Rota de agenda
 app.post('/agenda', async (req, res) => {
-
   const { nome, startDate, startTime, deliverEndDate, originSelect, rota, km_initial, carSelect } = req.body;
 
-  if (!req.session || !reparo.session.userId) {
+  if (!req.session || !req.session.userId) {
     console.error("Usuário não autenticado ou sessão não inicializada.");
     return res.status(401).send('Usuário não autenticado.');
   }
@@ -134,68 +131,77 @@ app.post('/agenda', async (req, res) => {
   const userId = req.session.userId;
 
   try {
-
     const carros = await carro.findAll();
 
     const carMap = {};
     carros.forEach(carro => {
-    carMap[`carro${carro.i_carro_idcar}`] = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
+      carMap[`carro${carro.i_carro_idcar}`] = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
     });
 
     const carName = carMap[carSelect] || 'Carro não selecionado';
-    
-    if (req.session && req.session.userId) {
-      const id = req.session.userId;
 
-      await agenda.create({
-        s_agenda_nameSchedule: nome,
-        d_agenda_startDate: startDate,
-        d_agenda_startTime: startTime,
-        d_agenda_deliverEndDate: deliverEndDate,
-        s_agenda_originSelect: originSelect,
-        i_agenda_startRote: rota,
-        i_agenda_kmInitial: km_initial,
-        s_agenda_sheduleCar: carName,
-        d_agenda_createdAt: new Date(),
-        d_agenda_updateAt: new Date(),
-        i_agenda_usuario: userId
-      });
+    await agenda.create({
+      s_agenda_nameSchedule: nome,
+      d_agenda_startDate: startDate,
+      d_agenda_startTime: startTime,
+      d_agenda_deliverEndDate: deliverEndDate,
+      s_agenda_originSelect: originSelect,
+      i_agenda_startRote: rota,
+      i_agenda_kmInitial: km_initial,
+      s_agenda_sheduleCar: carName,
+      d_agenda_createdAt: new Date(),
+      d_agenda_updateAt: new Date(),
+      i_agenda_usuario: userId
+    });
 
     res.status(200).send('Formulário recebido com sucesso!');
-  }else {
-
-    console.error("Usuário não autenticado ou sessão não inicializada.");
-    res.status(401).send('Usuário não autenticado.');
-  }
   } catch (error) {
-
     console.error("Erro ao receber formulário.", error);
     res.status(500).send('Erro ao armazenar formulário');
   }
 });
 
-
-
-
-//Rota de Contrato do Carro
+// Rota de Contrato do Carro
 app.post('/contratoCarro', async (req, res) => {
-
-  const contratoCarro = { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
-
-  try {    
-    const contratoCarro = await contratoCarro.findAll();
-  }catch{}
-  
-});
-
-app.post('/custosCarro', async (req,res) => {
-
-  const custosCarro = { limiteReparo, reparosOutros, perdaTotal, dataInicio, dataTermino, distanciaLimite } = req.body;
+  const { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
 
   try {
-    const custosCarro = await custosCarro.findAll();
-  }catch{}
-})
+    const novoContrato = await contratoCarro.create({
+      inicioAluguel,
+      terminoAluguel,
+      responsavel,
+      codigo,
+      contrato,
+      tarifaMensal,
+      kmExcendente,
+      franquia
+    });
+    res.status(200).send('Contrato criado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar contrato:', error);
+    res.status(500).send('Erro ao criar contrato');
+  }
+});
+
+// Rota de Custos do Carro
+app.post('/custosCarro', async (req,res) => {
+  const { limiteReparo, reparosOutros, perdaTotal, dataInicio, dataTermino, distanciaLimite } = req.body;
+
+  try {
+    const novoCusto = await custosCarro.create({
+      limiteReparo,
+      reparosOutros,
+      perdaTotal,
+      dataInicio,
+      dataTermino,
+      distanciaLimite
+    });
+    res.status(200).send('Custo registrado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao registrar custo:', error);
+    res.status(500).send('Erro ao registrar custo');
+  }
+});
 
 // ----------------------------------------------R O T A S------------------------------------------------------------//
 
@@ -213,53 +219,28 @@ app.get('/vamoCalendario', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoCalendario.html'));
 });
 
+app.get('/vamoCadastro', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoCadastro.html'));
+});
+
+app.get('/vamoCadastroFunc', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoCadastroFunc.html'));
+});
+
+app.get('/vamoCadastroCarro', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoCadastroCarro.html'));
+});
+
 app.get('/vamoDashboard', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoDashboard.html'));
 });
 
-app.get('/vamoAgenda', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoAgenda.html'));
+app.get('/vamoCalendarioForm', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoCalendarioForm.html'));
 });
 
-app.get('/vamoEntrega', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoEntrega.html'));
-});
+// ---------------------------------------------------------------------------------------------------------------//
 
-app.get('/vamoRefeicao', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoRefeicao.html'));
-});
-
-app.get('/vamoAbastecimento', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoAbastecimento.html'));
-});
-
-app.get('/vamoRelatorio', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoRelatorio.html'));
-});
-
-app.get('/vamoReparos', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoReparos.html'));
-});
-
-app.get('/vamoGerencia', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoGerencia.html'));
-});
-
-app.get('/vamoMapa', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoMapa.html'));
-});
-
-app.get('/vamoInformado', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoInformado.html'));
-});
-
-// Middleware para tratamento de erros global
-app.use((err, req, res, next) => {
-  console.error('Erro:', err.stack);
-  res.status(500).send('Algo deu errado!');
-});
-
-// Iniciar o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
