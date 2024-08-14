@@ -11,32 +11,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (showCalendarButton) {
         showCalendarButton.addEventListener('click', function() {
-            console.log("Show calendar button clicked");
+            console.log("Botão schedule acionado");
             overlaySchedule.style.display = 'block';
             calendarPopupSchedule.style.display = 'block';
         });
     } else {
-        console.error("showCalendarButton not found");
+        console.error("Botão schedule não acionado.");
     }
 
     if (showTablePopup) {
         showTablePopup.addEventListener('click', function() {
-            console.log("Show table popup button clicked");
+            console.log("Botão da tabela de popup acionado");
             overlaySchedule.style.display = 'block';
             calendarPopupSchedule.style.display = 'block';
         });
     } else {
-        console.error("showTablePopup not found");
+        console.error("Botão da tabela de popup não acionado");
     }
 
     if (closePopupScheduleButton) {
         closePopupScheduleButton.addEventListener('click', function() {
-            console.log("Close calendar popup button clicked");
+            console.log("Close calendar popup button acionado");
             overlaySchedule.style.display = 'none';
             calendarPopupSchedule.style.display = 'none';
         });
     } else {
-        console.error("closePopupScheduleButton not found");
+        console.error("closePopupScheduleButton não acionado");
     }
 
     if (closePopupSchedulesButton) {
@@ -57,13 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     } else {
         console.error("overlaySchedule not found");
-    }
-
-    // Lembrar de Puxar direto banco de dados
-    const carMap = {
-        carro1: 'MOBI - PPK_1234',
-        carro2: 'AUDI - PPX_3456'
-    };    
+    }  
     
     if (scheduleForm) {
         scheduleForm.addEventListener("submit", async function(event) {
@@ -113,12 +107,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     newRow.insertCell(5).textContent = rota;
                     newRow.insertCell(6).textContent = km_initial;
                     newRow.insertCell(7).textContent = carName;
-                    newRow.insertCell(8).textContent = id;
+                    
 
                     overlaySchedule.style.display = 'none';
                     calendarPopupSchedule.style.display = 'none';
-                    scheduleForm.reset();
-                    console.log("Form data stored in database and displayed");
+                    window.location.href = '/vamoAgenda';
+
                 } else {
                     console.error("Failed to store form data:", response.statusText);
                 }
@@ -153,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
             newRow.insertCell(5).textContent = formData.rota;
             newRow.insertCell(6).textContent = formData.km_initial;
             newRow.insertCell(7).textContent = formData.carName;
-            newRow.insertCell(8).textContent = id;
+            
         });
 
         console.log("Form data loaded", schedules);
@@ -165,6 +159,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (showTablePopup) {
         showTablePopup.addEventListener('click', function() {
+            overlaySchedule.style.display = 'none';
+            calendarPopupSchedule.style.display = 'none';
             overlayTable.style.display = 'block';
             tablePopup.style.display = 'block';
         });
@@ -180,24 +176,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 });
-
-/*document.addEventListener('DOMContentLoaded', () => {
-    const carSelect = document.getElementById('carSelect');
-
-    // Fazer a requisição para obter os carros
-    fetch('/API/infoCarro/carro')
-        .then(response => response.json())
-        .then(data => {
-            // Preencher o select com as opções dos carros
-            data.forEach(carro => {
-                const option = document.createElement('option');
-                option.value = `carro${carro.i_carro_idcar}`;
-                option.textContent = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
-                carSelect.appendChild(option);
-            });
-        })
-        .catch(error => console.error('Erro ao carregar os carros:', error));
-});*/
 
 document.addEventListener("DOMContentLoaded", function () {
     // Função para preencher o select com os carros
