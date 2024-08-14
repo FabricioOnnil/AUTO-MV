@@ -211,6 +211,11 @@ app.get('/', (req, res) => {
 });
 
 // Rotas para servir arquivos HTML estáticos
+
+app.get('/vamoLogin', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoLogin.html'));
+});
+
 app.get('/vamoLogin', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoLogin.html'));
 });
@@ -238,6 +243,10 @@ app.get('/vamoDashboard', (req, res) => {
 app.get('/vamoCalendarioForm', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoCalendarioForm.html'));
 });
+
+app.get('/vamoAgenda', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoAgenda.html'))
+})
 
 // ---------------------------------------------------------------------------------------------------------------//
 
