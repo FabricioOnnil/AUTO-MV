@@ -126,6 +126,8 @@ app.post('/agenda', async (req, res) => {
 
   const { nome, startDate, startTime, deliverEndDate, originSelect, rota, km_initial, carSelect } = req.body;
 
+  const userId = req.session.userId;
+
   try {
     const carros = await carro.findAll();
 
@@ -135,28 +137,35 @@ app.post('/agenda', async (req, res) => {
     });
 
     const carName = carMap[carSelect] || 'Carro não selecionado';
-    const id = userId;
+    
+    if (req.session && req.session.userId) {
+      const id = req.session.userId;
 
-    await agenda.create({
-      nameagenda: nome,
-      agendaStartDate: startDate,
-      startTime: startTime,
-      deliverEndDate: deliverEndDate,
-      originSelect: originSelect,
-      startRote: rota,
-      km_initial: km_initial,
-      agendaCar: carName,
-      ident: id
-    });
+      await agenda.create({
+        s_agenda_nameSchedule: nome,
+        d_agenda_startDate: startDate,
+        d_agenda_startTime: startTime,
+        d_agenda_deliverEndDate: deliverEndDate,
+        s_agenda_originSelect: originSelect,
+        i_agenda_startRote: rota,
+        i_agenda_kmInitial: km_initial,
+        d_agenda_createdAt: new Date(),
+        d_agenda_updateAt: new Date(),
+        i_agenda_usuario: userId
+      });
 
     res.status(200).send('Formulário recebido com sucesso!');
+  }else {
+
+    console.error("Usuário não autenticado ou sessão não inicializada.");
+    res.status(401).send('Usuário não autenticado.');
+  }
   } catch (error) {
+
     console.error("Erro ao receber formulário.", error);
     res.status(500).send('Erro ao armazenar formulário');
   }
-
 });
-
 
 
 
