@@ -5,7 +5,12 @@ const agendamentoRouter = express.Router();
 
 // Rota para obter todos os postos de agendamento
 agendamentoRouter.get('/agendamento', (req, res) => {
-    agendamento.findAll()
+    const userId = req.session.userId;
+    if (!userId) {
+        return res.status(401).send("Usuário não autenticado");
+    }
+
+    agendamento.findAll({ where: { id_agenda_usuario: userId} })
       .then(agendamento => {
         res.json(agendamento);
       })

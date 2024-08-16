@@ -5,6 +5,7 @@ import path, { join } from 'path';
 import session from 'express-session'; // Adicionar o middleware de sessão
 import db from '../models/db.js';
 import sequelize from '../models/db.js';
+//import { isAuthenticated } from '../middlewares/authMiddleware.js';
 
 import abastecimento from '../models/abastecimentoData.js';
 import agenda from '../models/agendaData.js';
@@ -180,6 +181,23 @@ app.post('/contratoCarro', async (req, res) => {
   } catch (error) {
     console.error('Erro ao criar contrato:', error);
     res.status(500).send('Erro ao criar contrato');
+  }
+});
+
+app.get('/agendamentos', async (req,res) => {
+  try {
+        const userId = req.session.userId;
+    
+        const agendamentos = await agenda.findAll({
+            where: {
+              i_agenda_usuario: userId
+            }
+        });
+
+  res.json(agendamentos);
+  } catch (error) {
+    console.error("Erro ao buscar agendamentos:", error);
+    res.status(500).send("Erro ao buscar agendamentos.");
   }
 });
 

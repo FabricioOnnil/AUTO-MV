@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const calendarPopupSchedule = document.getElementById('calendarPopupSchedule');    
     const closePopupScheduleButton = document.querySelector('.close-popupSchedule');
     const closePopupSchedulesButton = document.querySelector('.close-popupSchedules');    
-    const scheduleForm = document.getElementById('agendaForm');
+    const scheduleForm = document.getElementById('scheduleForm');
 
     console.log("DOM loaded");
 
@@ -151,7 +151,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         console.log("Form data loaded", schedules);
+        loadFormData();
     }
+    //loadFormData();
 
     // Agendamentos Popup
     const overlayTable = document.getElementById('overlayTable');
@@ -202,3 +204,55 @@ document.addEventListener("DOMContentLoaded", function () {
     // Chama a função para preencher o select
     preencherCarSelect();
 });
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/agendamentos');
+        const agendamentos = await response.json();
+
+        const schedulesBody = document.getElementById('schedulesBody');
+        schedulesBody.innerHTML = ''; // Limpa as linhas existentes
+
+        agendamentos.forEach(agendamento => {
+            const row = document.createElement('tr');
+            
+            // Adicione as células da tabela conforme a estrutura da tabela Agenda
+            row.innerHTML = `
+                <td>${agendamento.id}</td>
+                <td>${agendamento.someField1}</td> <!-- Substitua "someField1" com o campo real -->
+                <td>${agendamento.someField2}</td> <!-- Substitua "someField2" com o campo real -->
+                <!-- Continue com os outros campos -->
+            `;
+
+            schedulesBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar agendamentos:', error);
+    }
+});
+
+function loadAgendamentos() {
+    fetch('/agendamento')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.querySelector('#agendamentosTable tbody');
+            tableBody.innerHTML = ''; // Limpa a tabela antes de adicionar novos dados
+
+            data.forEach(agendamento => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${agendamento.i_agendamento_agendado_id}</td>
+                    <td>${agendamento.nome_agendamento}</td>
+                    <td>${agendamento.data_agendamento}</td>
+                    <td>${agendamento.horario_agendamento}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao carregar agendamentos:', error);
+        });
+}
+
+// Chame essa função quando o popup for aberto
+document.querySelector('#agendamentosButton').addEventListener('click', loadAgendamentos);

@@ -53,7 +53,7 @@ const agenda = db.sequelize.define('agenda', {
   },
 
   //Carro Selecionado. 9
-  i_agenda_scheduleCar: {
+  s_agenda_scheduleCar: {
     type: DataTypes.INTEGER,
     allowNull: true
   },
