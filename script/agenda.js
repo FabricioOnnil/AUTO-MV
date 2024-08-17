@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("Botão schedule não acionado.");
     }
 
-    if (showTablePopup) {
+    /*if (showTablePopup) {
         showTablePopup.addEventListener('click', function() {
             console.log("Botão da tabela de popup acionado");
             overlaySchedule.style.display = 'block';
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     } else {
         console.error("Botão da tabela de popup não acionado");
-    }
+    }*/
 
     if (closePopupScheduleButton) {
         closePopupScheduleButton.addEventListener('click', function() {
@@ -160,11 +160,83 @@ document.addEventListener("DOMContentLoaded", function() {
     const tablePopup = document.getElementById('tablePopup');
 
     if (showTablePopup) {
-        showTablePopup.addEventListener('click', function() {
-            overlaySchedule.style.display = 'none';
-            calendarPopupSchedule.style.display = 'none';
-            overlayTable.style.display = 'block';
-            tablePopup.style.display = 'block';
+        showTablePopup.addEventListener('click', async function() {
+            try {
+                const response = await fetch('/agendamentos');
+                const agendamentos = await response.json();
+
+                const schedulesBody = document.getElementById('schedulesBody');
+                schedulesBody.innerHTML = ''; // Limpa as linhas existentes
+
+                agendamentos.forEach(agendamento => {
+
+                    const row = document.createElement('tr');
+
+                    // Adiciona células para os campos que não são indefinidos ou vazios
+                    if (agendamento.nome && agendamento.nome.trim() !== '') {
+                        const nomeCell = document.createElement('td');
+                        nomeCell.textContent = agendamento.nome;
+                        row.appendChild(nomeCell);
+                    }
+
+                    if (agendamento.startDate && agendamento.startDate.trim() !== '') {
+                        const dateCell = document.createElement('td');
+                        dateCell.textContent = agendamento.startDate;
+                        row.appendChild(dateCell);
+                    }
+        
+                    if (agendamento.startTime && agendamento.startTime.trim() !== '') {
+                        const timeCell = document.createElement('td');
+                        timeCell.textContent = agendamento.startTime;
+                        row.appendChild(timeCell);
+                    }
+        
+                    if (agendamento.origin && agendamento.origin.trim() !== '') {
+                        const originCell = document.createElement('td');
+                        originCell.textContent = agendamento.origin;
+                        row.appendChild(originCell);
+                    }
+        
+                    if (agendamento.rota && agendamento.rota.trim() !== '') {
+                        const rotaCell = document.createElement('td');
+                        rotaCell.textContent = agendamento.rota;
+                        row.appendChild(rotaCell);
+                    }
+        
+                    if (agendamento.km_initial && agendamento.km_initial.trim() !== '') {
+                        const kmCell = document.createElement('td');
+                        kmCell.textContent = agendamento.km_initial;
+                        row.appendChild(kmCell);
+                    }
+        
+                    if (agendamento.carSelect && agendamento.carSelect.trim() !== '') {
+                        const carCell = document.createElement('td');
+                        carCell.textContent = agendamento.carSelect;
+                        row.appendChild(carCell);
+                    }
+        
+                    // Verifica se a linha tem pelo menos uma célula preenchida
+                    if (row.children.length > 0) {
+                        schedulesBody.appendChild(row);
+                    }
+
+                    row.innerHTML = `
+                        <td>${agendamento.nome}</td>
+                        <td>${agendamento.dataAgendada}</td>
+                        <td>${agendamento.hora}</td>
+                        <td>${agendamento.origem}</td>
+                        <td>${agendamento.rota}</td>
+                        <td>${agendamento.kmInicial}</td>
+                        <td>${agendamento.carroSelecionado}</td>
+                    `;
+                    schedulesBody.appendChild(row);
+                });
+
+                overlayTable.style.display = 'block';
+                tablePopup.style.display = 'block';
+            } catch (error) {
+                console.error('Erro ao carregar agendamentos:', error);
+            }
         });
     }
 
