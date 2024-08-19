@@ -162,27 +162,6 @@ app.post('/agenda', async (req, res) => {
   }
 });
 
-// Rota de Contrato do Carro
-app.post('/contratoCarro', async (req, res) => {
-  const { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
-
-  try {
-    const novoContrato = await contratoCarro.create({
-      inicioAluguel,
-      terminoAluguel,
-      responsavel,
-      codigo,
-      contrato,
-      tarifaMensal,
-      kmExcendente,
-      franquia
-    });
-    res.status(200).send('Contrato criado com sucesso!');
-  } catch (error) {
-    console.error('Erro ao criar contrato:', error);
-    res.status(500).send('Erro ao criar contrato');
-  }
-});
 
 app.get('/agendamentos', async (req,res) => {
   try {
@@ -220,6 +199,30 @@ app.post('/custosCarro', async (req,res) => {
     res.status(500).send('Erro ao registrar custo');
   }
 });
+
+// Rota de Contrato do Carro
+app.post('/contratoCarro', async (req, res) => {
+  const { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
+
+  try {
+    const novoContrato = await contratoCarro.create({
+      inicioAluguel,
+      terminoAluguel,
+      responsavel,
+      codigo,
+      contrato,
+      tarifaMensal,
+      kmExcendente,
+      franquia
+    });
+    res.status(200).send('Contrato criado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar contrato:', error);
+    res.status(500).send('Erro ao criar contrato');
+  }
+});
+
+
 
 // ----------------------------------------------R O T A S------------------------------------------------------------//
 
