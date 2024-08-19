@@ -61,6 +61,14 @@
 
 /*--- B --*/
 
+.backButton {
+    width: 100%; /* Largura da segunda section */
+    font-size: 20px;
+    justify-content: space-around; /* Espaçamento uniforme entre os botões */
+    align-items: flex-end;
+    padding: 10px; /* Espaçamento interno */
+}
+
 
 #bot_links {
     align-items: center;
@@ -133,7 +141,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--varWhite);
+    background-color: rgba(255, 255, 255, 0.021);
     font-weight: bolder;
     color: var(--varYellow);
 }
