@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return `${day}/${month}/${year}`;
     }
 
-    function loadFormData() {
+    /*function loadFormData() {
         const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
         const schedulesBody = document.getElementById("schedulesBody");
         schedulesBody.innerHTML = ''; // Limpa o conteúdo atual da tabela
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         console.log("Form data loaded", schedules);
         loadFormData();
-    }
+    }*/
     //loadFormData();
 
     // Agendamentos Popup
@@ -171,6 +171,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 agendamentos.forEach(agendamento => {
 
                     const row = document.createElement('tr');
+
+                    
+                    // Verifica se a linha tem pelo menos uma célula preenchida
+                    if (row.children.length > 0) {
+                        schedulesBody.appendChild(row);
+                    }
 
                     // Adiciona células para os campos que não são indefinidos ou vazios
                     if (agendamento.nome && agendamento.nome.trim() !== '') {
@@ -215,10 +221,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         row.appendChild(carCell);
                     }
         
-                    // Verifica se a linha tem pelo menos uma célula preenchida
-                    if (row.children.length > 0) {
-                        schedulesBody.appendChild(row);
-                    }
 
                     row.innerHTML = `
                         <td>${agendamento.nome}</td>
