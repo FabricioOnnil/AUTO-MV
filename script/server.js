@@ -162,7 +162,7 @@ app.post('/agenda', async (req, res) => {
   }
 });
 
-
+//Rota de agendamentos
 app.get('/agendamentos', async (req,res) => {
   try {
         const userId = req.session.userId;
@@ -180,45 +180,84 @@ app.get('/agendamentos', async (req,res) => {
   }
 });
 
-// Rota de Custos do Carro
-app.post('/custosCarro', async (req,res) => {
-  const { limiteReparo, reparosOutros, perdaTotal, dataInicio, dataTermino, distanciaLimite } = req.body;
-
-  try {
-    const novoCusto = await custosCarro.create({
-      limiteReparo,
-      reparosOutros,
-      perdaTotal,
-      dataInicio,
-      dataTermino,
-      distanciaLimite
-    });
-    res.status(200).send('Custo registrado com sucesso!');
-  } catch (error) {
-    console.error('Erro ao registrar custo:', error);
-    res.status(500).send('Erro ao registrar custo');
-  }
-});
-
 // Rota de Contrato do Carro
 app.post('/contratoCarro', async (req, res) => {
-  const { inicioAluguel, terminoAluguel, responsavel, codigo, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
+  const { dataInicial, terminoAluguel, responsavel, reserva, contrato, tarifaMensal, kmExcendente, franquia } = req.body;
 
   try {
-    const novoContrato = await contratoCarro.create({
-      inicioAluguel,
-      terminoAluguel,
-      responsavel,
-      codigo,
-      contrato,
-      tarifaMensal,
-      kmExcendente,
-      franquia
+    const contrato = await contratoCarro.create({
+      d_contratoCarro_startDateRental : dataInicial,
+      d_contratoCarro_endDateRental : terminoAluguel,
+      s_contratoCarro_responsible : responsavel,
+      s_contratoCarro_reservationCode : reserva,
+      s_contratoCarro_contractRental : contrato,
+      i_contratoCarro_rateMonthly : tarifaMensal,
+      dec_contratoCarro_restKm : kmExcendente,
+      i_contratoCarro_FranchiseKm : franquia
     });
     res.status(200).send('Contrato criado com sucesso!');
   } catch (error) {
     console.error('Erro ao criar contrato:', error);
     res.status(500).send('Erro ao criar contrato');
+  }
+});
+
+// Rota de Custos do Carro
+app.post('/custosCarro', async (req, res) => {
+  const { damageLimit, otherDamage, totalLoss, insurancePeriod, endOfInsurance, initalKm } = req.body;
+
+  try {
+    const custos = await contratoCarro.create({
+      d_contratoCarro_startDateRental : damageLimit,
+      d_contratoCarro_endDateRental : otherDamage,
+      s_contratoCarro_responsible : totalLoss,
+      s_contratoCarro_reservationCode : insurancePeriod,
+      s_contratoCarro_contractRental : endOfInsurance,
+      i_contratoCarro_rateMonthly : initalKm
+    });
+    res.status(200).send('Custos criado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar custos:', error);
+    res.status(500).send('Erro ao criar custos');
+  }
+});
+
+// Rota de Informações do Carro
+app.post('/carro', async (req, res) => {
+  const { nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo } = req.body;
+
+  try {
+    const carro = await contratoCarro.create({
+      d_contratoCarro_startDateRental : nomeCarro,
+      d_contratoCarro_endDateRental : placa,
+      s_contratoCarro_responsible : anoFabricacao,
+      s_contratoCarro_reservationCode : capacidadeTanque,
+      s_contratoCarro_contractRental : mediaConsumo
+    });
+    res.status(200).send('Carro criado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar carro:', error);
+    res.status(500).send('Erro ao criar carro');
+  }
+});
+
+// Rota de cadastro de Acesso
+app.post('/acesso', async (req, res) => {
+  const { nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao } = req.body;
+
+  try {
+    const acesso = await acesso.create({
+      s_usuario_name : nome,
+      s_usuario_secondName : sobrenome,
+      s_usuario_password : senha,
+      i_usuario_licenseDriving : numeroHabilitacao,
+      s_usuario_secrtorShipping : orgaoExpedidor,
+      dt_usuario_dateExpiration : validadeHabilitacao
+    });
+    res.status(200).send('Acesso criado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar acesso:', error);
+    res.status(500).send('Erro ao criar acesso');
   }
 });
 

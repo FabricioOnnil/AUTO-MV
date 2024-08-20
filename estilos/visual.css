@@ -176,10 +176,13 @@ button:hover {
 
 #button_define,
 #relator {
-    width: 100%; /* Ajuste conforme necessário */
+    justify-content: center;
+    font-size: 2px;
+    align-items: center;
+    width: 100%; 
     padding: 0;
     box-sizing: border-box;
-    margin: 0 auto;    
+    margin: auto;    
 }
 
 

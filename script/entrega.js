@@ -62,7 +62,28 @@ document.addEventListener("DOMContentLoaded", function() {
             actionCell.appendChild(entregaButton);
         });
     }
-
+    function loadAgendamentos() {
+            fetch('/agendamento')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#agendamentosTable tbody');
+                    tableBody.innerHTML = ''; // Limpa a tabela antes de adicionar novos dados
+        
+                    data.forEach(agendamento => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${agendamento.i_agendamento_agendado_id}</td>
+                            <td>${agendamento.nome_agendamento}</td>
+                            <td>${agendamento.data_agendamento}</td>
+                            <td>${agendamento.horario_agendamento}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar agendamentos:', error);
+                });
+    }
     
     if (closePopupButton) {
         closePopupButton.addEventListener('click', closePopup);

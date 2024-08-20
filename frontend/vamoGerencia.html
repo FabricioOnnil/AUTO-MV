@@ -33,9 +33,6 @@
                 <h1 class="paragrafo">Contrato dos Carros</h1>
                 <form action="/contratoCarro" method="POST" >
                     <div class="form-group">
-                        <!--<label for="registrationCar">Cadastro de Contrato</label>
-                        <input type="checkbox" id="contract" name="registrationCar" value="contract" onclick="contractRegistration()">Contrato</input>
-                        <div class="form-group contract-registration" style="display: none;">-->
                             <label for="dataInicio" class=>Data de Início do Aluguel:</label>
                             <input type="date" id="dataInicio" name="dataInicio">
                             <label for="dataTermino">Data de Término do Aluguel:</label>
@@ -62,11 +59,8 @@
             <div class="popup-content">
                 <button class="close-btn" onclick="closePopup('custPopup')">Fechar</button>
                 <h1 class="paragrafo">Custos Fixo</h1>
-                <form action="/custoFixo" method="POST">
+                <form action="/custosCarro" method="POST">
                     <div class="form-group">
-                        <!--<label for="fixedCost">Custos Fixos</label>
-                        <input type="checkbox" id="cost" name="fixedCost" value="cost" onclick="fixedCost()">Custos Fixos</input>
-                        <div class="form-group fixed-cost" style="display: none;">-->
                             <label for="damageLimit">Valor Limite Reparos</label>
                             <input type="number" step="0.01" id="damageLimit" name="damageLimit">
                             <label for="otherDamage">Danos a Terceiros</label>
@@ -75,8 +69,10 @@
                             <input type="number" step="0.01" id="totalLoss" name="totalLoss">
                             <label for="insurancePeriod">Início Vigência Seguro</label>
                             <input type="date" id="insurancePeriod" name="insurancePeriod">
-                            <label for="quilometragemInicial">km Aluguel:</label>
-                            <input type="number" id="quilometragemInicial" name="quilometragemInicial" required>
+                            <label for="endOfInsurance">Fim Vigência Seguro</label>
+                            <input type="date" id="endOfInsurance" name="endOfInsurance">
+                            <label for="initialKm">km Aluguel:</label>
+                            <input type="number" id="initialKm" name="initialKm" required>
                             <button type="submit">Cadastrar</button>
                         </div>
                     </div>
@@ -88,11 +84,8 @@
             <div class="popup-content">
                 <button class="close-btn" onclick="closePopup('infoPopup')">Fechar</button>
                 <h1 class="paragrafo">Informações dos Carros</h1>
-                <form action="/infoCar" method="POST">
+                <form action="/carro" method="POST">
                     <div class="form-group">
-                        <!--<label for="registerCar">Modelo Carro</label>
-                        <input type="checkbox" id="car" name="registerCar" value="car" onclick="registerCar()">Modelo Carro</input>
-                        <div class="form-group registerCar" style="display: none;">-->
                             <label for="nomeCarro">Modelo:</label>
                             <input type="text" id="nomeCarro" name="nomeCarro" required>
                             <label for="placa">Placa:</label>
@@ -123,7 +116,7 @@
                         <label for="senha">Senha de Login:</label>
                         <input type="text" id="senha" name="password" required>
                         <label for="numeroHabilitacao">Número do Documento de Habilitação:</label>
-                        <input type="number" id="numeroHabilitacao" name="licensDriving" required>
+                        <input type="number" id="numeroHabilitacao" name="licenseDriving" required>
                         <label for="orgaoExpedidor">Órgão Expedidor:</label>
                         <input type="text" id="orgaoExpedidor" name="sectorShipping" required>
                         <label for="validadeHabilitacao">Data da Validade da Carteira de Habilitação:</label>

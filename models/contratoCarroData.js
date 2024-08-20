@@ -43,7 +43,7 @@ const contratoCarro = sequelize.define('contratoCarro', {
     },
 
     // Taxa mensal do Aluguel
-    i_contradoCarro_rateMonthly: {
+    i_contratoCarro_rateMonthly: {
         type: DataTypes.INTEGER,
         allowNull: true
     },

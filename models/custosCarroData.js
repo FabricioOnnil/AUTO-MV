@@ -12,37 +12,37 @@ const custosCarro = sequelize.define('custosCarro', {
         primaryKey: true
     }, 
 
-    // custo de limite para reparos
+    // custo de limite para reparos Vv
     dec_custosCarro_repairLimitValue: {
         type:DataTypes.DECIMAL,
         allowNull: true
     },
 
-    // Limite de custo para reparos de terceiros.
+    // Limite de custo para reparos de terceiros. Vv
     dec_custosCarro_damageOther: {
         type: DataTypes.DECIMAL,
         allowNull: true
     },
 
-    // Custo maximo de perda Total.
+    // Custo maximo de perda Total. Vv
     dec_custosCarro_totalLoss: {
         type: DataTypes.DECIMAL,
         allowNull: true
     },
 
-    // Data do inicio do contrato.
+    // Data do inicio do contrato. Vv
     d_custosCarro_starDateSafe: {
         type: DataTypes.DATE,
         allowNull: true
     },
 
-    // Data do fim do contrato.
+    // Data do fim do contrato. 
     d_custosCarro_endDateSafe: {
         type:DataTypes.DATE,
         allowNull: true
     },
 
-    // Quilometragem de aluguel.
+    // Quilometragem de aluguel. Vv
     i_carro_rentalKm: {
         type: DataTypes.INTEGER,
         allowNull: true
