@@ -185,7 +185,7 @@ app.post('/contratoCarro', async (req, res) => {
   const { dataInicial, terminoAluguel, responsavel, reserva, contrate, tarifaMensal, kmExcendente, franquia } = req.body;
 
   try {
-       await contratoCarro.create({
+    const contrato = await contratoCarro.create({
       d_contratoCarro_startDateRental : dataInicial,
       d_contratoCarro_endDateRental : terminoAluguel,
       s_contratoCarro_responsible : responsavel,
@@ -207,7 +207,7 @@ app.post('/custosCarro', async (req, res) => {
   const { damageLimit, otherDamage, totalLoss, insurancePeriod, endOfInsurance, initalKm } = req.body;
 
   try {
-       await contratoCarro.create({
+    const custos = await contratoCarro.create({
       d_contratoCarro_startDateRental : damageLimit,
       d_contratoCarro_endDateRental : otherDamage,
       s_contratoCarro_responsible : totalLoss,
@@ -227,7 +227,7 @@ app.post('/carro', async (req, res) => {
   const { nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo } = req.body;
 
   try {
-       await contratoCarro.create({
+    const carro = await contratoCarro.create({
       d_contratoCarro_startDateRental : nomeCarro,
       d_contratoCarro_endDateRental : placa,
       s_contratoCarro_responsible : anoFabricacao,
