@@ -62,35 +62,3 @@ function openTablePopup(tableId) {
 
     // Escreve o conteúdo HTML da tabela na nova janela
     popupWindow.document.write(`
-        <!DOCTYPE html>
-        <html lang="pt-br">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Tabela</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    padding: 20px;
-                }
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                }
-                table, th, td {
-                    border: 1px solid black;
-                    padding: 8px;
-                    text-align: left;
-                }
-                th {
-                    background-color: #f2f2f2;
-                }
-                tr:nth-child(even) {
-                    background-color: #f2f2f2;
-                }
-            </style>
-        </head>
-        <body>
-            <table>${tableContent}</table>
-        </body>
-   

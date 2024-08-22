@@ -3,11 +3,15 @@ function goToSchedule() {
     window.location.href = "/vamoAgenda";
      }
 function goToDeliver() {
-   // Redirecionar para a página entrega.html
-   window.location.href = "/vamoEntrega";
+    // Redirecionar para a página entrega.html
+    window.location.href = "/vamoEntrega";
      }
+function goToDiary() {
+    // Redirecionar para a página entrega.html
+    window.location.href = "/vamoDiario";
+     }     
 function goToLocation() {
-   // Redirecionar para a página mapa.html
-   window.location.href = "/vamoMapa";
+    // Redirecionar para a página mapa.html
+    window.location.href = "/vamoMapa";
      }
 
