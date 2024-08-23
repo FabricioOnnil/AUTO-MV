@@ -19,12 +19,28 @@
             <button onclick="openPopup('diarioPopup')">Diário</button>
             <button onclick="openPopup('custos')">Custos de Rota</button>
         </section><br>
-        <div id="acessoPopup" class="popup">
+
+        <div id="diarioPopup" class="popup">
             <div class="popup-content">
-                <button class="close-btn" onclick="closePopup('acessoPopup')">Fechar</button>
-                <h1 class="paragrafo">Cadastro de Acesso</h1>
+                <span class="close-btn" onclick="closePopup('diarioPopup')">&times;</span>
+                <h1>Diário</h1>
+                <div id="check" class="checking">
+                    <input type="checkbox" name="prioriUm" id="prioriUm"> Crucial
+                    <input type="checkbox" name="prioriDois" id="prioriDois"> Importante
+                    <input type="checkbox" name="prioriTres" id="prioriTres"> Observar
+                    <input type="checkbox" name="prioriQuatro" id="prioriQuatro"> Casual
+                </div>
+                <div id="textForm">
+                    <form id="longTextForm">
+                        <label for="longText">Descrição:</label><br>
+                        <textarea id="longText" name="longText" rows="10" cols="50" maxlength="400" required></textarea><br><br>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+                <p id="message"></p>
             </div>
         </div>
+        
 
         <footer>
             <a href="https://mvgi.com.br/" target="_blank">
