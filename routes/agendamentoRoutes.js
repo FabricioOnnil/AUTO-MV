@@ -1,5 +1,4 @@
 import express from 'express';
-import agendamento from '../models/agendamentoData.js';
 import agenda from '../models/agendaData.js';
 
 const agendamentoRouter = express.Router();
@@ -15,51 +14,48 @@ agendamentoRouter.get('/agendamentos', async (req, res) => {
           res.json(agendamento);
     } catch (error) {
         console.error('Erro ao buscar agendamentos:', error);
-        res.status(500).json({ error: 'Erro ao buscar agendamentos'});
+        res.status(500).json({ error: 'Erro ao buscar agendamentos' });
     }
-  });
-  
-  // Rota para obter uma  agendamento pelo ID
-  agendamentoRouter.get('/agendamentos/:id', (req, res) => {
+});
+
+// Rota para obter uma agendamento pelo ID
+agendamentoRouter.get('/agendamentos/:id', (req, res) => {
     const agendamentoId = req.params.id;
-    agendamento.findOne({ where: { i_agendamento_agendado_id: agendamentoId }})
+    agenda.findOne({ where: { i_agendamento_agendado_id: agendamentoId }})
     
       .then(agendamento => {
         if (!agendamento) {
-          res.status(404).send("agendamentos não encontrado");
-          
+          res.status(404).send("agendamento não encontrado");
         } else {
           res.json(agendamento);
         }
       })
       .catch((error) => {
-        res.status(500).send("Erro ao obter  agendamentos: " + error.message);
+        res.status(500).send("Erro ao obter agendamento: " + error.message);
       });
+});
 
-  });
-  
-  // Rota para cadastrar uma  nova agendamento
-  agendamentoRouter.post('/agendamentos', (req, res) => {
-    agendamento.create(req.body)
-    .then(() => res.send("agendamentos cadastrado com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao cadastrar agendamentos: " + error.message));
-  });
-  
-  // Rota para atualizar  uma agendamento pelo ID.
-  agendamentoRouter.put('/agendamentos/:id', (req, res) => {
+// Rota para cadastrar um novo agendamento
+agendamentoRouter.post('/agendamentos', (req, res) => {
+    agenda.create(req.body)
+    .then(() => res.send("agendamento cadastrado com sucesso!"))
+    .catch((error) => res.status(500).send("Erro ao cadastrar agendamento: " + error.message));
+});
+
+// Rota para atualizar um agendamento pelo ID
+agendamentoRouter.put('/agendamentos/:id', (req, res) => {
     const agendamentoId = req.params.id;
-    agendamento.update(req.body, { where: { i_agendamento_agendado_id: agendamentoId } })
-    .then(() => res.send("agendamentos atualizado com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao atualizar agendamentos: " + error.message));
-  });
-  
-  // Rota para deletar uma  agendamento
-  agendamentoRouter.delete('/agendamentos/:id', (req, res) => {
+    agenda.update(req.body, { where: { i_agendamento_agendado_id: agendamentoId } })
+    .then(() => res.send("agendamento atualizado com sucesso!"))
+    .catch((error) => res.status(500).send("Erro ao atualizar agendamento: " + error.message));
+});
+
+// Rota para deletar um agendamento
+agendamentoRouter.delete('/agendamentos/:id', (req, res) => {
     const agendamentoId = req.params.id;
-    agendamento.destroy({ where: { i_agendamento_agendado_id: agendamentoId } })
-    .then(() => res.send("agendamentos deletado com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao deletar agendamentos: " + error.message));
-  });
-  
-  export default agendamentoRouter;
-  
+    agenda.destroy({ where: { i_agendamento_agendado_id: agendamentoId } })
+    .then(() => res.send("agendamento deletado com sucesso!"))
+    .catch((error) => res.status(500).send("Erro ao deletar agendamento: " + error.message));
+});
+
+export default agendamentoRouter;

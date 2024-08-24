@@ -41,8 +41,8 @@ const agenda = db.sequelize.define('agenda', {
   },
 
   //Descrição da Rota. 7
-  i_agenda_startRote: {
-    type: DataTypes.INTEGER,
+  s_agenda_officeEnd: {
+    type: DataTypes.STRING,
     allowNull: true
   },
 
