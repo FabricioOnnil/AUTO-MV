@@ -73,13 +73,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     
                     row.innerHTML = `
-                        <td>${agendamento.nome}</td>
-                        <td>${agendamento.dataAgendada}</td>
-                        <td>${agendamento.hora}</td>
-                        <td>${agendamento.origem}</td>
-                        <td>${agendamento.rota}</td>
-                        <td>${agendamento.kmInicial}</td>
-                        <td>${agendamento.carroSelecionado}</td>
+                        <td>${agendamento.s_agenda_nameSchedule}</td>
+                        <td>${agendamento.d_agenda_startDate}</td>
+                        <td>${agendamento.d_agenda_startTime}</td>
+                        <td>${agendamento.d_agenda_deliverEndDate}</td>
+                        <td>${agendamento.s_agenda_originSelect}</td>
+                        <td>${agendamento.i_agenda_kmInitial}</td>
+                        <td>${agendamento.s_agenda_scheduleCar}</td>
+                        <td>${agendamento.s_agenda_nameSchedule}</td>
                     `;
 
                     schedulesBody.appendChild(row);
@@ -213,11 +214,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         const response = await fetch('/agendamentos');
-        const agendamentos = await response.json();
+        const agendamento = await response.json();
 
         
         schedulesBody.innerHTML = '';
-        agendamentos.forEach(agendamento => {
+        agendamento.forEach(agendamento => {
             const row = document.createElement('tr');
             
             
@@ -241,19 +242,19 @@ setInterval(fetchSchedules, 300000);
 });
 
 function loadAgendamentos() {
-    fetch('/agendamento')
+    fetch('/agenda')
         .then(response => response.json())
         .then(data => {
             const tableBody = document.querySelector('#agendamentosTable tbody');
             tableBody.innerHTML = ''; // Limpa a tabela antes de adicionar novos dados
 
-            data.forEach(agendamento => {
+            data.forEach(agenda => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${agendamento.i_agendamento_agendado_id}</td>
-                    <td>${agendamento.nome_agendamento}</td>
-                    <td>${agendamento.data_agendamento}</td>
-                    <td>${agendamento.horario_agendamento}</td>
+                    <td>${agenda.i_agendamento_agendado_id}</td>
+                    <td>${agenda.nome_agendamento}</td>
+                    <td>${agenda.data_agendamento}</td>
+                    <td>${agenda.horario_agendamento}</td>
                 `;
                 tableBody.appendChild(row);
             });
