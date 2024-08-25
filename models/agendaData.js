@@ -18,7 +18,7 @@ const agenda = db.sequelize.define('agenda', {
 
   //Data inicial do agendamento. 3
   d_agenda_startDate: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: true
   },
   
@@ -30,7 +30,7 @@ const agenda = db.sequelize.define('agenda', {
 
   //Data planejada de Entrega. 5
   d_agenda_deliverEndDate: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: true
   },
 

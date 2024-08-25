@@ -172,6 +172,7 @@ app.get('/agendamentos', async (req,res) => {
               i_agenda_usuario: userId
             }
         });
+    console.log(agendamentos);
 
   res.json(agendamentos);
   } catch (error) {

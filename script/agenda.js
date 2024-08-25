@@ -178,32 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-
-    /*function loadFormData() {
-        const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
-        const schedulesBody = document.getElementById("schedulesBody");
-        schedulesBody.innerHTML = ''; // Limpa o conteúdo atual da tabela
-
-        schedules.forEach(formData => {
-            const newRow = schedulesBody.insertRow();
-            newRow.insertCell(0).textContent = formData.nome;
-            newRow.insertCell(1).textContent = formatDateToBrazilian(formData.startDate);
-            newRow.insertCell(2).textContent = formData.startTime;
-            newRow.insertCell(3).textContent = formData.deliverEndDate;
-            newRow.insertCell(4).textContent = formData.origin;
-            newRow.insertCell(5).textContent = formData.rota;
-            newRow.insertCell(6).textContent = formData.km_initial;
-            newRow.insertCell(7).textContent = formData.carName;
-            
-        });
-
-        console.log("Form data loaded", schedules);
-        loadFormData();
-    }*/
-    //loadFormData();
-
-    // Agendamentos Popup
-    
+   
 
 document.addEventListener("DOMContentLoaded", function () {
     
@@ -231,28 +206,38 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
+
+    const schedulesBody = document.getElementById('schedulesBody');
+
+    async function fetchSchedules() {
+
     try {
         const response = await fetch('/agendamentos');
         const agendamentos = await response.json();
 
-        const schedulesBody = document.getElementById('schedulesBody');
-        schedulesBody.innerHTML = ''; // Limpa as linhas existentes
+        
+        schedulesBody.innerHTML = '';
         agendamentos.forEach(agendamento => {
             const row = document.createElement('tr');
             
             
             row.innerHTML = `
-                <td>${agendamento.id}</td>
-                <td>${agendamento.someField1}</td> <!-- Substitua "someField1" com o campo real -->
-                <td>${agendamento.someField2}</td> <!-- Substitua "someField2" com o campo real -->
-                <!-- Continue com os outros campos -->
-            `;
+            <td>${agendamento.s_agenda_nameSchedule}</td>
+            <td>${agendamento.d_agenda_startDate}</td>
+            <td>${agendamento.d_agenda_startTime}</td>
+            <td>${agendamento.d_agenda_deliverEndDate}</td>
+            <td>${agendamento.s_agenda_originSelect}</td>
+            <td>${agendamento.s_agenda_officeEnd}</td>
+        `;
 
             schedulesBody.appendChild(row);
         });
     } catch (error) {
         console.error('Erro ao carregar agendamentos:', error);
     }
+}
+fetchSchedules();
+setInterval(fetchSchedules, 300000);
 });
 
 function loadAgendamentos() {
