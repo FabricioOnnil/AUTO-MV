@@ -78,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
                         <td>${agendamento.d_agenda_startTime}</td>
                         <td>${agendamento.d_agenda_deliverEndDate}</td>
                         <td>${agendamento.s_agenda_originSelect}</td>
-                        <td>${agendamento.i_agenda_kmInitial}</td>
+                        <td>${agendamento.i_agenda_officeEnd}</td>
                         <td>${agendamento.s_agenda_scheduleCar}</td>
-                        <td>${agendamento.s_agenda_nameSchedule}</td>
+                        
                     `;
 
                     schedulesBody.appendChild(row);
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     async function preencherCarSelect() {
         try {
-            const response = await fetch('/API/infoCarro/carro');
+            const response = await fetch('/infoCarro/carro');
             const carros = await response.json();
 
             const carSelect = document.getElementById("carSelect");
@@ -229,6 +229,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <td>${agendamento.d_agenda_deliverEndDate}</td>
             <td>${agendamento.s_agenda_originSelect}</td>
             <td>${agendamento.s_agenda_officeEnd}</td>
+            <td>${carro.s_carro_model}</td>
         `;
 
             schedulesBody.appendChild(row);
@@ -265,4 +266,6 @@ function loadAgendamentos() {
 }
 
 
+
 document.querySelector('#agendamentosButton').addEventListener('click', loadAgendamentos);
+

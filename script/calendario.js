@@ -19,20 +19,41 @@ document.addEventListener("DOMContentLoaded", function() {
         currentMonthSpan.textContent = `${currentDate.toLocaleString('pt-BR', { month: 'long' })} ${currentYear}`;
     }
 
-    function getEventsForDay(day, month, year) {
-        const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-        return agendamentos.filter(agendamento => {
-            const agendamentoDate = new Date(agendamento.startDate);
-            return agendamentoDate.getDate() === day && agendamentoDate.getMonth() === month && agendamentoDate.getFullYear() === year;
-        });
+    async function getEventsForDay(day, month, year) {
+        try {
+            const response = await fetch('/agenda');
+            const agenda = await response.json();
+            console.log('Agendamentos recebidos:', agenda);
+
+            const eventsForDay = agenda.filter(agendamento => {
+                const agendamentoDate = new Date(agendamento.d_agenda_deliverEndDate);
+                return (
+                    agendamentoDate.getDate() === day &&
+                    agendamentoDate.getMonth() === month &&
+                    agendamentoDate.getFullYear() === year
+                );
+            });
+
+            console.log(`Eventos para ${day}/${month + 1}/${year}:`, eventsForDay);
+            return eventsForDay;
+        } catch (error) {
+            console.error('Erro ao buscar agenda:', error);
+                returno ();
+        }
     }
 
-    function showPopup(day, month, year) {
+    async function showPopup(day, month, year) {
         popupContainer.style.display = 'block';
-        const events = getEventsForDay(day, month, year);
+        const events = await getEventsForDay(day, month, year);
 
         if (events.length > 0) {
-            eventDetails.innerHTML = events.map(event => `<p><strong>Nome:</strong> ${event.nome}<br><strong>Rota:</strong> ${event.rota}</p>`).join('');
+            eventDetails.innerHTML = events.map(event =>
+                 `<p>
+                 <strong>Nome:</strong> ${event.s_agenda_nameSchedule}<br>
+                 <strong>Rota:</strong> ${event.s_agenda_scheduleCar}<br>
+                 <strong>Data de Entrega:</strong> ${new Date(event.d_agenda_deliverEndDate).toLocaleDateString()} 
+                 </p>
+            `).join('');
         } else {
             eventDetails.innerHTML = "<p>Não há eventos para este dia.</p>";
         }
@@ -95,5 +116,5 @@ document.addEventListener("DOMContentLoaded", function() {
         fillCalendar(currentMonth, currentYear);
     });
 
-    fillCalendar(currentMonth, currentYear); // Chama inicialmente para o mês atual
+    fillCalendar(currentMonth, currentYear); 
 });

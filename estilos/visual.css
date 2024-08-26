@@ -421,11 +421,21 @@ footer img {
 
 /*--- H --*/
 
+/*.has-event {
+    background-color: #FFD700; 
+    cursor: pointer;
+}
+*/
+
 .has-event {
     background-color: var(--varYellow);
     color: black; /* Cor de fundo para dias com eventos */
     font-weight: bold;
     cursor: pointer;
+}
+
+.has-event:hover {
+    background-color: #FFA500; /* Cor de fundo ao passar o mouse */
 }
 
 #header {

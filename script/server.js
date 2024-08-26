@@ -280,6 +280,10 @@ app.get('/vamoCalendario', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoCalendario.html'));
 });
 
+app.get('/vamoCalendario2', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoCalendario2.html'));
+});
+
 app.get('/vamoDashboard', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoDashboard.html'));
 });

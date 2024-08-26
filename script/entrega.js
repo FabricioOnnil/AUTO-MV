@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", function() {
     const closePopupButton = document.querySelector('.close-popupDelivery');
     const scheduleForm = document.getElementById('scheduleFormDelivery');
@@ -29,18 +27,19 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function showPopupWithFormData(formData, rowIndex) {
-        document.getElementById("nome").value = formData.nome;
-        document.getElementById("startDate").value = formData.startDate;
+        document.getElementById("nome").value = formData.s_agenda_nameSchedule;
+        document.getElementById("startDate").value = formData.d_agenda_startDate;
         document.getElementById("startTime").value = formData.startTime || "";
-        document.getElementById("destinySelect").value = formData.destiny || "";
+        document.getElementById("destinySelect").value = formData.s_agenda_originSelect || "";
         document.getElementById("km_final").value = formData.km_final || "";
-        carSelect.innerHTML = `<option value="${formData.carSelect}">${formData.carName}</option>`;
+        carSelect.innerHTML = `<option value="${formData.carSelect}">${formData.s_agenda_scheduleCar}</option>`;
         document.getElementById("rowIndex").value = rowIndex;
 
         openPopup(); 
     }
+
     function loadAgendamentos() {
-        fetch('/agendamento')
+        fetch('/agendamentos')
             .then(response => response.json())
             .then(data => {
                 appointmentsBody.innerHTML = ''; 
@@ -82,23 +81,4 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     loadAgendamentos();
-
-    /*function loadAgendamentos() {
-        const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-        agendamentosBody.innerHTML = "";
-
-        agendamentos.forEach((formData, index) => {
-            const newRow = agendamentosBody.insertRow();
-            newRow.insertCell(0).textContent = formData.nome;
-            newRow.insertCell(1).textContent = formatDateToBrazilian(formData.startDate);
-            newRow.insertCell(2).textContent = formData.origem;
-            newRow.insertCell(3).textContent = formData.carName;
-
-            const actionCell = newRow.insertCell(4);
-            const entregaButton = document.createElement("button");
-            entregaButton.textContent = "Entrega";
-            entregaButton.addEventListener("click", () => showPopupWithFormData(formData, rowIndex));
-            actionCell.appendChild(entregaButton);
-        });
-    }*/
 });

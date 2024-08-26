@@ -12,6 +12,6 @@ function goToDiary() {
      }     
 function goToLocation() {
     // Redirecionar para a página mapa.html
-    window.location.href = "/vamoMapa";
+    window.location.href = "/vamoCalendario";
      }
 
