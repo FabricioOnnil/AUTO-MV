@@ -68,6 +68,20 @@ document.addEventListener("DOMContentLoaded", function() {
     if (closePopupButton) {
         closePopupButton.addEventListener('click', closePopup);
     }
+    
+    if (scheduleForm) {
+        scheduleForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const rowIndex = document.getElementById("rowIndex").value;
+            const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+            agendamentos.splice(rowIndex, 1); 
+            localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+            closePopup();
+            loadAgendamentos();
+        });
+    }
+
+    loadAgendamentos();
 
     /*function loadAgendamentos() {
         const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
@@ -87,18 +101,4 @@ document.addEventListener("DOMContentLoaded", function() {
             actionCell.appendChild(entregaButton);
         });
     }*/
-    
-    if (scheduleForm) {
-        scheduleForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-            const rowIndex = document.getElementById("rowIndex").value;
-            const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-            agendamentos.splice(rowIndex, 1); 
-            localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
-            closePopup();
-            loadAgendamentos();
-        });
-    }
-
-    loadAgendamentos();
 });
