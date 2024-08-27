@@ -33,9 +33,20 @@ diarioRouter.get('/diario', (req, res) => {
   
   // Rota para cadastrar uma  nova diario
   diarioRouter.post('/diario', (req, res) => {
-    diario.create(req.body)
-    .then(() => res.send("diario cadastrado com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao cadastrar diario: " + error.message));
+    try {
+        const { s_diario_motivo, s_diario_descricao } = req.body;
+        const novoDiario = await diario.create({
+            s_diario_motivo,
+            s_diario_descricao,
+            d_diario_creatAt: new Date(),
+            i_diario_usuarioKey: req.session.userId // ou outro identificador do usuário
+        });
+        res.status(201).json(novoDiario);
+    } catch (error) {
+        console.error("Erro ao inserir no diário:", error);
+        res.status(500).json({ error: "Erro ao inserir no diário." });
+    }
+});
   });
   
   // Rota para atualizar  uma diario pelo ID.
@@ -55,4 +66,6 @@ diarioRouter.get('/diario', (req, res) => {
   });
   
   export default diarioRouter;
+  
+
   

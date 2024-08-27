@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <td>${agendamento.d_agenda_startTime}</td>
                         <td>${agendamento.d_agenda_deliverEndDate}</td>
                         <td>${agendamento.s_agenda_originSelect}</td>
-                        <td>${agendamento.i_agenda_officeEnd}</td>
+                        <td>${agendamento.s_agenda_officeEnd}</td>
                         <td>${agendamento.s_agenda_scheduleCar}</td>
                         
                     `;

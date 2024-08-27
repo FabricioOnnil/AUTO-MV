@@ -35,3 +35,4 @@ timestamps: false, // This is true by default and manages `createdAt` and `updat
 });
 
 export default diario;
+

@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function loadAgendamentos() {
+        
         fetch('/agendamentos')
             .then(response => response.json())
             .then(data => {
@@ -49,10 +50,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     row.insertCell(0).textContent = agendamento.s_agenda_nameSchedule;
                     row.insertCell(1).textContent = formatDateToBrazilian(agendamento.d_agenda_startDate);
-                    row.insertCell(2).textContent = agendamento.s_agenda_originSelect;
-                    row.insertCell(3).textContent = agendamento.s_agenda_scheduleCar;
+                    row.insertCell(2).textContent = agendamento.d_agenda_deliverEndDate;
+                    row.insertCell(3).textContent = agendamento.s_agenda_originSelect;
+                    row.insertCell(4).textContent = agendamento.s_agenda_officeEnd;
+                    row.insertCell(5).textContent = agendamento.s_agenda_scheduleCar;
 
-                    const actionCell = row.insertCell(4);
+                    const actionCell = row.insertCell(6);
                     const entregaButton = document.createElement("button");
                     entregaButton.textContent = "Entrega";
                     entregaButton.addEventListener("click", () => showPopupWithFormData(agendamento, index));
