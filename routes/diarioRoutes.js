@@ -32,7 +32,7 @@ diarioRouter.get('/diario', (req, res) => {
   });
   
   // Rota para cadastrar uma  nova diario
-  diarioRouter.post('/diario', (req, res) => {
+  diarioRouter.post('/diario', async (req, res) => {
     try {
         const { s_diario_motivo, s_diario_descricao } = req.body;
         const novoDiario = await diario.create({
@@ -47,7 +47,7 @@ diarioRouter.get('/diario', (req, res) => {
         res.status(500).json({ error: "Erro ao inserir no diário." });
     }
 });
-  });
+
   
   // Rota para atualizar  uma diario pelo ID.
   diarioRouter.put('/diario/:id', (req, res) => {
