@@ -4,22 +4,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const infoCarForm = document.querySelector('#infoPopup form');
     const acessoForm = document.querySelector('#acessoPopup form');
 
-    contratoForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    contratoForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        console.log("Form submitted");
 
-        const formData = new FormData(contratoForm);
+        const dataInicio = document.getElementById("dataInicio").value;
+        const dataTermino = document.getElementById("dataTermino").value;
+        const usuarioResponsavel = document.getElementById("usuarioResponsavel").value;
+        const codigoReserva = document.getElementById("codigoReserva").value;
+        const codigoAluguel = document.getElementById("codigoAluguel").value;
+        const tarifaContrato = document.getElementById("tarifaContrato").value;
+        const kmExcedente = document.getElementById("kmExcedente").value;
+        const distanciaDia = document.getElementById("distanciaDia").value;
 
-        fetch('/contratoCarro', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
+        const formData = { dataInicio, dataTermino, usuarioResponsavel, codigoReserva, codigoAluguel, tarifaContrato, kmExcedente, distanciaDia };
+
+        try {
+            const response = await fetch('/contratoCarro', {
+                method: 'POST',
+                headers: {
+                    'Conte-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
             if (!response.ok) {
                 return response.text().then(errorMessage => {
                     throw new Error(`Erro ao cadastrar contrato de carro: ${errorMessage}`);
                 });
             }
             return response.json();
+
+         } catch (error) {
+            console.error("Error storing form data:", error);
+        }
+
+        
+       
+        
         })
         .then(result => {
             alert(result.message);

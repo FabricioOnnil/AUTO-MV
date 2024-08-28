@@ -272,8 +272,13 @@ app.get('/', (req, res) => {
 });
 
 // Rotas para servir arquivos HTML estáticos
-app.get('/vamoLogin', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoLogin.html'));
+
+app.get('/vamoAbastecimento', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoAbastecimento.html'));
+});
+
+app.get('/vamoAgenda', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoAgenda.html'));
 });
 
 app.get('/vamoCalendario', (req, res) => {
@@ -288,20 +293,32 @@ app.get('/vamoDashboard', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoDashboard.html'));
 });
 
-app.get('/vamoAgenda', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoAgenda.html'));
+app.get('/vamoDiario', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoDiario.html'));
 });
 
 app.get('/vamoEntrega', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoEntrega.html'));
 });
 
-app.get('/vamoRefeicao', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoRefeicao.html'));
+app.get('/vamoGerencia', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoGerencia.html'));
 });
 
-app.get('/vamoAbastecimento', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoAbastecimento.html'));
+app.get('/vamoInformado', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoInformado.html'));
+});
+
+app.get('/vamoLogin', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoLogin.html'));
+});
+
+app.get('/vamoMapa', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoMapa.html'));
+});
+
+app.get('/vamoRefeicao', (req, res) => {
+  res.sendFile(join(__dirname, '..', 'frontend', 'vamoRefeicao.html'));
 });
 
 app.get('/vamoRelatorio', (req, res) => {
@@ -312,17 +329,11 @@ app.get('/vamoReparos', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoReparos.html'));
 });
 
-app.get('/vamoGerencia', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoGerencia.html'));
-});
 
-app.get('/vamoMapa', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoMapa.html'));
-});
 
-app.get('/vamoInformado', (req, res) => {
-  res.sendFile(join(__dirname, '..', 'frontend', 'vamoInformado.html'));
-});
+
+
+
 // ---------------------------------------------------------------------------------------------------------------//
 
 app.listen(PORT, () => {
