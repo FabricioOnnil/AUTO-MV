@@ -183,16 +183,16 @@ app.get('/agendamentos', async (req,res) => {
 
 // Rota de Contrato do Carro
 app.post('/contratoCarro', async (req, res) => {
-  const { dataInicial, terminoAluguel, responsavel, reserva, contrate, tarifaMensal, kmExcendente, franquia } = req.body;
+  const { dataInicio, dataTermino, usuarioResponsavel, codigoReserva, codigoAluguel, tarifaContrato, kmExcendente, franquia } = req.body;
 
   try {
     const contrato = await contratoCarro.create({
-      d_contratoCarro_startDateRental : dataInicial,
-      d_contratoCarro_endDateRental : terminoAluguel,
-      s_contratoCarro_responsible : responsavel,
-      s_contratoCarro_reservationCode : reserva,
-      s_contratoCarro_contractRental : contrate,
-      i_contratoCarro_rateMonthly : tarifaMensal,
+      d_contratoCarro_startDateRental : dataInicio,
+      d_contratoCarro_endDateRental : dataTermino,
+      s_contratoCarro_responsible : usuarioResponsavel,
+      s_contratoCarro_reservationCode : codigoReserva,
+      s_contratoCarro_contractRental : codigoAluguel,
+      i_contratoCarro_rateMonthly : tarifaContrato,
       dec_contratoCarro_restKm : kmExcendente,
       i_contratoCarro_FranchiseKm : franquia
     });
@@ -205,7 +205,7 @@ app.post('/contratoCarro', async (req, res) => {
 
 // Rota de Custos do Carro
 app.post('/custosCarro', async (req, res) => {
-  const { damageLimit, otherDamage, totalLoss, insurancePeriod, endOfInsurance, initalKm } = req.body;
+  const { damageLimit, otherDamage, totalLoss, insurancePeriod, endOfInsurance, initialKm } = req.body;
 
   try {
     const custos = await contratoCarro.create({
@@ -214,7 +214,7 @@ app.post('/custosCarro', async (req, res) => {
       s_contratoCarro_responsible : totalLoss,
       s_contratoCarro_reservationCode : insurancePeriod,
       s_contratoCarro_contractRental : endOfInsurance,
-      i_contratoCarro_rateMonthly : initalKm
+      i_contratoCarro_rateMonthly : initialKm
     });
     res.status(200).send('Custos criado com sucesso!');
   } catch (error) {

@@ -1,3 +1,15 @@
+function openPopup(popupId) {
+    document.getElementById(popupId).style.display = 'flex';
+}
+
+function redirecionar(url) {
+    window.location.href = url;
+}
+function closePopup(popupId) {
+    document.getElementById(popupId).style.display = 'none';
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const contratoForm = document.querySelector('#carPopup form');
     const custoFixoForm = document.querySelector('#custPopup form');
@@ -6,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contratoForm.addEventListener('submit', async function(event) {
         event.preventDefault();
-        console.log("Form submitted");
+        console.log("Form submitted contract");
 
         const dataInicio = document.getElementById("dataInicio").value;
         const dataTermino = document.getElementById("dataTermino").value;
@@ -15,9 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const codigoAluguel = document.getElementById("codigoAluguel").value;
         const tarifaContrato = document.getElementById("tarifaContrato").value;
         const kmExcedente = document.getElementById("kmExcedente").value;
-        const distanciaDia = document.getElementById("distanciaDia").value;
+        const franquia = document.getElementById("distanciaDia").value;
 
-        const formData = { dataInicio, dataTermino, usuarioResponsavel, codigoReserva, codigoAluguel, tarifaContrato, kmExcedente, distanciaDia };
+        const formData = { dataInicio, dataTermino, usuarioResponsavel, codigoReserva, codigoAluguel, tarifaContrato, kmExcedente, franquia };
 
         try {
             const response = await fetch('/contratoCarro', {
@@ -27,18 +39,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(formData)
             });
-            if (!response.ok) {
-                return response.text().then(errorMessage => {
-                    throw new Error(`Erro ao cadastrar contrato de carro: ${errorMessage}`);
-                });
-            }
-            return response.json();
 
-         } catch (error) {
+            if (response.ok) {
+                const formattedDate = formatDateToBrazilian(dataInicio, dataTermino);
+                const reportBody = document.getElementById("reportBody");
+                const newRow = reportBody.insertRow();
+                newRow.insertCell(0).textContent = dataInicio;
+                newRow.insertCell(1).textContent = dataTermino;  
+                newRow.insertCell(2).textContent = usuarioResponsavel;
+                newRow.insertCell(3).textContent = codigoReserva;  
+                newRow.insertCell(4).textContent = codigoAluguel;       
+                newRow.insertCell(5).textContent = tarifaContrato;  
+                newRow.insertCell(6).textContent = kmExcedente; 
+                newRow.insertCell(7).textContent = franquia;  
+                
+
+                window.location.href = '/vamoGerencia';
+
+
+            }else {
+                console.error("Failed to store form contract:", response.statusText);
+            }       
+
+            } catch (error) {
             console.error("Error storing form data:", error);
-        }
+            }
 
-        
+        return response.json();
        
         
         })
@@ -53,15 +80,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    custoFixoForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    custoFixoForm.addEventListener('submit', async  function(event) {
+        event.preventDefault();
+        console.log("Form submitted cost");
 
-        const formData = new FormData(custoFixoForm);
+        const limiteReparos = document.getElementById("damageLimit").value;
+        const danosTerceiros = document.getElementById("otherDamage").value;
+        const perdaTotal = document.getElementById("totalLoss").value;
+        const inicioSeguro = document.getElementById("insurancePeriod").value;
+        const terminoSeguro = document.getElementById("endOfInsurance").value;
+        const kmAluguel = document.getElementById("initialKm").value;
 
-        fetch('/custoFixo', {
-            method: 'POST',
-            body: formData
-        })
+        const formData = { limiteReparos, danosTerceiros, perdaTotal, inicioSeguro, terminoSeguro, kmAluguel};
+
+        try{
+            const response = await fetch(';custoFixo', {
+                method: 'POST',
+                headers: {
+                    'Conte-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+        } catch (error) {
+            console.error("Error storing form data:", error);
+        }
         .then(response => {
             if (!response.ok) {
                 return response.text().then(errorMessage => {
@@ -81,15 +123,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    infoCarForm.addEventListener('submit', (e) => {
-        e.preventDefault();
 
-        const formData = new FormData(infoCarForm);
+    infoCarForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        console.log("Form submitted info");
 
-        fetch('/infoCar', {
-            method: 'POST',
-            body: formData
-        })
+        const modelo = docuement.getElementById("nomeCarro").value;
+        const placa = document.getElementById("placa").value;
+        const ano = document.getElementById("anoFabricacao").value;
+        const capacidade = document.getElementById("capacidadeTanque").value;
+        const consumo = document.getElementById("mediaConsumo").value;
+
+        const formData = { modelo, placa, ano, capacidade, consumo};
+
+        try { 
+            const response = await fetch('/carro', {
+                method: 'POST',
+                headers: {
+                    'Conte-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+           catch (error) {
+            console.error("Error storing form data:", error);
+           } });
+        }
+        
         .then(async response => {
             if (!response.ok) {
                 const errorMessage = await response.text();
@@ -140,18 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(`Falha ao salvar o acesso: ${error.message}`);
         });
     });
-});
-
-function openPopup(popupId) {
-    document.getElementById(popupId).style.display = 'flex';
-}
-
-function redirecionar(url) {
-    window.location.href = url;
-}
-function closePopup(popupId) {
-    document.getElementById(popupId).style.display = 'none';
-}
 
 function contractRegistration() {
     const contractCheckbox = document.getElementById('contract');
