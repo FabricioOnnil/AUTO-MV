@@ -10,19 +10,41 @@
 <body>
     <main>
         <section id="header">
-            <a href="#"><img src="../Imagens/logonew725.png" alt="Logo Vamo"></a></section><br>
-        
-            <h1>Nome do Analizado</h1><br><a href="/frontend/vamoGerencia.html"><button class="backButton">Voltar</button></a><br>
-        <section id="botoes-relatorios">
-            <button onclick="openPopup('distancia')">Distância</button>
-            <button onclick="openPopup('agendamentos')">Agendamentos</button>
-            <button onclick="openPopup('diarioPopup')">Diário</button>
-            <button onclick="openPopup('custos')">Custos de Rota</button>
+            <a href="#"><img src="../Imagens/logonew725.png" alt="Logo Vamo"></a>
         </section><br>
+        
+        <h1>Nome do Analizado</h1><br>
+        <a href="/frontend/vamoGerencia.html"><button class="backButton">Voltar</button></a><br>
+
+        <section id="botoes-relatorios">
+            <button onclick="abrirPopup('distanciaPopup')">Distância</button>
+            <button onclick="abrirPopup('agendamentosPopup')">Agendamentos</button>
+            <button onclick="abrirPopup('diarioPopup')">Diário</button>
+            <button onclick="abrirPopup('custosPopup')">Custos de Rota</button>
+        </section><br>
+
+        <!-- Popups -->
+        <div id="distanciaPopup" class="popup">
+            <div class="popup-content">
+                <span class="close-btn" onclick="fecharPopup('distanciaPopup')">&times;</span>
+                <h1>Distância</h1>
+                <!-- Conteúdo específico da distância -->
+                <p>Informações de distância...</p>
+            </div>
+        </div>
+
+        <div id="agendamentosPopup" class="popup">
+            <div class="popup-content">
+                <span class="close-btn" onclick="fecharPopup('agendamentosPopup')">&times;</span>
+                <h1>Agendamentos</h1>
+                <!-- Conteúdo específico de agendamentos -->
+                <p>Informações de agendamentos...</p>
+            </div>
+        </div>
 
         <div id="diarioPopup" class="popup">
             <div class="popup-content">
-                <span class="close-btn" onclick="closePopup('diarioPopup')">&times;</span>
+                <span class="close-btn" onclick="fecharPopup('diarioPopup')">&times;</span>
                 <h1>Diário</h1>
                 <div id="check" class="checking">
                     <input type="checkbox" name="prioriUm" id="prioriUm"> Crucial
@@ -40,7 +62,15 @@
                 <p id="message"></p>
             </div>
         </div>
-        
+
+        <div id="custosPopup" class="popup">
+            <div class="popup-content">
+                <span class="close-btn" onclick="fecharPopup('custosPopup')">&times;</span>
+                <h1>Custos de Rota</h1>
+                <!-- Conteúdo específico de custos de rota -->
+                <p>Informações de custos de rota...</p>
+            </div>
+        </div>
 
         <footer>
             <a href="https://mvgi.com.br/" target="_blank">
@@ -48,6 +78,7 @@
             </a>
         </footer>
     </main>
+
+    <script src="/script/info.js"></script>
 </body>
-<script src="/script/info.js"></script>
 </html>

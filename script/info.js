@@ -2,11 +2,7 @@ function abrirPopup(popupId) {
     document.getElementById(popupId).style.display = 'flex';
 }
 
-function openPopup(url) {
-    window.open(url, 'popupWindow', 'width=800,height=600, scrollbars=yes');
-}
-
-function closePopup(popupId) {
+function fecharPopup(popupId) {
     document.getElementById(popupId).style.display = 'none';
 }
 
