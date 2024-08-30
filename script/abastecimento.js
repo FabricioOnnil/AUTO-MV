@@ -1,28 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     const purchaseForm = document.getElementById('purchaseForm');
 
-    purchaseForm.addEventListener('submit', (event) => {
+    purchaseForm.addEventListener('submit', async function (event) {
         event.preventDefault();
+        console.log("Form submitted contract");
 
         const descricao = document.getElementById('descricao').value;
+        const carro = document.getElementById('carro').value;
         const valor = document.getElementById('valor').value;
+        const pLitro = document.getElementById('pLitro').value;
         const data = document.getElementById('data').value;
         const imagem = document.getElementById('imagem').files[0];
 
-        if (!descricao || !valor || !data || !imagem) {
+        if (!descricao || !carro || !valor || !pLitro || !data || !imagem) {
             alert("Por favor, preencha todos os campos e selecione uma imagem.");
             return;
         }
 
-        const formData = new FormData();
-        formData.append('descricao', descricao);
-        formData.append('valor', valor);
-        formData.append('data', data);
-        formData.append('imagem', imagem);
+        const Qtda = (valor/pLitro);
 
-        fetch('/registrarAbastecimento', {
+        const formAbast ={ descrição, carro, valor, pLitro, data, imagem, Qtda };
+       
+
+        fetch('/abastecimento', {
             method: 'POST',
-            body: formData
+            body: formAbast
         })
         .then(response => response.json())
         .then(data => console.log(data))

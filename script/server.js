@@ -262,7 +262,26 @@ app.post('/acesso', async (req, res) => {
   }
 });
 
+// Rota de abastecimento
+app.post('/abastecimento', async (req, res) => {
+  const { descrição, carro, valor, pLitro, data, imagem, Qtda } = req.body;
 
+  try {
+      const abastecimento = await abastecimento.create ({
+        s_abastecimento_fuelDescription : descrição,
+        i_abastecimento_idCar : carro,
+        dec_abastecimento_fuelPrice : valor,
+        dec_abastecimento_priceLiter : pLitro,
+        d_abastecimento_fuelDate : data,
+        l_abastecimento_fuelImg : imagem,
+        i_abastecimento_qtdFuel : Qtda
+      });
+      res.status(200).send('Abastecimento criado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao criar abastecimento:', error);
+      res.status(500).send('Erro ao criar abastecimento');
+    }
+});
 
 // ----------------------------------------------R O T A S------------------------------------------------------------//
 
