@@ -27,3 +27,5 @@ document.getElementById('longTextForm').addEventListener('submit', function(even
         message.style.color = 'red';
     }
 });
+
+
