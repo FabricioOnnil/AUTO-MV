@@ -5,10 +5,10 @@ function openPopup(popupId) {
 function redirecionar(url) {
     window.location.href = url;
 }
+
 function closePopup(popupId) {
     document.getElementById(popupId).style.display = 'none';
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     const contratoForm = document.querySelector('#carPopup form');
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const infoCarForm = document.querySelector('#infoPopup form');
     const acessoForm = document.querySelector('#acessoPopup form');
 
-    contratoForm.addEventListener('submit', async function(event) {
+    contratoForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         console.log("Form submitted contract");
 
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/contratoCarro', {
                 method: 'POST',
                 headers: {
-                    'Conte-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
@@ -45,42 +45,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 const reportBody = document.getElementById("reportBody");
                 const newRow = reportBody.insertRow();
                 newRow.insertCell(0).textContent = dataInicio;
-                newRow.insertCell(1).textContent = dataTermino;  
+                newRow.insertCell(1).textContent = dataTermino;
                 newRow.insertCell(2).textContent = usuarioResponsavel;
-                newRow.insertCell(3).textContent = codigoReserva;  
-                newRow.insertCell(4).textContent = codigoAluguel;       
-                newRow.insertCell(5).textContent = tarifaContrato;  
-                newRow.insertCell(6).textContent = kmExcedente; 
-                newRow.insertCell(7).textContent = franquia;  
-                
+                newRow.insertCell(3).textContent = codigoReserva;
+                newRow.insertCell(4).textContent = codigoAluguel;
+                newRow.insertCell(5).textContent = tarifaContrato;
+                newRow.insertCell(6).textContent = kmExcedente;
+                newRow.insertCell(7).textContent = franquia;
 
                 window.location.href = '/vamoGerencia';
 
-
-            }else {
+            } else {
                 console.error("Failed to store form contract:", response.statusText);
-            }       
-
-            } catch (error) {
-            console.error("Error storing form data:", error);
             }
 
-        return response.json();
-       
-        
-        })
-        .then(result => {
+            const result = await response.json();
             alert(result.message);
             contratoForm.reset();
             closePopup('carPopup');
-        })
-        .catch(error => {
-            console.error('Erro:', error);
+
+        } catch (error) {
+            console.error("Error storing form data:", error);
             alert(`Falha ao cadastrar contrato de carro: ${error.message}`);
-        });
+        }
     });
 
-    custoFixoForm.addEventListener('submit', async  function(event) {
+    custoFixoForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         console.log("Form submitted cost");
 
@@ -91,204 +81,156 @@ document.addEventListener('DOMContentLoaded', () => {
         const terminoSeguro = document.getElementById("endOfInsurance").value;
         const kmAluguel = document.getElementById("initialKm").value;
 
-        const formData = { limiteReparos, danosTerceiros, perdaTotal, inicioSeguro, terminoSeguro, kmAluguel};
+        const formData = { limiteReparos, danosTerceiros, perdaTotal, inicioSeguro, terminoSeguro, kmAluguel };
 
-        try{
-            const response = await fetch(';custoFixo', {
+        try {
+            const response = await fetch('/custoFixo', {
                 method: 'POST',
                 headers: {
-                    'Conte-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             });
-        } catch (error) {
-            console.error("Error storing form data:", error);
-        }
-        .then(response => {
+
             if (!response.ok) {
-                return response.text().then(errorMessage => {
-                    throw new Error(`Erro ao cadastrar custo fixo: ${errorMessage}`);
-                });
+                const errorMessage = await response.text();
+                throw new Error(`Erro ao cadastrar custo fixo: ${errorMessage}`);
             }
-            return response.json();
-        })
-        .then(result => {
+
+            const result = await response.json();
             alert(result.message);
             custoFixoForm.reset();
             closePopup('custPopup');
-        })
-        .catch(error => {
-            console.error('Erro:', error);
+
+        } catch (error) {
+            console.error("Erro:", error);
             alert(`Falha ao cadastrar custo fixo: ${error.message}`);
-        });
+        }
     });
 
-
-    infoCarForm.addEventListener('submit', async function(event) {
+    infoCarForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         console.log("Form submitted info");
 
-        const modelo = docuement.getElementById("nomeCarro").value;
+        const modelo = document.getElementById("nomeCarro").value;
         const placa = document.getElementById("placa").value;
         const ano = document.getElementById("anoFabricacao").value;
         const capacidade = document.getElementById("capacidadeTanque").value;
         const consumo = document.getElementById("mediaConsumo").value;
 
-        const formData = { modelo, placa, ano, capacidade, consumo};
+        const formData = { modelo, placa, ano, capacidade, consumo };
 
-        try { 
+        try {
             const response = await fetch('/carro', {
                 method: 'POST',
                 headers: {
-                    'Conte-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData),
-           catch (error) {
-            console.error("Error storing form data:", error);
-           } });
-        }
-        
-        .then(async response => {
+                body: JSON.stringify(formData)
+            });
+
             if (!response.ok) {
                 const errorMessage = await response.text();
                 throw new Error(`Erro ao cadastrar informações de carro: ${errorMessage}`);
             }
-            return response.json();
-        })
-        .then(result => {
+
+            const result = await response.json();
             alert(result.message);
             infoCarForm.reset();
             closePopup('infoPopup');
-        })
-        .catch(error => {
-            console.error('Erro:', error);
+
+        } catch (error) {
+            console.error("Erro:", error);
             alert(`Falha ao cadastrar informações de carro: ${error.message}`);
-        });
+        }
     });
 
-    acessoForm.addEventListener('submit', (e) => {
+    acessoForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const formData = new FormData(acessoForm);
 
-        fetch('/login', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                body: formData
+            });
+
             const contentType = response.headers.get('content-type');
             if (!response.ok) {
                 if (contentType && contentType.indexOf('application/json') !== -1) {
-                    return response.json().then(errorData => {
-                        throw new Error(errorData.message || 'Erro ao salvar o acesso');
-                    });
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Erro ao salvar o acesso');
                 } else {
                     throw new Error('Erro inesperado ao salvar o acesso');
                 }
             }
-            return response.json();
-        })
-        .then(result => {
+
+            const result = await response.json();
             alert(result.message);
             acessoForm.reset();
             closePopup('acessoPopup');
-        })
-        .catch(error => {
+
+        } catch (error) {
             console.error('Erro:', error);
             alert(`Falha ao salvar o acesso: ${error.message}`);
-        });
-    });
-
-function contractRegistration() {
-    const contractCheckbox = document.getElementById('contract');
-    const contractSections = document.querySelectorAll('.contract-registration');
-    contractSections.forEach(section => {
-        section.style.display = contractCheckbox.checked ? 'block' : 'none';
-    });
-}
-
-function fixedCost() {
-    const costCheckbox = document.getElementById('cost');
-    const fixedCostSections = document.querySelectorAll('.fixed-cost');
-    fixedCostSections.forEach(section => {
-        section.style.display = costCheckbox.checked ? 'block' : 'none';
-    });
-}
-
-function registerCar() {
-    const carCheckbox = document.getElementById('car');
-    const registerCarSections = document.querySelectorAll('.registerCar');
-    registerCarSections.forEach(section => {
-        section.style.display = carCheckbox.checked ? 'block' : 'none';
-    });
-}
-
-// Dados de exemplo para preencher a tabela de valores globais
-const globalValues = [
-    { period: 'Total', days: 0, km: 10000, fuelCost: 5000, fuelAcquired: 2000, fuelUsed: 1800, repairCost: 2000, foodCost: 1000, hoursScheduled: 500, hoursNotScheduled: 300 },
-    { period: 'Ano', days: 365, km: 2000, fuelCost: 1000, fuelAcquired: 400, fuelUsed: 360, repairCost: 400, foodCost: 200, hoursScheduled: 100, hoursNotScheduled: 60 },
-    { period: 'Mês', days: 30, km: 500, fuelCost: 250, fuelAcquired: 100, fuelUsed: 90, repairCost: 100, foodCost: 50, hoursScheduled: 25, hoursNotScheduled: 15 },
-    { period: '15 dias', days: 15, km: 200, fuelCost: 100, fuelAcquired: 40, fuelUsed: 36, repairCost: 40, foodCost: 20, hoursScheduled: 10, hoursNotScheduled: 6 },
-];
-
-function filterValues() {
-    const filter = document.getElementById('filter').value;
-    const tableBody = document.getElementById('globalValuesTable');
-    tableBody.innerHTML = '';  // Limpa a tabela
-
-    if (filter === 'global') {
-        globalValues.forEach(value => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${value.period}</td>
-                <td>${value.km}</td>
-                <td>${value.fuelCost}</td>
-                <td>${value.fuelAcquired}</td>
-                <td>${value.fuelUsed}</td>
-                <td>${value.repairCost}</td>
-                <td>${value.foodCost}</td>
-                <td>${value.hoursScheduled}</td>
-                <td>${value.hoursNotScheduled}</td>
-            `;
-            tableBody.appendChild(row);
-        });
-    } else if (filter === 'media') {
-        globalValues.forEach(value => {
-            if (value.period !== 'all' && value.period !== 'global') {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${value.period}</td>
-                    <td>${(value.km / value.days).toFixed(2)}</td>
-                    <td>${(value.fuelCost / value.days).toFixed(2)}</td>
-                    <td>${(value.fuelAcquired / value.days).toFixed(2)}</td>
-                    <td>${(value.fuelUsed / value.days).toFixed(2)}</td>
-                    <td>${(value.repairCost / value.days).toFixed(2)}</td>
-                    <td>${(value.foodCost / value.days).toFixed(2)}</td>
-                    <td>${(value.hoursScheduled / value.days).toFixed(2)}</td>
-                    <td>${(value.hoursNotScheduled / value.days).toFixed(2)}</td>
-                `;
-                tableBody.appendChild(row);
-            }
-        });
-    } else {
-        const filteredValue = globalValues.find(value => value.period === filter);
-        if (filteredValue) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${filteredValue.period}</td>
-                <td>${filteredValue.km}</td>
-                <td>${filteredValue.fuelCost}</td>
-                <td>${filteredValue.fuelAcquired}</td>
-                <td>${filteredValue.fuelUsed}</td>
-                <td>${filteredValue.repairCost}</td>
-                <td>${filteredValue.foodCost}</td>
-                <td>${filteredValue.hoursScheduled}</td>
-                <td>${filteredValue.hoursNotScheduled}</td>
-            `;
-            tableBody.appendChild(row);
         }
-    }
-}
+    });
 
-// Inicializa a tabela com todos os dados
-filterValues();
+    function contractRegistration() {
+        const contractCheckbox = document.getElementById('contract');
+        const contractSections = document.querySelectorAll('.contract-registration');
+        contractSections.forEach(section => {
+            section.style.display = contractCheckbox.checked ? 'block' : 'none';
+        });
+    }
+
+    function fixedCost() {
+        const costCheckbox = document.getElementById('cost');
+        const fixedCostSections = document.querySelectorAll('.fixed-cost');
+        fixedCostSections.forEach(section => {
+            section.style.display = costCheckbox.checked ? 'block' : 'none';
+        });
+    }
+
+    function registerCar() {
+        const carCheckbox = document.getElementById('car');
+        const registerCarSections = document.querySelectorAll('.registerCar');
+        registerCarSections.forEach(section => {
+            section.style.display = carCheckbox.checked ? 'block' : 'none';
+        });
+    }
+
+    // Dados de exemplo para preencher a tabela de valores globais
+    const globalValues = [
+        { period: 'Total', days: 0, km: 10000, fuelCost: 5000, fuelAcquired: 2000, fuelUsed: 1800, repairCost: 2000, foodCost: 1000, hoursScheduled: 500, hoursNotScheduled: 300 },
+        { period: 'Ano', days: 365, km: 2000, fuelCost: 1000, fuelAcquired: 400, fuelUsed: 360, repairCost: 400, foodCost: 200, hoursScheduled: 100, hoursNotScheduled: 60 },
+        { period: 'Mês', days: 30, km: 500, fuelCost: 250, fuelAcquired: 100, fuelUsed: 90, repairCost: 100, foodCost: 50, hoursScheduled: 25, hoursNotScheduled: 15 },
+        { period: '15 dias', days: 15, km: 200, fuelCost: 100, fuelAcquired: 40, fuelUsed: 36, repairCost: 40, foodCost: 20, hoursScheduled: 10, hoursNotScheduled: 6 },
+    ];
+
+    function filterValues() {
+        const filter = document.getElementById("filter").value;
+        const filteredValues = globalValues.filter(value => value.period === filter);
+        populateTable(filteredValues);
+    }
+
+    function populateTable(values) {
+        const tableBody = document.getElementById("globalValuesBody");
+        tableBody.innerHTML = "";
+        values.forEach(value => {
+            const row = tableBody.insertRow();
+            row.insertCell(0).textContent = value.period;
+            row.insertCell(1).textContent = value.days;
+            row.insertCell(2).textContent = value.km;
+            row.insertCell(3).textContent = value.fuelCost;
+            row.insertCell(4).textContent = value.fuelAcquired;
+            row.insertCell(5).textContent = value.fuelUsed;
+            row.insertCell(6).textContent = value.repairCost;
+            row.insertCell(7).textContent = value.foodCost;
+            row.insertCell(8).textContent = value.hoursScheduled;
+            row.insertCell(9).textContent = value.hoursNotScheduled;
+        });
+    }
+    populateTable(globalValues);
+});
