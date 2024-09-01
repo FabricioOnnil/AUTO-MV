@@ -2,12 +2,12 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import path, { join } from 'path';
-import session from 'express-session'; // Adicionar o middleware de sessão
+import session from 'express-session'; 
 import db from '../models/db.js';
-import sequelize from '../models/db.js';
 import multer from 'multer';
 
-import abastecimento from '../models/abastecimentoData.js';
+// Importação de modelos
+import abastecimentoModelo from '../models/abastecimentoData.js';
 import agenda from '../models/agendaData.js';
 import agendamento from '../models/agendamentoData.js';
 import carroAbastecimento from '../models/carroAbastecimentoData.js';
@@ -21,6 +21,7 @@ import usuario from '../models/usuarioData.js';
 import usuarioVisita from '../models/usuarioVisitaData.js';
 import entrega from '../models/entregaData.js';
 
+// Importações de Rotas
 import userRouter from '../routes/acessoRoutes.js';
 import agendamentoRouter from '../routes/agendamentoRoutes.js';
 import agendaRouter from '../routes/agendaRoutes.js';
@@ -43,7 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Configuração de sessão
 app.use(session({
-  secret: 'seu_segredo_aqui',
+  secret: 'segredo',
   resave: false,
   saveUninitialized: false,
   cookie: { secure: false } // Defina 'secure' para true em produção com HTTPS
@@ -267,7 +268,7 @@ app.post('/acesso', async (req, res) => {
 const storage= multer.diskStorage({
 
   destination: function (req, file, cb) {
-    cb(null, patch.join(__dirname, '../uploads'));
+    cb(null, path.join(__dirname, '/uploads'));
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 159);
@@ -279,18 +280,21 @@ const upload = multer({ storage: storage});
 
 app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 
+  const userId = req.body.userId;
   const { descrição, carro, valor, pLitro, data, Qtda } = req.body;
-  const imagem = req.file ? req.file.patch : null; 
+  const imagem = req.file ? req.file.path : null; 
+  const userabast = userId;
 
   try {
-      const abastecimento = await abastecimento.create ({
+      const abastecimento = await abastecimentoModelo.create ({
         s_abastecimento_fuelDescription : descrição,
         i_abastecimento_idCar : carro,
         dec_abastecimento_fuelPrice : valor,
         dec_abastecimento_priceLiter : pLitro,
         d_abastecimento_fuelDate : data,
         l_abastecimento_fuelImg : imagem,
-        i_abastecimento_qtdFuel : Qtda
+        i_abastecimento_qtdFuel : Qtda,
+        i_abastecimento_usuario_key : userabast
       });
       res.status(200).send('Abastecimento criado com sucesso!');
     } catch (error) {

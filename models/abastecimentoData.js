@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import db from './db.js';
 
-const abastecimento = db.sequelize.define('abastecimento', {
+const abastecimentoModelo = db.sequelize.define('abastecimento', {
     // Identificador da linha da tabela de abastecimento. 1
     i_abastecimento_idFuel: {
         type: DataTypes.INTEGER,
@@ -71,26 +71,10 @@ const abastecimento = db.sequelize.define('abastecimento', {
         allowNull: true,
     },
 
-    //Chave estrangeira entre o carro e o abastecimento. 12
-    i_abastecimento_carroAbastecimentoKey: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
     },
-
-    //Chave estrangeira entre o agendamento e abastecimento. 13
-    i_abastecimento_agendamentoKey: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-
-    //Chave estrangeira entre visita do usuario e o abastecimento. 14
-    i_abastecimento_usuarioVisitKey: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },},
     {
        tableName: 'abastecimento',
        timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically
 });
 
-export default abastecimento;
+export default abastecimentoModelo;
