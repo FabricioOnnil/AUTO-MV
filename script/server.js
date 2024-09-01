@@ -5,7 +5,7 @@ import path, { join } from 'path';
 import session from 'express-session'; // Adicionar o middleware de sessão
 import db from '../models/db.js';
 import sequelize from '../models/db.js';
-//import { isAuthenticated } from '../middlewares/authMiddleware.js';
+import multer from 'multer';
 
 import abastecimento from '../models/abastecimentoData.js';
 import agenda from '../models/agendaData.js';
@@ -262,9 +262,25 @@ app.post('/acesso', async (req, res) => {
   }
 });
 
+
 // Rota de abastecimento
-app.post('/abastecimento', async (req, res) => {
-  const { descrição, carro, valor, pLitro, data, imagem, Qtda } = req.body;
+const storage= multer.diskStorage({
+
+  destination: function (req, file, cb) {
+    cb(null, patch.join(__dirname, '../uploads'));
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 159);
+    cb(null, uniqueSuffix + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage});
+
+app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
+
+  const { descrição, carro, valor, pLitro, data, Qtda } = req.body;
+  const imagem = req.file ? req.file.patch : null; 
 
   try {
       const abastecimento = await abastecimento.create ({
