@@ -5,6 +5,7 @@ import path, { join } from 'path';
 import session from 'express-session'; 
 import db from '../models/db.js';
 import multer from 'multer';
+import fs from 'fs';
 
 // Importação de modelos
 import abastecimentoModelo from '../models/abastecimentoData.js';
@@ -86,6 +87,11 @@ app.use((req, res, next) => {
 // Configuração do diretório de views
 app.set('views', join(__dirname, '..', 'views'));
 
+
+
+// --------------------------------------------------------------------Area de Rotas----------------------------------------------------------------------------
+
+
 // Rotas para cada tabela
 app.use('/API/login', userRouter);
 app.use('/API/contratoCarro', carContract);
@@ -96,29 +102,92 @@ app.use('/API/fuelStation', abstRouter);
 app.use('/API/agendamento', agendamentoRouter);
 app.use('/API/entrega', entregaRouter);
 
-// Rota de login
-app.post('/login', async (req, res) => {
-  const { name, password } = req.body;
+// Rota de abastecimento
+const storage= multer.diskStorage({
+
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '/uploads'));
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 160);
+    cb(null, uniqueSuffix + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage});
+
+app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
+
+  const userId = req.body.userId;
+  const { descricao, carro, valor, pLitro, data } = req.body;
+  
+
+  // Calculando a quantidade
+  const Qtda = (valor / pLitro);
 
   try {
-    const user = await usuario.findOne({
-      where: {
-        s_usuario_name: name,
-        s_usuario_password: password
-      }
-    });
-    console.log('Resultado da consulta:', user);
-    
-    if (user) {
-      req.session.userId = user.i_usuario_user; 
-      res.status(200).json('Login bem-sucedido');
-    } else {
-      res.status(401).json('Credenciais inválidas');
+
+      const imageBuffer = req.file ? fs.readFileSync(req.file.path) : null;
+
+      const abastecimento = await abastecimentoModelo.create ({
+        s_abastecimento_fuelDescription : descricao,
+        i_abastecimento_idCar : carro,
+        dec_abastecimento_fuelPrice : valor,
+        dec_abastecimento_priceLiter : pLitro,
+        d_abastecimento_fuelDate : new Date(data),
+        l_abastecimento_fuelImg : imageBuffer,
+        i_abastecimento_qtdFuel : Qtda,
+        i_abastecimento_usuario_key : userId
+      });
+      res.status(200).send('Abastecimento criado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao criar abastecimento:', error);
+      res.status(500).send('Erro ao criar abastecimento');
     }
-  } catch (error) {
-    console.error('Erro ao consultar o banco de dados:', error);
-    res.status(500).json('Erro interno do servidor');
+});
+
+// Rota de alimentação
+const storage2= multer.diskStorage({
+
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '/uploads'));
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 160);
+    cb(null, uniqueSuffix + '-' + file.originalname);
   }
+});
+
+const upload = multer({ storage: storage2});
+
+app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
+
+  const userId = req.body.userId;
+  const { descricao, carro, valor, pLitro, data } = req.body;
+  
+
+  // Calculando a quantidade
+  const Qtda = (valor / pLitro);
+
+  try {
+
+      const imageBuffer = req.file ? fs.readFileSync(req.file.path) : null;
+
+      const abastecimento = await abastecimentoModelo.create ({
+        s_abastecimento_fuelDescription : descricao,
+        i_abastecimento_idCar : carro,
+        dec_abastecimento_fuelPrice : valor,
+        dec_abastecimento_priceLiter : pLitro,
+        d_abastecimento_fuelDate : new Date(data),
+        l_abastecimento_fuelImg : imageBuffer,
+        i_abastecimento_qtdFuel : Qtda,
+        i_abastecimento_usuario_key : userId
+      });
+      res.status(200).send('Abastecimento criado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao criar abastecimento:', error);
+      res.status(500).send('Erro ao criar abastecimento');
+    }
 });
 
 // Rota de agenda
@@ -182,6 +251,43 @@ app.get('/agendamentos', async (req,res) => {
   }
 });
 
+// Rota de cadastro de Acesso
+app.post('/acesso', async (req, res) => {
+  const { nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao } = req.body;
+
+  try {
+    const acesso = await acesso.create({
+      s_usuario_name : nome,
+      s_usuario_secondName : sobrenome,
+      s_usuario_password : senha,
+      i_usuario_licenseDriving : numeroHabilitacao,
+      s_usuario_secrtorShipping : orgaoExpedidor,
+      dt_usuario_dateExpiration : validadeHabilitacao
+    });
+    res.status(200).send('Acesso criado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar acesso:', error);
+    res.status(500).send('Erro ao criar acesso');
+  }
+});
+
+// Rota de Comida
+app.post('/comida', async (req, res) => {
+  const { nome, descricao, preco } = req.body;
+
+  try {
+    const comida = await comida.create({
+      s_comida_nome: nome,
+      s_comida_descricao: descricao,
+      i_comida_preco: preco
+    });
+    res.status(200).send('Comida criada com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar comida:', error);
+    res.status(500).send('Erro ao criar comida');
+  }
+});
+
 // Rota de Contrato do Carro
 app.post('/contratoCarro', async (req, res) => {
   const { dataInicio, dataTermino, usuarioResponsavel, codigoReserva, codigoAluguel, tarifaContrato, kmExcendente, franquia } = req.body;
@@ -224,6 +330,25 @@ app.post('/custosCarro', async (req, res) => {
   }
 });
 
+// Rota de Diário
+app.post('/diario', async (req, res) => {
+  const { texto, checkbox1, checkbox2, checkbox3 } = req.body;
+
+  try {
+    const diario = await diario.create({
+      s_diario_texto : texto,
+      b_diario_checkbox1 : checkbox1,
+      b_diario_checkbox2 : checkbox2,
+      b_diario_checkbox3 : checkbox3
+    });
+    res.status(200).send('Diário criado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar diário:', error);
+    res.status(500).send('Erro ao criar diário');
+  }
+});
+
+
 // Rota de Informações do Carro
 app.post('/carro', async (req, res) => {
   const { nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo } = req.body;
@@ -243,65 +368,68 @@ app.post('/carro', async (req, res) => {
   }
 });
 
-// Rota de cadastro de Acesso
-app.post('/acesso', async (req, res) => {
-  const { nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao } = req.body;
+
+// Rota de login
+app.post('/login', async (req, res) => {
+  const { name, password } = req.body;
 
   try {
-    const acesso = await acesso.create({
-      s_usuario_name : nome,
-      s_usuario_secondName : sobrenome,
-      s_usuario_password : senha,
-      i_usuario_licenseDriving : numeroHabilitacao,
-      s_usuario_secrtorShipping : orgaoExpedidor,
-      dt_usuario_dateExpiration : validadeHabilitacao
+    const user = await usuario.findOne({
+      where: {
+        s_usuario_name: name,
+        s_usuario_password: password
+      }
     });
-    res.status(200).send('Acesso criado com sucesso!');
+    console.log('Resultado da consulta:', user);
+    
+    if (user) {
+      req.session.userId = user.i_usuario_user; 
+      res.status(200).json('Login bem-sucedido');
+    } else {
+      res.status(401).json('Credenciais inválidas');
+    }
   } catch (error) {
-    console.error('Erro ao criar acesso:', error);
-    res.status(500).send('Erro ao criar acesso');
+    console.error('Erro ao consultar o banco de dados:', error);
+    res.status(500).json('Erro interno do servidor');
   }
 });
 
-
-// Rota de abastecimento
-const storage= multer.diskStorage({
-
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '/uploads'));
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 159);
-    cb(null, uniqueSuffix + '-' + file.originalname);
-  }
-});
-
-const upload = multer({ storage: storage});
-
-app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
-
-  const userId = req.body.userId;
-  const { descrição, carro, valor, pLitro, data, Qtda } = req.body;
-  const imagem = req.file ? req.file.path : null; 
-  const userabast = userId;
+// Rota de Reparos
+app.post('/reparo', async (req, res) => {
+  const { carro, data, descricao } = req.body;
 
   try {
-      const abastecimento = await abastecimentoModelo.create ({
-        s_abastecimento_fuelDescription : descrição,
-        i_abastecimento_idCar : carro,
-        dec_abastecimento_fuelPrice : valor,
-        dec_abastecimento_priceLiter : pLitro,
-        d_abastecimento_fuelDate : data,
-        l_abastecimento_fuelImg : imagem,
-        i_abastecimento_qtdFuel : Qtda,
-        i_abastecimento_usuario_key : userabast
-      });
-      res.status(200).send('Abastecimento criado com sucesso!');
-    } catch (error) {
-      console.error('Erro ao criar abastecimento:', error);
-      res.status(500).send('Erro ao criar abastecimento');
-    }
+    const reparo = await reparo.create({
+      s_reparo_carro : carro,
+      d_reparo_data : data,
+      s_reparo_descricao : descricao
+    });
+    res.status(200).send('Reparo criado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar reparo:', error);
+    res.status(500).send('Erro ao criar reparo');
+  }
 });
+
+
+// Rota de Usuário Visita
+app.post('/usuarioVisita', async (req, res) => {
+  const { usuario, data, descricao } = req.body;
+
+  try {
+    const usuarioVisita = await usuarioVisita.create({
+      s_usuarioVisita_usuario : usuario,
+      d_usuarioVisita_data : data,
+      s_usuarioVisita_descricao : descricao
+    });
+    res.status(200).send('Usuário Visita criada com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar Usuário Visita:', error);
+    res.status(500).send('Erro ao criar Usuário Visita');
+  }
+});
+
+
 
 // ----------------------------------------------R O T A S------------------------------------------------------------//
 

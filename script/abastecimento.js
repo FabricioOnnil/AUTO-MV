@@ -18,9 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Calculando a quantidade
-        const Qtda = (valor / pLitro);
-
         // Criando um FormData para enviar arquivos
         const formData = new FormData();
         formData.append('descricao', descricao);
@@ -29,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('pLitro', pLitro);
         formData.append('data', data);
         formData.append('imagem', imagem);
-        formData.append('Qtda', Qtda);
+        //formData.append('Qtda', Qtda);
 
         // Enviando o formulário usando fetch
         try {
@@ -42,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 console.log("Resposta do servidor:", data);
                 alert("Abastecimento registrado com sucesso!");
+
                 purchaseForm.reset();  // Limpar o formulário após o sucesso
             } else {
                 throw new Error('Erro ao registrar o abastecimento.');
