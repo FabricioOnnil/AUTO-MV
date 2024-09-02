@@ -103,7 +103,7 @@ app.use('/API/agendamento', agendamentoRouter);
 app.use('/API/entrega', entregaRouter);
 
 // Rota de abastecimento
-const storage= multer.diskStorage({
+const storageab= multer.diskStorage({
 
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, '/uploads'));
@@ -114,7 +114,7 @@ const storage= multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage});
+const upload = multer({ storage: storageab});
 
 app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 
@@ -147,7 +147,7 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 });
 
 // Rota de alimentação
-const storage2= multer.diskStorage({
+const storageal= multer.diskStorage({
 
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, '/uploads'));
@@ -158,9 +158,9 @@ const storage2= multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage2});
+const uploadd = multer({ storage: storageal});
 
-app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
+app.post('/comida', uploadd.single('imagem'), async (req, res) => {
 
   const userId = req.body.userId;
   const { descricao, carro, valor, pLitro, data } = req.body;
