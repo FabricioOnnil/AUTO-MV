@@ -383,7 +383,7 @@ app.post('/reparo', upload.single('imagem'), async (req, res) => {
   const userId = req.body.userId;
 
   try {
-    const reparo = await reparo.create({
+    const newreparo = await reparo.create({
       s_reparo_carro : carro,
       d_reparo_data : data,
       s_reparo_descricao : descricao

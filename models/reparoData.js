@@ -11,7 +11,7 @@ const reparo = db.sequelize.define('reparo', {
     },
     
     //Descrição do reparo. 
-    s_reparo_description: {
+    s_reparo_descriptionRepair: {
         type: DataTypes.STRING, 
         allowNull: true    
     },
@@ -56,7 +56,6 @@ const reparo = db.sequelize.define('reparo', {
     i_usuarioReparo_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        primaryKey: true,
     },
 
     i_agendamento_agendado_id: {
