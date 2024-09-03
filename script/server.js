@@ -121,9 +121,14 @@ app.use('/API/entrega', entregaRouter);
 
 app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 
-  const userId = req.body.userId;
   const { descricao, carro, valor, pLitro, data } = req.body;
   
+  if(!req.session || !req.session.userId) {
+    console.error("Usuário não autenticado ou sessão não inicializada");
+    return res.status(401).send('Usuário não autenticado.');
+  }  
+  const userId = req.body.userId;
+
   const Qtda = (valor / pLitro);
 
   try {
@@ -151,9 +156,14 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 
 app.post('/comida', upload.single('imagem'), async (req, res) => {
 
-  const userId = req.body.userId;
-  const {descricao, valor, data } = req.body;
   
+  const {descricao, valor, data } = req.body;
+
+  if(!req.session || !req.session.userId) {
+    console.error("Usuário não autenticado ou sessão não inicializada");
+    return res.status(401).send('Usuário não autenticado.');
+  }  
+  const userId = req.body.userId;
 
   try {
 
@@ -361,8 +371,16 @@ app.post('/login', async (req, res) => {
 });
 
 // Rota de Reparos
-app.post('/reparo', async (req, res) => {
+app.post('/reparo', upload.single('imagem'), async (req, res) => {
+  
   const { carro, data, descricao } = req.body;
+
+  if(!req.session || !req.session.userId) {
+    console.error("Usuário não autenticado ou sessão não inicializada");
+    return res.status(401).send('Usuário não autenticado.');
+  }
+
+  const userId = req.body.userId;
 
   try {
     const reparo = await reparo.create({
