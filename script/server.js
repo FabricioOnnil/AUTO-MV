@@ -5,7 +5,7 @@ import path, { join } from 'path';
 import session from 'express-session'; 
 import db from '../models/db.js';
 import multer from 'multer';
-import fs from 'fs';
+import fs from 'fs/promises';
 
 // Importação de modelos
 import abastecimentoModelo from '../models/abastecimentoData.js';
@@ -62,7 +62,7 @@ const __dirname = path.dirname(__filename);
   try {
     await db.sequelize.authenticate();
     console.log("Conectado com sucesso ao banco de dados!");
-    await sequelize.sync();
+    await db.sequelize.sync();
     console.log("Modelos sincronizados com sucesso!");
   } catch (error) {
     console.error("Falha ao se conectar ao banco de dados ou sincronizar modelos:", error);
@@ -87,6 +87,20 @@ app.use((req, res, next) => {
 // Configuração do diretório de views
 app.set('views', join(__dirname, '..', 'views'));
 
+// configuração de multer ----------------------------------------
+
+const storage= multer.diskStorage({
+
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '/uploads'));
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 160);
+    cb(null, uniqueSuffix + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage});
 
 
 // --------------------------------------------------------------------Area de Rotas----------------------------------------------------------------------------
@@ -103,26 +117,13 @@ app.use('/API/agendamento', agendamentoRouter);
 app.use('/API/entrega', entregaRouter);
 
 // Rota de abastecimento
-const storageab= multer.diskStorage({
 
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '/uploads'));
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 160);
-    cb(null, uniqueSuffix + '-' + file.originalname);
-  }
-});
-
-const upload = multer({ storage: storageab});
 
 app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 
   const userId = req.body.userId;
   const { descricao, carro, valor, pLitro, data } = req.body;
   
-
-  // Calculando a quantidade
   const Qtda = (valor / pLitro);
 
   try {
@@ -147,46 +148,28 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 });
 
 // Rota de alimentação
-const storageal= multer.diskStorage({
 
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '/uploads'));
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 160);
-    cb(null, uniqueSuffix + '-' + file.originalname);
-  }
-});
-
-const uploadd = multer({ storage: storageal});
-
-app.post('/comida', uploadd.single('imagem'), async (req, res) => {
+app.post('/comida', upload.single('imagem'), async (req, res) => {
 
   const userId = req.body.userId;
-  const { descricao, carro, valor, pLitro, data } = req.body;
+  const {descricao, valor, data } = req.body;
   
-
-  // Calculando a quantidade
-  const Qtda = (valor / pLitro);
 
   try {
 
-      const imageBuffer = req.file ? fs.readFileSync(req.file.path) : null;
+      const imageBuffer = req.file ? await fs.readFileSync(req.file.path) : null;
 
-      const abastecimento = await abastecimentoModelo.create ({
-        s_abastecimento_fuelDescription : descricao,
-        i_abastecimento_idCar : carro,
-        dec_abastecimento_fuelPrice : valor,
-        dec_abastecimento_priceLiter : pLitro,
-        d_abastecimento_fuelDate : new Date(data),
-        l_abastecimento_fuelImg : imageBuffer,
-        i_abastecimento_qtdFuel : Qtda,
-        i_abastecimento_usuario_key : userId
+      const comida = await comida.create ({
+        s_comida_descriptionFood : descricao,
+        s_comida_valueFood : valor,
+        d_comida_dateFood : new Date(data),
+        l_comida_imgFood : imageBuffer,
+        i_comida_usuario_key : userId
       });
-      res.status(200).send('Abastecimento criado com sucesso!');
+      res.status(200).send('Cadastro de Alimentação criado com sucesso!');
     } catch (error) {
-      console.error('Erro ao criar abastecimento:', error);
-      res.status(500).send('Erro ao criar abastecimento');
+      console.error('Erro ao criar cadastro de Alimentação:', error);
+      res.status(500).send('Erro ao criar cadastro de Alimentação');
     }
 });
 
@@ -268,23 +251,6 @@ app.post('/acesso', async (req, res) => {
   } catch (error) {
     console.error('Erro ao criar acesso:', error);
     res.status(500).send('Erro ao criar acesso');
-  }
-});
-
-// Rota de Comida
-app.post('/comida', async (req, res) => {
-  const { nome, descricao, preco } = req.body;
-
-  try {
-    const comida = await comida.create({
-      s_comida_nome: nome,
-      s_comida_descricao: descricao,
-      i_comida_preco: preco
-    });
-    res.status(200).send('Comida criada com sucesso!');
-  } catch (error) {
-    console.error('Erro ao criar comida:', error);
-    res.status(500).send('Erro ao criar comida');
   }
 });
 

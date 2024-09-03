@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const descricao = document.getElementById('descricao').value;
         const valor = document.getElementById('valor').value;
         const data = document.getElementById('data').value;
-        const imagemAli = document.getElementById('imagem').files[0];
+        const imagem = document.getElementById('imagem').files[0];
 
-        if (!descricao || !valor || !data || !imagemAli) {
+        if (!descricao || !valor || !data || !imagem) {
             alert("Por favor, preencha todos os campos e selecione uma imagem.");
             return;
         }
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('descricao', descricao);
         formData.append('valor', valor);
         formData.append('data', data);
-        formData.append('imagem', imagemAli);
+        formData.append('imagem', imagem);
 
 
         try {
