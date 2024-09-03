@@ -17,7 +17,7 @@ const comida = db.sequelize.define('comida', {
   },
 
   //Valor da refeição. 
-  s_comida_valueFood: {
+  dec_comida_valueFood: {
     type: DataTypes.DECIMAL(9, 2),
     allowNull: true,
   },
@@ -35,14 +35,14 @@ const comida = db.sequelize.define('comida', {
   },
 
   //Data da criação da linha. 
-  d_comida_createdAt: {
+  d_comida_createdAt : {
     type: DataTypes.DATE,
     allowNull: true,
     defaultValue: DataTypes.NOW,
   },
 
   //Data da atualização da linha. 
-  d_comida_updatedAt: {
+  d_comida_updateAt: {
     type: DataTypes.DATE,
     allowNull: true,
     defaultValue: DataTypes.NOW,

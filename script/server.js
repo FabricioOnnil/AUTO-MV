@@ -128,7 +128,7 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 
   try {
 
-      const imageBuffer = req.file ? fs.readFileSync(req.file.path) : null;
+      const imageBuffer = req.file ? await fs.readFile(req.file.path) : null;
 
       const abastecimento = await abastecimentoModelo.create ({
         s_abastecimento_fuelDescription : descricao,
@@ -159,9 +159,9 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
 
       const imageBuffer = req.file ? await fs.readFile(req.file.path) : null;
 
-      const comida = await comida.create ({
+      const newComida = await comida.create ({
         s_comida_descriptionFood : descricao,
-        s_comida_valueFood : valor,
+        dec_comida_valueFood : valor,
         d_comida_dateFood : new Date(data),
         l_comida_imgFood : imageBuffer,
         i_comida_usuario_key : userId
