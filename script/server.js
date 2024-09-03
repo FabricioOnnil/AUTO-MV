@@ -157,7 +157,7 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
 
   try {
 
-      const imageBuffer = req.file ? await fs.readFileSync(req.file.path) : null;
+      const imageBuffer = req.file ? await fs.readFile(req.file.path) : null;
 
       const comida = await comida.create ({
         s_comida_descriptionFood : descricao,
