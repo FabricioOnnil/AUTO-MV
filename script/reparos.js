@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response.ok) {
             const data = await response.json();
             console.log("Resposta do servidor:", data);
-            alert("Abastecimento registrado com sucesso!");
+            alert("Reparo registrado com sucesso!");
 
             purchaseForm.reset();
         } else {

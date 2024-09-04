@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const purchaseForm = document.getElementById('purchaseForm');
 
     purchaseForm.addEventListener('submit', async function (event) {
-        event.preventDefault();  // Prevenir o envio padrão do formulário
+        event.preventDefault(); 
         console.log("Formulário submetido");
 
         const descricao = document.getElementById('descricao').value;
@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = document.getElementById('data').value;
         const imagem = document.getElementById('imagem').files[0];
 
-        // Verificar se todos os campos estão preenchidos
+        
         if (!descricao || !carro || !valor || !pLitro || !data || !imagem) {
             alert("Por favor, preencha todos os campos e selecione uma imagem.");
             return;
         }
 
-        // Criando um FormData para enviar arquivos
+     
         const formData = new FormData();
         formData.append('descricao', descricao);
         formData.append('carro', carro);
@@ -26,9 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('pLitro', pLitro);
         formData.append('data', data);
         formData.append('imagem', imagem);
-        //formData.append('Qtda', Qtda);
-
-        // Enviando o formulário usando fetch
+        
         try {
             const response = await fetch('/abastecimento', {
                 method: 'POST',
@@ -40,9 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("Resposta do servidor:", data);
                 alert("Abastecimento registrado com sucesso!");
 
-                purchaseForm.reset();  // Limpar o formulário após o sucesso
-            } else {
-                throw new Error('Erro ao registrar o abastecimento.');
+                purchaseForm.reset();
+                } else {
+                    throw new Error('Erro ao registrar o abastecimento.');
             }
         } catch (error) {
             console.error('Erro:', error);

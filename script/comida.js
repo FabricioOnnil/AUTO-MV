@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Resposta do servidor:", data);
             alert("Refeição registrado com sucesso!");
 
-            purchaseForm.requestFullscreen();
+            purchaseForm.reset();
             } else {
                 throw new Error ('Erro ao registrar o refeição.');
             }

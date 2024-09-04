@@ -127,25 +127,26 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
     console.error("Usuário não autenticado ou sessão não inicializada");
     return res.status(401).send('Usuário não autenticado.');
   }  
-  const userId = req.body.userId;
+  const userId = req.session.userId;
 
   const Qtda = (valor / pLitro);
 
   try {
 
-      const imageBuffer = req.file ? await fs.readFile(req.file.path) : null;
+      const imagemAbast = req.file ? await fs.readFile(req.file.path) : null;
 
-      const abastecimento = await abastecimentoModelo.create ({
+      await abastecimentoModelo.create ({
         s_abastecimento_fuelDescription : descricao,
         i_abastecimento_idCar : carro,
         dec_abastecimento_fuelPrice : valor,
         dec_abastecimento_priceLiter : pLitro,
         d_abastecimento_fuelDate : new Date(data),
-        l_abastecimento_fuelImg : imageBuffer,
+        l_abastecimento_fuelImg : imagemAbast,
         i_abastecimento_qtdFuel : Qtda,
         i_abastecimento_usuario_key : userId
       });
       res.status(200).send('Abastecimento criado com sucesso!');
+      res.redirect('/vamoEntrega');
     } catch (error) {
       console.error('Erro ao criar abastecimento:', error);
       res.status(500).send('Erro ao criar abastecimento');
@@ -163,20 +164,21 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
     console.error("Usuário não autenticado ou sessão não inicializada");
     return res.status(401).send('Usuário não autenticado.');
   }  
-  const userId = req.body.userId;
+  const userId = req.session.userId;
 
   try {
 
-      const imageBuffer = req.file ? await fs.readFile(req.file.path) : null;
+      const imagemCom = req.file ? await fs.readFile(req.file.path) : null;
 
-      const newComida = await comida.create ({
+      await comida.create ({
         s_comida_descriptionFood : descricao,
         dec_comida_valueFood : valor,
         d_comida_dateFood : new Date(data),
-        l_comida_imgFood : imageBuffer,
+        l_comida_imgFood : imagemCom,
         i_comida_usuario_key : userId
       });
       res.status(200).send('Cadastro de Alimentação criado com sucesso!');
+      res.redirect('/vamoEntrega');
     } catch (error) {
       console.error('Erro ao criar cadastro de Alimentação:', error);
       res.status(500).send('Erro ao criar cadastro de Alimentação');
@@ -219,6 +221,7 @@ app.post('/agenda', async (req, res) => {
     });
 
     res.status(200).send('Formulário recebido com sucesso!');
+    res.redirect('/vamoDashboard');
   } catch (error) {
     console.error("Erro ao receber formulário.", error);
     res.status(500).send('Erro ao armazenar formulário');
@@ -249,7 +252,7 @@ app.post('/acesso', async (req, res) => {
   const { nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao } = req.body;
 
   try {
-    const acesso = await acesso.create({
+    await acesso.create({
       s_usuario_name : nome,
       s_usuario_secondName : sobrenome,
       s_usuario_password : senha,
@@ -269,7 +272,7 @@ app.post('/contratoCarro', async (req, res) => {
   const { dataInicio, dataTermino, usuarioResponsavel, codigoReserva, codigoAluguel, tarifaContrato, kmExcendente, franquia } = req.body;
 
   try {
-    const contrato = await contratoCarro.create({
+    await contratoCarro.create({
       d_contratoCarro_startDateRental : dataInicio,
       d_contratoCarro_endDateRental : dataTermino,
       s_contratoCarro_responsible : usuarioResponsavel,
@@ -291,7 +294,7 @@ app.post('/custosCarro', async (req, res) => {
   const { damageLimit, otherDamage, totalLoss, insurancePeriod, endOfInsurance, initialKm } = req.body;
 
   try {
-    const custos = await contratoCarro.create({
+    await contratoCarro.create({
       d_contratoCarro_startDateRental : damageLimit,
       d_contratoCarro_endDateRental : otherDamage,
       s_contratoCarro_responsible : totalLoss,
@@ -318,6 +321,7 @@ app.post('/diario', async (req, res) => {
       b_diario_checkbox3 : checkbox3
     });
     res.status(200).send('Diário criado com sucesso!');
+    res.redirect('/vamoDashboard');
   } catch (error) {
     console.error('Erro ao criar diário:', error);
     res.status(500).send('Erro ao criar diário');
@@ -330,7 +334,7 @@ app.post('/carro', async (req, res) => {
   const { nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo } = req.body;
 
   try {
-    const carro = await contratoCarro.create({
+     await contratoCarro.create({
       d_contratoCarro_startDateRental : nomeCarro,
       d_contratoCarro_endDateRental : placa,
       s_contratoCarro_responsible : anoFabricacao,
@@ -380,15 +384,17 @@ app.post('/reparo', upload.single('imagem'), async (req, res) => {
     return res.status(401).send('Usuário não autenticado.');
   }
 
-  const userId = req.body.userId;
+  const userId = req.session.userId;
 
   try {
-    const newreparo = await reparo.create({
+    await reparo.create({
       s_reparo_carro : carro,
       d_reparo_data : data,
-      s_reparo_descricao : descricao
+      s_reparo_descricao : descricao,
+      i_reparo_usuario_key : userId
     });
     res.status(200).send('Reparo criado com sucesso!');
+    res.redirect('/vamoEntrega');
   } catch (error) {
     console.error('Erro ao criar reparo:', error);
     res.status(500).send('Erro ao criar reparo');
@@ -401,7 +407,7 @@ app.post('/usuarioVisita', async (req, res) => {
   const { usuario, data, descricao } = req.body;
 
   try {
-    const usuarioVisita = await usuarioVisita.create({
+    await usuarioVisita.create({
       s_usuarioVisita_usuario : usuario,
       d_usuarioVisita_data : data,
       s_usuarioVisita_descricao : descricao
