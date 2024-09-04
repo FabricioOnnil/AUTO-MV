@@ -36,7 +36,7 @@ diarioRouter.get('/diario', (req, res) => {
     try {
         const { s_diario_motivo, s_diario_descricao } = req.body;
         const novoDiario = await diario.create({
-            s_diario_motivo,
+            i_diario_motivo,
             s_diario_descricao,
             d_diario_creatAt: new Date(),
             i_diario_usuarioKey: req.session.userId // ou outro identificador do usuário

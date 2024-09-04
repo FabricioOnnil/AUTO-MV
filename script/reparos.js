@@ -2,16 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const descricaoInput = document.getElementById('descricao');
     const valorInput = document.getElementById('valor');
     const dataInput = document.getElementById('data');
+    const imagemInput = document.getElementById('imagem');
     const purchaseForm = document.getElementById('purchaseForm');
     const modal = document.getElementById('modal');
-    const closeModal = document.getElementById('close');
-  
+    const closeModal = document.getElementById('close');  
     
 
     // Fechar modal
-    closeModal.addEventListener('click', () => {
-        modal.style.display = "none";
-    });
+    if(closeModal) {
+        closeModal.addEventListener('click', () => {
+            modal.style.display = "none";
+    
+        });
+    }
 
     // Registrar compra ao submeter o formulário
     purchaseForm.addEventListener('submit', async function (event) {
@@ -19,10 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Formulário submetido");
 
         
-        const descricao = document.getElementById('descricao').value;
-        const valor = document.getElementById('valor').value;
-        const data = document.getElementById('data').value;
-        const imagemRep = document.getElementById('imagem').file[0];
+        const descricao = descricaoInput.value;
+        const valor = valorInput.value;
+        const data = dataInput.value;
+        const imagemRep = imagemInput.files[0];
 
 
         if (!descricao || !valor || !data || !imagemRep) {
@@ -42,14 +45,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: formData
             });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log("Resposta do servidor:", data);
-            alert("Reparo registrado com sucesso!");
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Resposta do servidor:", data);
+                alert("Reparo registrado com sucesso!");
 
-            purchaseForm.reset();
+                purchaseForm.reset();
+                modal.style.display = "none";
         } else {
-            throw new Error('Erro ao registrar o reparo.');
+            const errorData = await response.text();  // Obter a mensagem de erro
+            console.error('Erro ao registrar o reparo:', errorData);
+            alert('Erro ao registrar o reparo. Por favor, tente novamente.');
         }
         } catch (error) {
             console.error('Erro', error);
@@ -57,15 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
         console.log("Reparo registrada: ", purchaseData);
-
-        // Limpar os campos do formulário
-        descricaoInput.value = '';
-        valorInput.value = '';
-        dataInput.value = '';
-        imagemRep = null;
-        const context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        modal.style.display = "none";
     });
 
     // Fechar modal ao clicar fora do conteúdo

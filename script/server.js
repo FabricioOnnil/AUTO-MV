@@ -116,9 +116,8 @@ app.use('/API/fuelStation', abstRouter);
 app.use('/API/agendamento', agendamentoRouter);
 app.use('/API/entrega', entregaRouter);
 
+
 // Rota de abastecimento
-
-
 app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 
   const { descricao, carro, valor, pLitro, data } = req.body;
@@ -146,15 +145,14 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
         i_abastecimento_usuario_key : userId
       });
       res.status(200).send('Abastecimento criado com sucesso!');
-      res.redirect('/vamoEntrega');
     } catch (error) {
       console.error('Erro ao criar abastecimento:', error);
       res.status(500).send('Erro ao criar abastecimento');
     }
 });
 
-// Rota de alimentação
 
+// Rota de alimentação
 app.post('/comida', upload.single('imagem'), async (req, res) => {
 
   
@@ -178,12 +176,12 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
         i_comida_usuario_key : userId
       });
       res.status(200).send('Cadastro de Alimentação criado com sucesso!');
-      res.redirect('/vamoEntrega');
     } catch (error) {
       console.error('Erro ao criar cadastro de Alimentação:', error);
       res.status(500).send('Erro ao criar cadastro de Alimentação');
     }
 });
+
 
 // Rota de agenda
 app.post('/agenda', async (req, res) => {
@@ -221,12 +219,12 @@ app.post('/agenda', async (req, res) => {
     });
 
     res.status(200).send('Formulário recebido com sucesso!');
-    res.redirect('/vamoDashboard');
   } catch (error) {
     console.error("Erro ao receber formulário.", error);
     res.status(500).send('Erro ao armazenar formulário');
   }
 });
+
 
 //Rota de agendamentos
 app.get('/agendamentos', async (req,res) => {
@@ -247,6 +245,7 @@ app.get('/agendamentos', async (req,res) => {
   }
 });
 
+
 // Rota de cadastro de Acesso
 app.post('/acesso', async (req, res) => {
   const { nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao } = req.body;
@@ -266,6 +265,27 @@ app.post('/acesso', async (req, res) => {
     res.status(500).send('Erro ao criar acesso');
   }
 });
+
+
+// Rota de Informações do Carro
+app.post('/carro', async (req, res) => {
+  const { nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo } = req.body;
+
+  try {
+     await contratoCarro.create({
+      d_contratoCarro_startDateRental : nomeCarro,
+      d_contratoCarro_endDateRental : placa,
+      s_contratoCarro_responsible : anoFabricacao,
+      s_contratoCarro_reservationCode : capacidadeTanque,
+      s_contratoCarro_contractRental : mediaConsumo
+    });
+    res.status(200).send('Carro criado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao criar carro:', error);
+    res.status(500).send('Erro ao criar carro');
+  }
+});
+
 
 // Rota de Contrato do Carro
 app.post('/contratoCarro', async (req, res) => {
@@ -289,6 +309,7 @@ app.post('/contratoCarro', async (req, res) => {
   }
 });
 
+
 // Rota de Custos do Carro
 app.post('/custosCarro', async (req, res) => {
   const { damageLimit, otherDamage, totalLoss, insurancePeriod, endOfInsurance, initialKm } = req.body;
@@ -309,42 +330,29 @@ app.post('/custosCarro', async (req, res) => {
   }
 });
 
+
 // Rota de Diário
 app.post('/diario', async (req, res) => {
-  const { texto, checkbox1, checkbox2, checkbox3 } = req.body;
+
+  const { indicador, texto } = req.body;
+
+  if(!req.session || !req.session.userId) {
+    console.error("Usuário não autenticado ou sessão não inicializada");
+    return res.status(401).send('Usuário não autenticado.');
+  }  
+  const userId = req.session.userId;
 
   try {
-    const diario = await diario.create({
-      s_diario_texto : texto,
-      b_diario_checkbox1 : checkbox1,
-      b_diario_checkbox2 : checkbox2,
-      b_diario_checkbox3 : checkbox3
+      await diario.create({
+      i_diario_motivo : indicador,
+      s_diario_descricao : texto,
+      s_diario_usuarioKey : userId,
+      
     });
     res.status(200).send('Diário criado com sucesso!');
-    res.redirect('/vamoDashboard');
   } catch (error) {
     console.error('Erro ao criar diário:', error);
     res.status(500).send('Erro ao criar diário');
-  }
-});
-
-
-// Rota de Informações do Carro
-app.post('/carro', async (req, res) => {
-  const { nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo } = req.body;
-
-  try {
-     await contratoCarro.create({
-      d_contratoCarro_startDateRental : nomeCarro,
-      d_contratoCarro_endDateRental : placa,
-      s_contratoCarro_responsible : anoFabricacao,
-      s_contratoCarro_reservationCode : capacidadeTanque,
-      s_contratoCarro_contractRental : mediaConsumo
-    });
-    res.status(200).send('Carro criado com sucesso!');
-  } catch (error) {
-    console.error('Erro ao criar carro:', error);
-    res.status(500).send('Erro ao criar carro');
   }
 });
 
@@ -377,7 +385,7 @@ app.post('/login', async (req, res) => {
 // Rota de Reparos
 app.post('/reparo', upload.single('imagem'), async (req, res) => {
   
-  const { carro, data, descricao } = req.body;
+  const { descricao, valor, data} = req.body;
 
   if(!req.session || !req.session.userId) {
     console.error("Usuário não autenticado ou sessão não inicializada");
@@ -387,14 +395,16 @@ app.post('/reparo', upload.single('imagem'), async (req, res) => {
   const userId = req.session.userId;
 
   try {
-    await reparo.create({
-      s_reparo_carro : carro,
-      d_reparo_data : data,
-      s_reparo_descricao : descricao,
-      i_reparo_usuario_key : userId
+      const imagemRep = req.file ? await fs.readFile(req.file.path) : null;
+
+      await reparo.create({
+        s_reparo_descriptionRepair : descricao,
+        dec_reparo_prideRepair : valor,
+        d_reparo_dateRepair: new Date(data),
+        l_reparo_imgRepair : imagemRep,
+        i_reparo_usuario_key : userId
     });
     res.status(200).send('Reparo criado com sucesso!');
-    res.redirect('/vamoEntrega');
   } catch (error) {
     console.error('Erro ao criar reparo:', error);
     res.status(500).send('Erro ao criar reparo');

@@ -9,6 +9,11 @@ const diario = db.sequelize.define('diario', {
       primaryKey: true
     },
 
+    i_diario_motivo: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    
     s_diario_descricao: {
         type: DataTypes.STRING ('long'),
         allowNull: true,
