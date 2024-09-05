@@ -250,13 +250,18 @@ app.get('/agendamentos', async (req,res) => {
 app.post('/acesso', async (req, res) => {
   const { nome, sobrenome, senha, numeroHabilitacao, orgaoExpedidor, validadeHabilitacao } = req.body;
 
+  if (!nome || !sobrenome || !senha || !numeroHabilitacao || !orgaoExpedidor || !validadeHabilitacao) {
+    console.error('Erro: Dados inválidos ou incompletos fornecidos.');
+    return res.status(400).send('Dados inválidos ou incompletos fornecidos.');
+  }
+
   try {
     await acesso.create({
       s_usuario_name : nome,
       s_usuario_secondName : sobrenome,
       s_usuario_password : senha,
       i_usuario_licenseDriving : numeroHabilitacao,
-      s_usuario_secrtorShipping : orgaoExpedidor,
+      s_usuario_sectorShipping : orgaoExpedidor,
       dt_usuario_dateExpiration : validadeHabilitacao
     });
     res.status(200).send('Acesso criado com sucesso!');

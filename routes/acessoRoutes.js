@@ -5,11 +5,21 @@ const userRouter = express.Router();
 
 // Rota para buscar todos os usuario
 userRouter.get('/usuario', (req, res) => {
-  usuario.findAll()
+
+  const usuarioId = req.params.id;
+  console.log('ID do Usuário:', usuarioId);
+
+
+  usuario.findOne({ where: { i_usuario_user: usuarioId } })
     .then((usuario) => {
-      res.json(usuario);
+      if (!usuario) {
+        res.status(404).send("usuario não encontrado");
+      } else {
+        res.json(usuario);
+      }
     })
     .catch((error) => {
+      console.error("Erro ao buscar usuario:", error.message);  // Log de erro
       res.status(500).send("Erro ao buscar usuario: " + error.message);
     });
 });
@@ -33,6 +43,13 @@ userRouter.get('/usuario', (req, res) => {
 
 // Rota para cadastrar um novo usuario
 userRouter.post('/usuario', (req, res) => {
+  const { s_usuario_name, s_usuario_password } = req.body;
+
+  if (!s_usuario_name || !s_usuario_password) {
+    return res.status(400).send("Nome de usuario ou senha estão faltando.");
+  }
+
+
 usuario.create(req.body)
     .then(() => res.send("usuario cadastrado com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao cadastrar usuario: " + error.message));
@@ -41,6 +58,16 @@ usuario.create(req.body)
 //Rota para atualizar um usuario pelo ID
 userRouter.put('/usuario/:id', (req, res) => {
   const usuarioId = req.params.id;
+  const { s_usuario_name, s_usuario_password } = req.body;
+
+  if (!usuarioId) {
+    return res.status(400).send("ID de usuario está faltando.");
+  }
+
+  if (!s_usuario_name || !s_usuario_password) {
+    return res.status(400).send("Nome de usuario ou senha estão faltando.");
+  }
+
   usuario.update(req.body, { where: { i_usuario_user: usuarioId } })
     .then(() => res.send("usuario atualizado com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao atualizar usuario: " + error.message));
