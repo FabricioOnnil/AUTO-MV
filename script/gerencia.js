@@ -10,13 +10,16 @@ function closePopup(popupId) {
     document.getElementById(popupId).style.display = 'none';
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const contratoForm = document.querySelector('#carPopup form');
     const custoFixoForm = document.querySelector('#custPopup form');
     const infoCarForm = document.querySelector('#infoPopup form');
     const acessoForm = document.querySelector('#acessoPopup form');
 
-    contratoForm.addEventListener('submit', async function (event) {
+
+//----------------------------------------------------------Contrato--------------------------------------------------
+contratoForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         console.log("Form submitted contract");
 
@@ -70,7 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    custoFixoForm.addEventListener('submit', async function (event) {
+
+//--------------------------------------Custo Carro----------------------------------------------------------------
+custoFixoForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         console.log("Form submitted cost");
 
@@ -108,7 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    infoCarForm.addEventListener('submit', async function (event) {
+//------------------------------------------------Info Car --------------------------------------------------------------------
+infoCarForm.addEventListener('submit', async function (event) {
         event.preventDefault();
         console.log("Form submitted info");
 
@@ -145,8 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    acessoForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+//-----------------------------------------------------------Acesso-----------------------------------------------------------
+acessoForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
         const formData = new FormData(acessoForm);
 
@@ -177,29 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function contractRegistration() {
-        const contractCheckbox = document.getElementById('contract');
-        const contractSections = document.querySelectorAll('.contract-registration');
-        contractSections.forEach(section => {
-            section.style.display = contractCheckbox.checked ? 'block' : 'none';
-        });
-    }
 
-    function fixedCost() {
-        const costCheckbox = document.getElementById('cost');
-        const fixedCostSections = document.querySelectorAll('.fixed-cost');
-        fixedCostSections.forEach(section => {
-            section.style.display = costCheckbox.checked ? 'block' : 'none';
-        });
-    }
-
-    function registerCar() {
-        const carCheckbox = document.getElementById('car');
-        const registerCarSections = document.querySelectorAll('.registerCar');
-        registerCarSections.forEach(section => {
-            section.style.display = carCheckbox.checked ? 'block' : 'none';
-        });
-    }
 
     // Dados de exemplo para preencher a tabela de valores globais
     const globalValues = [
@@ -209,12 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { period: '15 dias', days: 15, km: 200, fuelCost: 100, fuelAcquired: 40, fuelUsed: 36, repairCost: 40, foodCost: 20, hoursScheduled: 10, hoursNotScheduled: 6 },
     ];
 
-    function filterValues() {
-        const filter = document.getElementById("filter").value;
-        const filteredValues = globalValues.filter(value => value.period === filter);
-        populateTable(filteredValues);
-    }
-
+   
     function populateTable(values) {
         const tableBody = document.getElementById("globalValuesBody");
         tableBody.innerHTML = "";
