@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     async function preencherCarSelect() {
         try {
-            const response = await fetch('/infoCarro/carro');
+            const response = await fetch('/carro');
             const carros = await response.json();
 
             const carSelect = document.getElementById("carSelect");

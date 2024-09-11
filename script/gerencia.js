@@ -99,7 +99,7 @@ custoFixoForm.addEventListener('submit', async function (event) {
 
             if (!response.ok) {
                 const errorMessage = await response.text();
-                throw new Error(`Erro ao cadastrar custo fixo: ${errorMessage}`);
+                throw new Error(`Erro ao cadastrar custo fixo: ${errorMessage}`);  12593253770
             }
 
             const result = await response.json();
