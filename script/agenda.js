@@ -11,6 +11,31 @@ document.addEventListener("DOMContentLoaded", function() {
     const tablePopup = document.getElementById('tablePopup');
     
 
+    document.addEventListener("DOMContentLoaded", function () {
+    
+        async function preencherCarSelect() {
+            try {
+                const response = await fetch('/carro');
+                const carros = await response.json();
+    
+                const carSelect = document.getElementById("carSelect");
+    
+                
+                carros.forEach(carro => {
+                    const option = document.createElement("option");
+                    option.value = carro.i_carro_idcar; 
+                    option.text = `${carro.s_carro_model} - ${carro.s_carro_plate}`; 
+                    carSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Erro ao buscar carros:", error);
+            }
+        }
+    
+        
+        preencherCarSelect();
+    });
+    
     console.log("DOM loaded");
 
 
@@ -179,32 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-   
 
-document.addEventListener("DOMContentLoaded", function () {
-    
-    async function preencherCarSelect() {
-        try {
-            const response = await fetch('/carro');
-            const carros = await response.json();
-
-            const carSelect = document.getElementById("carSelect");
-
-            
-            carros.forEach(carro => {
-                const option = document.createElement("option");
-                option.value = carro.i_carro_idcar; 
-                option.text = `${carro.s_carro_model} - ${carro.s_carro_plate}`; 
-                carSelect.appendChild(option);
-            });
-        } catch (error) {
-            console.error("Erro ao buscar carros:", error);
-        }
-    }
-
-    
-    preencherCarSelect();
-});
 
 document.addEventListener('DOMContentLoaded', async () => {
 
