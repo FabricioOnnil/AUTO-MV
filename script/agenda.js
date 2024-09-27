@@ -1,3 +1,7 @@
+import carroRoutes from './routes/carroRoutes.js';
+
+app.use('/carro', carroRoutes);
+
 document.addEventListener("DOMContentLoaded", async function() {
     const calendarPopupSchedule = document.getElementById('calendarPopupSchedule');
     const closePopupScheduleButton = document.querySelector('.close-popupSchedule');
@@ -9,13 +13,13 @@ document.addEventListener("DOMContentLoaded", async function() {
     const tablePopup = document.getElementById('tablePopup');
     const overlayTable = document.getElementById('overlayTable');
 
-    // Preencher carros no select
+
     async function preencherCarSelect() {
         try {
             const response = await fetch('/carro');
 
             if(!response.ok) {
-                throw new Error('Erro ao buscar carros');
+                throw new Error('Erro ao buscar carros' + response.statusText);
             }
 
             const carros = await response.json();
