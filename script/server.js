@@ -107,14 +107,14 @@ const upload = multer({ storage: storage});
 
 
 // Rotas para cada tabela
-app.use('/API/login', userRouter);
-app.use('/API/contratoCarro', carContract);
-app.use('/API/custosFixos', carCosts);
-app.use('/API/infoCarro', carRouter);
-app.use('/API/food', comidaRouter);
-app.use('/API/fuelStation', abstRouter);
-app.use('/API/agendamento', agendamentoRouter);
-app.use('/API/entrega', entregaRouter);
+app.use('/login', userRouter);
+app.use('/contratoCarro', carContract);
+app.use('/custosFixos', carCosts);
+app.use('/infoCarro', carRouter);
+app.use('/food', comidaRouter);
+app.use('/fuelStation', abstRouter);
+app.use('/agendamento', agendamentoRouter);
+app.use('/entrega', entregaRouter);
 
 
 // Rota de abastecimento

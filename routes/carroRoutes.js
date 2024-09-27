@@ -4,16 +4,16 @@ import carro from '../models/carroData.js';
 const carRouter = express.Router();
 
 //Rota para buscar todos os carros.
-carRouter.get('/carro', (req, res) => {
-  carro.findAll()
-    .then((carro) => {
-      res.json(carro);
-    })
-    .catch((error) => {
+carRouter.get('/carro', async (req, res) => {
+
+  try {
+      const carros = await carro.findAll();
+    res.json(carros);
+    } catch (error) {
       console.error('Erro ao buscar carro:', error);
       res.status(500).send('Erro ao buscar carro.');
-    });
-});
+    }
+  });
 
 //Rota para buscar um carro pelo ID.
 carRouter.get('/carro/:id', (req, res) => {

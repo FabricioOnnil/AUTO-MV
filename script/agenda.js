@@ -13,8 +13,15 @@ document.addEventListener("DOMContentLoaded", async function() {
     async function preencherCarSelect() {
         try {
             const response = await fetch('/carro');
+
+            if(!response.ok) {
+                throw new Error('Erro ao buscar carros');
+            }
+
             const carros = await response.json();
             const carSelect = document.getElementById("carSelect");
+
+            carSelect.innerHTML = '';
 
             carros.forEach(carro => {
                 const option = document.createElement("option");
