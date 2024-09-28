@@ -1,6 +1,6 @@
 import carroRoutes from './routes/carroRoutes.js';
-
 app.use('/carro', carroRoutes);
+
 
 document.addEventListener("DOMContentLoaded", async function() {
     const calendarPopupSchedule = document.getElementById('calendarPopupSchedule');
@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const tablePopup = document.getElementById('tablePopup');
     const overlayTable = document.getElementById('overlayTable');
 
+    
 
     async function preencherCarSelect() {
         try {
@@ -168,5 +169,5 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 
     fetchSchedules();
-    setInterval(fetchSchedules, 300000); // Atualiza a cada 5 minutos
+    setInterval(fetchSchedules, 300000); 
 });
