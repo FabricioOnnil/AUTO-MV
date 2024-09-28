@@ -7,51 +7,70 @@ const carRouter = express.Router();
 carRouter.get('/carro', async (req, res) => {
 
   try {
-      const carros = await carro.findAll();
-    res.json(carros);
+        const carros = await carro.findAll();
+        res.json(carros);
     } catch (error) {
       console.error('Erro ao buscar carro:', error);
-      res.status(500).send('Erro ao buscar carro.');
+      return res.status(500).send('Erro ao buscar carro.');
     }
   });
 
 //Rota para buscar um carro pelo ID.
-carRouter.get('/carro/:id', (req, res) => {
+carRouter.get('/carro/:id', async (req, res) => {
   const idCar = req.params.id;
-  carro.findOne({ where: { i_carro_idcar: idCar } })
-    .then((carro) => {
-      if (!carro) {
-          res.status(404).send('Carro não encontrado.');
-      }else{
-        res.json(carro);
-      }      
-    })
-      .catch((error) => {
-        res.status(500).send("Erro ao buscar carro: " + error.message);
-      });
+  try {
+    const carroEncontrado = await carro.findOne({ where: { i_carro_idcar: idCar } });
+    if(!carroEncontrado) {
+        return res.status(404).send('Carro não encontrado.');
+    }
+        return res.json(carroEncontrado);
+  } catch (error) {
+      console.error('Erro ao buscar carro:', error);
+      return res.status(500).send("Erro ao vuscar carro: " +error.message);
+        
+      }
     });
 
   // Rota para cadastrar um novo carro.
-carRouter.post('/carro', (req, res) => {
-  carro.create(req.body)
-    .then(() => res.send("Carro cadastrado com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao cadastrar carro: " + error.message));
+carRouter.post('/carro', async (req, res) => {
+  try {
+        const novoCarro = await carro.create(req.body);
+        return res.status(201).send(`Carro cadastrado com sucesso! ID: ${novoCarro.i_carro_idcar}`);
+  } catch (error) {
+      console.error('Erro ao cadastrar carro:', error);
+      return res.status(500).send("Erro ao cadastrar carro: " + error.message);
+  }
 });
 
 //Rota para atualizar um carro pelo ID.
-carRouter.put('/carro/:id', (req, res) => {
+carRouter.put('/carro/:id', async (req, res) => {
   const idCar = req.params.id;
-  carro.update(req.body, { where: { i_carro_idcar: idCar } })
-    .then(() => res.send("Carro atualizado com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao atualizar carro: " + error.message));
+
+  try {
+        const [atualizado] = await carro.update(req.body, { where: { i_carro_idcar: idCar } });
+        if (atualizado) {
+            return res.send("Carro atualizado com sucesso!");
+        } 
+        return res.status(404).send('Carro não encontrado.');
+  } catch (error) {
+        console.error('Erro ao atualizar carro:', error);
+        return res.status(500).send("Erro ao atualizar carro: " +error.message );
+  }
 });
 
 //Rota para deletar um carro pelo ID.
-carRouter.delete('/carro/:id', (req, res) => {
+carRouter.delete('/carro/:id', async (req, res) => {
   const idCar = req.params.id;
-  carro.destroy({ where: { i_carro_idcar: idCar } })
-    .then(() => res.send("Carro deletado com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao deletar carro: " + error.message));
+  try {
+        const deletado = await carro.destroy({ where: { i_carro_idcar: idCar } });
+        if (deletado) {
+          return res.send("Carro deletado com sucesso!");
+        }
+        return res.status(404).send('Carro não encontrado.');
+  } catch (error) {
+      console.error('Erro ao deletar carro:', error);
+      return res.status(500).send("Erro ao deletar carro: " + error.message);
+  }
 });
 
 export default carRouter;
