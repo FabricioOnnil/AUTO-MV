@@ -110,7 +110,7 @@ const upload = multer({ storage: storage});
 app.use('/login', userRouter);
 app.use('/contratoCarro', carContract);
 app.use('/custosFixos', carCosts);
-app.use('/infoCarro', carRouter);
+app.use('/carro', carRouter);
 app.use('/food', comidaRouter);
 app.use('/fuelStation', abstRouter);
 app.use('/agendamento', agendamentoRouter);
