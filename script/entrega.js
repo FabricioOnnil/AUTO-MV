@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     row.insertCell(0).textContent = agendamento.s_agenda_nameSchedule;
                     row.insertCell(1).textContent = formatDateToBrazilian(agendamento.d_agenda_startDate);
-                    row.insertCell(2).textContent = agendamento.d_agenda_deliverEndDate;
+                    row.insertCell(2).textContent = formatDateToBrazilian(agendamento.d_agenda_deliverEndDate);
                     row.insertCell(3).textContent = agendamento.s_agenda_originSelect;
                     row.insertCell(4).textContent = agendamento.s_agenda_officeEnd;
                     row.insertCell(5).textContent = agendamento.s_agenda_scheduleCar;
@@ -74,6 +74,8 @@ document.addEventListener("DOMContentLoaded", function() {
     if (scheduleForm) {
         scheduleForm.addEventListener("submit", function(event) {
             event.preventDefault();
+            alert("Entrega confirmada!");
+        
             const rowIndex = document.getElementById("rowIndex").value;
             const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
             agendamentos.splice(rowIndex, 1); 
@@ -84,4 +86,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     loadAgendamentos();
+
+function loadCarros() {
+    fetch('/carros')
+        .then(response => response.json())
+        .then(carros => {
+            carSelect.innerHTML = '';
+            carros.forEach(carro => {
+                const option = document.createElement("option");
+                option.value = carro.id;
+                option.textContent = carro.nome;
+                carSelect.appendChild(option);
+            
+            });
+        })
+        .catch(error => console.error('Erro ao carregar carros:', error.message));
+}
+
+loadCarros();
 });

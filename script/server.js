@@ -195,14 +195,12 @@ app.post('/agenda', async (req, res) => {
   const userId = req.session.userId;
 
   try {
-    const carros = await carro.findAll();
+      const carroSelecionado = await carro.findByPk(carSelect);   
+      
+      if (!carroSelecionado){
+        return res.status(400).send('Carro selecionado não encontrado. ');
+      }
 
-    const carMap = {};
-    carros.forEach(carro => {
-      carMap[`carro${carro.i_carro_idcar}`] = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
-    });
-
-    const carName = carMap[carSelect] || 'Carro não selecionado';
 
     await agenda.create({
       s_agenda_nameSchedule: nome,
@@ -212,7 +210,7 @@ app.post('/agenda', async (req, res) => {
       s_agenda_originSelect: originSelect,
       i_agenda_startRote: rota,
       i_agenda_kmInitial: km_initial,
-      s_agenda_sheduleCar: carName,
+      s_agenda_sheduleCar: `${carroSelecionado.s_carro_model} - ${carroSelecionado.s_carro_plate}`,
       d_agenda_createdAt: new Date(),
       d_agenda_updateAt: new Date(),
       i_agenda_usuario: userId
@@ -277,12 +275,12 @@ app.post('/carro', async (req, res) => {
   const { nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo } = req.body;
 
   try {
-     await contratoCarro.create({
-      d_contratoCarro_startDateRental : nomeCarro,
-      d_contratoCarro_endDateRental : placa,
-      s_contratoCarro_responsible : anoFabricacao,
-      s_contratoCarro_reservationCode : capacidadeTanque,
-      s_contratoCarro_contractRental : mediaConsumo
+     await carro.create({
+      s_carro_model : nomeCarro,
+      s_carro_plate: placa,
+      d_carro_manufactureYear : anoFabricacao,
+      i_carro_fuelTank : capacidadeTanque,
+      i_carro_consumptionAverage: mediaConsumo
     });
     res.status(200).send('Carro criado com sucesso!');
   } catch (error) {

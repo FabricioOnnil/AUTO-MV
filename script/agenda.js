@@ -11,8 +11,35 @@ document.addEventListener("DOMContentLoaded", async function() {
     const overlayTable = document.getElementById('overlayTable');
 
     
+    const loadCarros = async () => {
+        try {
 
-    async function preencherCarSelect() {
+            const response = await fetch('/carro');
+            if(response.ok) {
+                const carros = await response.json();
+
+                const carSelect = document.getElementById('carSelect');
+
+                carSelect.innerHTML = '<option value="">-Selecione um Carro-</option>';
+
+                carros.forEach(carro => {
+                    const option = document.createElement('option');
+                    option.value = carro.i_carro_idcar;
+                    option.text = `${carro.s_carro_model} - Placa: ${carro.s_carro_plate}`;
+                    carSelect.appendChild(option);
+
+                });
+            } else {
+                console.error('Erro ao buscar os carros:', response.status);
+            }
+        } catch (error) {
+            console.error('Erro ao carregar carros:', error.message);
+        }
+    };
+
+    loadCarros();
+
+    /*async function preencherCarSelect() {
         try {
             const response = await fetch('/carro');
 
@@ -20,12 +47,12 @@ document.addEventListener("DOMContentLoaded", async function() {
                 throw new Error('Erro ao buscar carros' + response.statusText);
             }
 
-            const carros = await response.json();
+            const carro = await response.json();
             const carSelect = document.getElementById("carSelect");
 
-            carSelect.innerHTML = '';
+            carSelect.innerHTML = '<option value="">-Selecione um carro-</option>';
 
-            carros.forEach(carro => {
+            carro.forEach(carro => {
                 const option = document.createElement("option");
                 option.value = carro.i_carro_idcar;
                 option.text = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
@@ -36,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         }
     }
 
-    preencherCarSelect();
+    preencherCarSelect();*/
 
     // Fechar popups
     function closePopup(popup, overlay) {
@@ -44,22 +71,19 @@ document.addEventListener("DOMContentLoaded", async function() {
         overlay.style.display = 'none';
     }
 
-    if (closePopupScheduleButton) {
-        closePopupScheduleButton.addEventListener('click', function() {
-            closePopup(calendarPopupSchedule, overlaySchedule);
-        });
-    }
+    overlayTable.addEventListener('click', function() {
+        closePopup(tablePopup, overlayTable);
+    });
+    
+    overlaySchedule.addEventListener('click', function() {
+        closePopup(calendarPopupSchedule, overlaySchedule);
+    });
 
-    if (showCalendarButton) {
-        showCalendarButton.addEventListener('click', function() {
-            overlaySchedule.style.display = 'block';
-            calendarPopupSchedule.style.display = 'block';
-        });
-    }
 
     // Exibir popup da tabela com agendamentos
     if (showTablePopup) {
         showTablePopup.addEventListener('click', async function() {
+            
             try {
                 const response = await fetch('/agendamentos');
                 const agendamentos = await response.json();
@@ -78,7 +102,8 @@ document.addEventListener("DOMContentLoaded", async function() {
                     `;
                     schedulesBody.appendChild(row);
                 });
-
+                
+                await fetchSchedules();
                 overlayTable.style.display = 'block';
                 tablePopup.style.display = 'block';
             } catch (error) {
@@ -91,6 +116,14 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (closeTableButton) {
         closeTableButton.addEventListener('click', function() {
             closePopup(tablePopup, overlayTable);
+        });
+    }
+
+    
+    if (showCalendarButton) {
+        showCalendarButton.addEventListener('click', function() {
+            overlaySchedule.style.display = 'block';
+            calendarPopupSchedule.style.display = 'block';
         });
     }
 
@@ -113,7 +146,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 startDate,
                 startTime,
                 deliverEndDate,
-                originSelect: origin,
+                origin,
                 rota,
                 km_initial,
                 carSelect
