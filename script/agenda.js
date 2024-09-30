@@ -1,6 +1,3 @@
-import carroRoutes from './routes/carroRoutes.js';
-app.use('/carro', carroRoutes);
-
 
 document.addEventListener("DOMContentLoaded", async function() {
     const calendarPopupSchedule = document.getElementById('calendarPopupSchedule');

@@ -10,8 +10,8 @@ carRouter.get('/carro', async (req, res) => {
         const carros = await carro.findAll();
         res.json(carros);
     } catch (error) {
-      console.error('Erro ao buscar carro:', error);
-      return res.status(500).send('Erro ao buscar carro.');
+      console.error('Erro ao buscar carro:', error.message);
+      return res.status(500).send('Erro ao buscar carro.' + error.message);
     }
   });
 
@@ -25,9 +25,8 @@ carRouter.get('/carro/:id', async (req, res) => {
     }
         return res.json(carroEncontrado);
   } catch (error) {
-      console.error('Erro ao buscar carro:', error);
-      return res.status(500).send("Erro ao vuscar carro: " +error.message);
-        
+      console.error('Erro ao buscar carro:', error.message);
+      return res.status(500).send("Erro ao vuscar carro: " + error.message);        
       }
     });
 
@@ -37,7 +36,7 @@ carRouter.post('/carro', async (req, res) => {
         const novoCarro = await carro.create(req.body);
         return res.status(201).send(`Carro cadastrado com sucesso! ID: ${novoCarro.i_carro_idcar}`);
   } catch (error) {
-      console.error('Erro ao cadastrar carro:', error);
+      console.error('Erro ao cadastrar carro:', error.message);
       return res.status(500).send("Erro ao cadastrar carro: " + error.message);
   }
 });
@@ -46,6 +45,8 @@ carRouter.post('/carro', async (req, res) => {
 carRouter.put('/carro/:id', async (req, res) => {
   const idCar = req.params.id;
 
+  req.body.d_carro_updateAt = new Date();
+
   try {
         const [atualizado] = await carro.update(req.body, { where: { i_carro_idcar: idCar } });
         if (atualizado) {
@@ -53,8 +54,8 @@ carRouter.put('/carro/:id', async (req, res) => {
         } 
         return res.status(404).send('Carro não encontrado.');
   } catch (error) {
-        console.error('Erro ao atualizar carro:', error);
-        return res.status(500).send("Erro ao atualizar carro: " +error.message );
+        console.error('Erro ao atualizar carro:', error.message);
+        return res.status(500).send("Erro ao atualizar carro: " + error.message );
   }
 });
 
@@ -68,7 +69,7 @@ carRouter.delete('/carro/:id', async (req, res) => {
         }
         return res.status(404).send('Carro não encontrado.');
   } catch (error) {
-      console.error('Erro ao deletar carro:', error);
+      console.error('Erro ao deletar carro:', error.message);
       return res.status(500).send("Erro ao deletar carro: " + error.message);
   }
 });

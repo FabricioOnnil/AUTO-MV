@@ -12,7 +12,7 @@ sequelize.authenticate()
     console.log("Conectado com sucesso ao banco de dados!");
   })
   .catch((error) => {
-    console.error("Falha ao se conectar ao banco de dados:", error);
+    console.error("Falha ao se conectar ao banco de dados:", error.message);
   });
 
 

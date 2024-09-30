@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from 'sequelize';
-import db from './db.js'; // Importe sua configuração de conexão com o banco de dados
+import db from './db.js'; 
 
 const sequelize = db.sequelize;
 
@@ -7,7 +7,7 @@ const sequelize = db.sequelize;
 const carro = sequelize.define('carro', {
     // id da tabela.
     i_carro_idcar: {
-        type:Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
@@ -26,7 +26,7 @@ const carro = sequelize.define('carro', {
 
     //Ano de fabricação.
     d_carro_manufactureYear: {
-        type: DataTypes.DATE,
+        type: DataTypes.INTEGER,
         allowNull: true
     },
 
@@ -52,7 +52,7 @@ const carro = sequelize.define('carro', {
     //Data da ultima atualização.
     d_carro_updateAt: {
         type: DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
         defaultValue: DataTypes.NOW,
     },
 
