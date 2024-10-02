@@ -39,32 +39,6 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     loadCarros();
 
-    /*async function preencherCarSelect() {
-        try {
-            const response = await fetch('/carro');
-
-            if(!response.ok) {
-                throw new Error('Erro ao buscar carros' + response.statusText);
-            }
-
-            const carro = await response.json();
-            const carSelect = document.getElementById("carSelect");
-
-            carSelect.innerHTML = '<option value="">-Selecione um carro-</option>';
-
-            carro.forEach(carro => {
-                const option = document.createElement("option");
-                option.value = carro.i_carro_idcar;
-                option.text = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
-                carSelect.appendChild(option);
-            });
-        } catch (error) {
-            console.error("Erro ao buscar carros:", error);
-        }
-    }
-
-    preencherCarSelect();*/
-
     // Fechar popups
     function closePopup(popup, overlay) {
         popup.style.display = 'none';

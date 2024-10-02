@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function showPopupWithFormData(formData, rowIndex) {
-        document.getElementById("nome").value = formData.s_agenda_nameSchedule;
-        document.getElementById("startDate").value = formData.d_agenda_startDate;
-        document.getElementById("startTime").value = formData.startTime || "";
-        document.getElementById("destinySelect").value = formData.s_agenda_originSelect || "";
-        document.getElementById("km_final").value = formData.km_final || "";
+        document.getElementById("nome").value = formData.s_entrega_nameDelivery;
+        document.getElementById("deliverEndDate").value = formData.d_entrega_deliveryEndTime;
+        document.getElementById("deliveryEndTime").value = formData.d_entrega_deliveryEndTime || "";
+        document.getElementById("officeEnd").value = formData.s_entrega_destinySelect || "";
+        document.getElementById("km_final").value = formData.i_entrega_kmFinal || "";
         carSelect.innerHTML = `<option value="${formData.carSelect}">${formData.s_agenda_scheduleCar}</option>`;
         document.getElementById("rowIndex").value = rowIndex;
 
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loadAgendamentos();
 
 function loadCarros() {
-    fetch('/carros')
+    fetch('/carro')
         .then(response => response.json())
         .then(carros => {
             carSelect.innerHTML = '';

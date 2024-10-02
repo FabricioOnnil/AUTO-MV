@@ -60,12 +60,12 @@ const carro = sequelize.define('carro', {
         type: DataTypes.INTEGER,
         allowNull: true,
 
-    },
+    }
     }, {
         tableName: 'carro',
-        timestamps: false,  // Habilita o gerenciamento automático de `createdAt` e `updatedAt'
-        createdAt: 'd_carro_createdAt', // Mapeia `createdAt` para `d_carro_createdAt`
-        updatedAt: 'd_carro_updateAt' // Mapeia `updatedAt` para `d_carro_updateAt`
+        timestamps: false, 
+        createdAt: 'd_carro_createdAt', 
+        updatedAt: 'd_carro_updateAt'
     });
 
 

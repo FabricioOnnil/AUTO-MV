@@ -1,5 +1,5 @@
 import express from 'express';
-import carro from '../models/carroData.js';
+import carro  from '../models/carroData.js';
 
 const carRouter = express.Router();
 
@@ -7,10 +7,10 @@ const carRouter = express.Router();
 carRouter.get('/carro', async (req, res) => {
 
   try {
-        const carro = await carro.findAll();
-        res.json(carro);
+        const carros = await carro.findAll();
+        res.json(carros);
     } catch (error) {
-      console.error('Erro ao buscar carro:', error.message);
+      console.error('Erro ao buscar carros:', error.message);
       return res.status(500).send('Erro ao buscar carro.' + error.message);
     }
   });
