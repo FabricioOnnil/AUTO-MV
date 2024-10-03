@@ -30,12 +30,23 @@ document.addEventListener('DOMContentLoaded', () => {
             body: formData
         });
 
+        const contentType = response.headers.get("content-type");
+
         if (response.ok) {
-            const data = await response.json();
-            console.log("Resposta do servidor:", data);
-            alert("Refeição registrado com sucesso!");
+            if (contentType && contentType.includes("application/json")) {
+                const data = await response.json(); // Apenas tenta fazer o parse se for JSON
+                console.log("Resposta do servidor (JSON):", data);
+                alert("Refeição registrada com sucesso!");
+            } else {
+                const text = await response.text(); // Caso contrário, trata como texto
+                console.log("Resposta do servidor (Texto):", text);
+                alert("Refeição registrada com sucesso!");
+            }
 
             purchaseForm.reset();
+
+            window.location.href = "/vamoEntrega";
+
             } else {
                 throw new Error ('Erro ao registrar o refeição.');
             }

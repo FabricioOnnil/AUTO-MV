@@ -11,7 +11,7 @@ carRouter.get('/carro', async (req, res) => {
         res.json(carros);
     } catch (error) {
       console.error('Erro ao buscar carros:', error.message);
-      return res.status(500).send('Erro ao buscar carro.' + error.message);
+      return res.status(500).send('Erro ao buscar carro.');
     }
   });
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import comida from '../models/comidaData.js';
+import comida from '../models/refeicaoData.js';
 
 const comidaRouter = express.Router();
 

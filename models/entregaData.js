@@ -41,8 +41,8 @@ const entrega = db.sequelize.define('entrega', {
     },
 
     //Carro entregue. 7
-    i_entrega_deliveryCar: {
-       type: DataTypes.INTEGER,
+    s_entrega_deliveryCar: {
+       type: DataTypes.STRING,
         allowNull: true
     },
 

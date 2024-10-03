@@ -27,14 +27,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function showPopupWithFormData(formData, rowIndex) {
-        document.getElementById("nome").value = formData.s_entrega_nameDelivery;
-        document.getElementById("deliverEndDate").value = formData.d_entrega_deliveryEndTime;
-        document.getElementById("deliveryEndTime").value = formData.d_entrega_deliveryEndTime || "";
-        document.getElementById("officeEnd").value = formData.s_entrega_destinySelect || "";
-        document.getElementById("km_final").value = formData.i_entrega_kmFinal || "";
-        carSelect.innerHTML = `<option value="${formData.carSelect}">${formData.s_agenda_scheduleCar}</option>`;
-        document.getElementById("rowIndex").value = rowIndex;
-
+        document.getElementById("nome").value = formData.s_agenda_nameSchedule;
+        document.getElementById("deliverEndDate").value = formData.d_agenda_startDate;
+        document.getElementById("deliveryEndTime").value = formData.d_agenda_startTime || "";
+        document.getElementById("officeEnd").value = formData.s_agenda_officeEnd || "";
+        document.getElementById("km_final").value = formData.i_agenda_kmFinal || "";
+        document.getElementById("carSelect").value = formData.i_agenda_deliveryCar;
+        document.getElementById("rowIndex").value = formData.i_agenda_idSchedule; 
         openPopup(); 
     }
 
@@ -78,14 +77,44 @@ document.addEventListener("DOMContentLoaded", function() {
         
             const rowIndex = document.getElementById("rowIndex").value;
             const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-            agendamentos.splice(rowIndex, 1); 
-            localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
-            closePopup();
-            loadAgendamentos();
+            const agendamento = agendamentos[rowIndex];
+
+            const entregaData = {
+                s_entrega_nomeDelivery: document.getElementById("nome").value,
+                d_entrega_deliveryEndDate: document.getElementById("deliverEndDate").value,
+                d_entrega_deliveryEndTime: document.getElementById("deliveryEndTime").value,
+                s_entrega_destinySelect: document.getElementById("officeEnd").value,
+                i_entrega_kmFinal: document.getElementById("km_final").value,
+                i_entrega_deliveryCar: document.getElementById("carSelect").value,
+                d_entrega_createdAt: new Date(), 
+                i_entrega_agendamento: document.getElementById("rowIndex").value 
+            };
+
+            fetch('/entrega', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(entregaData),
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Entrega confirmada!");
+                    closePopup();
+                    loadAgendamentos();
+                } else {
+                    alert("Erro ao confirmar entrega.");
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao enviar dados da entrega:', error);
+            });
         });
     }
 
-    loadAgendamentos();
+            loadAgendamentos();
+    
+
 
 function loadCarros() {
     fetch('/carro')
@@ -94,8 +123,8 @@ function loadCarros() {
             carSelect.innerHTML = '';
             carros.forEach(carro => {
                 const option = document.createElement("option");
-                option.value = carro.id;
-                option.textContent = carro.nome;
+                option.value = carro.i_carro_idcar;
+                option.textContent = `${carro.s_carro_model} - Placa: ${carro.s_carro_plate}`;;
                 carSelect.appendChild(option);
             
             });

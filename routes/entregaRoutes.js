@@ -31,12 +31,39 @@ entregaRouter.get('/entrega', (req, res) => {
       });
   });
   
+
   // Rota para cadastrar uma  nova entrega
-  entregaRouter.post('/entrega', (req, res) => {
-    entrega.create(req.body)
-    .then(() => res.send("entrega cadastrada com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao cadastrar entrega: " + error.message));
-  });
+  entregaRouter.post('/entrega', async (req, res) => {
+    try {
+        const { 
+            s_entrega_nomeDelivery, 
+            d_entrega_deliveryEndDate, 
+            d_entrega_deliveryEndTime, 
+            s_entrega_destinySelect, 
+            i_entrega_kmFinal, 
+            i_entrega_deliveryCar, 
+            d_entrega_createdAt, 
+            i_entrega_agendamento 
+        } = req.body;
+
+        
+        await entrega.create({
+            s_entrega_nomeDelivery,
+            d_entrega_deliveryEndDate,
+            d_entrega_deliveryEndTime,
+            s_entrega_destinySelect,
+            i_entrega_kmFinal,
+            i_entrega_deliveryCar,
+            d_entrega_createdAt,
+            i_entrega_agendamento
+        });
+
+        res.status(201).json({ message: 'Entrega registrada com sucesso!' });
+    } catch (error) {
+        console.error('Erro ao registrar entrega:', error);
+        res.status(500).json({ error: 'Erro ao registrar entrega.' });
+    }
+});
   
   // Rota para atualizar  uma entrega pelo ID.
   entregaRouter.put('/entrega/:id', (req, res) => {
