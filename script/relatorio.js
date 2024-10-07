@@ -61,4 +61,4 @@ function openTablePopup(tableId) {
     const popupWindow = window.open('', '_blank', 'width=800,height=600');
 
     // Escreve o conteúdo HTML da tabela na nova janela
-    popupWindow.document.write(`
+    popupWindow.document.write()}

@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     carros.forEach(carro => {
                         const option = document.createElement('option');
                         option.value = carro.i_carro_idcar;
-                        option.text = `${carro.s_carro_model} - Placa: ${carro.s_carro_plate}`;
+                        option.text = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
                         carSelect.appendChild(option);
                     });
                 } else {
@@ -70,14 +70,20 @@ document.addEventListener("DOMContentLoaded", async function() {
         scheduleForm.addEventListener("submit", async function(event) {
             event.preventDefault();
 
-            const nome = document.getElementById("nome").value;
+            const nome = document.getElementById("nome").value.trim;
             const startDate = document.getElementById("startDate").value;
             const startTime = document.getElementById("startTime").value;
             const deliverEndDate = document.getElementById("deliverEndDate").value;
             const origin = document.getElementById("originSelect").value; 
-            const rota = document.getElementById("rota").value;
+            const rota = document.getElementById("rota").value.trim;
             const km_initial = document.getElementById("km_initial").value;
             const carSelect = document.getElementById("carSelect").value;
+
+
+            if (!nome || !startDate || !startTime || !deliverEndDate || !origin || !rota || !km_initial || !carSelect) {
+                alert('Por favor, preencha todos os  campos obrigatórios.');
+                return;
+            }
 
             const formData = {
                 nome,
@@ -104,10 +110,13 @@ document.addEventListener("DOMContentLoaded", async function() {
                     calendarPopupSchedule.style.display = 'none';
                     window.location.href = '/vamoAgenda';
                 } else {
-                    console.error("Erro ao armazenar os dados:", response.statusText);
+                    const errorText = await response.text();
+                    console.error("Erro ao armazenar os dados:", errorText);
+                    alert('Erro ao armazenar os dados. Tente novamente.');
                 }
             } catch (error) {
                 console.error("Erro ao armazenar os dados:", error);
+                alert('Error ao armazenar os dados. Verifique usa conexão.');
             }
         });
     }
@@ -134,6 +143,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             });
         } catch (error) {
             console.error('Erro ao carregar agendamentos:', error);
+            alert('Erro ao carregar agendamentos. Tente novamente.');
         }
     }
 
@@ -142,6 +152,12 @@ document.addEventListener("DOMContentLoaded", async function() {
             overlayTable.style.display = 'block';
             tablePopup.style.display = 'block';
             fetchSchedules();
+        });
+    }
+
+    if (closePopupScheduleButton) {
+        closePopupScheduleButton.addEventListener ('click', () => {
+            closePopup (calendarPopupSchedule, overlaySchedule);
         });
     }
 });

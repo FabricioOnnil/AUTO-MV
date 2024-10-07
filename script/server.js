@@ -26,7 +26,7 @@ import entrega from '../models/entregaData.js';
 import userRouter from '../routes/acessoRoutes.js';
 import agendamentoRouter from '../routes/agendamentoRoutes.js';
 import agendaRouter from '../routes/agendaRoutes.js';
-import carroAbastecimentoRouter from '../routes/carroAbastecimento.js';
+import carroAbastecimentoRouter from '../routes/abastecimentoRoutes.js';
 import entregaRouter from '../routes/entregaRoutes.js';
 import carRouter from '../routes/carroRoutes.js';
 import carContract from '../routes/contratoRoutes.js';
@@ -38,10 +38,17 @@ import reparoRouter from '../routes/reparoRoutes.js';
 import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.js';
 
 const app = express();
+const PORT = 3000;
+
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json('Erro no servidor!');
+});
 
 // Configuração de sessão
 app.use(session({
@@ -51,7 +58,7 @@ app.use(session({
   cookie: { secure: false } // Defina 'secure' para true em produção com HTTPS
 }));
 
-const PORT = process.env.PORT || 3000;
+
 
 // Definindo __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -124,7 +131,7 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
   
   if(!req.session || !req.session.userId) {
     console.error("Usuário não autenticado ou sessão não inicializada");
-    return res.status(401).send('Usuário não autenticado.');
+    return res.status(401).json('Usuário não autenticado.');
   }  
   const userId = req.session.userId;
 
@@ -132,7 +139,7 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 
   try {
 
-      const imagemAbast = req.file ? await fs.readFile(req.file.path) : null;
+      const imagemAbast =  req.file ? await fs.readFile(path.join(__dirname, req.file.path)) : null
 
       await abastecimentoModelo.create ({
         s_abastecimento_fuelDescription : descricao,
@@ -144,10 +151,10 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
         i_abastecimento_qtdFuel : Qtda,
         i_abastecimento_usuario_key : userId
       });
-      res.status(200).send('Abastecimento criado com sucesso!');
+      res.status(200).json('Abastecimento criado com sucesso!');
     } catch (error) {
       console.error('Erro ao criar abastecimento:', error);
-      res.status(500).send('Erro ao criar abastecimento');
+      res.status(500).json('Erro ao criar abastecimento');
     }
 });
 
@@ -160,13 +167,13 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
 
   if(!req.session || !req.session.userId) {
     console.error("Usuário não autenticado ou sessão não inicializada");
-    return res.status(401).send('Usuário não autenticado.');
+    return res.status(401).json('Usuário não autenticado.');
   }  
   const userId = req.session.userId;
 
   try {
 
-      const imagemCom = req.file ? await fs.readFile(req.file.path) : null;
+      const imagemCom = req.file ? await fs.readFile(path.join(__dirname, req.file.path)) : null;
 
       await comida.create ({
         s_comida_descriptionFood : descricao,
@@ -175,10 +182,10 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
         l_comida_imgFood : imagemCom,
         i_comida_usuario_key : userId
       });
-      res.status(200).send('Cadastro de Alimentação criado com sucesso!');
+      res.status(200).json('Cadastro de Alimentação criado com sucesso!');
     } catch (error) {
       console.error('Erro ao criar cadastro de Alimentação:', error);
-      res.status(500).send('Erro ao criar cadastro de Alimentação');
+      res.status(500).json('Erro ao criar cadastro de Alimentação');
     }
 });
 
@@ -189,7 +196,7 @@ app.post('/agenda', async (req, res) => {
 
   if (!req.session || !req.session.userId) {
     console.error("Usuário não autenticado ou sessão não inicializada.");
-    return res.status(401).send('Usuário não autenticado.');
+    return res.status(401).json('Usuário não autenticado.');
   }
 
   const userId = req.session.userId;
@@ -198,7 +205,7 @@ app.post('/agenda', async (req, res) => {
       const carroSelecionado = await carro.findByPk(carSelect);   
       
       if (!carroSelecionado){
-        return res.status(400).send('Carro selecionado não encontrado. ');
+        return res.status(400).json('Carro selecionado não encontrado. ');
       }
 
 
@@ -216,10 +223,10 @@ app.post('/agenda', async (req, res) => {
       i_agenda_usuario: userId
     });
 
-    res.status(200).send('Formulário recebido com sucesso!');
+    res.status(200).json('Formulário recebido com sucesso!');
   } catch (error) {
     console.error("Erro ao receber formulário.", error);
-    res.status(500).send('Erro ao armazenar formulário');
+    res.status(500).json('Erro ao armazenar formulário');
   }
 });
 
@@ -239,7 +246,7 @@ app.get('/agendamentos', async (req,res) => {
   res.json(agendamentos);
   } catch (error) {
     console.error("Erro ao buscar agendamentos:", error);
-    res.status(500).send("Erro ao buscar agendamentos.");
+    res.status(500).json("Erro ao buscar agendamentos.");
   }
 });
 
@@ -250,7 +257,7 @@ app.post('/acesso', async (req, res) => {
 
   if (!nome || !sobrenome || !senha || !numeroHabilitacao || !orgaoExpedidor || !validadeHabilitacao) {
     console.error('Erro: Dados inválidos ou incompletos fornecidos.');
-    return res.status(400).send('Dados inválidos ou incompletos fornecidos.');
+    return res.status(400).json('Dados inválidos ou incompletos fornecidos.');
   }
 
   try {
@@ -262,10 +269,10 @@ app.post('/acesso', async (req, res) => {
       s_usuario_sectorShipping : orgaoExpedidor,
       dt_usuario_dateExpiration : validadeHabilitacao
     });
-    res.status(200).send('Acesso criado com sucesso!');
+    res.status(200).json('Acesso criado com sucesso!');
   } catch (error) {
     console.error('Erro ao criar acesso:', error);
-    res.status(500).send('Erro ao criar acesso');
+    res.status(500).json('Erro ao criar acesso');
   }
 });
 
@@ -274,18 +281,23 @@ app.post('/acesso', async (req, res) => {
 app.post('/carro', async (req, res) => {
   const { nomeCarro, placa, anoFabricacao, capacidadeTanque, mediaConsumo } = req.body;
 
+  // Verifique se os dados foram recebidos corretamente
+  if (!nomeCarro || !placa || !anoFabricacao || !capacidadeTanque || !mediaConsumo) {
+    return res.status(400).json('Dados incompletos');
+  }
+
   try {
-     await carro.create({
-      s_carro_model : nomeCarro,
+    await carro.create({
+      s_carro_model: nomeCarro,
       s_carro_plate: placa,
-      d_carro_manufactureYear : anoFabricacao,
-      i_carro_fuelTank : capacidadeTanque,
+      d_carro_manufactureYear: anoFabricacao,
+      i_carro_fuelTank: capacidadeTanque,
       i_carro_consumptionAverage: mediaConsumo
     });
-    res.status(200).send('Carro criado com sucesso!');
+    res.status(201).json('Carro criado com sucesso!');
   } catch (error) {
-    console.error('Erro ao criar carro:', error);
-    res.status(500).send('Erro ao criar carro');
+    console.error('Erro ao criar carro:', error.message); // Mostrando mensagem de erro
+    res.status(500).json('Erro ao criar carro');
   }
 });
 
@@ -305,10 +317,10 @@ app.post('/contratoCarro', async (req, res) => {
       dec_contratoCarro_restKm : kmExcendente,
       i_contratoCarro_FranchiseKm : franquia
     });
-    res.status(200).send('Contrato criado com sucesso!');
+    res.status(200).json('Contrato criado com sucesso!');
   } catch (error) {
     console.error('Erro ao criar contrato:', error);
-    res.status(500).send('Erro ao criar contrato');
+    res.status(500).json('Erro ao criar contrato');
   }
 });
 
@@ -326,10 +338,10 @@ app.post('/custosCarro', async (req, res) => {
       s_contratoCarro_contractRental : endOfInsurance,
       i_contratoCarro_rateMonthly : initialKm
     });
-    res.status(200).send('Custos criado com sucesso!');
+    res.status(200).json('Custos criado com sucesso!');
   } catch (error) {
     console.error('Erro ao criar custos:', error);
-    res.status(500).send('Erro ao criar custos');
+    res.status(500).json('Erro ao criar custos');
   }
 });
 
@@ -341,7 +353,7 @@ app.post('/diario', async (req, res) => {
 
   if(!req.session || !req.session.userId) {
     console.error("Usuário não autenticado ou sessão não inicializada");
-    return res.status(401).send('Usuário não autenticado.');
+    return res.status(401).json('Usuário não autenticado.');
   }  
   const userId = req.session.userId;
 
@@ -352,10 +364,10 @@ app.post('/diario', async (req, res) => {
       s_diario_usuarioKey : userId,
       
     });
-    res.status(200).send('Diário criado com sucesso!');
+    res.status(200).json('Diário criado com sucesso!');
   } catch (error) {
     console.error('Erro ao criar diário:', error);
-    res.status(500).send('Erro ao criar diário');
+    res.status(500).json('Erro ao criar diário');
   }
 });
 
@@ -392,7 +404,7 @@ app.post('/reparo', upload.single('imagem'), async (req, res) => {
 
   if(!req.session || !req.session.userId) {
     console.error("Usuário não autenticado ou sessão não inicializada");
-    return res.status(401).send('Usuário não autenticado.');
+    return res.status(401).json('Usuário não autenticado.');
   }
 
   const userId = req.session.userId;
@@ -407,10 +419,10 @@ app.post('/reparo', upload.single('imagem'), async (req, res) => {
         l_reparo_imgRepair : imagemRep,
         i_reparo_usuario_key : userId
     });
-    res.status(200).send('Reparo criado com sucesso!');
+    res.status(200).json('Reparo criado com sucesso!');
   } catch (error) {
     console.error('Erro ao criar reparo:', error);
-    res.status(500).send('Erro ao criar reparo');
+    res.status(500).json('Erro ao criar reparo');
   }
 });
 
@@ -425,10 +437,10 @@ app.post('/usuarioVisita', async (req, res) => {
       d_usuarioVisita_data : data,
       s_usuarioVisita_descricao : descricao
     });
-    res.status(200).send('Usuário Visita criada com sucesso!');
+    res.status(200).json('Usuário Visita criada com sucesso!');
   } catch (error) {
     console.error('Erro ao criar Usuário Visita:', error);
-    res.status(500).send('Erro ao criar Usuário Visita');
+    res.status(500).json('Erro ao criar Usuário Visita');
   }
 });
 

@@ -1,4 +1,4 @@
-function openPopup(popupId) {
+/*function openPopup(popupId) {
     document.getElementById(popupId).style.display = 'flex';
 }
 
@@ -212,5 +212,106 @@ acessoForm.addEventListener('submit', async (event) => {
             row.insertCell(9).textContent = value.hoursNotScheduled;
         });
     }
+    populateTable(globalValues);
+});
+*/
+
+function openPopup(popupId) {
+    document.getElementById(popupId).style.display = 'flex';
+}
+
+function redirecionar(url) {
+    window.location.href = url;
+}
+
+function closePopup(popupId) {
+    document.getElementById(popupId).style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const forms = {
+        contrato: document.querySelector('#carPopup form'),
+        custoFixo: document.querySelector('#custPopup form'),
+        infoCar: document.querySelector('#infoPopup form'),
+        acesso: document.querySelector('#acessoPopup form')
+    };
+
+    const handleSubmit = async (formId, endpoint) => {
+        const formData = new FormData(forms[formId]);
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                throw new Error(errorMessage);
+            }
+
+            const result = await response.json();
+            alert(result.message);
+            forms[formId].reset();
+            closePopup(`${formId}Popup`);
+
+            if (formId === 'contrato') {
+                // Atualiza a tabela se o formulário de contrato foi enviado
+                const reportBody = document.getElementById("reportBody");
+                const newRow = reportBody.insertRow();
+                const dataInicio = new Date(formData.get("dataInicio")).toLocaleDateString("pt-BR");
+                const dataTermino = new Date(formData.get("dataTermino")).toLocaleDateString("pt-BR");
+                const fields = ["dataInicio", "dataTermino", "usuarioResponsavel", "codigoReserva", "codigoAluguel", "tarifaContrato", "kmExcedente", "distanciaDia"];
+                fields.forEach(field => {
+                    newRow.insertCell().textContent = formData.get(field);
+                });
+                // Redirecionar após o sucesso
+                window.location.href = '/vamoGerencia';
+            }
+
+        } catch (error) {
+            console.error("Erro:", error);
+            alert(`Falha ao processar: ${error.message}`);
+        }
+    };
+
+    forms.contrato.addEventListener('submit', (event) => {
+        event.preventDefault();
+        handleSubmit('contrato', '/contratoCarro');
+    });
+
+    forms.custoFixo.addEventListener('submit', (event) => {
+        event.preventDefault();
+        handleSubmit('custoFixo', '/custoFixo');
+    });
+
+    forms.infoCar.addEventListener('submit', (event) => {
+        event.preventDefault();
+        handleSubmit('infoCar', '/carro');
+    });
+
+    forms.acesso.addEventListener('submit', (event) => {
+        event.preventDefault();
+        handleSubmit('acesso', '/login');
+    });
+
+    // Dados de exemplo para preencher a tabela de valores globais
+    const globalValues = [
+        { period: 'Total', days: 0, km: 10000, fuelCost: 5000, fuelAcquired: 2000, fuelUsed: 1800, repairCost: 2000, foodCost: 1000, hoursScheduled: 500, hoursNotScheduled: 300 },
+        { period: 'Ano', days: 365, km: 2000, fuelCost: 1000, fuelAcquired: 400, fuelUsed: 360, repairCost: 400, foodCost: 200, hoursScheduled: 100, hoursNotScheduled: 60 },
+        { period: 'Mês', days: 30, km: 500, fuelCost: 250, fuelAcquired: 100, fuelUsed: 90, repairCost: 100, foodCost: 50, hoursScheduled: 25, hoursNotScheduled: 15 },
+        { period: '15 dias', days: 15, km: 200, fuelCost: 100, fuelAcquired: 40, fuelUsed: 36, repairCost: 40, foodCost: 20, hoursScheduled: 10, hoursNotScheduled: 6 },
+    ];
+
+    function populateTable(values) {
+        const tableBody = document.getElementById("globalValuesBody");
+        tableBody.innerHTML = "";
+        values.forEach(value => {
+            const row = tableBody.insertRow();
+            Object.values(value).forEach(cellValue => {
+                row.insertCell().textContent = cellValue;
+            });
+        });
+    }
+
     populateTable(globalValues);
 });

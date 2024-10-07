@@ -1,8 +1,8 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import db from './db.js';
 
-const carroAbastecimento = db.sequelize.define('carroAbastecimento', { 
-    //Identificador de linha da tabela de carroAbastecimento.
+const abastecimento = db.sequelize.define('abastecimento', { 
+    //Identificador de linha da tabela de abastecimento.
     i_carroAbastecimento_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -23,4 +23,4 @@ const carroAbastecimento = db.sequelize.define('carroAbastecimento', {
     },
 });
 
-export default carroAbastecimento;
+export default abastecimento;

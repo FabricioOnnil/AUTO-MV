@@ -21,7 +21,9 @@
             <label for="descricao">Descrição da Compra:</label>
             <input type="text" id="descricao" name="descricao" required><br>
             <label for="selectCarro">Carro Selecionado: </label>
-            <input type="text" id="carro" name="carro" required><br>
+            <select id="carSelect" name="i_abastecimento_idCar" required>
+                <option value="">Selecione um carro</option>
+            </select><br>
             <label for="valor">Valor da Compra (R$):</label>
             <input type="number" step="0.01" id="valor" name="valor" required><br>
             <label for="valor">Preço por litro (R$)</label>

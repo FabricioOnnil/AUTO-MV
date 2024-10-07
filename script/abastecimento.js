@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    const carSelect = document.getElementById('carSelect');
+
+    fetch('/carro') 
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(carro => {
+                const option = document.createElement('option');
+                option.value = carro.i_carro_idcar;  
+                option.textContent = `${carro.s_carro_model} - ${carro.s_carro_plate}`;  
+                carSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao buscar os carros:', error);
+        });
     const purchaseForm = document.getElementById('purchaseForm');
 
     purchaseForm.addEventListener('submit', async function (event) {
@@ -34,9 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
+                if(contentType && contentType.includes("application/json")) {
                 const data = await response.json();
                 console.log("Resposta do servidor:", data);
                 alert("Abastecimento registrado com sucesso!");
+                } else {
+                    const text = await response.text();
+                    console.log("Resposta do servidor (JSON):", text);
+                    alert("Abastecimento registrado com sucesso!");
+                }
 
                 purchaseForm.reset();
                 } else {

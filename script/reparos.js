@@ -1,74 +1,56 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const descricaoInput = document.getElementById('descricao');
-    const valorInput = document.getElementById('valor');
-    const dataInput = document.getElementById('data');
-    const imagemInput = document.getElementById('imagem');
-    const purchaseForm = document.getElementById('purchaseForm');
-    const modal = document.getElementById('modal');
-    const closeModal = document.getElementById('close');  
-    
+   const purchaseForm = document.getElementById('purchaseForm');
 
-    // Fechar modal
-    if(closeModal) {
-        closeModal.addEventListener('click', () => {
-            modal.style.display = "none";
-    
-        });
-    }
-
-    // Registrar compra ao submeter o formulário
-    purchaseForm.addEventListener('submit', async function (event) {
-        event.preventDefault();
+   purchaseForm.addEventListener('submit', async function (event) {
+        event.preventDefaut();
         console.log("Formulário submetido");
 
-        
-        const descricao = descricaoInput.value;
-        const valor = valorInput.value;
-        const data = dataInput.value;
-        const imagemRep = imagemInput.files[0];
+        const descricao = document.getElementById('descricao').value;
+        const valor = document.getElementById('valor').value;
+        const data = document.getElementById('data').value;
+        const imagem = document.getElementById('imagem').files[0];
 
-
-        if (!descricao || !valor || !data || !imagemRep) {
+        if(!descricao || !valor || !data || !imagem) {
             alert("Por favor, preencha todos os campos e selecione uma imagem.");
             return;
         }
 
         const formData = new FormData();
         formData.append('descricao', descricao);
-        formData.append('carro', valor);
+        formData.append('valor', valor);
         formData.append('data', data);
-        formData.append('imagem', imagemRep);
-        
+        formData.append('imagem', imagem);
+
+
         try {
             const response = await fetch('/reparo', {
                 method: 'POST',
                 body: formData
             });
+        const contentType = response.headers.get("content-type");
 
-            if (response.ok) {
+        if (response.ok) {
+            if(contentType && contentType.includes("application/json")) {
                 const data = await response.json();
-                console.log("Resposta do servidor:", data);
+                console.log("Resposda do servidor (JSON):", data);
                 alert("Reparo registrado com sucesso!");
+            } else {
+                const text = await response.text();
+                console.log("Resposta do servidor (Texto):", text);
+                alert("Reparo registrado com sucesso!");
+            }
 
-                purchaseForm.reset();
-                modal.style.display = "none";
-        } else {
-            const errorData = await response.text();  // Obter a mensagem de erro
-            console.error('Erro ao registrar o reparo:', errorData);
-            alert('Erro ao registrar o reparo. Por favor, tente novamente.');
-        }
+            purchaseForm.reset();
+
+            window.location.href = "/vamoEntrega";
+
+            } else {
+                throw new Error ('Erro ao registrar reparo.');
+            }
         } catch (error) {
-            console.error('Erro', error);
+            console.error('Erro:', error);
             alert('Erro ao registrar o reparo. Por favor, tente novamente.');
         }
     });
-        console.log("Reparo registrada: ", purchaseData);
-    });
-
-    // Fechar modal ao clicar fora do conteúdo
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
+});
 

@@ -7,11 +7,13 @@ const carRouter = express.Router();
 carRouter.get('/carro', async (req, res) => {
 
   try {
-        const carros = await carro.findAll();
+        const carros = await carro.findAll({
+          attributes: [ 'i_carro_idcar', 's_carro_model', 's_carro_plate']
+        });
         res.json(carros);
     } catch (error) {
       console.error('Erro ao buscar carros:', error.message);
-      return res.status(500).send('Erro ao buscar carro.');
+      return res.status(500).json('Erro ao buscar carro.');
     }
   });
 
@@ -21,12 +23,12 @@ carRouter.get('/carro/:id', async (req, res) => {
   try {
     const carroEncontrado = await carro.findOne({ where: { i_carro_idcar: carroId } });
     if(!carroEncontrado) {
-        return res.status(404).send('Carro não encontrado.');
+        return res.status(404).json('Carro não encontrado.');
     }
         return res.json(carroEncontrado);
   } catch (error) {
       console.error('Erro ao buscar carro:', error.message);
-      return res.status(500).send("Erro ao buscar carro: " + error.message);        
+      return res.status(500).json("Erro ao buscar carro: " + error.message);        
       }
     });
 
@@ -35,15 +37,15 @@ carRouter.post('/carro', async (req, res) => {
 
   const { s_carro_model, s_carro_plate} = req.body;
   if(!s_carro_model || !s_carro_plate) {
-    return res.status(400).send("Dados incompletos para cadastrar o carro.");
+    return res.status(400).json("Dados incompletos para cadastrar o carro.");
   }
 
   try {
         const novoCarro = await carro.create(req.body);
-        return res.status(201).send(`Carro cadastrado com sucesso! ID: ${novoCarro.i_carro_idcar}`);
+        return res.status(201).json(`Carro cadastrado com sucesso! ID: ${novoCarro.i_carro_idcar}`);
   } catch (error) {
       console.error('Erro ao cadastrar carro:', error.message);
-      return res.status(500).send("Erro ao cadastrar carro: " + error.message);
+      return res.status(500).json("Erro ao cadastrar carro: " + error.message);
   }
 });
 
@@ -56,12 +58,12 @@ carRouter.put('/carro/:id', async (req, res) => {
   try {
         const [atualizado] = await carro.update(req.body, { where: { i_carro_idcar: carroId } });
         if (atualizado) {
-            return res.send("Carro atualizado com sucesso!");
+            return res.json("Carro atualizado com sucesso!");
         } 
-        return res.status(404).send('Carro não encontrado.');
+        return res.status(404).json('Carro não encontrado.');
   } catch (error) {
         console.error('Erro ao atualizar carro:', error.message);
-        return res.status(500).send("Erro ao atualizar carro: " + error.message );
+        return res.status(500).json("Erro ao atualizar carro: " + error.message );
   }
 });
 
@@ -71,12 +73,12 @@ carRouter.delete('/carro/:id', async (req, res) => {
   try {
         const deletado = await carro.destroy({ where: { i_carro_idcar: carroId } });
         if (deletado) {
-          return res.send("Carro deletado com sucesso!");
+          return res.json("Carro deletado com sucesso!");
         }
-        return res.status(404).send('Carro não encontrado.');
+        return res.status(404).json('Carro não encontrado.');
   } catch (error) {
       console.error('Erro ao deletar carro:', error.message);
-      return res.status(500).send("Erro ao deletar carro: " + error.message);
+      return res.status(500).json("Erro ao deletar carro: " + error.message);
   }
 });
 
