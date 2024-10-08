@@ -74,12 +74,12 @@ document.addEventListener("DOMContentLoaded", async function() {
             const startDate = document.getElementById("startDate").value;
             const startTime = document.getElementById("startTime").value;
             const deliverEndDate = document.getElementById("deliverEndDate").value;
-            const origin = document.getElementById("originSelect").value; 
+            const originSelect = document.getElementById("originSelect").value; 
             const km_initial = document.getElementById("km_initial").value;
             const carSelect = document.getElementById("carSelect").value;
 
 
-            if (!nome || !startDate || !startTime || !deliverEndDate || !origin || !rota || !km_initial || !carSelect) {
+            if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelect) {
                 alert('Por favor, preencha todos os  campos obrigatórios.');
                 return;
             }
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 startDate,
                 startTime,
                 deliverEndDate,
-                origin,
+                originSelect,
                 km_initial,
                 carSelect
             };
@@ -104,8 +104,6 @@ document.addEventListener("DOMContentLoaded", async function() {
                 });
 
                 if (response.ok) {
-                    overlaySchedule.style.display = 'none';
-                    calendarPopupSchedule.style.display = 'none';
                     window.location.href = '/vamoAgenda';
                 } else {
                     const errorText = await response.text();
@@ -132,7 +130,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     <td>${agendamento.d_agenda_startDate}</td>
                     <td>${agendamento.d_agenda_startTime}</td>
                     <td>${agendamento.d_agenda_deliverEndDate}</td>
-                    <td>${agendamento.s_agenda_originSchedule}</td>
+                    <td>${agendamento.s_agenda_originSelect}</td>
                     <td>${agendamento.i_agenda_kmInitial}</td>
                     <td>${agendamento.i_agenda_idCar}</td>
                 `;

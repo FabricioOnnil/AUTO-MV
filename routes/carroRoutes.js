@@ -33,7 +33,7 @@ carRouter.get('/carro/:id', async (req, res) => {
     });
 
   // Rota para cadastrar um novo carro.
-carRouter.post('/carro', async (req, res) => {
+carRouter.post('/', async (req, res) => {
 
   const { s_carro_model, s_carro_plate} = req.body;
   if(!s_carro_model || !s_carro_plate) {
