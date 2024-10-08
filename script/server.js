@@ -202,7 +202,7 @@ app.post('/agenda', async (req, res) => {
   const userId = req.session.userId;
 
   try {
-      const carroSelecionado = await carro.findByPk(carSelect);   
+      const carroSelecionado = carSelect;   
       
       if (!carroSelecionado){
         return res.status(400).json('Carro selecionado não encontrado. ');
@@ -217,7 +217,7 @@ app.post('/agenda', async (req, res) => {
       s_agenda_originSelect: originSelect,
       i_agenda_startRote: rota,
       i_agenda_kmInitial: km_initial,
-      s_agenda_sheduleCar: `${carroSelecionado.s_carro_model} - ${carroSelecionado.s_carro_plate}`,
+      s_agenda_sheduleCar: carSelect,
       d_agenda_createdAt: new Date(),
       d_agenda_updateAt: new Date(),
       i_agenda_usuario: userId
