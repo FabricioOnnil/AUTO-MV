@@ -69,7 +69,7 @@ const __dirname = path.dirname(__filename);
   try {
     await db.sequelize.authenticate();
     console.log("Conectado com sucesso ao banco de dados!");
-    await db.sequelize.sync();
+    await db.sequelize.sync({ force: false});
     console.log("Modelos sincronizados com sucesso!");
   } catch (error) {
     console.error("Falha ao se conectar ao banco de dados ou sincronizar modelos:", error);
@@ -95,9 +95,9 @@ app.use((req, res, next) => {
 app.set('views', join(__dirname, '..', 'views'));
 
 // configuração de multer ----------------------------------------
-
+await fs.mkdir(path.join(__dirname, '/uploads'),{ recursive: true});
 const storage= multer.diskStorage({
-
+  
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, '/uploads'));
   },

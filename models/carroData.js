@@ -63,7 +63,7 @@ const carro = sequelize.define('carro', {
     }
     }, {
         tableName: 'carro',
-        timestamps: false, 
+        timestamps: true, 
         createdAt: 'd_carro_createdAt', 
         updatedAt: 'd_carro_updateAt'
     });

@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", async function() {
             const startTime = document.getElementById("startTime").value;
             const deliverEndDate = document.getElementById("deliverEndDate").value;
             const origin = document.getElementById("originSelect").value; 
-            const rota = document.getElementById("rota").value.trim;
             const km_initial = document.getElementById("km_initial").value;
             const carSelect = document.getElementById("carSelect").value;
 
@@ -91,7 +90,6 @@ document.addEventListener("DOMContentLoaded", async function() {
                 startTime,
                 deliverEndDate,
                 origin,
-                rota,
                 km_initial,
                 carSelect
             };
@@ -135,7 +133,6 @@ document.addEventListener("DOMContentLoaded", async function() {
                     <td>${agendamento.d_agenda_startTime}</td>
                     <td>${agendamento.d_agenda_deliverEndDate}</td>
                     <td>${agendamento.s_agenda_originSchedule}</td>
-                    <td>${agendamento.s_agenda_rotaSchedule}</td>
                     <td>${agendamento.i_agenda_kmInitial}</td>
                     <td>${agendamento.i_agenda_idCar}</td>
                 `;

@@ -4,7 +4,7 @@ import carro  from '../models/carroData.js';
 const carRouter = express.Router();
 
 //Rota para buscar todos os carros.
-carRouter.get('/carro', async (req, res) => {
+carRouter.get('/', async (req, res) => {
 
   try {
         const carros = await carro.findAll({
