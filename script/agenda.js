@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     loadCarros();
 
-    // Fechar popups
+    // Função para fechar popups
     function closePopup(popup, overlay) {
         popup.style.display = 'none';
         overlay.style.display = 'none';
@@ -69,23 +69,26 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (scheduleForm) {
         scheduleForm.addEventListener("submit", async function(event) {
             event.preventDefault();
-
-            const nome = document.getElementById("nome").value.trim;
+    
+            const nome = document.getElementById("nome").value.trim();
             const startDate = document.getElementById("startDate").value;
             const startTime = document.getElementById("startTime").value;
             const deliverEndDate = document.getElementById("deliverEndDate").value;
             const originSelect = document.getElementById("originSelect").value; 
             const km_initial = document.getElementById("km_initial").value;
-            const carSelectElement = document.getElementById("carSelect").value;
+            const carSelectElement = document.getElementById("carSelect");
             const carSelect = carSelectElement.value;
             const scheduleCar = carSelectElement.options[carSelectElement.selectedIndex].text;
 
-
+            // Verificação de campos obrigatórios
             if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelect) {
-                alert('Por favor, preencha todos os  campos obrigatórios.');
+                alert('Por favor, preencha todos os campos obrigatórios.');
                 return;
             }
 
+            // Atualiza o campo hidden com o nome do carro selecionado
+            document.getElementById("s_agenda_scheduleCar").value = scheduleCar;
+    
             const formData = {
                 nome,
                 startDate,
@@ -93,10 +96,10 @@ document.addEventListener("DOMContentLoaded", async function() {
                 deliverEndDate,
                 originSelect,
                 km_initial,
-                carSelect, 
+                carSelect,
                 s_agenda_scheduleCar: scheduleCar
             };
-
+    
             try {
                 const response = await fetch('/agenda', {
                     method: 'POST',
@@ -105,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     },
                     body: JSON.stringify(formData)
                 });
-
+    
                 if (response.ok) {
                     window.location.href = '/vamoAgenda';
                 } else {
@@ -115,11 +118,12 @@ document.addEventListener("DOMContentLoaded", async function() {
                 }
             } catch (error) {
                 console.error("Erro ao armazenar os dados:", error);
-                alert('Error ao armazenar os dados. Verifique usa conexão.');
+                alert('Erro ao armazenar os dados. Verifique sua conexão.');
             }
         });
     }
 
+    // Função para buscar agendamentos
     async function fetchSchedules() {
         try {
             const response = await fetch('/agendamentos');
@@ -145,6 +149,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         }
     }
 
+    // Exibir popup com a tabela de agendamentos
     if (showTablePopup) {
         showTablePopup.addEventListener('click', () => {
             overlayTable.style.display = 'block';
@@ -153,9 +158,10 @@ document.addEventListener("DOMContentLoaded", async function() {
         });
     }
 
+    // Fechar o popup de calendário ao clicar no botão de fechar
     if (closePopupScheduleButton) {
-        closePopupScheduleButton.addEventListener ('click', () => {
-            closePopup (calendarPopupSchedule, overlaySchedule);
+        closePopupScheduleButton.addEventListener('click', () => {
+            closePopup(calendarPopupSchedule, overlaySchedule);
         });
     }
 });
