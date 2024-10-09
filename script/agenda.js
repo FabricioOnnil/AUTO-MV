@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             const km_initial = document.getElementById("km_initial").value;
             const carSelectElement = document.getElementById("carSelect");
             const carSelect = carSelectElement.value;
-            const scheduleCar = carSelectElement.options[carSelectElement.selectedIndex].text;
+           // const scheduleCar = carSelectElement.options[carSelectElement.selectedIndex].text;
 
             // Verificação de campos obrigatórios
             if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelect) {
