@@ -76,7 +76,9 @@ document.addEventListener("DOMContentLoaded", async function() {
             const deliverEndDate = document.getElementById("deliverEndDate").value;
             const originSelect = document.getElementById("originSelect").value; 
             const km_initial = document.getElementById("km_initial").value;
-            const carSelect = document.getElementById("carSelect").value;
+            const carSelectElement = document.getElementById("carSelect").value;
+            const carSelect = carSelectElement.value;
+            const scheduleCar = carSelectElement.options[carSelectElement.selectedIndex].text;
 
 
             if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelect) {
@@ -91,7 +93,8 @@ document.addEventListener("DOMContentLoaded", async function() {
                 deliverEndDate,
                 originSelect,
                 km_initial,
-                carSelect
+                carSelect, 
+                s_agenda_scheduleCar: scheduleCar
             };
 
             try {
