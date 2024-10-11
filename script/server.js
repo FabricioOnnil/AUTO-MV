@@ -192,7 +192,7 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
 
 // Rota de agenda
 app.post('/agenda', async (req, res) => {
-  const { nome, startDate, startTime, deliverEndDate, originSelect, rota, km_initial, carSelect } = req.body;
+  const { nome, startDate, startTime, deliverEndDate, originSelect, km_initial, carSelect } = req.body;
 
   if (!req.session || !req.session.userId) {
     console.error("Usuário não autenticado ou sessão não inicializada.");
@@ -215,7 +215,6 @@ app.post('/agenda', async (req, res) => {
       d_agenda_startTime: startTime,
       d_agenda_deliverEndDate: deliverEndDate,
       s_agenda_originSelect: originSelect,
-      i_agenda_startRote: rota,
       i_agenda_kmInitial: km_initial,
       s_agenda_sheduleCar: carSelect,
       d_agenda_createdAt: new Date(),
