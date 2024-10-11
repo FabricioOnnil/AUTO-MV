@@ -77,18 +77,18 @@ document.addEventListener("DOMContentLoaded", async function() {
             const originSelect = document.getElementById("originSelect").value; 
             const km_initial = document.getElementById("km_initial").value;
             const carSelectElement = document.getElementById("carSelect");
-            const carSelect = carSelectElement.value;
-           // const scheduleCar = carSelectElement.options[carSelectElement.selectedIndex].text;
-
+            const carSelecty = carSelectElement.value;
+           const scheduleCar = carSelectElement.options[carSelectElement.selectedIndex].text;
             // Verificação de campos obrigatórios
-            if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelect) {
+            if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelecty  ) {
                 alert('Por favor, preencha todos os campos obrigatórios.');
                 return;
             }
 
             // Atualiza o campo hidden com o nome do carro selecionado
-            document.getElementById("s_agenda_scheduleCar").value = scheduleCar;
-    
+            
+            const carSelect = scheduleCar;
+
             const formData = {
                 nome,
                 startDate,
@@ -96,8 +96,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 deliverEndDate,
                 originSelect,
                 km_initial,
-                carSelect,
-                s_agenda_scheduleCar: scheduleCar
+                carSelect
             };
     
             try {
@@ -139,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     <td>${agendamento.d_agenda_deliverEndDate}</td>
                     <td>${agendamento.s_agenda_originSelect}</td>
                     <td>${agendamento.i_agenda_kmInitial}</td>
-                    <td>${agendamento.i_agenda_idCar}</td>
+                    <td>${agendamento.s_agenda_scheduleCar}</td>
                 `;
                 schedulesBody.appendChild(row);
             });

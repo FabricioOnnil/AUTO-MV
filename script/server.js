@@ -114,6 +114,7 @@ const upload = multer({ storage: storage});
 
 
 // Rotas para cada tabela
+app.use('/agenda', agendaRouter);
 app.use('/login', userRouter);
 app.use('/contratoCarro', carContract);
 app.use('/custosFixos', carCosts);
@@ -203,7 +204,9 @@ app.post('/agenda', async (req, res) => {
 
   try {
       const carroSelecionado = carSelect;   
-      
+      console.log("Carro selecionado:", carroSelecionado);
+      console.log("Select Car:", carSelect);
+
       if (!carroSelecionado){
         return res.status(400).json('Carro selecionado não encontrado. ');
       }
