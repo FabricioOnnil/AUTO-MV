@@ -115,7 +115,11 @@ document.addEventListener("DOMContentLoaded", async function() {
                 });
     
                 if (response.ok) {
-                    window.location.href = '/vamoAgenda';
+
+                    alert('Agendamento realizado com suceosso!');
+                    closePopup(calendarPopupSchedule, overlaySchedule);
+                    window.history.back();
+                    
                 } else {
                     const errorText = await response.text();
                     console.error("Erro ao armazenar os dados:", errorText);
