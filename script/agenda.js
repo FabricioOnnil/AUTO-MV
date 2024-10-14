@@ -81,8 +81,9 @@ document.addEventListener("DOMContentLoaded", async function() {
             const carSelectElement = document.getElementById("carSelect");
 
            
-            const carSelectValue = carSelectElement.options[carSelectElement.selectedIndex].value;
-           
+            const carSelectText = carSelectElement.options[carSelectElement.selectedIndex].text;
+            const carSelectValue = carSelectElement.value;
+            console.log("Valor do carro selecionado enviado:", carSelectValue);
 
             // Verificação de campos obrigatórios
             if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelectValue  ) {
@@ -91,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             }
 
             // Atualiza o campo hidden com o nome do carro selecionado
-            document.getElementById("s_agenda_scheduleCar").value = carSelectValue;
+            //document.getElementById("s_agenda_scheduleCar").value = carSelectText;
 
             const formData = {
                 nome,

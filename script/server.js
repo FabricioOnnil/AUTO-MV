@@ -207,7 +207,7 @@ app.post('/agenda', async (req, res) => {
 
       const carroSelecionado = carSelect;   
       console.log("Carro selecionado:", carroSelecionado);
-      
+     
 
       if (!carroSelecionado){
         return res.status(400).json('Carro selecionado não encontrado.');
@@ -221,7 +221,7 @@ app.post('/agenda', async (req, res) => {
       d_agenda_deliverEndDate: deliverEndDate,
       s_agenda_originSelect: originSelect,
       i_agenda_kmInitial: km_initial,
-      s_agenda_scheduleCar: carSelect,
+      s_agenda_scheduleCar: carroSelecionado,
       d_agenda_createdAt: new Date(),
       d_agenda_updateAt: new Date(),
       i_agenda_usuario: userId
