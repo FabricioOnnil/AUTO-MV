@@ -203,12 +203,14 @@ app.post('/agenda', async (req, res) => {
   const userId = req.session.userId;
 
   try {
+      console.log("Dados recebidos do formulário:", req.body);
+
       const carroSelecionado = carSelect;   
       console.log("Carro selecionado:", carroSelecionado);
-      console.log("Select Car:", carSelect);
+      
 
       if (!carroSelecionado){
-        return res.status(400).json('Carro selecionado não encontrado. ');
+        return res.status(400).json('Carro selecionado não encontrado.');
       }
 
 
