@@ -25,9 +25,10 @@ document.addEventListener("DOMContentLoaded", async function() {
                     carros.forEach(carro => {
                         const option = document.createElement('option');
                         option.value = carro.i_carro_idcar;
-                        option.text = `${carro.s_carro_model} - ${carro.s_carro_plate}`;
+                        option.text = `${carro.i_carro_idcar} - ${carro.s_carro_model} - ${carro.s_carro_plate}`;
                         carSelect.appendChild(option);
                     });
+                    
                 } else {
                     console.error('Resposta inesperada, não é JSON:', await response.text());
                     alert('Erro ao carregar carros. O servidor retornou uma resposta inesperada.');
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             console.error('Erro ao carregar carros:', error);
             alert('Erro ao carregar carros. Por favor, tente novamente.');
         }
+         
     }
 
     loadCarros();
@@ -78,10 +80,9 @@ document.addEventListener("DOMContentLoaded", async function() {
             const km_initial = document.getElementById("km_initial").value;
             const carSelectElement = document.getElementById("carSelect");
 
-
-            //const carSelectValue = carSelectElement.value;
-            const carSelectText = carSelectElement.options[carSelect.selectedIndex].text;
-            const carSelectValue = carSelectElement.options[carSelect.selectIndex].value;
+           
+            const carSelectValue = carSelectElement.options[carSelectElement.selectedIndex].value;
+           
 
             // Verificação de campos obrigatórios
             if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelectValue  ) {
@@ -106,7 +107,8 @@ document.addEventListener("DOMContentLoaded", async function() {
                 const response = await fetch('/agenda', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Content-Type": "application/json",
+                        "accept": "application/json"
                     },
                     body: JSON.stringify(formData)
                 });

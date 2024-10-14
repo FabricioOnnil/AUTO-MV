@@ -221,7 +221,7 @@ app.post('/agenda', async (req, res) => {
       d_agenda_deliverEndDate: deliverEndDate,
       s_agenda_originSelect: originSelect,
       i_agenda_kmInitial: km_initial,
-      s_agenda_sheduleCar: carSelect,
+      s_agenda_scheduleCar: carSelect,
       d_agenda_createdAt: new Date(),
       d_agenda_updateAt: new Date(),
       i_agenda_usuario: userId
