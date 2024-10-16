@@ -67,6 +67,15 @@ document.addEventListener("DOMContentLoaded", async function() {
         });
     }
 
+    function formatDateToBrazilian(dateString) {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+
     // Submeter formulário de agendamento
     if (scheduleForm) {
         scheduleForm.addEventListener("submit", async function(event) {
@@ -116,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     
                 if (response.ok) {
 
-                    alert('Agendamento realizado com suceosso!');
+                    alert('Agendamento realizado com sucesso!');
                     closePopup(calendarPopupSchedule, overlaySchedule);
                     window.history.back();
                     
@@ -143,9 +152,9 @@ document.addEventListener("DOMContentLoaded", async function() {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${agendamento.s_agenda_nameSchedule}</td>
-                    <td>${agendamento.d_agenda_startDate}</td>
+                    <td>${formatDateToBrazilian(agendamento.d_agenda_startDate)}</td>
                     <td>${agendamento.d_agenda_startTime}</td>
-                    <td>${agendamento.d_agenda_deliverEndDate}</td>
+                    <td>${formatDateToBrazilian(agendamento.d_agenda_deliverEndDate)}</td>
                     <td>${agendamento.s_agenda_originSelect}</td>
                     <td>${agendamento.i_agenda_kmInitial}</td>
                     <td>${agendamento.s_agenda_scheduleCar}</td>

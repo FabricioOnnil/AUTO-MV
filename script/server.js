@@ -227,7 +227,10 @@ app.post('/agenda', async (req, res) => {
       i_agenda_usuario: userId
     });
 
-    res.status(200).json('Formulário recebido com sucesso!');
+    //res.status(200).json('Formulário recebido com sucesso!');
+    res.redirect('/vamoAgenda');
+    
+
   } catch (error) {
     console.error("Erro ao receber formulário.", error);
     res.status(500).json('Erro ao armazenar formulário');
