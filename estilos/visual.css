@@ -40,6 +40,7 @@
     --varGreen2:rgb(80, 102, 3)0;
     --varGreenshodow: #78990075;
     --varWhite: #FFFFFF;
+    --varWhite2: #f5eeeed3;
     --varYellow: #FFC72C;
     --varBlue: #307FE2;
     --varBackgroundImage: url(/Imagens/Imagens_apoio/Imagens_apoio/testefundo/floresta.png);
@@ -147,7 +148,7 @@ button:hover {
 }
 /*Trocar nome*/
 #button_define {
-    width: 100%; /* Largura da primeira section */
+    width: 80%; /* Largura da primeira section */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -184,8 +185,6 @@ button:hover {
     box-sizing: border-box;
     margin: auto;    
 }
-
-
 
 /*--- C --*/
 
@@ -338,6 +337,7 @@ div {
     padding: 20px;
     background-color: #f4f4f4;
 }
+
 
 /*--- E --*/
 #errorMessage {
@@ -911,9 +911,9 @@ input[type=text]::placeholder {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 97%;
+    width: 50%;
     background-color: #3080e2d3;
-    border: 2px solid #307FE2;
+    border: 2px solid #789900a9;
     box-shadow: 0 0px 10px var(--varBoxshadowForm);
     display: none;
     z-index: 1000;
@@ -922,7 +922,7 @@ input[type=text]::placeholder {
 .popup-containerSchedule {
     background-color: var(--varBackgroundForm);
     box-shadow: var(--varBoxshadowForm);
-    border-color: #307FE2;
+    border-color: #789900b4;
     display: block;
     gap: 10px;
     left: 50%;
@@ -977,11 +977,11 @@ input[type=text]::placeholder {
 }
 
 .popup-content {
-    background-color: var(--varWhite);
-    padding: 20px;
-    border-radius: 10px;
+    background-color: var(--varGreen2);
+    padding: 2px;
+    border-radius: 1px;
     box-shadow: 0 0 10px var(--varBoxshadowForm);
-    max-width: 1000px;
+    max-width: 100%;
     max-height: 90%;
     margin: 5px;
     overflow-y: auto;
@@ -1296,23 +1296,53 @@ input[type=text]::placeholder {
 .table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin-top: 1px;
 }
 .table th, .table td {
+    
     border: 1px solid #ddd;
     padding: 8px;
 }
 
 .table th {
-    background-color: #f2f2f2;
+    
+    background-color: #f2f2f29c;
     text-align: center;
 }
 
+#tablePopup {
+    background-color: rgba(0, 100, 0, 0.404);
+    color: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 1.3s;
+    margin-bottom: 20px;
+}
+#tablePopup img {
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+}
+
+
+#tablePopup:hover {
+    background-color: rgba(0, 100, 0, 0.822);
+    font-size: 20px;
+    font-weight: bolder;
+    color: var(--varBlue);
+}
+
 th, td {
+    color: black;
+    font-weight: bold;
     padding: 10px;
     text-align: left;
 }
 
+tr {
+    background-color: var(--varWhite2);
+    font-size: 20px;
+}
 .today {
     background-color: rgba(2, 75, 2, 0.555);
     font-weight: bold;
@@ -1330,20 +1360,67 @@ thead {
     border-collapse: collapse;
     border-color: var(--varBlue);
     margin-top: 10px;
-    background-color: var(--varWhite);
-    width: 98%;
+    background-color: rgba(255, 255, 255, 0.041);
+    
 }
 .tableReport th, .tableReport td {
-    border: 1px solid var(--varBlue);
+    border: 1px solid var(--varGreen);
     padding: 5px;
+    color:black;
+    background-color: rgba(172, 255, 47, 0);
+    text-align: center;
 }
-
 .tableReport th {
-    background-color: var(--varWhite);
-    color: var(--varBlue);
+    background-color: rgba(255, 255, 255, 0.021);
+    color: var(--varGreen);
     text-align: center;
 }
 
+/*.tableReportDelivery {
+    width: 95%;
+    border-collapse: collapse;
+    border-color: var(--varBlue);
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.041);    
+}*/
+
+.tableReportDelivery {
+    width: 90%;
+    table-layout: fixed;
+}
+
+.tableReportDelivery th, .tableReportDelivery td {
+    padding: 4px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+/*.tableReportDelivery th, .tableReportDelivery td {
+    border: 1px solid var(--varGreen);
+    padding: 10px;
+    color:black;
+    background-color: rgba(172, 255, 47, 0);
+    text-align: center;
+}*/
+
+.tableReportDelivery th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+/*.tableReportDelivery th {
+    background-color: rgba(255, 255, 255, 0.021);
+    color: var(--varGreen);
+    text-align: center;
+}*/
+
+.tableReportDelivery td {
+    white-space: nowrap;
+}
+
+.tableReportDelivery th.acao, .tableReportDelivery td.acao {
+    width: 50px; 
+    text-align: center;
+}
 /*--- U --*/
 
 .unic {

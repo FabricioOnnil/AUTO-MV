@@ -54,10 +54,17 @@ document.addEventListener("DOMContentLoaded", function() {
                     row.insertCell(4).textContent = agendamento.s_agenda_scheduleCar;
 
                     const actionCell = row.insertCell(5);
-                    const entregaButton = document.createElement("button");
-                    entregaButton.textContent = "Entrega";
+                    actionCell.classList.add("acao");
+                    /*const entregaButton = document.createElement("button");
+                    entregaButton.textContent = "Entregar";
                     entregaButton.addEventListener("click", () => showPopupWithFormData(agendamento, index));
-                    actionCell.appendChild(entregaButton);
+                    actionCell.appendChild(entregaButton);*/
+                    const entregaImage = document.createElement("img");
+                    entregaImage.src = "/Imagens/registrarbutton.png"; 
+                    entregaImage.alt = "Entregar";
+                    entregaImage.style.cursor = "pointer"; 
+                    entregaImage.addEventListener("click", () => showPopupWithFormData(agendamento, index));
+                    actionCell.appendChild(entregaImage);
                 });
             })
             .catch(error => {
