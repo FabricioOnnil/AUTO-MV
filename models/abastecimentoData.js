@@ -20,34 +20,34 @@ const abastecimentoModelo = db.sequelize.define('abastecimento', {
         type: DataTypes.DECIMAL(9,2),
         allowNull: true
     },
+    
+    //Valor total do Abastecimento. 4
+    dec_abastecimento_priceLiter: {
+        type: DataTypes.DECIMAL(9,2),
+        allowNull: true
+    },
 
-    //Data do Abastecimento. 4
+    //Data do Abastecimento. 5
     d_abastecimento_fuelDate: {
         type: DataTypes.DATE,
         allowNull: true
     },
 
-    //Imagem da Nota Fiscal. 5
+    //Imagem da Nota Fiscal. 6
     l_abastecimento_fuellImg: {
         type: DataTypes.BLOB('long'),
         allowNull: true
     },
 
-    //Chave Estrangeira do Id do Carro escolhido. 6
+    //Chave Estrangeira do Id do Carro escolhido. 7
     i_abastecimento_idCar: {
         type: DataTypes.INTEGER,
         allowNull: true
     },
 
-    //Quantidade do abastecimento. 7
+    //Quantidade do abastecimento. 8
     i_abastecimento_qtdFuel: {
         type: DataTypes.INTEGER,
-        allowNull: true
-    },
-
-    //Preço do litro do Combustivel. 8
-    dec_abastecimento_priceLiter: {
-        type: DataTypes.DECIMAL(9,2),
         allowNull: true
     },
 

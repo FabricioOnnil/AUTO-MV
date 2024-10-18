@@ -70,7 +70,7 @@ const comida = db.sequelize.define('comida', {
   },
 }, {
     tableName: 'comida',
-    timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically
+    timestamps: false, 
 });
 
 export default comida;

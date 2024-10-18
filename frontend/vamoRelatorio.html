@@ -14,6 +14,7 @@
         </section>
         <h1>Relatório</h1><a href="/frontend/vamoEntrega.html"><button class="backButton">Voltar</button></a><br>
         
+        <!-- Tabela de Refeições (comida) -->
         <section>
             <h2>Refeições</h2>
             <button onclick="openTablePopup('table-refeicoes')">Abrir Tabela de Refeições</button>
@@ -50,6 +51,25 @@
             </table>
         </section>
         
+         <!-- Tabela de Abastecimentos -->
+         <section>
+            <h2>Abastecimentos</h2>
+            <button onclick="openTablePopup('table-abastecimento')">Abrir Tabela de Abastecimentos</button>
+            <table id="table-abastecimento">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Nota Fiscal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dados serão inseridos dinamicamente via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+        
         <footer>
             <a href="https://mvgi.com.br/" target="_blank">
                 <img src="/Imagens/mvtranslucido2.png" alt="Logo MV Gestão Integrada">
@@ -57,6 +77,6 @@
         </footer>
     </main>
 
-    <script src="/scripts/main.js"></script>
+    <script src="/scripts/relatorio.js"></script>
 </body>
 </html>

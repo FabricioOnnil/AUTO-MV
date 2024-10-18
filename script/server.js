@@ -36,6 +36,7 @@ import comidaRouter from '../routes/refeicaoRoutes.js';
 import abstRouter from '../routes/fuelStationRoutes.js';
 import reparoRouter from '../routes/reparoRoutes.js';
 import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.js';
+import relatorioRoutes from './routes/relatorioRoutes.js';
 
 const app = express();
 const PORT = 3000;
@@ -123,6 +124,7 @@ app.use('/food', comidaRouter);
 app.use('/fuelStation', abstRouter);
 app.use('/agendamento', agendamentoRouter);
 app.use('/entrega', entregaRouter);
+app.use('/relatorio', relatorioRoutes);
 
 
 // Rota de abastecimento
@@ -133,23 +135,22 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
   if(!req.session || !req.session.userId) {
     console.error("Usuário não autenticado ou sessão não inicializada");
     return res.status(401).json('Usuário não autenticado.');
-  }  
-  const userId = req.session.userId;
+  }
 
+  const userId = req.session.userId;
   const Qtda = (valor / pLitro);
 
   try {
-
-      const imagemAbast =  req.file ? await fs.readFile(path.join(__dirname, req.file.path)) : null
+      const imagemAbast =  req.file ? await fs.readFile(path.join(req.file.path)) : null
 
       await abastecimentoModelo.create ({
         s_abastecimento_fuelDescription : descricao,
-        i_abastecimento_idCar : carro,
-        dec_abastecimento_fuelPrice : valor,
-        dec_abastecimento_priceLiter : pLitro,
+        dec_abastecimento_fuelPrice : parseFloat(valor),
+        dec_abastecimento_priceLiter : parseFloat(pLitro),
         d_abastecimento_fuelDate : new Date(data),
         l_abastecimento_fuelImg : imagemAbast,
-        i_abastecimento_qtdFuel : Qtda,
+        i_abastecimento_idCar : carro,
+        i_abastecimento_qtdFuel : Math.round(Qtda),
         i_abastecimento_usuario_key : userId
       });
       res.status(200).json('Abastecimento criado com sucesso!');
@@ -162,7 +163,6 @@ app.post('/abastecimento', upload.single('imagem'), async (req, res) => {
 
 // Rota de alimentação
 app.post('/comida', upload.single('imagem'), async (req, res) => {
-
   
   const {descricao, valor, data } = req.body;
 
@@ -170,18 +170,19 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
     console.error("Usuário não autenticado ou sessão não inicializada");
     return res.status(401).json('Usuário não autenticado.');
   }  
+
   const userId = req.session.userId;
+  req.body.i_comida_usuario_key = userId;
 
   try {
-
-      const imagemCom = req.file ? await fs.readFile(path.join(__dirname, req.file.path)) : null;
+      const imagemCom = req.file ? await fs.readFile(path.join(req.file.path)) : null;
 
       await comida.create ({
         s_comida_descriptionFood : descricao,
         dec_comida_valueFood : valor,
         d_comida_dateFood : new Date(data),
         l_comida_imgFood : imagemCom,
-        i_comida_usuario_key : userId
+        i_comida_usuario_key : req.body.i_comida_usuario_key
       });
       res.status(200).json('Cadastro de Alimentação criado com sucesso!');
     } catch (error) {
@@ -517,7 +518,6 @@ app.get('/vamoRelatorio', (req, res) => {
 app.get('/vamoReparos', (req, res) => {
   res.sendFile(join(__dirname, '..', 'frontend', 'vamoReparos.html'));
 });
-
 
 
 

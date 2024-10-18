@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABASTECIMENTO</title>
     <link rel="stylesheet" href="/estilos/visual.css">
-    <link rel="shortcut icon" href="/Imagens/favicon_vamo.png" type="image/x-icon">
-    
+    <link rel="shortcut icon" href="/Imagens/favicon_vamo.png" type="image/x-icon">    
 </head>
 <body >
     <main>
         <section id="header">
             <a href="vamoInicial.html"> <img src="../Imagens/logonew725.png" alt="Logo Vamo"> </a></section><br>
-        <h1>Abastecimento</button></a></h1><a href="/frontend/vamoEntrega.html"><button class="backButton">Voltar</button></a><br>
-        
+        <h1>Abastecimento</button></a></h1><a href="/frontend/vamoEntrega.html"><button class="backButton">Voltar</button></a><br> 
         
 
         <form id="purchaseForm" class="loginForm" action="/registrarAbastecimento" method="POST" enctype="multipart/form-data">
@@ -21,7 +19,7 @@
             <label for="descricao">Descrição da Compra:</label>
             <input type="text" id="descricao" name="descricao" required><br>
             <label for="selectCarro">Carro Selecionado: </label>
-            <select id="carSelect" name="i_abastecimento_idCar" required>
+            <select id="carSelect" name="carro" required>
                 <option value="">Selecione um carro</option>
             </select><br>
             <label for="valor">Valor da Compra (R$):</label>
@@ -33,6 +31,7 @@
             <label for="imagem">Foto Nota Fiscal:</label>
             <input type="file" id="imagem" name="imagem" accept="image/*" required><br>
             <button type="submit" class="registerButton">Registrar</button>
+            
         </form>
         <footer>
             <a href="https://mvgi.com.br/" target="_blank">

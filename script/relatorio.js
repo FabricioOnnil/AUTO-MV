@@ -1,56 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tableRefeicoesBody = document.getElementById('table-refeicoes').querySelector('tbody');
     const tableReparosBody = document.getElementById('table-reparos').querySelector('tbody');
+    const tableAbastecimentoBody = document.getElementById('table-abastecimento').querySelector('tbody');
 
     // Simulação de dados de refeições e reparos
-    const refeicoes = [
-        { descricao: 'Refeição 1', valor: 20.5, data: '2024-06-30', imagem: '/Imagens/nota1.png' },
-        { descricao: 'Refeição 2', valor: 15.75, data: '2024-06-29', imagem: '/Imagens/nota2.png' }
-    ];
-
-    const reparos = [
-        { descricao: 'Reparo 1', valor: 100.0, data: '2024-06-25' },
-        { descricao: 'Reparo 2', valor: 50.25, data: '2024-06-27' }
-    ];
-
-    // Função para exibir dados nas tabelas
     function exibirDadosNaTabela(data, tableBody, includeHeaders = false) {
-        tableBody.innerHTML = ''; // Limpa o conteúdo atual da tabela
+        tableBody.innerHTML = '';
 
-        if (includeHeaders) {
-            const headers = data.length > 0 ? Object.keys(data[0]) : [];
-            const headerRow = document.createElement('tr');
-            headers.forEach(header => {
-                headerRow.innerHTML += `<th>${header}</th>`;
-            });
-            tableBody.appendChild(headerRow);
-        }
-
-        data.forEach(compra => {
+        data.forEach(item => {
             const row = document.createElement('tr');
-            if (compra.imagem) {
+            if (item.imagem) {
                 row.innerHTML = `
-                    <td>${compra.descricao}</td>
-                    <td>R$ ${compra.valor.toFixed(2)}</td>
-                    <td>${compra.data}</td>
-                    <td><img src="${compra.imagem}" alt="Nota Fiscal" width="100"></td>
+                    <td>${item.descricao}</td>
+                    <td>R$ ${item.valor.toFixed(2)}</td>
+                    <td>${item.data}</td>
+                    <td><img src="${item.imagem}" alt="Nota Fiscal" width="100"></td>
                 `;
             } else {
                 row.innerHTML = `
-                    <td>${compra.descricao}</td>
-                    <td>R$ ${compra.valor.toFixed(2)}</td>
-                    <td>${compra.data}</td>
+                    <td>${item.descricao}</td>
+                    <td>R$ ${item.valor.toFixed(2)}</td>
+                    <td>${item.data}</td>
                 `;
             }
             tableBody.appendChild(row);
         });
     }
 
-    // Exibir dados de refeições na tabela
-    exibirDadosNaTabela(refeicoes, tableRefeicoesBody);
+    // Fetch e exibição de refeições (comida) na tabela
+    fetch('/api/refeicoes')
+        .then(response => response.json())
+        .then(data => exibirDadosNaTabela(data, tableRefeicoesBody))
+        .catch(error => console.error('Erro ao buscar refeições:', error));
 
-    // Exibir dados de reparos na tabela
-    exibirDadosNaTabela(reparos, tableReparosBody);
+    // Fetch e exibição de reparos na tabela
+    fetch('/api/reparos')
+        .then(response => response.json())
+        .then(data => exibirDadosNaTabela(data, tableReparosBody))
+        .catch(error => console.error('Erro ao buscar reparos:', error));
+
+    // Fetch e exibição de abastecimentos na tabela
+    fetch('/api/abastecimentos')
+        .then(response => response.json())
+        .then(data => exibirDadosNaTabela(data, tableAbastecimentoBody))
+        .catch(error => console.error('Erro ao buscar abastecimentos:', error));
 });
 
 function openTablePopup(tableId) {
@@ -61,4 +54,15 @@ function openTablePopup(tableId) {
     const popupWindow = window.open('', '_blank', 'width=800,height=600');
 
     // Escreve o conteúdo HTML da tabela na nova janela
-    popupWindow.document.write()}
+    popupWindow.document.write(`
+        <html>
+        <head><title>Tabela de ${tableId}</title></head>
+        <body>
+            <table>
+                ${tableContent}
+            </table>
+        </body>
+        </html>
+    `);
+    popupWindow.document.close();
+}

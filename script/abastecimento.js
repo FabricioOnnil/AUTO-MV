@@ -22,13 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Formulário submetido");
 
         const descricao = document.getElementById('descricao').value;
-        const carro = document.getElementById('carro').value;
+        const carro = document.getElementById('carSelect').value;
         const valor = document.getElementById('valor').value;
         const pLitro = document.getElementById('pLitro').value;
         const data = document.getElementById('data').value;
         const imagem = document.getElementById('imagem').files[0];
 
-        
+        console.log({ descricao, carro, valor, pLitro, data, imagem });
+
+
         if (!descricao || !carro || !valor || !pLitro || !data || !imagem) {
             alert("Por favor, preencha todos os campos e selecione uma imagem.");
             return;
@@ -48,6 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 body: formData
             });
+            const contentType = response.headers.get("Content-Type");
+            
+            if (!response.ok) {
+                const errorData = await response.text();
+                console.error('Erro detalhado:', errorData);
+                throw new Error('Erro ao registrar o abastecimento: ' + errorData);
+            }
 
             if (response.ok) {
                 if(contentType && contentType.includes("application/json")) {
