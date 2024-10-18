@@ -43,7 +43,7 @@ const custosCarro = sequelize.define('custosCarro', {
     },
 
     // Quilometragem de aluguel. Vv
-    i_carro_rentalKm: {
+    i_custosCarro_rentalKm: {
         type: DataTypes.INTEGER,
         allowNull: true
     },

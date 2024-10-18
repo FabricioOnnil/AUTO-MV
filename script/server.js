@@ -334,17 +334,17 @@ app.post('/contratoCarro', async (req, res) => {
 
 // Rota de Custos do Carro
 app.post('/custosCarro', async (req, res) => {
-  const { damageLimit, otherDamage, totalLoss, insurancePeriod, endOfInsurance, initialKm } = req.body;
+  const { limiteReparos, danosTerceiros, perdaTotal, inicioSeguroVigencia, fimSeguroVigencia, aluguelKm} = req.body;
 
   try {
-    await contratoCarro.create({
-      d_contratoCarro_startDateRental : damageLimit,
-      d_contratoCarro_endDateRental : otherDamage,
-      s_contratoCarro_responsible : totalLoss,
-      s_contratoCarro_reservationCode : insurancePeriod,
-      s_contratoCarro_contractRental : endOfInsurance,
-      i_contratoCarro_rateMonthly : initialKm
-    });
+    await custosCarro.create({
+      dec_custosCarro_repairLimitValue : limiteReparos,
+      dec_custosCarro_damageOther : danosTerceiros,
+      dec_custosCarro_totalLoss : perdaTotal,
+      d_custosCarro_startDateSafe : inicioSeguroVigencia,
+      d_custosCarro_endDateSafe : fimSeguroVigencia,
+      i_custosCarro_rentKm : aluguelKm 
+  });
     res.status(200).json('Custos criado com sucesso!');
   } catch (error) {
     console.error('Erro ao criar custos:', error);

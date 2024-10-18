@@ -32,11 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const contentType = response.headers.get("content-type");
 
-        if (response.ok) {
+        /*if (response.ok) {
             if (contentType && contentType.includes("application/json")) {
                 const data = await response.json(); // Apenas tenta fazer o parse se for JSON
                 console.log("Resposta do servidor (JSON):", data);
                 alert("Refeição registrada com sucesso!");
+                window.location.href = "/vamoEntrega";
             } else {
                 const text = await response.text(); // Caso contrário, trata como texto
                 console.log("Resposta do servidor (Texto):", text);
@@ -50,10 +51,26 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 throw new Error ('Erro ao registrar o refeição.');
             }
-        } catch (error) {
+                 } catch (error) {
             console.error('Erro:', error);
             alert ('Erro ao registrar o refeição. Por favor, tente novamente.');
+        }*/               
+        if (response.ok) {
+            const data = contentType && contentType.includes("application/json") ? await response.json() : await response.text();
+            alert("Refeição registrada com sucesso!");
+            window.location.href = "/vamoEntrega";
+        } else {
+            throw new Error('Erro ao registrar a refeição.');
+        }
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Erro ao registrar a refeição. Por favor, tente novamente.');
+        } finally {
+            event.target.querySelector('button').disabled = false; // Habilitar o botão novamente
         }
     });
+                
+       
 });
+
 
