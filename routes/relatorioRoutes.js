@@ -1,7 +1,7 @@
 import express from 'express';
-import comida from '../models/comidaData.js'; // ajustando o caminho
-import reparo from '../models/reparoData.js'; // ajustando o caminho
-import abastecimento from '../models/abastecimentoData.js'; // ajustando o caminho
+import comida from '../models/refeicaoData.js'; 
+import reparo from '../models/reparoData.js'; 
+import abastecimentoModelo from '../models/abastecimentoData.js'; 
 
 const relatorioRouter = express.Router();
 
@@ -28,7 +28,7 @@ relatorioRouter.get('/reparo', async (req, res) => {
 // Rota para buscar dados da tabela abastecimento
 relatorioRouter.get('/abastecimento', async (req, res) => {
     try {
-        const abastecimentos = await abastecimento.findAll();
+        const abastecimentos = await abastecimentoModelo.findAll();
         res.json(abastecimentos);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar dados de abastecimentos' });
