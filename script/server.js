@@ -195,6 +195,19 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
 
 
 // Rota de agenda
+
+app.get('/agenda', async (req, res) => {
+
+  try {
+    const agenda = await agenda.findAll();
+    res.json(agenda);
+  } catch (error) {
+    console.error('Erro ao buscar agenda:', error);
+    res.status(500).json({erro: 'Erro ao buscar agenda'});
+  }
+})
+
+
 app.post('/agenda', async (req, res) => {
   const { nome, startDate, startTime, deliverEndDate, originSelect, km_initial, carSelect } = req.body;
 

@@ -39,18 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function openTablePopup(tableId) {
-    const table = document.getElementById(tableId);
-    const tableHead = table.querySelector('thead').outerHTML;
-    const tableBody = table.querySelector('tbody').outerHTML;
+    const table = document.getElementById(tableId);    
 
      if (!table) {
         console.error('Tabela com ID ${tableId} não encontrada.');
         return;
     }
 
+    const tableHead = table.querySelector('thead').outerHTML;
+    const tableBody = table.querySelector('tbody').outerHTML;
     // Abre uma nova janela
     const popupWindow = window.open('', '_blank', 'width=800,height=600');
 
+    if (!popupWindow) {
+        alert('Popup bloqueado! Por favor, permita popups para este site.');
+        return;
+    }
+    
     // Escreve o conteúdo HTML da tabela na nova janela
     if (popupWindow) {
         popupWindow.document.write(`html>
