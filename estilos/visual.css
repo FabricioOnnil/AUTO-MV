@@ -1331,12 +1331,15 @@ input[type=text]::placeholder {
     font-weight: bolder;
     color: var(--varBlue);
 }
-
+th {
+    background-color: #f2f2f2;
+}
 th, td {
+    border: 1px solid #789900;
     color: black;
     font-weight: bold;
     padding: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 tr {

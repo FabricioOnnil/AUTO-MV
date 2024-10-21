@@ -3,26 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableReparosBody = document.getElementById('table-reparos').querySelector('tbody');
     const tableAbastecimentoBody = document.getElementById('table-abastecimento').querySelector('tbody');
 
-    // Simulação de dados de refeições e reparos
-    function exibirDadosNaTabela(data, tableBody, includeHeaders = false) {
-        tableBody.innerHTML = '';
+
+    function exibirDadosNaTabela(data, tableBody) {
+        tableBody.innerHTML = ''; 
 
         data.forEach(item => {
             const row = document.createElement('tr');
-            if (item.imagem) {
-                row.innerHTML = `
-                    <td>${item.descricao}</td>
-                    <td>R$ ${item.valor.toFixed(2)}</td>
-                    <td>${item.data}</td>
-                    <td><img src="${item.imagem}" alt="Nota Fiscal" width="100"></td>
-                `;
-            } else {
-                row.innerHTML = `
-                    <td>${item.descricao}</td>
-                    <td>R$ ${item.valor.toFixed(2)}</td>
-                    <td>${item.data}</td>
-                `;
-            }
+            row.innerHTML = `
+                <td>${item.descricao}</td>
+                <td>R$ ${item.valor.toFixed(2)}</td>
+                <td>${item.data}</td>
+                <td>${item.nota_fiscal ? `<img src="${item.nota_fiscal}" alt="Nota Fiscal" width="100">` : ''}</td>
+            `;
             tableBody.appendChild(row);
         });
     }
@@ -48,21 +40,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function openTablePopup(tableId) {
     const table = document.getElementById(tableId);
-    const tableContent = table.querySelector('tbody').innerHTML;
+    const tableHead = table.querySelector('thead').outerHTML;
+    const tableBody = table.querySelector('tbody').outerHTML;
+
+     if (!table) {
+        console.error('Tabela com ID ${tableId} não encontrada.');
+        return;
+    }
 
     // Abre uma nova janela
     const popupWindow = window.open('', '_blank', 'width=800,height=600');
 
     // Escreve o conteúdo HTML da tabela na nova janela
-    popupWindow.document.write(`
-        <html>
-        <head><title>Tabela de ${tableId}</title></head>
+    if (popupWindow) {
+        popupWindow.document.write(`html>
+        <head>
+            <title>Tabela de ${tableId}</title>
+            <style>
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: center;
+                }
+                th {
+                    background-color: #f2f2f2;
+                }
+            </style>
+        </head>
         <body>
+            <h2>Tabela de ${tableId}</h2>
             <table>
-                ${tableContent}
+                ${tableHead} <!-- Adiciona o cabeçalho -->
+                ${tableBody} <!-- Adiciona o corpo da tabela -->
             </table>
         </body>
         </html>
-    `);
-    popupWindow.document.close();
+        `);        
+        popupWindow.document.close();
+    } else {
+        alert('Por favor, permita popups para visualizar a tabela.');
+    }
 }

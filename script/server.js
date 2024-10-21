@@ -36,7 +36,7 @@ import comidaRouter from '../routes/refeicaoRoutes.js';
 import abstRouter from '../routes/fuelStationRoutes.js';
 import reparoRouter from '../routes/reparoRoutes.js';
 import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.js';
-import relatorioRouter from './routes/relatorioRoutes.js';
+import relatorioRouter from '../routes/relatorioRoutes.js';
 
 const app = express();
 const PORT = 3000;
@@ -125,6 +125,8 @@ app.use('/fuelStation', abstRouter);
 app.use('/agendamento', agendamentoRouter);
 app.use('/entrega', entregaRouter);
 app.use('/relatorio', relatorioRouter);
+app.use('/reparo', reparoRouter);
+app.use('/diario', diarioRouter);
 
 
 // Rota de abastecimento
