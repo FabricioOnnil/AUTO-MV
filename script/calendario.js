@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return eventsForDay;
         } catch (error) {
             console.error('Erro ao buscar agenda:', error);
-                returno ();
+                return;
         }
     }
 
