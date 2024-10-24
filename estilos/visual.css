@@ -123,6 +123,13 @@
     margin-bottom: 0px; /* Adicionar margem inferior para espaçamento entre os botões */
 }
 
+.box {
+    background-color: #195303;
+    border: 1px solid #02721a;
+    border-radius: 8px;
+    padding: 0.5px;
+    box-shadow: 0 2px 5 px rgba(0,0,0,0.1);
+}
 
 button {    
     align-items: center;
@@ -130,7 +137,7 @@ button {
     border: none; 
     font-weight: bold;
     cursor: pointer; 
-    color: white; 
+    color: var(--varWhite); 
     display: inline-block; 
     font-family: var(--font-ubuntu);
     font-size: 30px;    
@@ -296,6 +303,10 @@ button:hover {
 .container {
     text-align: center;
     height: 80%;
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
 }
 
 .contCar {
@@ -471,19 +482,20 @@ h1, h2, h3, h4 {
     font-family: var(--font-ubuntu);
     margin-top: 4px; 
     padding: 8px;
+    text-align: center;
 }
 h1 {
     background-color: #FFFFFF;
     color: #789900;  
     font-size: 32px;       
     text-align: center;
-    width: 98%;
+    width: 97%;
     box-shadow: var(--varBoxshadowForm);
     border-radius: 10px;
 } 
 
 h2 {
-    background-color: var(--varBlue);
+    background-color: var(--varGreen);
     border-radius: 10px;
     box-shadow: var(--varBoxshadowForm);
     color: var(--varWhite);
@@ -493,7 +505,7 @@ h2 {
     
     padding: 10px 10px 10px 10px;
     text-align: center;
-    width: 98%;
+    width: 100%;
     
     
 }

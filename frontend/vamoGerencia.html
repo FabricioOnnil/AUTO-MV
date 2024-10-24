@@ -15,17 +15,24 @@
                 <img src="../Imagens/logonew725.png" alt="Logo Vamo">
             </a>
         </section><br>
-        <h1>Login Gerencial</h1><br>
+        <h1>Gerencial</h1><br>
         <div class="container">
-        <div class="contCar">
+        <div class="box">
+            <h2>CARRO</h2>
             <button onclick="openPopup('carPopup')" >Contrato</button>
             <button onclick="openPopup('custPopup')">Custo fixo</button>
-            <button onclick="openPopup('infoPopup')">Informação</button>
+            <button onclick="openPopup('infoPopup')">Descrição</button>
+        </div>
+        <div class="box">
+            <h2>USUARIO</h2>
             <button onclick="openPopup('acessoPopup')">Acesso</button>
         </div>
-            <button onclick="openPopup('globalValuesPopup')">Valores Globais</button>
+        <div class="box">
+            <h2>INFORMAÇÕES</h2>
+            <button onclick="openPopup('globalValuesPopup')">Global</button>
             <button onclick="redirecionar('/vamoInformado')">Individual</button>
             <button onclick="redirecionar('/vamoCalendario')">Calendário</button>
+        </div>            
         </div>
         <!-- Popup para Cadastro de Carros -->
         <div id="carPopup" class="popup">

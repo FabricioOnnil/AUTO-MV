@@ -17,7 +17,7 @@
         <section id="header">
             <a href="#"><img id="img_section" src="/Imagens/logonew725.png" alt="Logo Vamo"></a></section><br>
         <h1>Mapa</h1><br>
-        <div>
+        <div class="box">
             <form id="routeForm" class="route-form" >
                 <label for="origin" class="route-label">Origem:</label>
                 <select id="origin" class="route-formInput" required>
@@ -27,10 +27,11 @@
                 </select>
                 <label for="destination" class="route-label">Destino:</label>
                 <input type="text" class="route-formInput" id="destination" name="destination" placeholder="Digite o endereço ou clique no mapa" required>
-                <button type="submit" class="routeForm">Rota</button>
+                <button type="submit" class="routeForm"> Rt </button>
             </form>
-            <a href="/frontend/vamoDashboard.html"><button class="backButton">Voltar</button></a>
         </div>
+            <a href="/frontend/vamoDashboard.html"><button class="backButton">Voltar</button></a>
+        
         <div id="map" style="height: 900px; width: 900px;"></div>
         
         <footer>
