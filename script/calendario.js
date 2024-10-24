@@ -25,20 +25,22 @@ document.addEventListener("DOMContentLoaded", function() {
             const agenda = await response.json();
             console.log('Agendamentos recebidos:', agenda);
 
-            const eventsForDay = agenda.filter(agendamento => {
-                const agendamentoDate = new Date(agendamento.d_agenda_deliverEndDate);
-                return (
-                    agendamentoDate.getDate() === day &&
-                    agendamentoDate.getMonth() === month &&
-                    agendamentoDate.getFullYear() === year
-                );
-            });
+            if (Array.isArray(agenda)) {
+                const eventsForDay = agenda.filter(agendamento => {
+                    const agendamentoDate = new Date(agendamento.d_agenda_deliverEndDate);
+                    return (
+                        agendamentoDate.getDate() === day &&
+                        agendamentoDate.getMonth() === month &&
+                        agendamentoDate.getFullYear() === year
+                    );
+                });
 
-            console.log(`Eventos para ${day}/${month + 1}/${year}:`, eventsForDay);
-            return eventsForDay;
+                console.log(`Eventos para ${day}/${month + 1}/${year}:`, eventsForDay);
+                return eventsForDay;
+            }
         } catch (error) {
             console.error('Erro ao buscar agenda:', error);
-                return;
+            return [];
         }
     }
 
@@ -48,18 +50,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (events.length > 0) {
             eventDetails.innerHTML = events.map(event =>
-                 `<p>
+                `<p>
                  <strong>Nome:</strong> ${event.s_agenda_nameSchedule}<br>
                  <strong>Rota:</strong> ${event.s_agenda_scheduleCar}<br>
                  <strong>Data de Entrega:</strong> ${new Date(event.d_agenda_deliverEndDate).toLocaleDateString()} 
-                 </p>
-            `).join('');
+                 </p>`
+            ).join('');
         } else {
             eventDetails.innerHTML = "<p>Não há eventos para este dia.</p>";
         }
     }
 
-    function fillCalendar(month, year) {
+    async function fillCalendar(month, year) {
         calendarBody.innerHTML = '';
         const today = new Date();
         const currentDay = today.getDate();
@@ -80,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const cell = row.insertCell();
             cell.textContent = day;
 
-            const events = getEventsForDay(day, month, year);
+            const events = await getEventsForDay(day, month, year); // Usar await para eventos assíncronos
             if (events.length > 0) {
                 cell.classList.add('has-event');
                 cell.addEventListener('click', () => showPopup(day, month, year));

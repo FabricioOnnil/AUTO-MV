@@ -199,13 +199,13 @@ app.post('/comida', upload.single('imagem'), async (req, res) => {
 app.get('/agenda', async (req, res) => {
 
   try {
-    const agenda = await agenda.findAll();
-    res.json(agenda);
+    const agendas = await agenda.findAll();
+    res.json(agendas);
   } catch (error) {
     console.error('Erro ao buscar agenda:', error);
     res.status(500).json({erro: 'Erro ao buscar agenda'});
   }
-})
+});
 
 
 app.post('/agenda', async (req, res) => {
