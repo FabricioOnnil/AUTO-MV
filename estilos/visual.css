@@ -36,7 +36,7 @@
     --font-ubuntu: 'ubuntu', sans-serif;
     --font-rubik: 'rubik', sans-serif;
     --font-Mukta: 'Mukta_vaani', sans-serif;
-    --varGreen: #789900;
+    --varGreen: #276e06f8;
     --varGreen2:rgb(80, 102, 3)0;
     --varGreenshodow: #78990075;
     --varWhite: #FFFFFF;
@@ -151,7 +151,7 @@ button {
 button:hover {
     background-color: rgba(255, 255, 255, 0.021);
     font-weight: bolder;
-    color: var(--varYellow);
+    color: var(--varBlue);
 }
 /*Trocar nome*/
 #button_define {
@@ -501,8 +501,7 @@ h2 {
     color: var(--varWhite);
     margin-top: 8px;
     margin-bottom: 8px;
-    font-size: 25px;
-    
+    font-size: 25px;    
     padding: 10px 10px 10px 10px;
     text-align: center;
     width: 100%;
@@ -663,7 +662,7 @@ label{
 
 
 #loginForm button {
-    background-color: var(--varBlue);
+    background-color: var(--varGreen);
     border: none;    
     border-radius: 4px;
     box-shadow: var(--varBoxshadowForm);
@@ -678,7 +677,7 @@ label{
 #loginForm button:hover {
     background-color: transparent;
     font-weight: bolder;
-    color: var(--varBlue);
+    color: var(--varGreen);
 }
 
 
@@ -909,7 +908,7 @@ input[type=text]::placeholder {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--varGreen);
+    background-color: var(--varBackgroundForm);
     justify-content: center;
     align-items: center;
     overflow-y: auto;
@@ -1040,7 +1039,7 @@ input[type=text]::placeholder {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: var(--varBlue);
+    background-color: var(--varGreen);
     color: white;
     border: none;
     border-radius: 4px;
@@ -1051,7 +1050,7 @@ input[type=text]::placeholder {
 .registerButton:hover {
     background-color: transparent;
     font-weight: bolder;
-    color: var(--varBlue);
+    color: var(--varGreen);
 }
 
 .route-form{
@@ -1113,7 +1112,7 @@ input[type=text]::placeholder {
     align-items: center;
     margin: 0;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #f4f4f4af;
 }
 
 #scheduleForm-schedule {
@@ -1169,7 +1168,7 @@ input[type=text]::placeholder {
 }
 
 #scheduleForm-schedule button {
-    background-color: var(--varBlue);
+    background-color: var(--varGreen);
     color: white;
     border: none;
     padding: 15px 20px;
@@ -1181,7 +1180,7 @@ input[type=text]::placeholder {
 }
 
 #scheduleFormDelivery button {
-    background-color: var(--varBlue);
+    background-color: var(--varGreen);
     color: white;
     border: none;
     padding: 15px 20px;
@@ -1195,14 +1194,14 @@ input[type=text]::placeholder {
 #scheduleForm-schedule button:hover {
     background-color: transparent;
     font-weight: bolder;
-    color: var(--varBlue);
+    color: var(--varGreen);
     font-size: 24px;
 }
 
 #scheduleFormDelivery button:hover {
     background-color: transparent;
     font-weight: bolder;
-    color: var(--varBlue);
+    color: var(--varGreen);
 }
 
 .select-container {
