@@ -4,7 +4,7 @@ import entrega from '../models/entregaData.js';
 const entregaRouter = express.Router();
 
 // Rota para obter todos os postos de entrega
-entregaRouter.get('/entrega', (req, res) => {
+entregaRouter.get('/', (req, res) => {
     entrega.findAll()
       .then(entrega => {
         res.json(entrega);
@@ -33,7 +33,7 @@ entregaRouter.get('/entrega', (req, res) => {
   
 
   // Rota para cadastrar uma  nova entrega
-  entregaRouter.post('/entrega', async (req, res) => {
+  entregaRouter.post('/', async (req, res) => {
       const entregaData = req.body;
 
       try {
@@ -56,7 +56,7 @@ entregaRouter.get('/entrega', (req, res) => {
 
         res.status(200).send({ message: "Entrega registrada e agendamento removid com sucesso! "});
       } catch (error) {
-            console.error("Erro ao registrar entrega e remover agendamento:", errorr);
+            console.error("Erro ao registrar entrega e remover agendamento:", error);
             res.status(500).send({ error: "Erro ao registrar entrega."});
       }
 });
