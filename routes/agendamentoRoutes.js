@@ -42,6 +42,32 @@ agendamentoRouter.post('/agendamentos', (req, res) => {
     .catch((error) => res.status(500).send("Erro ao cadastrar agendamento: " + error.message));
 });
 
+agendamentoRouter.post('/agenda/updateSchedule', async (req, res) => {
+
+  const { i_agenda_idSchedule, i_agenda_usuarioReparo, i_agenda_agendamento } = req.body;
+  try {
+      await agenda.update(
+        {
+          i_agenda_usuarioReparo: i_agenda_usuarioReparo,
+          i_agenda_agendamento : i_agenda_agendamento
+
+        },
+        {
+          where: {
+            i_agenda_idSchedule: i_agenda_idSchedule
+          }
+        }
+      );
+
+      res.status(200).json({ message: 'Dados atualizados com Sucesso' });
+
+  } catch (error) {
+    console.error("Erro au atualizar os dados:", error);
+    res.status(500).json({ message: 'Erro ao atualizar os dados' });
+  }
+});
+
+
 // Rota para atualizar um agendamento pelo ID
 agendamentoRouter.put('/agendamentos/:id', (req, res) => {
     const agendamentoId = req.params.id;

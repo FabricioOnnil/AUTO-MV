@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     // Submeter formulário de agendamento
     if (scheduleForm) {
+
         scheduleForm.addEventListener("submit", async function(event) {
             event.preventDefault();
     
@@ -88,11 +89,8 @@ document.addEventListener("DOMContentLoaded", async function() {
             const originSelect = document.getElementById("originSelect").value; 
             const km_initial = document.getElementById("km_initial").value;
             const carSelectElement = document.getElementById("carSelect");
-
-           
-            const carSelectText = carSelectElement.options[carSelectElement.selectedIndex].text;
             const carSelectValue = carSelectElement.value;
-            console.log("Valor do carro selecionado enviado:", carSelectValue);
+
 
             // Verificação de campos obrigatórios
             if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelectValue  ) {
@@ -124,6 +122,22 @@ document.addEventListener("DOMContentLoaded", async function() {
                 });
     
                 if (response.ok) {
+                    
+                    const result = await response.json();
+                    const idSchedule = result.i_agenda_idSchedule;
+
+                    await fetch('/agenda/updateSchedule', {
+                        method: 'POST',
+                        headers: {
+                           "Content-Type": "application/json",
+                           "accept": "application/json" 
+                        },
+                        body: JSON.stringify({
+                            i_agenda_idSchedule: idSchedule,
+                            i_agenda_usuarioReparo: idSchedule,
+                            i_agenda_agendamento: idSchedule
+                        })
+                    });
 
                     alert('Agendamento realizado com sucesso!');
                     closePopup(calendarPopupSchedule, overlaySchedule);
