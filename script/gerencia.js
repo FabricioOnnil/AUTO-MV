@@ -1,14 +1,10 @@
-/*function openPopup(popupId) {
-    document.getElementById(popupId).style.display = 'flex';
-}
+
 
 function redirecionar(url) {
     window.location.href = url;
 }
 
-function closePopup(popupId) {
-    document.getElementById(popupId).style.display = 'none';
-}
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -185,15 +181,6 @@ acessoForm.addEventListener('submit', async (event) => {
     });
 
 
-
-    // Dados de exemplo para preencher a tabela de valores globais
-    const globalValues = [
-        { period: 'Total', days: 0, km: 10000, fuelCost: 5000, fuelAcquired: 2000, fuelUsed: 1800, repairCost: 2000, foodCost: 1000, hoursScheduled: 500, hoursNotScheduled: 300 },
-        { period: 'Ano', days: 365, km: 2000, fuelCost: 1000, fuelAcquired: 400, fuelUsed: 360, repairCost: 400, foodCost: 200, hoursScheduled: 100, hoursNotScheduled: 60 },
-        { period: 'Mês', days: 30, km: 500, fuelCost: 250, fuelAcquired: 100, fuelUsed: 90, repairCost: 100, foodCost: 50, hoursScheduled: 25, hoursNotScheduled: 15 },
-        { period: '15 dias', days: 15, km: 200, fuelCost: 100, fuelAcquired: 40, fuelUsed: 36, repairCost: 40, foodCost: 20, hoursScheduled: 10, hoursNotScheduled: 6 },
-    ];
-
    
     function populateTable(values) {
         const tableBody = document.getElementById("globalValuesBody");
@@ -214,18 +201,13 @@ acessoForm.addEventListener('submit', async (event) => {
     }
     populateTable(globalValues);
 });
-*/
 
-function openPopup(popupId) {
-    document.getElementById(popupId).style.display = 'flex';
-}
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 
 function redirecionar(url) {
     window.location.href = url;
-}
-
-function closePopup(popupId) {
-    document.getElementById(popupId).style.display = 'none';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -315,3 +297,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     populateTable(globalValues);
 });
+
+
+function openPopup(popupId) {
+    const popup = document.getElementById(popupId);
+    if(popup) {
+        popup.style.display = 'block';
+    }
+}
+
+function closePopup(popupId) {
+    const popup = document.getElementById(popupId);
+    if (popup) {
+        popup.style.display = 'none';
+    }
+}
+
+// Fecha o popup se o usuário clicar fora dele
+window.onclick = function(event) {
+    const popups = document.getElementsByClassName('popup');
+    for (let o = 0; i < popups.length; i++) {
+        if (event.target === popups[i]) {
+            popups[i].style.display = 'none';
+        }
+    }
+;}
