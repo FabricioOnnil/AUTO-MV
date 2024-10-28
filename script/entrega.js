@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("officeEnd").value = formData.s_agenda_officeEnd || "";
         document.getElementById("km_final").value = formData.i_agenda_kmFinal || "";
         document.getElementById("carSelect").value = formData.i_agenda_deliveryCar;
-        document.getElementById("rowIndex").value = formData.i_agenda_idSchedule; 
+        document.getElementById("rowIndex").value = rowIndex; 
         openPopup(); 
     }
 

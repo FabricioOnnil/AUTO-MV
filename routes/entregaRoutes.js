@@ -34,35 +34,31 @@ entregaRouter.get('/entrega', (req, res) => {
 
   // Rota para cadastrar uma  nova entrega
   entregaRouter.post('/entrega', async (req, res) => {
-    try {
-        const { 
-            s_entrega_nomeDelivery, 
-            d_entrega_deliveryEndDate, 
-            d_entrega_deliveryEndTime, 
-            s_entrega_destinySelect, 
-            i_entrega_kmFinal, 
-            i_entrega_deliveryCar, 
-            d_entrega_createdAt, 
-            i_entrega_agendamento 
-        } = req.body;
+      const entregaData = req.body;
 
-        
+      try {
         await entrega.create({
-            s_entrega_nomeDelivery,
-            d_entrega_deliveryEndDate,
-            d_entrega_deliveryEndTime,
-            s_entrega_destinySelect,
-            i_entrega_kmFinal,
-            i_entrega_deliveryCar,
-            d_entrega_createdAt,
-            i_entrega_agendamento
+          s_entrega_nameDelivery: entregaData.S_entrega_nameDelivery,
+          d_entrega_deliveryEndDate: entregaData.d_entrega_deliveryEndDate,
+          d_entrega_deliveryEndTime: entregaData.d_entrega_deliveryEndTime,
+          s_entrega_destinySelect: entregaData.s_entrega_destinySelect,
+          i_entrega_kmFinal: entregaData.i_entrega_kmFinal,
+          i_entrega_deliveryCar: entregaData.i_entrega_deliveryCar,
+          d_entrega_createdAt: entregaData.d_entrega_createdAt,
+          i_entrega_agendamento: entregaData.i_entrega_agendamento
         });
 
-        res.status(201).json({ message: 'Entrega registrada com sucesso!' });
-    } catch (error) {
-        console.error('Erro ao registrar entrega:', error);
-        res.status(500).json({ error: 'Erro ao registrar entrega.' });
-    }
+        await agenda.destroy({
+          where: {
+            i_agenda_idSchedule: entregaData.i_entrega_agendamento
+          }
+        });
+
+        res.status(200).send({ message: "Entrega registrada e agendamento removid com sucesso! "});
+      } catch (error) {
+            console.error("Erro ao registrar entrega e remover agendamento:", errorr);
+            res.status(500).send({ error: "Erro ao registrar entrega."});
+      }
 });
   
   // Rota para atualizar  uma entrega pelo ID.
