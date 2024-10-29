@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("officeEnd").value = formData.s_agenda_officeEnd || "";
         document.getElementById("km_final").value = formData.i_agenda_kmFinal || "";
         document.getElementById("carSelect").value = formData.i_agenda_deliveryCar;
-        document.getElementById("rowIndex").value = rowIndex; 
+        document.getElementById("i_agenda_agendamento").value = formData.i_agenda_agendamento; 
         openPopup(); 
     }
 
@@ -55,10 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     const actionCell = row.insertCell(5);
                     actionCell.classList.add("acao");
-                    /*const entregaButton = document.createElement("button");
-                    entregaButton.textContent = "Entregar";
-                    entregaButton.addEventListener("click", () => showPopupWithFormData(agendamento, index));
-                    actionCell.appendChild(entregaButton);*/
+                    
                     const entregaImage = document.createElement("img");
                     entregaImage.src = "/Imagens/registrarbutton.png"; 
                     entregaImage.alt = "Entregar";
@@ -81,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             alert("Entrega confirmada!");
         
-            const rowIndex = document.getElementById("rowIndex").value;
+            /*const rowIndex = document.getElementById("rowIndex").value;
             const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-            const agendamento = agendamentos[rowIndex];
+            const agendamento = agendamentos[rowIndex];*/
 
             const entregaData = {
                 s_entrega_nomeDelivery: document.getElementById("nome").value,
@@ -93,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 i_entrega_kmFinal: document.getElementById("km_final").value,
                 i_entrega_deliveryCar: document.getElementById("carSelect").value,
                 d_entrega_createdAt: new Date(), 
-                i_entrega_agendamento: document.getElementById("rowIndex").value 
+                i_entrega_agendamento: document.getElementById("i_agenda_agendamento").value
             };
 
             fetch('/entrega', {

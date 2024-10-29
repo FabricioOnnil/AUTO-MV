@@ -230,7 +230,7 @@ app.post('/agenda', async (req, res) => {
       }
 
 
-    await agenda.create({
+    const novoAgendamento = await agenda.create({
       s_agenda_nameSchedule: nome,
       d_agenda_startDate: startDate,
       d_agenda_startTime: startTime,
@@ -240,9 +240,13 @@ app.post('/agenda', async (req, res) => {
       s_agenda_scheduleCar: carroSelecionado,
       d_agenda_createdAt: new Date(),
       d_agenda_updateAt: new Date(),
-      i_agenda_usuario: userId
+      i_agenda_usuario: userId,
+      i_agenda_agendamento: null
     });
 
+    await novoAgendamento.update({
+      i_agenda_agendamento: novoAgendamento.i_agenda_idSchedule
+    });
     //res.status(200).json('Formulário recebido com sucesso!');
     res.redirect('/vamoAgenda');
     
