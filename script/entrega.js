@@ -27,19 +27,19 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function showPopupWithFormData(formData, rowIndex) {
-        document.getElementById("nome").value = formData.s_agenda_nameSchedule;
-        document.getElementById("deliverEndDate").value = formData.d_agenda_startDate;
-        document.getElementById("deliveryEndTime").value = formData.d_agenda_startTime || "";
-        document.getElementById("officeEnd").value = formData.s_agenda_officeEnd || "";
-        document.getElementById("km_final").value = formData.i_agenda_kmFinal || "";
-        document.getElementById("carSelect").value = formData.i_agenda_deliveryCar;
-        document.getElementById("i_agenda_agendamento").value = formData.i_agenda_agendamento; 
+        document.getElementById("nome").value = formData.s_entrega_nameDelivery;
+        document.getElementById("deliverEndDate").value = formData.d_entrega_deliverEndDate;
+        document.getElementById("deliveryEndTime").value = formData.d_entrega_deliverEndTime || "";
+        document.getElementById("officeEnd").value = formData.s_entrega_destinySelect || "";
+        document.getElementById("km_final").value = formData.i_entrega_kmFinal || "";
+        document.getElementById("carSelect").value = formData.i_entrega_deliveryCar;
+        document.getElementById("i_agenda_agendamento").value = formData.i_entrega_agendamento; 
         openPopup(); 
     }
 
     function loadAgendamentos() {
         
-        fetch('/agendamentos')
+        fetch('/agendamento')
             .then(response => response.json())
             .then(data => {
                 appointmentsBody.innerHTML = ''; 
@@ -47,11 +47,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 data.forEach((agendamento, index) => {
                     const row = appointmentsBody.insertRow();
 
-                    row.insertCell(0).textContent = agendamento.s_agenda_nameSchedule;
-                    row.insertCell(1).textContent = formatDateToBrazilian(agendamento.d_agenda_startDate);
-                    row.insertCell(2).textContent = formatDateToBrazilian(agendamento.d_agenda_deliverEndDate);
-                    row.insertCell(3).textContent = agendamento.s_agenda_originSelect;
-                    row.insertCell(4).textContent = agendamento.s_agenda_scheduleCar;
+                    row.insertCell(0).textContent = agendamento.s_entrega_nameDelivery;
+                    row.insertCell(1).textContent = formatDateToBrazilian(agendamento.d_entrega_deliveryEndDate);
+                    row.insertCell(2).textContent = formatDateToBrazilian(agendamento.d_entrega_deliverEndTime);
+                    row.insertCell(3).textContent = agendamento.s_entrega_destinySelect;
+                    row.insertCell(4).textContent = agendamento.s_entrega_dekiveryCar;
 
                     const actionCell = row.insertCell(5);
                     actionCell.classList.add("acao");
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const agendamento = agendamentos[rowIndex];*/
 
             const entregaData = {
-                s_entrega_nomeDelivery: document.getElementById("nome").value,
+                s_entrega_nameDelivery: document.getElementById("nome").value,
                 d_entrega_deliveryEndDate: document.getElementById("deliverEndDate").value,
                 d_entrega_deliveryEndTime: document.getElementById("deliveryEndTime").value,
                 s_entrega_destinySelect: document.getElementById("officeEnd").value,

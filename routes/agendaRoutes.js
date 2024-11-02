@@ -1,6 +1,7 @@
 import express from 'express';
 import agenda from '../models/agendaData.js';
 
+
 const agendaRouter = express.Router();
 
 // Rota para obter todos os postos de agenda

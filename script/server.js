@@ -259,7 +259,7 @@ app.post('/agenda', async (req, res) => {
 
 
 //Rota de agendamentos
-app.get('/agendamentos', async (req,res) => {
+app.get('/agendamento', async (req,res) => {
   try {
         const userId = req.session.userId;
     

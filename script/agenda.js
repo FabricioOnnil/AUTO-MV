@@ -67,8 +67,17 @@ document.addEventListener("DOMContentLoaded", async function() {
         });
     }
 
-    function formatDateToBrazilian(dateString) {
+    function adjustDateForTimezone(dateString) {
         const date = new Date(dateString);
+        const localTimezoneOffset = date.getTimezoneOffset() * 60000; 
+        const adjustedDate = new Date(date.getTime() + localTimezoneOffset);
+        return adjustedDate.toISOString().split('T')[0]; 
+    }
+    
+
+    function formatDateToBrazilian(dateString) {
+        const date = new Date(dateString + 'T00:00:00-03:00');
+
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
@@ -76,61 +85,57 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 
 
-    // Submeter formulário de agendamento
-    if (scheduleForm) {
+   // Submeter formulário de agendamento
+if (scheduleForm) {
+    scheduleForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
 
-        scheduleForm.addEventListener("submit", async function(event) {
-            event.preventDefault();
-    
-            const nome = document.getElementById("nome").value.trim();
-            const startDate = document.getElementById("startDate").value;
-            const startTime = document.getElementById("startTime").value;
-            const deliverEndDate = document.getElementById("deliverEndDate").value;
-            const originSelect = document.getElementById("originSelect").value; 
-            const km_initial = document.getElementById("km_initial").value;
-            const carSelectElement = document.getElementById("carSelect");
-            const carSelectValue = carSelectElement.value;
+        const nome = document.getElementById("nome").value.trim();
+        const startDate = adjustDateForTimezone(document.getElementById("startDate").value);
+        const startTime = document.getElementById("startTime").value;
+        const deliverEndDate = adjustDateForTimezone(document.getElementById("deliverEndDate").value);
+        const originSelect = document.getElementById("originSelect").value;
+        const km_initial = document.getElementById("km_initial").value;
+        const carSelectElement = document.getElementById("carSelect");
+        const carSelectValue = carSelectElement.value;
 
+        // Verificação de campos obrigatórios
+        if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelectValue) {
+            alert('Por favor, preencha todos os campos obrigatórios.');
+            return;
+        }
 
-            // Verificação de campos obrigatórios
-            if (!nome || !startDate || !startTime || !deliverEndDate || !originSelect || !km_initial || !carSelectValue  ) {
-                alert('Por favor, preencha todos os campos obrigatórios.');
-                return;
-            }
+        const formData = {
+            nome,
+            startDate,
+            startTime,
+            deliverEndDate,
+            originSelect,
+            km_initial,
+            carSelect: carSelectValue
+        };
 
-            // Atualiza o campo hidden com o nome do carro selecionado
-            //document.getElementById("s_agenda_scheduleCar").value = carSelectText;
+        try {
+            const response = await fetch('/agenda', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "accept": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
 
-            const formData = {
-                nome,
-                startDate,
-                startTime,
-                deliverEndDate,
-                originSelect,
-                km_initial,
-                carSelect: carSelectValue
-            };
-    
-            try {
-                const response = await fetch('/agenda', {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json",
-                        "accept": "application/json"
-                    },
-                    body: JSON.stringify(formData)
-                });
-    
-                if (response.ok) {
-                    
-                    const result = await response.json();
-                    const idSchedule = result.i_agenda_idSchedule;
+            if (response.ok) {
+                const result = await response.json();
+                const idSchedule = result.i_agenda_idSchedule;
+                console.log(result);
 
-                    await fetch('/agenda/updateSchedule', {
+                try {
+                    const entregaResponse = await fetch('/agenda/updateSchedule', {
                         method: 'POST',
                         headers: {
-                           "Content-Type": "application/json",
-                           "accept": "application/json" 
+                            "Content-Type": "application/json",
+                            "accept": "application/json"
                         },
                         body: JSON.stringify({
                             i_agenda_idSchedule: idSchedule,
@@ -139,26 +144,35 @@ document.addEventListener("DOMContentLoaded", async function() {
                         })
                     });
 
-                    alert('Agendamento realizado com sucesso!');
-                    closePopup(calendarPopupSchedule, overlaySchedule);
-                    window.history.back();
-                    
-                } else {
-                    const errorText = await response.text();
-                    console.error("Erro ao armazenar os dados:", errorText);
-                    alert('Erro ao armazenar os dados. Tente novamente.');
+                    if (entregaResponse.ok) {
+                        alert('Agendamento e entrega realizados com sucesso!');
+                        closePopup(calendarPopupSchedule, overlaySchedule); // Certifique-se de que essa função e variáveis estejam definidas
+                        window.history.back();
+                    } else {
+                        console.error('Erro ao inserir na tabela entrega:', await entregaResponse.text());
+                        alert('Erro ao inserir na tabela entrega. Tente novamente.');
+                    }
+                } catch (error) {
+                    console.error("Erro ao armazenar os dados:", error);
+                    alert('Erro ao armazenar os dados. Verifique sua conexão.');
                 }
-            } catch (error) {
-                console.error("Erro ao armazenar os dados:", error);
-                alert('Erro ao armazenar os dados. Verifique sua conexão.');
+            } else {
+                const errorText = await response.text();
+                console.error("Erro ao armazenar os dados", errorText);
+                alert('Erro ao armazenar os dados. Tente novamente.');
             }
-        });
-    }
+        } catch (error) {
+            console.error("Erro ao realizar o agendamento:", error);
+            alert('Erro ao realizar o agendamento. Tente novamente.');
+        }
+    });
+}
+
 
     // Função para buscar agendamentos
     async function fetchSchedules() {
         try {
-            const response = await fetch('/agendamentos');
+            const response = await fetch('/agendamento');
             const agendamentos = await response.json();
             schedulesBody.innerHTML = '';
 
