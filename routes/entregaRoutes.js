@@ -1,39 +1,46 @@
 import express from 'express';
 import entrega from '../models/entregaData.js';
+import agenda from '../models/agendaData.js';
 
 const entregaRouter = express.Router();
 
 // Rota para obter todos os postos de entrega
-entregaRouter.get('/', (req, res) => {
-    entrega.findAll()
-      .then(entrega => {
-        res.json(entrega);
-      })
-      .catch((error) => {
+entregaRouter.get('/', async (req, res) => {
+  try {
+    
+    const entregas = await entrega.findAll()
+      
+        res.json(entregas);
+      } catch (error) {
         res.status(500).send("Erro ao obter entrega: " + error.message);
-      });
-  });
+      }
+    });
+
   
   // Rota para obter uma  entrega pelo ID
-  entregaRouter.get('/entrega/:id', (req, res) => {
+  entregaRouter.get('/entrega/:id', async (req, res) => {
+
     const entregaId = req.params.id;
-    entrega.findOne({ where: { i_entrega_idDelivery: entregaId }})
-      .then(entrega => {
-        if (!entrega) {
+    try {
+      
+    const entregas = await entrega.findOne({ where: { i_entrega_idDelivery: entregaId }});
+      
+       if (!entrega) {
           res.status(404).send("entrega não encontrado");
           
         } else {
           res.json(entrega);
         }
-      })
-      .catch((error) => {
+      } catch(error) {
         res.status(500).send("Erro ao obter  entrega: " + error.message);
-      });
+      }
   });
+
   
 
   // Rota para cadastrar uma  nova entrega
   entregaRouter.post('/', async (req, res) => {
+
       const entregaData = req.body;
 
       try {

@@ -6,6 +6,7 @@ const agendamentoRouter = express.Router();
 
 // Rota para obter todos os agendamentos
 agendamentoRouter.get('/agendamento', async (req, res) => {
+
     const userId = req.session.userId;
     if (!userId) {
         return res.status(401).send("Usuário não autenticado");
@@ -13,6 +14,7 @@ agendamentoRouter.get('/agendamento', async (req, res) => {
     try {
           const agendamentos = await agenda.findAll();
           res.json(agendamentos);
+
     } catch (error) {
         console.error('Erro ao buscar agendamentos:', error);
         res.status(500).json({ error: 'Erro ao buscar agendamentos' });
@@ -20,44 +22,44 @@ agendamentoRouter.get('/agendamento', async (req, res) => {
 });
 
 // Rota para obter um agendamento pelo ID
-agendamentoRouter.get('/agendamento/:id', (req, res) => {
+agendamentoRouter.get('/agendamento/:id', async (req, res) => {
     const agendamentoId = req.params.id;
-    agenda.findOne({ where: { i_agenda_id: agendamentoId }})
+
+    try {
+
+      const agendamento = await agenda.findOne({ where: { i_agenda_id: agendamentoId }});
     
-      .then(agendamento => {
-        if (!agendamento) {
+      if (!agendamento) {
           res.status(404).send("Agendamento não encontrado");
         } else {
           res.json(agendamento);
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         res.status(500).send("Erro ao obter agendamento: " + error.message);
-      });
+      }
 });
 
 // Rota para cadastrar um novo agendamento
 agendamentoRouter.post('/agendamento', async (req, res) => {
 
   try {
+      const novoAgendamento = await agenda.create(req.body);
 
-    const novoAgendamento = await agenda.create(req.body);
+      await entrega.create({
+          s_entrega_nomeDelivery: novoAgendamento.s_agenda_nameSchedule,
+          d_entrega_deliveryEndDate: novoAgendamento.d_agenda_deliverEndDate,
+          d_entrega_deliveryEndTime: novoAgendamento.d_agenda_startTime,
+          s_entrega_destinySelect: novoAgendamento.s_agenda_originSelect,
+          i_entrega_kmFinal: novoAgendamento.i_agenda_kmInitial,
+          i_entrega_deliveryCar: novoAgendamento.s_agenda_scheduleCar,
+          d_entrega_createdAt: new Date(), // Adicione a data de criação
+          i_entrega_agendamento: novoAgendamento.i_agenda_id // Aqui você pode usar a ID do agendamento recém-criado
+      });
 
-    await entrega.create({
-      s_entrega_nomeDelivery: novoAgendamento.s_agenda_nameSchedule,
-      d_entrega_deliveryEndDate: novoAgendamento.d_agenda_deliverEndDate,
-      d_entrega_deliveryEndTime: novoAgendamento.d_agenda_startTime,
-      s_entrega_destinySelect: novoAgendamento.s_agenda_originSelect,
-      i_entrega_kmFinal: novoAgendamento.i_agenda_kmInitial,
-      i_entrega_deliveryCar: novoAgendamento.s_agenda_scheduleCar,
-      d_entrega_createdAt: new Date(), // Adicione a data de criação
-      i_entrega_agendamento: novoAgendamento.i_agenda_id // Aqui você pode usar a ID do agendamento recém-criado
-  });
-
-    res.send("Agendamento cadastrado com sucesso e dados copiados para entrega!");
-  } catch (error) {
-    res.status(500).send("Erro ao cadastrar agendamento ou inserir na tabela entrega: " + error.message);
-  }
+      res.send("Agendamento cadastrado com sucesso e dados copiados para entrega!");
+    } catch (error) {
+      res.status(500).send("Erro ao cadastrar agendamento ou inserir na tabela entrega: " + error.message);
+    }
 });
 
 
