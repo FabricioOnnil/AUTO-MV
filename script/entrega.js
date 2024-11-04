@@ -1,3 +1,6 @@
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
     const closePopupButton = document.querySelector('.close-popupDelivery');
     const scheduleForm = document.getElementById('scheduleFormDelivery');
@@ -51,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     row.insertCell(1).textContent = formatDateToBrazilian(agendamento.d_entrega_deliveryEndDate);
                     row.insertCell(2).textContent = formatDateToBrazilian(agendamento.d_entrega_deliverEndTime);
                     row.insertCell(3).textContent = agendamento.s_entrega_destinySelect;
-                    row.insertCell(4).textContent = agendamento.s_entrega_dekiveryCar;
+                    row.insertCell(4).textContent = agendamento.s_entrega_deliveryCar;
 
                     const actionCell = row.insertCell(5);
                     actionCell.classList.add("acao");

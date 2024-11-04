@@ -36,38 +36,52 @@ entregaRouter.get('/', async (req, res) => {
       }
   });
 
-  
 
-  // Rota para cadastrar uma  nova entrega
-  entregaRouter.post('/', async (req, res) => {
+entregaRouter.post('/', async (req, res) => {
+  const { i_agenda_idSchedule, i_agenda_usuarioReparo, i_agenda_agendamento } = req.body;
 
-      const entregaData = req.body;
-
-      try {
-        await entrega.create({
-          s_entrega_nameDelivery: entregaData.S_entrega_nameDelivery,
-          d_entrega_deliveryEndDate: entregaData.d_entrega_deliveryEndDate,
-          d_entrega_deliveryEndTime: entregaData.d_entrega_deliveryEndTime,
-          s_entrega_destinySelect: entregaData.s_entrega_destinySelect,
-          i_entrega_kmFinal: entregaData.i_entrega_kmFinal,
-          i_entrega_deliveryCar: entregaData.i_entrega_deliveryCar,
-          d_entrega_createdAt: entregaData.d_entrega_createdAt,
-          i_entrega_agendamento: entregaData.i_entrega_agendamento
-        });
-
-        await agenda.destroy({
-          where: {
-            i_agenda_idSchedule: entregaData.i_entrega_agendamento
+  try {
+      // Atualiza os dados na tabela agenda
+      await agenda.update(
+          {
+              i_agenda_usuarioReparo: i_agenda_usuarioReparo,
+              i_agenda_agendamento: i_agenda_agendamento
+          },
+          {
+              where: {
+                  i_agenda_idSchedule: i_agenda_idSchedule
+              }
           }
-        });
+      );
 
-        res.status(200).send({ message: "Entrega registrada e agendamento removid com sucesso! "});
-      } catch (error) {
-            console.error("Erro ao registrar entrega e remover agendamento:", error);
-            res.status(500).send({ error: "Erro ao registrar entrega."});
+      // Encontra o agendamento atualizado
+      const agendamento = await agenda.findByPk(i_agenda_idSchedule);
+
+      if (!agendamento) {
+          return res.status(404).json({ error: 'Agendamento não encontrado' });
       }
+
+      // Copia os dados da tabela agenda para a tabela entrega
+      const entrega = await entrega.create({
+          nome: agendamento.s_agenda_nameSchedule,
+          startDate: agendamento.d_agenda_startDate,
+          startTime: agendamento.d_agenda_startTime,
+          deliverEndDate: agendamento.d_agenda_deliverEndDate,
+          originSelect: agendamento.s_agenda_originSelect,
+          km_initial: agendamento.i_agenda_kmInitial,
+          carSelect: agendamento.s_agenda_scheduleCar
+      });
+
+      // Retorna resposta de sucesso
+      res.status(201).json({ message: 'Dados atualizados com sucesso e entregues.', entrega });
+
+  } catch (error) {
+      console.error("Erro ao atualizar os dados ou inserir na tabela entrega:", error);
+      res.status(500).json({ message: 'Erro ao atualizar os dados ou inserir na tabela entrega' });
+  }
 });
-  
+
+
   // Rota para atualizar  uma entrega pelo ID.
   entregaRouter.put('/entrega/:id', (req, res) => {
     const entregaId = req.params.id;

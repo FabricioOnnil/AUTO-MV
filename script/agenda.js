@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
    // Submeter formulário de agendamento
 if (scheduleForm) {
-    scheduleForm.addEventListener("submit", async function(event) {
+    scheduleForm.addEventListener ("submit", async function(event) {
         event.preventDefault();
 
         const nome = document.getElementById("nome").value.trim();
@@ -125,45 +125,39 @@ if (scheduleForm) {
                 body: JSON.stringify(formData)
             });
 
+
             if (response.ok) {
                 const result = await response.json();
                 const idSchedule = result.i_agenda_idSchedule;
-                console.log(result);
+                console.log("agendamento registrado:", result);
 
                 try {
-                    const entregaResponse = await fetch('/agenda/updateSchedule', {
+                    const entregaResponse = await fetch('/entrega', {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json",
                             "accept": "application/json"
                         },
-                        body: JSON.stringify({
-                            i_agenda_idSchedule: idSchedule,
-                            i_agenda_usuarioReparo: idSchedule,
-                            i_agenda_agendamento: idSchedule
-                        })
+                        body: JSON.stringify(formData)
                     });
 
                     if (entregaResponse.ok) {
                         alert('Agendamento e entrega realizados com sucesso!');
-                        closePopup(calendarPopupSchedule, overlaySchedule); // Certifique-se de que essa função e variáveis estejam definidas
+                        closePopup(calendarPopupSchedule, overlaySchedule); 
                         window.history.back();
-                    } else {
-                        console.error('Erro ao inserir na tabela entrega:', await entregaResponse.text());
-                        alert('Erro ao inserir na tabela entrega. Tente novamente.');
-                    }
-                } catch (error) {
-                    console.error("Erro ao armazenar os dados:", error);
-                    alert('Erro ao armazenar os dados. Verifique sua conexão.');
+                    }  else {
+                        alert('Erro ao registrar entrega.');
+                    }             
+                } catch (entregaError) {
+                    console.error("Erro ao enviar dados de entrega:", entregaError);
+                    alert('Erro ao registrar entrega.');
                 }
             } else {
-                const errorText = await response.text();
-                console.error("Erro ao armazenar os dados", errorText);
-                alert('Erro ao armazenar os dados. Tente novamente.');
-            }
+                alert('Erro ao registrar agendamento.');
+            } 
         } catch (error) {
-            console.error("Erro ao realizar o agendamento:", error);
-            alert('Erro ao realizar o agendamento. Tente novamente.');
+            console.error('Erro ao enviar dados de agendamento:', error);
+            alert('Erro ao registrar agendamento.');
         }
     });
 }
@@ -173,6 +167,8 @@ if (scheduleForm) {
     async function fetchSchedules() {
         try {
             const response = await fetch('/agendamento');
+
+            if(response.ok) {
             const agendamentos = await response.json();
             schedulesBody.innerHTML = '';
 
@@ -189,6 +185,10 @@ if (scheduleForm) {
                 `;
                 schedulesBody.appendChild(row);
             });
+            } else {
+                console.error('Erro ao carregar agendamentos:', response.statusText);
+                alert('Erro ao carregar agendamentos. Tente novamente.');    
+            }
         } catch (error) {
             console.error('Erro ao carregar agendamentos:', error);
             alert('Erro ao carregar agendamentos. Tente novamente.');
