@@ -18,6 +18,7 @@ agendaRouter.get('/agenda', (req, res) => {
   // Rota para obter uma  agenda pelo ID
   agendaRouter.get('/agenda/:id', (req, res) => {
     const agendaId = req.params.id;
+    
     agenda.findOne({ where: { i_agenda_idSchedule: agendaId }})
       .then(agenda => {
         if (!agenda) {

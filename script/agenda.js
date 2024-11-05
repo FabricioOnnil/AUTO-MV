@@ -128,17 +128,21 @@ if (scheduleForm) {
 
             if (response.ok) {
                 const result = await response.json();
-                const idSchedule = result.i_agenda_idSchedule;
+                //const idSchedule = result.i_agenda_idSchedule;
                 console.log("agendamento registrado:", result);
 
-                try {
                     const entregaResponse = await fetch('/entrega', {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json",
                             "accept": "application/json"
                         },
-                        body: JSON.stringify(formData)
+                        body: JSON.stringify({
+                            nome: formData.s_entrega_nameDelivery,
+                            deliverEndDate: formData.d_entrega_deliverEndTime,
+                            carSelect: formData.i_entrega_deliveryCar
+                            // Adicione campos específicos para a entrega, caso sejam diferentes dos de agenda
+                        })
                     });
 
                     if (entregaResponse.ok) {
@@ -146,21 +150,20 @@ if (scheduleForm) {
                         closePopup(calendarPopupSchedule, overlaySchedule); 
                         window.history.back();
                     }  else {
+                        console.error("Erro na resposta de entrega:", await entregaResponse.text());
                         alert('Erro ao registrar entrega.');
-                    }             
-                } catch (entregaError) {
-                    console.error("Erro ao enviar dados de entrega:", entregaError);
-                    alert('Erro ao registrar entrega.');
+                    }
+                } else {
+                    console.error("Erro na resposta de agendamento:", await agendaResponse.text());
+                    alert('Erro ao registrar agendamento.');
                 }
-            } else {
-                alert('Erro ao registrar agendamento.');
-            } 
-        } catch (error) {
-            console.error('Erro ao enviar dados de agendamento:', error);
-            alert('Erro ao registrar agendamento.');
-        }
-    });
-}
+            } catch (error) {
+                console.error('Erro ao processar o formulário:', error);
+                alert('Erro ao processar o formulário. Tente novamente.');
+            }
+        });
+    }
+
 
 
     // Função para buscar agendamentos

@@ -5,7 +5,7 @@ import agenda from '../models/agendaData.js';
 const entregaRouter = express.Router();
 
 // Rota para obter todos os postos de entrega
-entregaRouter.get('/', async (req, res) => {
+entregaRouter.get('/entrega', async (req, res) => {
   try {
     
     const entregas = await entrega.findAll()
@@ -37,7 +37,7 @@ entregaRouter.get('/', async (req, res) => {
   });
 
 
-entregaRouter.post('/', async (req, res) => {
+entregaRouter.post('/entrega', async (req, res) => {
   const { i_agenda_idSchedule, i_agenda_usuarioReparo, i_agenda_agendamento } = req.body;
 
   try {
