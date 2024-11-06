@@ -30,30 +30,34 @@ agendamentoRouter.get('/agendamento/:id', async (req, res) => {
       const agendamento = await agenda.findOne({ where: { i_agenda_id: agendamentoId }});
     
       if (!agendamento) {
-          res.status(404).send("Agendamento não encontrado");
-        } else {
-          res.json(agendamento);
-        }
+          return res.status(404).send("Agendamento não encontrado");
+        } 
+          res.json(agendamento);          
       } catch (error) {
+        console.error("Erro ao obter agendamento:", error);
         res.status(500).send("Erro ao obter agendamento: " + error.message);
       }
 });
 
 // Rota para cadastrar um novo agendamento
 agendamentoRouter.post('/agendamento', async (req, res) => {
+  const userId = req.session.userId;
+  if(!userId) {
+    return res.status(401).send("Usuário não autenticado");
+  }
 
   try {
       const novoAgendamento = await agenda.create(req.body);
 
       await entrega.create({
-          s_entrega_nomeDelivery: novoAgendamento.s_agenda_nameSchedule,
+          s_entrega_nameDelivery: novoAgendamento.s_agenda_nameSchedule,
           d_entrega_deliveryEndDate: novoAgendamento.d_agenda_deliverEndDate,
           d_entrega_deliveryEndTime: novoAgendamento.d_agenda_startTime,
           s_entrega_destinySelect: novoAgendamento.s_agenda_originSelect,
           i_entrega_kmFinal: novoAgendamento.i_agenda_kmInitial,
-          i_entrega_deliveryCar: novoAgendamento.s_agenda_scheduleCar,
-          d_entrega_createdAt: new Date(), // Adicione a data de criação
-          i_entrega_agendamento: novoAgendamento.i_agenda_id // Aqui você pode usar a ID do agendamento recém-criado
+          s_entrega_deliveryCar: novoAgendamento.s_agenda_scheduleCar,
+          d_entrega_createdAt: new Date(), 
+          i_entrega_agendamento: novoAgendamento.i_agenda_id 
       });
 
       res.send("Agendamento cadastrado com sucesso e dados copiados para entrega!");
@@ -64,19 +68,27 @@ agendamentoRouter.post('/agendamento', async (req, res) => {
 
 
 // Rota para atualizar um agendamento pelo ID
-agendamentoRouter.put('/agendamento/:id', (req, res) => {
+agendamentoRouter.put('/agendamento/:id', async (req, res) => {
     const agendamentoId = req.params.id;
-    agenda.update(req.body, { where: { i_agenda_id: agendamentoId } })
-    .then(() => res.send("Agendamento atualizado com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao atualizar agendamento: " + error.message));
+    try {
+          await agenda.update(req.body, { where: { i_agenda_id: agendamentoId } });
+          res.send("Agendamento atualizado com sucesso!");
+    } catch (error) {
+       console.error("Erro ao deletar agendamento:", error);
+       res.status(500).send("Erro ao atualizar agendamento: " + error.message);
+    }
 });
 
 // Rota para deletar um agendamento
-agendamentoRouter.delete('/agendamento/:id', (req, res) => {
+agendamentoRouter.delete('/agendamento/:id', async (req, res) => {
     const agendamentoId = req.params.id;
-    agenda.destroy({ where: { i_agenda_id: agendamentoId } })
-    .then(() => res.send("Agendamento deletado com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao deletar agendamento: " + error.message));
+    try {
+          await agenda.destroy({ where: { i_agenda_id: agendamentoId } });
+          res.send("Agendamento deletado com sucesso!");
+    } catch (error) { 
+      console.error("Erro ao deletar agendamento:", error);
+      res.status(500).send("Erro ao deletar agendamento: " + error.message);
+  }
 });
 
 export default agendamentoRouter;

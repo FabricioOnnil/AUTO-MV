@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
             deliveryEndTime.value = formData.d_entrega_deliverEndTime || "";
             officeEnd.value = formData.s_entrega_destinySelect || "";
             km_final.value = formData.i_entrega_kmFinal || "";
-            carSelect.value = formData.i_entrega_deliveryCar;
+            carSelect.value = formData.s_entrega_deliveryCar;
             i_agenda_agendamento.value = formData.i_entrega_agendamento;
             openPopup();
         } else {
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 d_entrega_deliveryEndTime: document.getElementById("deliveryEndTime").value,
                 s_entrega_destinySelect: document.getElementById("officeEnd").value,
                 i_entrega_kmFinal: document.getElementById("km_final").value,
-                i_entrega_deliveryCar: document.getElementById("carSelect").value,
+                s_entrega_deliveryCar: document.getElementById("carSelect").value,
                 d_entrega_createdAt: new Date(), 
                 i_entrega_agendamento: document.getElementById("i_agenda_agendamento").value
             };
