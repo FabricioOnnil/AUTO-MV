@@ -138,10 +138,9 @@ if (scheduleForm) {
                             "accept": "application/json"
                         },
                         body: JSON.stringify({
-                            nome: formData.s_entrega_nameDelivery,
-                            deliverEndDate: formData.d_entrega_deliverEndTime,
-                            carSelect: formData.i_entrega_deliveryCar
-                            // Adicione campos específicos para a entrega, caso sejam diferentes dos de agenda
+                            nome: formData.nome,
+                            deliverEndDate: formData.deliverEndDate,
+                            carSelect: formData.carSelect
                         })
                     });
 

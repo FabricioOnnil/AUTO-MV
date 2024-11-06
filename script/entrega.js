@@ -10,15 +10,21 @@ document.addEventListener("DOMContentLoaded", function() {
     function openPopup() {
         const overlay = document.getElementById('overlaySchedule');
         const popupContainer = document.getElementById('calendarPopupDelivery');
-        overlay.style.display = 'block';
-        popupContainer.style.display = 'block';
+
+        if (overlay && popupContainer) {
+            overlay.style.display = 'block';
+            popupContainer.style.display = 'block';
+        }
     }
     
     function closePopup() {
         const overlay = document.getElementById('overlaySchedule');
         const popupContainer = document.getElementById('calendarPopupDelivery');
-        overlay.style.display = 'none';
-        popupContainer.style.display = 'none';
+
+        if (overlay && popupContainer) {
+            overlay.style.display = 'none';
+            popupContainer.style.display = 'none';
+        }
     }
 
     function formatDateToBrazilian(dateString) {
@@ -29,15 +35,28 @@ document.addEventListener("DOMContentLoaded", function() {
         return `${day}/${month}/${year}`;
     }
 
-    function showPopupWithFormData(formData, rowIndex) {
-        document.getElementById("nome").value = formData.s_entrega_nameDelivery;
-        document.getElementById("deliverEndDate").value = formData.d_entrega_deliverEndDate;
-        document.getElementById("deliveryEndTime").value = formData.d_entrega_deliverEndTime || "";
-        document.getElementById("officeEnd").value = formData.s_entrega_destinySelect || "";
-        document.getElementById("km_final").value = formData.i_entrega_kmFinal || "";
-        document.getElementById("carSelect").value = formData.i_entrega_deliveryCar;
-        document.getElementById("i_agenda_agendamento").value = formData.i_entrega_agendamento; 
-        openPopup(); 
+    function showPopupWithFormData(formData) {
+
+        const nome = document.getElementById("nome");
+        const deliverEndDate = document.getElementById("deliverEndDate");
+        const deliveryEndTime = document.getElementById("deliveryEndTime");
+        const officeEnd = document.getElementById("officeEnd");
+        const km_final = document.getElementById("km_final");
+        const i_agenda_agendamento = document.getElementById("i_agenda_agendamento");
+
+        if(nome && deliverEndDate && deliveryEndTime && officeEnd && km_final && carSelect && i_agenda_agendamento) {
+
+            nome.value = formData.s_entrega_nameDelivery;
+            deliverEndDate.value = formData.d_entrega_deliverEndDate;
+            deliveryEndTime.value = formData.d_entrega_deliverEndTime || "";
+            officeEnd.value = formData.s_entrega_destinySelect || "";
+            km_final.value = formData.i_entrega_kmFinal || "";
+            carSelect.value = formData.i_entrega_deliveryCar;
+            i_agenda_agendamento.value = formData.i_entrega_agendamento;
+            openPopup();
+        } else {
+            console.error("um ou mais elementos do formulário de entrega não forma encontrados.");
+        }
     }
 
     function loadAgendamentos() {
@@ -80,10 +99,6 @@ document.addEventListener("DOMContentLoaded", function() {
         scheduleForm.addEventListener("submit", function(event) {
             event.preventDefault();
             alert("Entrega confirmada!");
-        
-            /*const rowIndex = document.getElementById("rowIndex").value;
-            const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-            const agendamento = agendamentos[rowIndex];*/
 
             const entregaData = {
                 s_entrega_nameDelivery: document.getElementById("nome").value,

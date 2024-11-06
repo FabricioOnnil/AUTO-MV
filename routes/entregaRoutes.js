@@ -25,11 +25,11 @@ entregaRouter.get('/entrega', async (req, res) => {
       
     const entregas = await entrega.findOne({ where: { i_entrega_idDelivery: entregaId }});
       
-       if (!entrega) {
+       if (!entregas) {
           res.status(404).send("entrega não encontrado");
           
         } else {
-          res.json(entrega);
+          res.json(entregas);
         }
       } catch(error) {
         res.status(500).send("Erro ao obter  entrega: " + error.message);
@@ -62,7 +62,7 @@ entregaRouter.post('/entrega', async (req, res) => {
       }
 
       // Copia os dados da tabela agenda para a tabela entrega
-      const entrega = await entrega.create({
+      const novaEntrega = await entrega.create({
           nome: agendamento.s_agenda_nameSchedule,
           startDate: agendamento.d_agenda_startDate,
           startTime: agendamento.d_agenda_startTime,
@@ -72,8 +72,8 @@ entregaRouter.post('/entrega', async (req, res) => {
           carSelect: agendamento.s_agenda_scheduleCar
       });
 
-      // Retorna resposta de sucesso
-      res.status(201).json({ message: 'Dados atualizados com sucesso e entregues.', entrega });
+      
+      res.status(201).json({ message: 'Dados atualizados com sucesso e entregues.', novaEntrega });
 
   } catch (error) {
       console.error("Erro ao atualizar os dados ou inserir na tabela entrega:", error);
@@ -83,20 +83,34 @@ entregaRouter.post('/entrega', async (req, res) => {
 
 
   // Rota para atualizar  uma entrega pelo ID.
-  entregaRouter.put('/entrega/:id', (req, res) => {
+  entregaRouter.put('/entrega/:id', async (req, res) => {
     const entregaId = req.params.id;
-    entrega.update(req.body, { where: { i_entrega_idDelivery: entregaId } })
-    .then(() => res.send("entrega atualizada com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao atualizar entrega: " + error.message));
-  });
+
+    try {
+        const result = await entrega.update(req.body, { where: { i_entrega_idDelivery: entregaId } });
+        if (result[0] === 0) {
+            return res.status(404).send("Entrega não encontrada para atualizar");
+        }
+        res.send("Entrega atualizada com sucesso!");
+    } catch (error) {
+        res.status(500).send("Erro ao atualizar entrega: " + error.message);
+    }
+});
   
   // Rota para deletar uma  entrega
-  entregaRouter.delete('/entrega/:id', (req, res) => {
+  entregaRouter.delete('/entrega/:id', async (req, res) => {
     const entregaId = req.params.id;
-    entrega.destroy({ where: { i_entrega_idDelivery: entregaId } })
-    .then(() => res.send("entrega deletada com sucesso!"))
-    .catch((error) => res.status(500).send("Erro ao deletar entrega: " + error.message));
-  });
+
+    try {
+        const result = await entrega.destroy({ where: { i_entrega_idDelivery: entregaId } });
+        if (result === 0) {
+            return res.status(404).send("Entrega não encontrada para deletar");
+        }
+        res.send("Entrega deletada com sucesso!");
+    } catch (error) {
+        res.status(500).send("Erro ao deletar entrega: " + error.message);
+    }
+});
   
   export default entregaRouter;
   
