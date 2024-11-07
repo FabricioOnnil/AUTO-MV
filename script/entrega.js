@@ -1,6 +1,3 @@
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
     const closePopupButton = document.querySelector('.close-popupDelivery');
     const scheduleForm = document.getElementById('scheduleFormDelivery');
