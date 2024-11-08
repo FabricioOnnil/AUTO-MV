@@ -66,13 +66,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 data.forEach((agendamento, index) => {
                     const row = appointmentsBody.insertRow();
 
-                    row.insertCell(0).textContent = agendamento.s_entrega_nameDelivery;
-                    row.insertCell(1).textContent = formatDateToBrazilian(agendamento.d_entrega_deliveryEndDate);
-                    row.insertCell(2).textContent = formatDateToBrazilian(agendamento.d_entrega_deliverEndTime);
-                    row.insertCell(3).textContent = agendamento.s_entrega_destinySelect;
-                    row.insertCell(4).textContent = agendamento.s_entrega_deliveryCar;
+                    row.insertCell(0).textContent = agendamento.s_agenda_nameSchedule;
+                    row.insertCell(1).textContent = formatDateToBrazilian(agendamento.d_agenda_startDate);
+                    row.insertCell(2).textContent = formatDateToBrazilian(agendamento.d_agenda_startTime);
+                    row.insertCell(3).textContent = formatDateToBrazilian(agendamento.d_agenda_deliverEndDate);
+                    row.insertCell(4).textContent = agendamento.s_agenda_originSelect;
+                    row.insertCell(5).textContent = agendamento.i_agenda_kmInitial;
+                    row.insertCell(6).textContent = agendamento.s_agenda_scheduleCar;
 
-                    const actionCell = row.insertCell(5);
+                    const actionCell = row.insertCell(7);
                     actionCell.classList.add("acao");
                     
                     const entregaImage = document.createElement("img");
@@ -98,14 +100,14 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Entrega confirmada!");
 
             const entregaData = {
-                s_entrega_nameDelivery: document.getElementById("nome").value,
-                d_entrega_deliveryEndDate: document.getElementById("deliverEndDate").value,
-                d_entrega_deliveryEndTime: document.getElementById("deliveryEndTime").value,
-                s_entrega_destinySelect: document.getElementById("officeEnd").value,
-                i_entrega_kmFinal: document.getElementById("km_final").value,
-                s_entrega_deliveryCar: document.getElementById("carSelect").value,
-                d_entrega_createdAt: new Date(), 
-                i_entrega_agendamento: document.getElementById("i_agenda_agendamento").value
+                s_agenda_nameSchedule: document.getElementById("nome").value,
+                d_agenda_deliverEndDate: document.getElementById("deliverEndDate").value,
+                d_agenda_deliveryEndTime: document.getElementById("deliveryEndTime").value,
+                s_agenda_destinySelect: document.getElementById("officeEnd").value,
+                i_agenda_kmFinal: document.getElementById("km_final").value,
+                s_agenda_scheduleCar: document.getElementById("carSelect").value,
+                d_agenda_createdAt: new Date(),
+                i_agenda_agendamento: document.getElementById("i_agenda_agendamento").value
             };
 
             fetch('/entrega', {

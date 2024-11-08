@@ -131,18 +131,22 @@ if (scheduleForm) {
                 //const idSchedule = result.i_agenda_idSchedule;
                 console.log("agendamento registrado:", result);
 
+                const entregaData = {
+                    nome: formData.nome,
+                    deliverEndDate: formData.deliverEndDate,
+                    carSelect: formData.carSelect,
+                    agendaId: result.i_agenda_idSchedule
+                };
+
                     const entregaResponse = await fetch('/entrega', {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json",
                             "accept": "application/json"
                         },
-                        body: JSON.stringify({
-                            nome: formData.nome,
-                            deliverEndDate: formData.deliverEndDate,
-                            carSelect: formData.carSelect
-                        })
+                        body: JSON.stringify({ entregaData })
                     });
+                    
 
                     if (entregaResponse.ok) {
                         alert('Agendamento e entrega realizados com sucesso!');

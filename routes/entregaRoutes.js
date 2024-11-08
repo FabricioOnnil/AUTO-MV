@@ -42,16 +42,11 @@ entregaRouter.post('/entrega', async (req, res) => {
 
   try {
       // Atualiza os dados na tabela agenda
-      await agenda.update(
-          {
-              i_agenda_usuarioReparo: i_agenda_usuarioReparo,
-              i_agenda_agendamento: i_agenda_agendamento
-          },
-          {
-              where: {
-                  i_agenda_idSchedule: i_agenda_idSchedule
-              }
-          }
+      await agenda.update (
+          {   i_agenda_usuarioReparo: i_agenda_usuarioReparo,
+              i_agenda_agendamento: i_agenda_agendamento },
+             { where: { i_agenda_idSchedule: i_agenda_idSchedule }}
+          
       );
 
       // Encontra o agendamento atualizado
@@ -63,13 +58,13 @@ entregaRouter.post('/entrega', async (req, res) => {
 
       // Copia os dados da tabela agenda para a tabela entrega
       const novaEntrega = await entrega.create({
-          nome: agendamento.s_agenda_nameSchedule,
-          startDate: agendamento.d_agenda_startDate,
-          startTime: agendamento.d_agenda_startTime,
-          deliverEndDate: agendamento.d_agenda_deliverEndDate,
-          originSelect: agendamento.s_agenda_originSelect,
-          km_initial: agendamento.i_agenda_kmInitial,
-          carSelect: agendamento.s_agenda_scheduleCar
+        nome: agendamento.s_agenda_nameSchedule,
+        startDate: agendamento.d_agenda_startDate,
+        startTime: agendamento.d_agenda_startTime,
+        deliverEndDate: agendamento.d_agenda_deliverEndDate,
+        originSelect: agendamento.s_agenda_originSelect,
+        km_initial: agendamento.i_agenda_kmInitial,
+        carSelect: agendamento.s_agenda_scheduleCar
       });
 
       
