@@ -39,16 +39,17 @@ document.addEventListener("DOMContentLoaded", function() {
         const deliveryEndTime = document.getElementById("deliveryEndTime");
         const officeEnd = document.getElementById("officeEnd");
         const km_final = document.getElementById("km_final");
+        const carSelect = document.getElementById("carSelect");
         const i_agenda_agendamento = document.getElementById("i_agenda_agendamento");
 
         if(nome && deliverEndDate && deliveryEndTime && officeEnd && km_final && carSelect && i_agenda_agendamento) {
 
-            nome.value = formData.s_entrega_nameDelivery;
-            deliverEndDate.value = formData.d_entrega_deliverEndDate;
+            nome.value = formData.s_agenda_nameSchedule;
+            deliverEndDate.value = formData.d_agenda_deliverEndDate;
             deliveryEndTime.value = formData.d_entrega_deliverEndTime || "";
             officeEnd.value = formData.s_entrega_destinySelect || "";
-            km_final.value = formData.i_entrega_kmFinal || "";
-            carSelect.value = formData.s_entrega_deliveryCar;
+            km_final.value = formData.i_agenda_kmInitial || "";
+            carSelect.value = formData.s_agenda_scheduleCar;
             i_agenda_agendamento.value = formData.i_entrega_agendamento;
             openPopup();
         } else {
@@ -81,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     entregaImage.src = "/Imagens/registrarbutton.png"; 
                     entregaImage.alt = "Entregar";
                     entregaImage.style.cursor = "pointer"; 
-                    entregaImage.addEventListener("click", () => showPopupWithFormData(agendamento, index));
+                    entregaImage.addEventListener("click", () => showPopupWithFormData(agendamento));
                     actionCell.appendChild(entregaImage);
                 });
             })
