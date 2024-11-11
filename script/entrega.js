@@ -36,24 +36,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const nome = document.getElementById("nome");
         const deliverEndDate = document.getElementById("deliverEndDate");
-        const deliveryEndTime = document.getElementById("deliveryEndTime");
+        //const deliveryEndTime = document.getElementById("deliveryEndTime");
         const officeEnd = document.getElementById("officeEnd");
         const km_final = document.getElementById("km_final");
         const carSelect = document.getElementById("carSelect");
         const i_agenda_agendamento = document.getElementById("i_agenda_agendamento");
 
-        if(nome && deliverEndDate && deliveryEndTime && officeEnd && km_final && carSelect && i_agenda_agendamento) {
+        if(nome && deliverEndDate && officeEnd && km_final && carSelect && i_agenda_agendamento) {
 
             nome.value = formData.s_agenda_nameSchedule;
             deliverEndDate.value = formData.d_agenda_deliverEndDate;
-            deliveryEndTime.value = formData.d_entrega_deliverEndTime || "";
             officeEnd.value = formData.s_entrega_destinySelect || "";
             km_final.value = formData.i_agenda_kmInitial || "";
             carSelect.value = formData.s_agenda_scheduleCar;
             i_agenda_agendamento.value = formData.i_entrega_agendamento;
             openPopup();
         } else {
-            console.error("um ou mais elementos do formulário de entrega não forma encontrados.");
+            console.error("um ou mais elementos do formulário de entrega não foram encontrados.");
         }
     }
 
@@ -69,13 +68,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     row.insertCell(0).textContent = agendamento.s_agenda_nameSchedule;
                     row.insertCell(1).textContent = formatDateToBrazilian(agendamento.d_agenda_startDate);
-                    row.insertCell(2).textContent = formatDateToBrazilian(agendamento.d_agenda_startTime);
-                    row.insertCell(3).textContent = formatDateToBrazilian(agendamento.d_agenda_deliverEndDate);
-                    row.insertCell(4).textContent = agendamento.s_agenda_originSelect;
-                    row.insertCell(5).textContent = agendamento.i_agenda_kmInitial;
-                    row.insertCell(6).textContent = agendamento.s_agenda_scheduleCar;
+                    row.insertCell(2).textContent = formatDateToBrazilian(agendamento.d_agenda_deliverEndDate);
+                    row.insertCell(3).textContent = agendamento.s_agenda_originSelect;
+                    row.insertCell(4).textContent = agendamento.i_agenda_kmInitial;
+                    row.insertCell(5).textContent = agendamento.s_agenda_scheduleCar;
 
-                    const actionCell = row.insertCell(7);
+                    const actionCell = row.insertCell(6);
                     actionCell.classList.add("acao");
                     
                     const entregaImage = document.createElement("img");
