@@ -5,7 +5,7 @@ import agenda from '../models/agendaData.js';
 const agendaRouter = express.Router();
 
 // Rota para obter todos os postos de agenda
-agendaRouter.get('/agenda', async (req, res) => {
+agendaRouter.get('/', async (req, res) => {
   try {
       const agendas = await agenda.findAll();
       res.json(agendas);
@@ -30,7 +30,7 @@ agendaRouter.get('/agenda', async (req, res) => {
 });
   
   // Rota para cadastrar uma  nova agenda
-  agendaRouter.post('/agenda', async (req, res) => {
+  agendaRouter.post('/', async (req, res) => {
     try {
         await agenda.create(req.body);
         res.send("Agendamento cadastrado com sucesso!");

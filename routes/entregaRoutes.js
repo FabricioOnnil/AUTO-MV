@@ -5,7 +5,7 @@ import agenda from '../models/agendaData.js';
 const entregaRouter = express.Router();
 
 // Rota para obter todos os postos de entrega
-entregaRouter.get('/entrega', async (req, res) => {
+entregaRouter.get('/', async (req, res) => {
   try {
     
     const entregas = await entrega.findAll()
@@ -37,7 +37,7 @@ entregaRouter.get('/entrega', async (req, res) => {
   });
 
 
-entregaRouter.post('/entrega', async (req, res) => {
+entregaRouter.post('/', async (req, res) => {
   const { i_agenda_idSchedule, i_agenda_usuarioReparo, i_agenda_agendamento } = req.body;
 
   try {
@@ -58,13 +58,14 @@ entregaRouter.post('/entrega', async (req, res) => {
 
       // Copia os dados da tabela agenda para a tabela entrega
       const novaEntrega = await entrega.create({
-        nome: agendamento.s_agenda_nameSchedule,
-        startDate: agendamento.d_agenda_startDate,
-        startTime: agendamento.d_agenda_startTime,
-        deliverEndDate: agendamento.d_agenda_deliverEndDate,
-        originSelect: agendamento.s_agenda_originSelect,
-        km_initial: agendamento.i_agenda_kmInitial,
-        carSelect: agendamento.s_agenda_scheduleCar
+        s_entrega_nameDelivery: agendamento.s_agenda_nameSchedule,
+        d_entrega_deliveryEndDate: agendamento.d_agenda_deliverEndDate,
+        d_entrega_deliveryEndTime: agendamento.d_agenda_deliveryEndTime,
+        s_entrega_destinySelect: agendamento.s_agenda_originSelect,
+        i_entrega_kmFinal: agendamento.i_agenda_kmInitial, 
+        s_entrega_deliveryCar: agendamento.s_agenda_scheduleCar,
+        i_entrega_agendamento: agendamento.i_agenda_agendamento,
+        d_entrega_createdAt: new Date(), 
       });
 
       

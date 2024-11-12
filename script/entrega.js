@@ -106,7 +106,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 i_agenda_kmFinal: document.getElementById("km_final").value,
                 s_agenda_scheduleCar: document.getElementById("carSelect").value,
                 d_agenda_createdAt: new Date(),
-                i_agenda_agendamento: document.getElementById("i_agenda_agendamento").value
+                i_agenda_agendamento: document.getElementById("i_agenda_agendamento").value,
+                i_agenda_idSchedule: document.getElementById("i_agenda_idSchedule").value  // Certifique-se que este campo existe no HTML
             };
 
             fetch('/entrega', {
