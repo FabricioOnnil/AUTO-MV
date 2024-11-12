@@ -40,12 +40,16 @@ entregaRouter.get('/', async (req, res) => {
 entregaRouter.post('/', async (req, res) => {
   const { i_agenda_idSchedule, i_agenda_usuarioReparo, i_agenda_agendamento } = req.body;
 
+  console.log("Dados Recebidos:", req.body);
+
+  if(!i_agenda_idSchedule) {
+      return res.status(400).json({ error: 'ID de agendamento não fornecido'});
+  }
+
   try {
       // Atualiza os dados na tabela agenda
-      await agenda.update (
-          {   i_agenda_usuarioReparo: i_agenda_usuarioReparo,
-              i_agenda_agendamento: i_agenda_agendamento },
-             { where: { i_agenda_idSchedule: i_agenda_idSchedule }}
+      await agenda.update ({ i_agenda_usuarioReparo, i_agenda_agendamento },
+             { where: { i_agenda_idSchedule }}
           
       );
 
