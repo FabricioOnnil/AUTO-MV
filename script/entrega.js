@@ -42,6 +42,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const carSelect = document.getElementById("carSelect");
         const i_agenda_agendamento = document.getElementById("i_agenda_agendamento");
 
+        if (i_agenda_agendamento) {
+            i_agenda_agendamento.value = formData.i_agen_agendamento;
+        } else {
+            console.error("Campo i_agenda_agendamento não encontrado.");
+        }
+
         if(nome && deliverEndDate && officeEnd && km_final && carSelect && i_agenda_agendamento) {
 
             nome.value = formData.s_agenda_nameSchedule;
@@ -107,9 +113,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 s_agenda_scheduleCar: document.getElementById("carSelect").value,
                 d_agenda_createdAt: new Date(),
                 i_agenda_agendamento: document.getElementById("i_agenda_agendamento").value,
-                i_agenda_idSchedule: document.getElementById("i_agenda_idSchedule").value  // Certifique-se que este campo existe no HTML
+                //i_agenda_idSchedule: document.getElementById("i_agenda_idSchedule").value  // Certifique-se que este campo existe no HTML
             };
 
+            console.log("Dados de entrega:", entregaData);
+            
             fetch('/entrega', {
                 method: 'POST',
                 headers: {
