@@ -34,7 +34,7 @@ const abastecimentoModelo = db.sequelize.define('abastecimento', {
     },
 
     //Imagem da Nota Fiscal. 6
-    l_abastecimento_fuellImg: {
+    l_abastecimento_fuelImg: {
         type: DataTypes.BLOB('long'),
         allowNull: true
     },

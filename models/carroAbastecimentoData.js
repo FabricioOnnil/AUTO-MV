@@ -17,7 +17,7 @@ const abastecimento = db.sequelize.define('abastecimento', {
 
     //Data de criação da linha.
     i_carroAbastecimento_carro: {
-        type: DataTypes.DATE,
+        type: DataTypes.INTEGER,
         allowNull: true,
         
     },

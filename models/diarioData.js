@@ -19,7 +19,7 @@ const diario = db.sequelize.define('diario', {
         allowNull: true,
     },
 
-    d_diario_creatAt: {
+    d_diario_createdAt: {
         type: DataTypes.DATE,
         allowNull: true,
     },

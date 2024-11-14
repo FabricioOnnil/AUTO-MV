@@ -11,7 +11,7 @@ const entrega = db.sequelize.define('entrega', {
     },
 
     //Nome do responsável pela entrega. 2
-    s_entrega_nomeDelivery: {
+    s_entrega_nameDelivery: {
         type: DataTypes.STRING,
         allowNull: true
     },
