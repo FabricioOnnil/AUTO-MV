@@ -126,8 +126,8 @@ if (scheduleForm) {
             });
 
 
-            if (response.ok) {
-                const result = await response.json();
+            if (agendaResponse.ok) {
+                const result = await agendaResponse.json();
                 //const idSchedule = result.i_agenda_idSchedule;
                 console.log("agendamento registrado:", result);
 

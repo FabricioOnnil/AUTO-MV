@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 s_agenda_scheduleCar: document.getElementById("carSelect").value,
                 d_agenda_createdAt: new Date(),
                 i_agenda_agendamento: document.getElementById("i_agenda_agendamento").value,
-                //i_agenda_idSchedule: document.getElementById("i_agenda_idSchedule").value  // Certifique-se que este campo existe no HTML
+
             };
 
             console.log("Dados de entrega:", entregaData);
@@ -125,18 +125,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 },
                 body: JSON.stringify(entregaData),
             })
-            .then(response => {
-                if (response.ok) {
-                    alert("Entrega confirmada!");
-                    closePopup();
-                    loadAgendamentos();
-                } else {
+            .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        alert("Entrega confirmada!");
+                        closePopup();
+                        loadAgendamentos();
+                    } else {
+                        alert("Erro ao confirmar entrega: " + result.message);
+                        console.error("Erro do servidor:", result.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar dados da entrega:', error);
                     alert("Erro ao confirmar entrega.");
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao enviar dados da entrega:', error);
-            });
+                });
         });
     }
 

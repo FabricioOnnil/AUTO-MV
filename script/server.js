@@ -303,6 +303,32 @@ app.post('/acesso', async (req, res) => {
   }
 });
 
+// Rota de entrega
+app.post('/entrega', async (req, res) => {
+  const { nome, deliverEndDate, carSelect, agendaId } = req.body;
+
+  if (!agendaId) {
+      return res.status(400).json({ error: 'ID de agendamento não fornecido' });
+  }
+
+  try {
+      const novaEntrega = await Entrega.create({
+          s_entrega_nameSchedule: nome,
+          d_entrega_deliverEndDate: deliverEndDate,
+          s_entrega_scheduleCar: carSelect,
+          i_agenda_agendamento: agendaId // Relaciona com o agendamento
+      });
+
+      res.status(201).json({
+          message: 'Entrega criada com sucesso!',
+          entrega: novaEntrega
+      });
+  } catch (error) {
+      console.error('Erro ao criar entrega:', error);
+      res.status(500).json({ error: 'Erro ao criar entrega' });
+  }
+});
+
 
 // Rota de Informações do Carro
 app.post('/carro', async (req, res) => {

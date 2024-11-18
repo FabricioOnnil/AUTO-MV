@@ -32,10 +32,15 @@ agendaRouter.get('/', async (req, res) => {
   // Rota para cadastrar uma  nova agenda
   agendaRouter.post('/', async (req, res) => {
     try {
-        await agenda.create(req.body);
-        res.send("Agendamento cadastrado com sucesso!");
+        const novoAgendamento = await agenda.create(req.body);
+
+        res.status(201).json({
+            message: 'Agendamento criado com sucesso!',
+            i_agenda_idSchedule: novoAgendamento.i_agenda_idSchedule, // Retorna o ID gerado
+        });
     } catch (error) {
-        res.status(500).send("Erro ao cadastrar agenda: " + error.message);
+        console.error('Erro ao criar agendamento:', error);
+        res.status(500).json({ error: 'Erro ao criar agendamento' });
     }
 });
   
