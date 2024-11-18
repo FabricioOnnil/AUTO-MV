@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (scheduleForm) {
         scheduleForm.addEventListener("submit", function(event) {
             event.preventDefault();
-            alert("Entrega confirmada!");
+            
 
             const entregaData = {
                 s_agenda_nameSchedule: document.getElementById("nome").value,
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 i_agenda_agendamento: document.getElementById("i_agenda_agendamento").value,
 
             };
-
+            alert("Entrega confirmada!");
             console.log("Dados de entrega:", entregaData);
             
             fetch('/entrega', {
