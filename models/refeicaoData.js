@@ -53,21 +53,12 @@ const comida = db.sequelize.define('comida', {
     allowNull: true,
   },
 
-  i_comida_agendamento: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-
-  i_comida_usuarioComida: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-
-  i_comida_usuarioVisita: {
+  i_comida_agendaId: {
     type:DataTypes.INTEGER,
     allowNull: true,
 
   },
+  
 }, {
     tableName: 'comida',
     timestamps: false, 

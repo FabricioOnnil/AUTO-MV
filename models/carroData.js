@@ -56,7 +56,7 @@ const carro = sequelize.define('carro', {
         defaultValue: DataTypes.NOW,
     },
 
-    i_carro_carroAbastecimento: {
+    i_carro_agenda_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
 

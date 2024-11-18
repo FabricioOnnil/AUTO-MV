@@ -59,6 +59,13 @@ const custosCarro = sequelize.define('custosCarro', {
         type: DataTypes.DATE,
         allowNull: true
     },
+
+    // Id de carro relacionado
+    i_custosCarro_carro_idcar: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    
 }, 
 {
 tableName: 'custosCarro',

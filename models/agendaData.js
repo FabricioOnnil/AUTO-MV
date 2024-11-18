@@ -72,18 +72,13 @@ const agenda = db.sequelize.define('agenda', {
     defaultValue: DataTypes.NOW,
   },
   // conexão externa com a tabela usuario. 12
-  i_agenda_usuario: {
+  i_agenda_usuario_user: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
-  // conexão externa com a tabela usuarioReparo. 13
-  i_agenda_usuarioReparo: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-  },
-
+  
   // conexão externa com a tabela agendamento. 14
-  i_agenda_agendamento: {
+  i_agenda_agendado_id: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },

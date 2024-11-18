@@ -73,6 +73,12 @@ const contratoCarro = sequelize.define('contratoCarro', {
         defaultValue: DataTypes.NOW,
     },
 
+    // Id do carro no contrato
+    i_contratoCarro_carro_idcar: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+
     }, 
     {
     tableName: 'contratoCarro',

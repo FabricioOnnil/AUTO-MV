@@ -1,4 +1,4 @@
-use vamo_mv;
+use vamomv;
 
 show tables;
 

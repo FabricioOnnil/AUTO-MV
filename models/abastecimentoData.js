@@ -40,7 +40,7 @@ const abastecimentoModelo = db.sequelize.define('abastecimento', {
     },
 
     //Chave Estrangeira do Id do Carro escolhido. 7
-    i_abastecimento_idCar: {
+    carro_i_carro_idcar: {
         type: DataTypes.INTEGER,
         allowNull: true
     },
