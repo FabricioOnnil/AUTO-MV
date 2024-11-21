@@ -313,7 +313,7 @@ function closePopup(popupId) {
 // Fecha o popup se o usuário clicar fora dele
 window.onclick = function(event) {
     const popups = document.getElementsByClassName('popup');
-    for (let o = 0; i < popups.length; i++) {
+    for (let i = 0; i < popups.length; i++) {
         if (event.target === popups[i]) {
             popups[i].style.display = 'none';
         }

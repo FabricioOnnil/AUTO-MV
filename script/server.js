@@ -265,7 +265,7 @@ app.get('/agendamento', async (req,res) => {
     
         const agendamentos = await agenda.findAll({
             where: {
-              i_agenda_usuario: userId
+              i_agenda_usuario_user: userId
             }
         });
     console.log(agendamentos);
