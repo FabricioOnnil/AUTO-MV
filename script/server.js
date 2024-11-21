@@ -33,10 +33,10 @@ import carContract from '../routes/contratoRoutes.js';
 import carCosts from '../routes/custosRouter.js';
 import diarioRouter from '../routes/diarioRoutes.js';
 import comidaRouter from '../routes/refeicaoRoutes.js';
-import abstRouter from '../routes/fuelStationRoutes.js';
 import reparoRouter from '../routes/reparoRoutes.js';
 import usuarioVisitaRouter from '../routes/usuarioVisitaRoutes.js';
 import relatorioRouter from '../routes/relatorioRoutes.js';
+import abastecimentoRouter from '../routes/abastecimentoRoutes.js';
 
 const app = express();
 const PORT = 3000;
@@ -115,13 +115,13 @@ const upload = multer({ storage: storage});
 
 
 // Rotas para cada tabela
+app.use('/abastecimento', abastecimentoRouter);
 app.use('/agenda', agendaRouter);
-app.use('/login', userRouter);
+app.use('/acesso', userRouter);
 app.use('/contratoCarro', carContract);
-app.use('/custosFixos', carCosts);
+app.use('/custoFixo', carCosts);
 app.use('/carro', carRouter);
 app.use('/food', comidaRouter);
-app.use('/fuelStation', abstRouter);
 app.use('/agendamento', agendamentoRouter);
 app.use('/entrega', entregaRouter);
 app.use('/relatorio', relatorioRouter);
@@ -379,7 +379,7 @@ app.post('/contratoCarro', async (req, res) => {
 
 
 // Rota de Custos do Carro
-app.post('/custosCarro', async (req, res) => {
+app.post('/custofixo', async (req, res) => {
   const { limiteReparos, danosTerceiros, perdaTotal, inicioSeguroVigencia, fimSeguroVigencia, aluguelKm} = req.body;
 
   try {

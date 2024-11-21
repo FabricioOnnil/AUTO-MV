@@ -4,9 +4,6 @@ function redirecionar(url) {
     window.location.href = url;
 }
 
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const contratoForm = document.querySelector('#carPopup form');
     const custoFixoForm = document.querySelector('#custPopup form');
@@ -55,7 +52,7 @@ contratoForm.addEventListener('submit', async function (event) {
                 window.location.href = '/vamoGerencia';
 
             } else {
-                console.error("Failed to store form contract:", response.statusText);
+                console.error("Falha ao salvar o contrato do formulário:", response.statusText);
             }
 
             const result = await response.json();
@@ -154,7 +151,7 @@ acessoForm.addEventListener('submit', async (event) => {
         const formData = new FormData(acessoForm);
 
         try {
-            const response = await fetch('/login', {
+            const response = await fetch('/acesso', {
                 method: 'POST',
                 body: formData
             });
