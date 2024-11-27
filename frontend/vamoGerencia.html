@@ -19,21 +19,23 @@
         <div class="container">
         <div class="box">
             <h2>CARRO</h2>
-            <button onclick="openPopup('carPopup')" >Contrato</button>
-            <button onclick="openPopup('custPopup')">Custo fixo</button>
             <button onclick="openPopup('infoPopup')">Descrição</button>
+            <button onclick="openPopup('carPopup')" >Contrato</button>
+            <button onclick="openPopup('custPopup')">Custo fixo</button>            
         </div>
+        
         <div class="box">
             <h2>USUARIO</h2>
             <button onclick="openPopup('acessoPopup')">Cadastrar</button>
             <button onclick="redirecionar('/vamoInformado')">Informações</button>
         </div>
+
         <div class="box">
             <h2>INFORMAÇÕES</h2>
-            <button onclick="openPopup('globalValuesPopup')">Global</button>
-            
+            <button onclick="openPopup('globalValuesPopup')">Global</button>            
             <button onclick="redirecionar('/vamoCalendario')">Calendário</button>
-        </div>            
+        </div>
+
         </div>
         <!-- Popup para Cadastro de Carros -->
         <div id="carPopup" class="popup">

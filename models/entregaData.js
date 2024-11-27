@@ -61,8 +61,9 @@ const entrega = db.sequelize.define('entrega', {
      },
 
      //Referencia externa do agendamento. 10 
-     i_entrega_agendamento: {
-        type: DataTypes.INTEGER
+     i_entregaAgenda_idSchedule: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
      }
     }, {
         tableName: 'entrega',

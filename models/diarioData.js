@@ -29,7 +29,7 @@ const diario = db.sequelize.define('diario', {
         allowNull: true,
     },
 
-    i_diario_usuarioKey: {
+    i_agenda_idSchedule: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },

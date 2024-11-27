@@ -57,11 +57,7 @@ const reparo = db.sequelize.define('reparo', {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
-
-    i_agendamento_agendado_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    }},
+    },
     {
         tableName: 'reparo',
         timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically
