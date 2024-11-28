@@ -180,7 +180,7 @@ acessoForm.addEventListener('submit', async (event) => {
 
    
     function populateTable(values) {
-        const tableBody = document.getElementById("globalValuesBody");
+        const tableBody = document.getElementById("globalValuesTable");
         tableBody.innerHTML = "";
         values.forEach(value => {
             const row = tableBody.insertRow();
@@ -196,16 +196,13 @@ acessoForm.addEventListener('submit', async (event) => {
             row.insertCell(9).textContent = value.hoursNotScheduled;
         });
     }
-    populateTable(globalValues);
+    //populateTable(globalValues);
 });
 
 
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 
-function redirecionar(url) {
-    window.location.href = url;
-}
 
 document.addEventListener('DOMContentLoaded', () => {
     const forms = {
@@ -280,9 +277,10 @@ document.addEventListener('DOMContentLoaded', () => {
         { period: 'Mês', days: 30, km: 500, fuelCost: 250, fuelAcquired: 100, fuelUsed: 90, repairCost: 100, foodCost: 50, hoursScheduled: 25, hoursNotScheduled: 15 },
         { period: '15 dias', days: 15, km: 200, fuelCost: 100, fuelAcquired: 40, fuelUsed: 36, repairCost: 40, foodCost: 20, hoursScheduled: 10, hoursNotScheduled: 6 },
     ];
+    populateTable(globalValues);
 
     function populateTable(values) {
-        const tableBody = document.getElementById("globalValuesBody");
+        const tableBody = document.getElementById("globalValuesTable");
         tableBody.innerHTML = "";
         values.forEach(value => {
             const row = tableBody.insertRow();
