@@ -5,6 +5,7 @@ const abastecimentoRouter = express.Router();
 
 // Rota para obter todos os abastecimento
 abastecimentoRouter.get('/abastecimento', (req, res) => {
+  
     abastecimento.findAll()
       .then(abastecimento => {
         res.json(abastecimento);
