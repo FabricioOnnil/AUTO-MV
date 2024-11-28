@@ -1,5 +1,3 @@
-
-
 function redirecionar(url) {
     window.location.href = url;
 }
@@ -180,7 +178,7 @@ acessoForm.addEventListener('submit', async (event) => {
 
    
     function populateTable(values) {
-        const tableBody = document.getElementById("globalValuesTable");
+        const tableBody = document.getElementById("globalValuesPopup");
         tableBody.innerHTML = "";
         values.forEach(value => {
             const row = tableBody.insertRow();
@@ -196,7 +194,7 @@ acessoForm.addEventListener('submit', async (event) => {
             row.insertCell(9).textContent = value.hoursNotScheduled;
         });
     }
-    //populateTable(globalValues);
+    populateTable(globalValues);
 });
 
 
@@ -280,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     populateTable(globalValues);
 
     function populateTable(values) {
-        const tableBody = document.getElementById("globalValuesTable");
+        const tableBody = document.getElementById("globalValuesPopup");
         tableBody.innerHTML = "";
         values.forEach(value => {
             const row = tableBody.insertRow();
@@ -293,20 +291,11 @@ document.addEventListener('DOMContentLoaded', () => {
     populateTable(globalValues);
 });
 
-
-function openPopup(popupId) {
-    const popup = document.getElementById(popupId);
-    if(popup) {
-        popup.style.display = 'block';
-    }
+function openPopup() {
+    const popup = document.querySelector('#popup'); 
+    popup.style.display = 'block'; // Mostra o popup
 }
 
-function closePopup(popupId) {
-    const popup = document.getElementById(popupId);
-    if (popup) {
-        popup.style.display = 'none';
-    }
-}
 
 // Fecha o popup se o usuário clicar fora dele
 window.onclick = function(event) {
@@ -317,3 +306,24 @@ window.onclick = function(event) {
         }
     }
 ;}
+
+function openPopup(popupId) {
+    const popup = document.getElementById(popupId);
+    if (popup) {
+        popup.style.display = 'block'; 
+        popup.classList.add('show'); F
+    } else {
+        console.error(`Popup com ID ${popupId} não encontrado.`);
+    }
+}
+
+// Função para fechar o popup
+function closePopup(popupId) {
+    const popup = document.getElementById(popupId);
+    if (popup) {
+        popup.style.display = 'none'; // Esconde o popup
+        popup.classList.remove('show'); // Remove a classe de visibilidade, se necessário
+    } else {
+        console.error(`Popup com ID ${popupId} não encontrado.`);
+    }
+}
