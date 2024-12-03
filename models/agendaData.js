@@ -74,8 +74,8 @@ const agenda = db.sequelize.define('agenda', {
   // conexão externa com a tabela usuario. 12
   i_agenda_usuario_user: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-    unique:true,
+    allowNull: true,
+    
   },
   
   // conexão externa com a tabela agendamento. 14
