@@ -7,6 +7,7 @@ const agendaRouter = express.Router();
 
 // Rota para obter todos os postos de agenda
 agendaRouter.get('/', async (req, res) => {
+
   try {
       const agendas = await agenda.findAll();
       res.json(agendas);
@@ -34,7 +35,7 @@ agendaRouter.get('/', async (req, res) => {
   agendaRouter.post('/', async (req, res) => {
     try {
 
-        const novoAgendamento = await agenda.create({ i_agenda_usuari_user: uuidv4(), ...req.body});
+        const novoAgendamento = await agenda.create({ i_agenda_usuario_user: uuidv4(), ...req.body});
 
         res.status(201).json({
             message: 'Agendamento criado com sucesso!',

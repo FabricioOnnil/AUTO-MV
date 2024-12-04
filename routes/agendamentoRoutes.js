@@ -27,7 +27,7 @@ agendamentoRouter.get('/agendamento/:id', async (req, res) => {
 
     try {
 
-      const agendamento = await agenda.findOne({ where: { i_agenda_id: agendamentoId }});
+      const agendamento = await agenda.findOne({ where: { i_agenda_usuario_user: agendamentoId }});
     
       if (!agendamento) {
           return res.status(404).send("Agendamento não encontrado");
@@ -57,7 +57,7 @@ agendamentoRouter.post('/agendamento', async (req, res) => {
           i_entrega_kmFinal: novoAgendamento.i_agenda_kmInitial,
           s_entrega_deliveryCar: novoAgendamento.s_agenda_scheduleCar,
           d_entrega_createdAt: new Date(), 
-          i_entrega_agendamento: novoAgendamento.i_agenda_id 
+          i_entrega_agendamento: novoAgendamento.i_agenda_usuario_user 
       });
 
       res.send("Agendamento cadastrado com sucesso e dados copiados para entrega!");
@@ -71,7 +71,7 @@ agendamentoRouter.post('/agendamento', async (req, res) => {
 agendamentoRouter.put('/agendamento/:id', async (req, res) => {
     const agendamentoId = req.params.id;
     try {
-          await agenda.update(req.body, { where: { i_agenda_id: agendamentoId } });
+          await agenda.update(req.body, { where: { i_agenda_usuario_user: agendamentoId } });
           res.send("Agendamento atualizado com sucesso!");
     } catch (error) {
        console.error("Erro ao deletar agendamento:", error);
@@ -83,7 +83,7 @@ agendamentoRouter.put('/agendamento/:id', async (req, res) => {
 agendamentoRouter.delete('/agendamento/:id', async (req, res) => {
     const agendamentoId = req.params.id;
     try {
-          await agenda.destroy({ where: { i_agenda_id: agendamentoId } });
+          await agenda.destroy({ where: { i_agenda_usuario_user: agendamentoId } });
           res.send("Agendamento deletado com sucesso!");
     } catch (error) { 
       console.error("Erro ao deletar agendamento:", error);

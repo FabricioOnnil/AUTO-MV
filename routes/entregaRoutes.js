@@ -38,7 +38,7 @@ entregaRouter.get('/', async (req, res) => {
 
 
 entregaRouter.post('/', async (req, res) => {
-  const { i_agenda_idSchedule, i_agenda_usuarioReparo, i_agenda_agendamento } = req.body;
+  const { i_agenda_idSchedule, d_agenda_deliverEndDate } = req.body;
 
   console.log("Dados Recebidos:", req.body);
 
@@ -48,7 +48,7 @@ entregaRouter.post('/', async (req, res) => {
 
   try {
       // Atualiza os dados na tabela agenda
-      await agenda.update ({ i_agenda_usuarioReparo, i_agenda_agendamento },
+      await agenda.update ({ d_agenda_deliverEndDate },
              { where: { i_agenda_idSchedule }}
           
       );
@@ -68,7 +68,6 @@ entregaRouter.post('/', async (req, res) => {
         s_entrega_destinySelect: agendamento.s_agenda_originSelect,
         i_entrega_kmFinal: agendamento.i_agenda_kmInitial, 
         s_entrega_deliveryCar: agendamento.s_agenda_scheduleCar,
-        i_entrega_agendamento: agendamento.i_agenda_agendamento,
         d_entrega_createdAt: new Date(), 
       });
 

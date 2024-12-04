@@ -51,15 +51,8 @@ const comida = db.sequelize.define('comida', {
   i_comida_agendaId: {
     type:DataTypes.INTEGER,
     allowNull: true,
-    references: {
-      model: 'agenda', // Nome da tabela que a chave estrangeira referencia
-      key: 'i_agenda_agendado_id'        // Nome da coluna na tabela referenciada
-  },
-  onUpdate: 'CASCADE', // Opcional: Define o comportamento ao atualizar
-  onDelete: 'SET NULL' // Opcional: Define o comportamento ao excluir
-  },
-  
-}, {
+  },  
+  }, {
     tableName: 'comida',
     timestamps: false, 
 });

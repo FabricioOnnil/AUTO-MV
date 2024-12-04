@@ -34,12 +34,12 @@ diarioRouter.get('/diario', (req, res) => {
   // Rota para cadastrar uma  nova diario
   diarioRouter.post('/diario', async (req, res) => {
     try {
-        const { s_diario_motivo, s_diario_descricao } = req.body;
+        const { i_diario_motivo, s_diario_descricao } = req.body;
         const novoDiario = await diario.create({
             i_diario_motivo,
             s_diario_descricao,
             d_diario_creatAt: new Date(),
-            i_diario_usuarioKey: req.session.userId // ou outro identificador do usuário
+            i_usuario_diario: req.session.userId // ou outro identificador do usuário
         });
         res.status(201).json(novoDiario);
     } catch (error) {

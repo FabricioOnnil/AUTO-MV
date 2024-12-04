@@ -33,6 +33,10 @@ const diario = db.sequelize.define('diario', {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
+    i_usuario_diario: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
 },{
 tableName: 'diario',
 timestamps: false, // This is true by default and manages `createdAt` and `updatedAt` automatically

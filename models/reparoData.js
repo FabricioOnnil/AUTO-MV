@@ -53,7 +53,7 @@ const reparo = db.sequelize.define('reparo', {
         allowNull: true,
     },
 
-    i_usuarioReparo_id: {
+    i_carro_reparo_idcar: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },

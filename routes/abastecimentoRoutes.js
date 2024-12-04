@@ -1,5 +1,5 @@
 import express from 'express';
-import abastecimento from '../models/carroAbastecimentoData.js';
+import abastecimento from '../models/abastecimentoData.js';
 
 const abastecimentoRouter = express.Router();
 
@@ -11,14 +11,14 @@ abastecimentoRouter.get('/abastecimento', (req, res) => {
         res.json(abastecimento);
       })
       .catch((error) => {
-        res.status(500).send("Erro ao obter carroAbastecimento: " + error.message);
+        res.status(500).send("Erro ao obter abastecimento: " + error.message);
       });
   });
   
-  // Rota para obter um  carroAbastecimento pelo ID
-  abastecimentoRouter.get('/carroAbastecimento/:id', (req, res) => {
+  // Rota para obter um  abastecimento pelo ID
+  abastecimentoRouter.get('/abastecimento/:id', (req, res) => {
     const abastecimentoId = req.params.id;
-    abastecimento.findOne({ where: { i_carroAbastecimento_id: abastecimentoId }})
+    abastecimento.findOne({ where: { i_abastecimento_idFuel: abastecimentoId }})
       .then(abastecimento => {
         if (!abastecimento) {
           res.status(404).send("abastecimento não encontrado");
@@ -42,7 +42,7 @@ abastecimentoRouter.get('/abastecimento', (req, res) => {
   // Rota para atualizar  um abastecimento pelo ID.
   abastecimentoRouter.put('/abastecimento/:id', (req, res) => {
     const abastecimentoId = req.params.id;
-    abastecimento.update(req.body, { where: { i_carroAbastecimento_id: abastecimentoId } })
+    abastecimento.update(req.body, { where: { i_abastecimento_idFuel: abastecimentoId } })
     .then(() => res.send("abastecimento atualizado com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao atualizar abastecimento: " + error.message));
   });
@@ -50,7 +50,7 @@ abastecimentoRouter.get('/abastecimento', (req, res) => {
   // Rota para deletar um  abastecimento
   abastecimentoRouter.delete('/abastecimento/:id', (req, res) => {
     const abastecimentoId = req.params.id;
-    abastecimento.destroy({ where: { i_carroAbastecimento_id: abastecimentoId } })
+    abastecimento.destroy({ where: { i_abastecimento_idFuel: abastecimentoId } })
     .then(() => res.send("abastecimento deletado com sucesso!"))
     .catch((error) => res.status(500).send("Erro ao deletar abastecimento: " + error.message));
   });
